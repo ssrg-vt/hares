@@ -145,3 +145,37 @@ int get_child_data_str(pid_t pid, char *dst, long long src)
 
 	return 0;
 }
+
+
+long set_breakpoint(pid_t pid, unsigned long addr)
+{
+	long data = ptrace(PTRACE_PEEKTEXT, pid, (void *) addr, 0);
+  	long old_data = data;
+
+  	log_debug("Setting a breakpoint at %x\n", addr);
+  	log_debug("Value at the address %x %x\n", addr, data);
+  	data = (data & ~0xff) | 0xcc;
+  	ptrace(PTRACE_POKETEXT, pid, (void *)addr, data);
+  	log_debug("Value at the address %x after setting the int 3 opcode %x\n", addr, data);
+  	log_debug("Done setting the breatpoint at %x\n\n", addr);
+  	return old_data;
+}
+
+int clear_breakpoint(pid_t pid, unsigned long addr, long old_data)
+{
+	ptrace(PTRACE_POKETEXT, pid, (void *)addr, old_data);
+	log_debug("Restored the old value %x at the address %x\n", old_data, addr);
+	struct user_regs_struct regs;
+
+  	log_debug("Setting the instruction pointer to address %x\n", addr);
+  	memset(&regs, 0, sizeof(regs));
+  	ptrace(PTRACE_GETREGS, pid, NULL, &regs);
+	#ifdef __i386__
+  		regs.eip = addr;
+	#else
+  		regs.rip = addr;
+	#endif
+  	ptrace(PTRACE_SETREGS, pid, NULL, &regs);
+  	log_debug("Done setting the instruction pointer\n\n");
+	return 0;
+}

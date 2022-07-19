@@ -93,6 +93,7 @@ uint64_t get_pc(pid_t pid);
  * */
 int update_child_data(pid_t pid, long long dst, char *src, size_t len);
 int get_child_data(pid_t pid, char *dst, long long src, size_t len);
-
+int clear_breakpoint(pid_t pid, unsigned long addr, long old_data);
+long set_breakpoint(pid_t pid, unsigned long addr);
 
 #endif
