@@ -11,6 +11,7 @@
 #include "../inc/pages.h"
 #include "../inc/log.h"
 #include "../inc/msi_handler.h"
+#include "../inc/dsm_handler.h"
 
 /* --------------------------------------------------------------------
  * Public Functions defintions
@@ -55,6 +56,49 @@ msi_request_page_fail:
     return ret;
 }
 
+int msi_request_proc_reg(msi_handler *msi, int sk,  struct user_regs_struct *regs){
+    int ret;
+    struct msi_message msg;
+    pthread_mutex_lock(&msi->mutex);
+
+    msg.message_type = REMOTE_REGS;
+
+    ret = write(sk, &msg, sizeof(msg));
+    if(ret <= 0)
+        goto msi_request_proc_reg_fail;
+    
+    memset(&msi->regs, 0, sizeof(struct user_regs_struct));
+     msi->wait_for_reply = 1;
+    while(msi->wait_for_reply == 1){
+        pthread_cond_wait(&msi->page_reply_cond, &msi->mutex);
+    }
+
+    memcpy(regs, &msi->regs, sizeof(struct user_regs_struct));
+
+msi_request_proc_reg_fail:
+    pthread_mutex_unlock(&msi->mutex);
+    return ret;
+}
+
+int msi_handle_reg_request(msi_handler *msi, int sk){
+    int ret;
+    struct msi_message msg_out;
+
+    msg_out.message_type = REMOTE_REGS_REPLY;
+    memcpy(&msg_out.payload.regs_message, &msi->regs, sizeof(struct user_regs_struct));
+
+    log_debug("Hello xip: %p", msg_out.payload.regs_message.regs.rip);
+    pthread_mutex_lock(&msi->mutex);
+    ret = write(sk, &msg_out, sizeof(msg_out));
+    if(ret <= 0){
+        goto msi_handle_reg_request_fail;
+    }
+
+msi_handle_reg_request_fail:
+    pthread_mutex_unlock(&msi->mutex);
+    return ret;
+}
+
 int msi_handle_page_request(msi_handler *msi ,int sk, struct msi_message *in_msg){
     int ret;
     struct msi_message msg_out;
@@ -95,6 +139,8 @@ int msi_handle_page_invalidate(msi_handler *msi, int sk, struct msi_message *in_
     int ret = 0;
     struct msi_message msg;
 
+    log_debug("msi_handle_page_invalidate");
+    log_debug("page address requested was %x", in_msg->payload.request_page.address);
     popsgx_page *page_to_transition = find_page(&msi->buffer, (void*)in_msg->payload.request_page.address);
     if(!page_to_transition){
         log_error("Could not find the relevant page with address %p", in_msg->payload.request_page.address);
@@ -104,6 +150,7 @@ int msi_handle_page_invalidate(msi_handler *msi, int sk, struct msi_message *in_
 
     page_to_transition->tag = INVALID;
 
+    log_debug("msi_handle_page_invalidate");
     if (ret = madvise(page_to_transition->popsgx_address, PAGE_SIZE, MADV_DONTNEED)){
 		log_error("fail to madvise");
         goto msi_post_lock_fail;
@@ -115,6 +162,7 @@ int msi_handle_page_invalidate(msi_handler *msi, int sk, struct msi_message *in_
         log_error("Could not invalidate the page");
     }   
 
+    log_debug("msi_handle_page_invalidate");
 msi_post_lock_fail:
     pthread_mutex_unlock(&page_to_transition->mutex);
 msi_handle_page_fail:
@@ -130,15 +178,63 @@ void msi_handle_page_reply(msi_handler *msi, int sk, struct msi_message *in_msg)
     pthread_mutex_unlock(&msi->mutex);
 }
 
+void msi_handle_regs_reply(msi_handler *msi, int sk, struct msi_message *in_msg){
+    pthread_mutex_lock(&msi->mutex);
+    memcpy(&msi->regs, &in_msg->payload.regs_message.regs, sizeof(struct user_regs_struct));
+    log_debug("hello from in xip: %lx", in_msg->payload.regs_message.regs.rip);
+    log_debug("hello from in msi regs: %lx", msi->regs.rip);
+    msi->wait_for_reply = 0;
+    pthread_cond_signal(&msi->page_reply_cond);
+    pthread_mutex_unlock(&msi->mutex);
+}
+
+void msi_request_remote_execute(msi_handler *msi, int sk){
+    int ret = 0;
+    struct msi_message msg;
+    pthread_mutex_lock(&msi->mutex);
+    msg.message_type = REMOTE_EXECUTE;
+    msg.payload.memory_pair.address = 0x10000;
+    msg.payload.memory_pair.size = 33;
+    ret = write(sk, &msg, sizeof(msg));
+    if(ret <= 0){
+        log_error("Bad write in MSI");
+    }
+    pthread_mutex_unlock(&msi->mutex);
+}
+
+void msi_handle_remote_execution(msi_handler *msi, int sk, struct msi_message *in_msg){
+    // int ret = 0;
+    // char page[4096] = {0};
+    // for(int i = 0; i < in_msg->payload.memory_pair.size; i++){
+    //     //msi_request_page(msi, sk, &page, (void*)in_msg->payload.memory_pair.address + (i * 4096), 0x00);
+    //     break;
+    // }
+    pthread_mutex_lock(&msi->mutex);
+    msi->_can_request = true;
+    pthread_mutex_unlock(&msi->mutex);
+}
+
 int msi_handle_write_command(msi_handler *msi, int sk, void *addr, void *data, size_t data_size){
     char write_buffer[100] = {0};
 	unsigned long page_num = 0;
 	struct msi_message msg;
-	int ret;  
+	int ret;
+    uint64_t poff;
+    uint64_t paddr;
 
-    popsgx_page *page_to_transition = find_page(&msi->buffer, (void*)addr);
+    log_info("msi_handle_write_command");
+    ret = convert_childAddress_popAddress((uint64_t)addr, &poff);
+    if(ret){
+        log_error("Could not convert the victim address to popsgx buffer address");
+        goto msi_handle_write_fail;
+    }
+
+    paddr = (msi->popsgx_buffer_addr + (poff * sysconf(_SC_PAGE_SIZE)));
+    log_info("paddr is %p", paddr);
+
+    popsgx_page *page_to_transition = find_page(&msi->buffer, (void*)paddr);
     if(!page_to_transition){
-        log_error("Could not find the relevant page with address %p", addr);
+        log_error("Could not find the relevant page with address %p", paddr);
         ret = -1;
         goto msi_handle_write_fail;
     }

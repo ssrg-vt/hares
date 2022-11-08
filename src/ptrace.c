@@ -156,7 +156,7 @@ long set_breakpoint(pid_t pid, unsigned long addr)
   	log_debug("Value at the address %x %x\n", addr, data);
   	data = (data & ~0xff) | 0xcc;
   	ptrace(PTRACE_POKETEXT, pid, (void *)addr, data);
-  	log_debug("Value at the address %x after setting the int 3 opcode %x\n", addr, data);
+  	//log_debug("Value at the address %x after setting the int 3 opcode %x\n", addr, data);
   	log_debug("Done setting the breatpoint at %x\n\n", addr);
   	return old_data;
 }
@@ -170,11 +170,7 @@ int clear_breakpoint(pid_t pid, unsigned long addr, long old_data)
   	log_debug("Setting the instruction pointer to address %x\n", addr);
   	memset(&regs, 0, sizeof(regs));
   	ptrace(PTRACE_GETREGS, pid, NULL, &regs);
-	#ifdef __i386__
-  		regs.eip = addr;
-	#else
-  		regs.rip = addr;
-	#endif
+	regs.rip = addr;
   	ptrace(PTRACE_SETREGS, pid, NULL, &regs);
   	log_debug("Done setting the instruction pointer\n\n");
 	return 0;

@@ -60,9 +60,8 @@ popsgx_page* find_page(popsgx_page_buffer *buffer, void* fault_address){
     popsgx_page *buffer_pages = buffer->pages;
     uint64_t addr_val = (uint64_t)fault_address;
 
-    //log_debug("x");
     for(int iter = 0; iter < buffer->no_pages; iter++){
-        //log_debug("The page address is %lx", buffer_pages[iter].trace_physical_address);
+        log_info("The page address is %lx", buffer_pages[iter].popsgx_address);
         if((uint64_t)buffer_pages[iter].popsgx_address + PAGE_SIZE > addr_val){
             pg = &buffer_pages[iter];
             break;

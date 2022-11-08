@@ -25,14 +25,14 @@ int main(int argc, char **argv)
 	int k = 0;
 
 	sleep(1);
-  #if 1
+  #if 0
 	if(i%2 == 0)
 	    *(hello + 0xf) = 'm';
 	else
             *(hello + 0xf) = 'b';
   #endif 
   
-        fprintf(stdout,"address %p value %c\n", hello, *(hello+0xf));
+        //fprintf(stdout,"address %p value %c\n", hello, *(hello+0xf));
         hello += 4096;
        
         if(i % 26 == 0){

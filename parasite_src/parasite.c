@@ -22,8 +22,10 @@
 #define PARASITE_CMD_GET_STDERR_FD        PARASITE_USER_CMDS + 2
 #define PARASITE_CMD_GET_STDUFLT_FD       PARASITE_USER_CMDS + 3
 #define PARASITE_CMD_SET_MADVISE_NO_NEED  PARASITE_USER_CMDS + 4
+#define PARASITE_CORRECT_HEAP_OFFSET      PARASITE_USER_CMDS + 5
 
 #define PAGE_SIZE 4096
+char *dummy_addr = NULL;
 
 static int set_madvise(void *addr, size_t len, int advice_type)
 {
@@ -33,6 +35,24 @@ static int set_madvise(void *addr, size_t len, int advice_type)
     return ret;
   }
   return 0;
+}
+
+static int correct_heap_offset(uint64_t memory_size)
+{
+    int ret = 0;
+    // char *addr;
+
+    // addr = sys_mmap(0x4bc000, memory_size, PROT_READ|PROT_WRITE, MAP_ANON|MAP_PRIVATE, -1, 0);
+    // if(addr == MAP_FAILED){
+    //          return -1;
+    // }
+
+    dummy_addr = sys_brk(memory_size);
+    if(dummy_addr == MAP_FAILED){
+        return -1;
+    }
+
+    return ret;
 }
 
 static int send_uffd(uint64_t desired_addr, uint16_t no_of_pages){
@@ -62,11 +82,12 @@ static int send_uffd(uint64_t desired_addr, uint16_t no_of_pages){
 	    return -1;
     }
     
-    addr = sys_mmap(desired_addr, memorySize, PROT_READ|PROT_WRITE, MAP_ANON|MAP_PRIVATE, -1, 0);
-    if(addr == MAP_FAILED){
-            return -1;
-    }
+//     addr = sys_mmap(desired_addr, memorySize, PROT_READ|PROT_WRITE, MAP_ANON|MAP_PRIVATE, -1, 0);
+//     if(addr == MAP_FAILED){
+//             return -1;
+//     }
 
+    addr = desired_addr;
     ufFd_register.range.start = (unsigned long long)addr;
     ufFd_register.range.len   = memorySize;
     ufFd_register.mode = UFFDIO_REGISTER_MODE_MISSING | UFFDIO_REGISTER_MODE_WP;
@@ -136,6 +157,10 @@ int parasite_daemon_cmd(int cmd, void *args)
   
         case PARASITE_CMD_SET_MADVISE_NO_NEED:
                 return set_madvise((*(uint64_t *)args), PAGE_SIZE, MADV_DONTNEED);
+                break;
+        
+        case PARASITE_CORRECT_HEAP_OFFSET:
+                return correct_heap_offset(*(uint64_t *)args);
                 break;
 
 	default:

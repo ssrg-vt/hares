@@ -1,6 +1,7 @@
 #ifndef __MESSAGES_H__
 #define __MESSAGES_H__
 #include <stdint.h>
+#include "ptrace.h"
 
 enum msi_message_type
 {
@@ -10,13 +11,20 @@ enum msi_message_type
 	PAGE_REPLY,
 	INVALIDATE,
 	INVALIDATE_ACK,
-	TOTAL_MESSAGES
+	TOTAL_MESSAGES,
+	REMOTE_EXECUTE,
+	REMOTE_REGS,
+	REMOTE_REGS_REPLY
 };
 /* Different types of payloads defined here*/
 struct memory_pair
 {
 	uint64_t address;
 	uint64_t size;
+};
+
+struct user_regs{
+	struct user_regs_struct regs;
 };
 
 struct command_ack
@@ -41,6 +49,7 @@ union message_payload
 	struct command_ack command_ack;
 	struct request_page request_page;
 	struct invalidate_page invalidate_page;
+	struct user_regs regs_message;
 	char page_data[4096];
 };
 

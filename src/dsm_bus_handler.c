@@ -72,7 +72,19 @@ void* bus_thread_handler(void* arg){
 			    msi_handle_page_reply(msi, sock_fd, &msg);
 			break;
 			case INVALIDATE_ACK:
-				printf("INVALIDATE_ACK_RECEIVED\n");
+				log_debug("INVALIDATE_ACK_RECEIVED\n");
+			break;
+			case REMOTE_EXECUTE:
+				log_debug("REMOTE EXECUTION");
+				msi_handle_remote_execution(msi, sock_fd, &msg);
+			break;
+			case REMOTE_REGS:
+				log_debug("REMOTE_REGS");
+				msi_handle_reg_request(msi, sock_fd);
+			break;
+			case REMOTE_REGS_REPLY:
+				log_debug("REMOTE_REGS_REPLY");
+				msi_handle_regs_reply(msi, sock_fd, &msg);
 			break;
 			default:
 				log_error("Unhandled bus request, %d",

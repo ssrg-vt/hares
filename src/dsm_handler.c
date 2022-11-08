@@ -7,9 +7,32 @@
 #include "../inc/dsm_handler.h"
 
 /* --------------------------------------------------------------------
+ * Macros
+ * -------------------------------------------------------------------*/
+#define PAGE_SIZE sysconf(_SC_PAGE_SIZE)
+
+/* --------------------------------------------------------------------
  * Global variables
  * -------------------------------------------------------------------*/
 dsm_handler *dsm = NULL;
+
+int convert_childAddress_popAddress(uint64_t caddr, uint64_t *poff){
+    int ret = 0;
+    uint64_t offset = 0;
+    for(int i = 0; i < dsm->child.spaces.size; i++){
+        long end_address = dsm->child.spaces.space[i].address + dsm->child.spaces.space[i].size * PAGE_SIZE;
+        for(uint64_t iter_addr_space = dsm->child.spaces.space[i].address; iter_addr_space < end_address;  ){
+            if((uint64_t)caddr == iter_addr_space){
+                *poff = offset;
+                return ret;    
+            }
+            offset++;
+            iter_addr_space = iter_addr_space + PAGE_SIZE;
+        }
+    }
+
+    return -1;
+}
 
  /* --------------------------------------------------------------------
  * Local Functions declarations

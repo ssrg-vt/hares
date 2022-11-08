@@ -77,7 +77,7 @@ fail_compel_stealFd:
  */
 static int __compel_prepare_infection(compel_handler *cmpl_hdl, pid_t pid){
     int ret = 0;
-    int state;
+    int state = 0;
     struct parasite_ctl *ctl;
     struct infect_ctx *ictx;  
 
@@ -89,13 +89,14 @@ static int __compel_prepare_infection(compel_handler *cmpl_hdl, pid_t pid){
     memset(cmpl_hdl, 0, sizeof(compel_handler));
     cmpl_hdl->pid = pid;
     
-    log_info("Stoping the tracee for compel code injection");
-    state = compel_stop_task(pid);
-    if(state < 0){
-        log_error("Could not stop the victim for compel infection");
-        return state;
-    }
-    cmpl_hdl->state = state;
+    //log_info("Stoping the tracee for compel code injection");
+
+    // state = compel_stop_task(pid);
+    // if(state < 0){
+    //     log_error("Could not stop the victim for compel infection");
+    //     return state;
+    // }
+    cmpl_hdl->state = 0;
 
     log_debug("Preparing compel's parasitic context");
     ctl = compel_prepare(pid);
@@ -158,11 +159,11 @@ static int __compel_disinfection(compel_handler *cmpl_hdl){
     ictx = compel_infect_ctx(cmpl_hdl->ctl);
     close(ictx->sock);
 
-    log_debug("Resuming the victim for normal execution");
-    if(compel_resume_task(cmpl_hdl->pid, cmpl_hdl->state, cmpl_hdl->state)){
-        ret = -1;
-        log_error("Could not unseize the victim task");
-    }
+    //log_debug("Resuming the victim for normal execution");
+    // if(compel_resume_task(cmpl_hdl->pid, cmpl_hdl->state, cmpl_hdl->state)){
+    //     ret = -1;
+    //     log_error("Could not unseize the victim task");
+    // }
 
     memset(cmpl_hdl, 0, sizeof(compel_handler));
 
@@ -181,7 +182,7 @@ static int _compel_steal_fd(popsgx_child *tracee, compel_fd fd_type, int *fd,  v
     compel_handler cmpl_hdl;
     uint64_t *compel_arg;
 
-    //compel_log_init(print_vmsg, COMPEL_LOG_LEVEL);
+    compel_log_init(print_vmsg, COMPEL_LOG_LEVEL);
     if(tracee == NULL){
         log_debug("The tracee handle given is NULL");
         rc = -1;
@@ -198,8 +199,8 @@ static int _compel_steal_fd(popsgx_child *tracee, compel_fd fd_type, int *fd,  v
 
     if(fd_type == PARASITE_STDUFLT_FD){
         compel_arg = compel_parasite_args(cmpl_hdl.ctl,                                                              \
-                                  sizeof((uint64_t)addr) + sizeof(no_pages));
-        compel_arg[0] = (uint64_t)addr;
+                                  sizeof((unsigned long long)addr) + sizeof(no_pages));
+        compel_arg[0] = (unsigned long long)addr;
         compel_arg[1] = no_pages;
     }
 
@@ -252,4 +253,37 @@ int compel_steal_fd(popsgx_child *tracee, compel_fd fd_type, int *fd){
     }
 
     return _compel_steal_fd(tracee, fd_type, fd, -1, -1);
+}
+
+int compel_correct_heap_offset(popsgx_child *tracee, uint64_t heap_size){
+    int rc;
+    compel_handler cmpl_hdl;
+    uint64_t *compel_arg;
+
+    pthread_mutex_lock(&tracee->mutex);
+    compel_log_init(print_vmsg, COMPEL_LOG_LEVEL);
+    rc = __compel_prepare_infection(&cmpl_hdl, tracee->c_pid);
+    if(rc){
+        log_error("Could not prepare infection on tracee");
+    }
+
+    compel_arg = compel_parasite_args(cmpl_hdl.ctl, sizeof((uint64_t)heap_size));
+    
+    compel_arg[0] = (uint64_t)heap_size;
+
+    if(compel_rpc_call_sync(PARASITE_CORRECT_HEAP_OFFSET, cmpl_hdl.ctl)){
+        log_error("compel_rpc_call_sync failed");
+    }
+
+    if(compel_rpc_call_sync(PARASITE_CORRECT_HEAP_OFFSET, cmpl_hdl.ctl)){
+        log_error("compel_rpc_call_sync failed");
+    }
+
+    rc = __compel_disinfection(&cmpl_hdl);
+    if(rc){
+        log_error("Could not disinfect tracee");
+    }
+    pthread_mutex_unlock(&tracee->mutex);
+
+    return rc;
 }
