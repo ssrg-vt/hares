@@ -16,7 +16,7 @@
 static int __compel_prepare_infection(compel_handler *cmpl_hdl, pid_t pid);
 static int __compel_disinfection(compel_handler *cmpl_hdl);
 static int __compel_steal_fd(compel_handler *cmpl_hdl, int cmd, int *traceeFd);
-static int _compel_steal_fd(popsgx_child *tracee, compel_fd fd_type, int *fd,  void* addr, int no_pages);
+static int _compel_steal_fd(popsgx_child *tracee, compel_fd fd_type, void *fd,  void* addr, int no_pages);
 
 /* --------------------------------------------------------------------
  * Local Functions definitions
@@ -46,7 +46,6 @@ static void print_vmsg(unsigned int lvl, const char *fmt, va_list parms)
 static int __compel_steal_fd(compel_handler *cmpl_hdl, int cmd, int *traceeFd){
     int ret  = 0;
 
-    log_debug("Stealing the %d fd from the victim pid %d", cmd, cmpl_hdl->pid);
     if(!compel_rpc_call(cmd, cmpl_hdl->ctl)){
         if(!compel_util_recv_fd(cmpl_hdl->ctl, traceeFd)){
             if(compel_rpc_sync(cmd, cmpl_hdl->ctl)){
@@ -177,7 +176,7 @@ static int __compel_disinfection(compel_handler *cmpl_hdl){
  * @param fd the stolen fd
  * @return error 
  */
-static int _compel_steal_fd(popsgx_child *tracee, compel_fd fd_type, int *fd,  void* addr, int no_pages){
+static int _compel_steal_fd(popsgx_child *tracee, compel_fd fd_type, void *fd,  void* addr, int no_pages){
     int rc = 0;
     compel_handler cmpl_hdl;
     uint64_t *compel_arg;
@@ -203,10 +202,10 @@ static int _compel_steal_fd(popsgx_child *tracee, compel_fd fd_type, int *fd,  v
         compel_arg[0] = (unsigned long long)addr;
         compel_arg[1] = no_pages;
     }
-
+   
     rc = __compel_steal_fd(&cmpl_hdl, fd_type, fd);
     if(rc){
-        *fd = -1;
+        *(int*)fd = -1;
         log_error("Could not steal fd");
     }
 
@@ -214,6 +213,8 @@ static int _compel_steal_fd(popsgx_child *tracee, compel_fd fd_type, int *fd,  v
     if(rc){
         log_error("Could not disinfect tracee");
     }
+
+    log_info("cleared");
 
 out_infection_fail:
     pthread_mutex_unlock(&tracee->mutex);
@@ -234,7 +235,51 @@ out_fail:
  * @return int 
  */
 int compel_steal_uffd(popsgx_child *tracee, int *fd, void* addr, int no_pages){
-   return _compel_steal_fd(tracee, PARASITE_STDUFLT_FD, fd, addr, no_pages);
+   return _compel_steal_fd(tracee, PARASITE_STDUFLT_FD, (void*)fd, addr, no_pages);
+}
+
+/**
+ * @brief Unregister uffd from the tracee process
+ * 
+ * @param tracee 
+ * @param fd 
+ * @param addr 
+ * @param no_pages 
+ * @return int 
+ */
+int compel_remove_uffd(popsgx_child *tracee, void *fd, void* addr, int no_pages){
+    int rc;
+    compel_handler cmpl_hdl;
+    uint64_t *compel_arg;
+
+    pthread_mutex_lock(&tracee->mutex);
+    rc = __compel_prepare_infection(&cmpl_hdl, tracee->c_pid);
+    if(rc){
+        log_error("Could not prepare infection on tracee");
+    }
+
+    compel_arg = compel_parasite_args(cmpl_hdl.ctl,                                                         \
+                                  sizeof(int) +sizeof((unsigned long long)addr) + sizeof(no_pages));
+    log_info("The fd is %d", (int)fd);
+    compel_arg[0] = (int)fd;
+    compel_arg[1] = (unsigned long long)addr;
+    compel_arg[2] = no_pages;
+
+    if(compel_rpc_call_sync(PARASITE_CMD_REM_STDUFLT_FD, cmpl_hdl.ctl)){
+        log_error("compel_rpc_call_sync failed");
+    }
+
+    if(compel_rpc_call_sync(PARASITE_CMD_REM_STDUFLT_FD, cmpl_hdl.ctl)){
+        log_error("compel_rpc_call_sync failed");
+    }
+
+    rc = __compel_disinfection(&cmpl_hdl);
+    if(rc){
+        log_error("Could not disinfect tracee");
+    }
+    pthread_mutex_unlock(&tracee->mutex);
+    log_info("exiting compel_remove_uffd");
+    return rc;
 }
 
 /**

@@ -4,10 +4,12 @@
 #include <pthread.h>
 #include <ptrace.h>
 #include "../inc/pages.h"
+#include "../inc/popsgx_child.h"
 
 /* --------------------------------------------------------------------
  * Structures & Required Datatypes
  * -------------------------------------------------------------------*/
+
 typedef struct msi_handler_t{
     bool is_initialized;
     int wait_for_reply;
@@ -18,6 +20,7 @@ typedef struct msi_handler_t{
     bool _can_request;
     struct user_regs_struct regs;
     uint64_t popsgx_buffer_addr;
+    popsgx_child child;
 }msi_handler;
 
 /* --------------------------------------------------------------------

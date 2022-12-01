@@ -23,6 +23,7 @@
 #define PARASITE_CMD_GET_STDUFLT_FD       PARASITE_USER_CMDS + 3
 #define PARASITE_CMD_SET_MADVISE_NO_NEED  PARASITE_USER_CMDS + 4
 #define PARASITE_CORRECT_HEAP_OFFSET      PARASITE_USER_CMDS + 5
+#define PARASITE_CMD_REM_STDUFLT_FD       PARASITE_USER_CMDS + 6
 
 #define PAGE_SIZE 4096
 char *dummy_addr = NULL;
@@ -90,7 +91,8 @@ static int send_uffd(uint64_t desired_addr, uint16_t no_of_pages){
     addr = desired_addr;
     ufFd_register.range.start = (unsigned long long)addr;
     ufFd_register.range.len   = memorySize;
-    ufFd_register.mode = UFFDIO_REGISTER_MODE_MISSING | UFFDIO_REGISTER_MODE_WP;
+    //ufFd_register.mode = UFFDIO_REGISTER_MODE_MISSING | UFFDIO_REGISTER_MODE_WP;
+    ufFd_register.mode = UFFDIO_REGISTER_MODE_WP;
     if(sys_ioctl(ufFd, UFFDIO_REGISTER, &ufFd_register) == -1){
             return -1;
     }
@@ -104,6 +106,21 @@ static int send_uffd(uint64_t desired_addr, uint16_t no_of_pages){
 
     if(fds_send_fd(ufFd) < 0){
             return -1;
+    }
+
+    return 0;
+}
+
+static int unregister_uffd(int ufFd, uint64_t desired_addr, uint16_t no_of_pages){
+    struct uffdio_register ufFd_register;
+    char* addr;
+    addr = desired_addr;
+
+    ufFd_register.range.start = (unsigned long long)addr;
+    ufFd_register.range.len   = no_of_pages * PAGE_SIZE;
+
+    if(sys_ioctl(ufFd, UFFDIO_UNREGISTER, &ufFd_register.range)){
+        return -1;
     }
 
     return 0;
@@ -129,6 +146,7 @@ int parasite_daemon_cmd(int cmd, void *args)
     uint64_t noPages;
     uint64_t memorySize;
     uint64_t addr, noOfPages;
+    int uffd;
     int ret;
     
     //userfaultfd stuffs
@@ -150,18 +168,25 @@ int parasite_daemon_cmd(int cmd, void *args)
 		break;
 
 	case PARASITE_CMD_GET_STDUFLT_FD:
-                addr = *(uint64_t*)args;
-                noOfPages = *(uint64_t*)(args + 8);
+        addr = *(uint64_t*)args;
+        noOfPages = *(uint64_t*)(args + 8);
 		return (send_uffd(addr, noOfPages));
 		break;
+    
+    case PARASITE_CMD_REM_STDUFLT_FD:
+        uffd = *(int*)(args);
+        addr = *(uint64_t*)(args + 8);
+        noOfPages = *(uint64_t*)(args + 16);
+        return (unregister_uffd(uffd, addr, noOfPages));
+        break;
   
-        case PARASITE_CMD_SET_MADVISE_NO_NEED:
-                return set_madvise((*(uint64_t *)args), PAGE_SIZE, MADV_DONTNEED);
-                break;
+    case PARASITE_CMD_SET_MADVISE_NO_NEED:
+        return set_madvise((*(uint64_t *)args), PAGE_SIZE, MADV_DONTNEED);
+        break;
         
-        case PARASITE_CORRECT_HEAP_OFFSET:
-                return correct_heap_offset(*(uint64_t *)args);
-                break;
+    case PARASITE_CORRECT_HEAP_OFFSET:
+        return correct_heap_offset(*(uint64_t *)args);
+        break;
 
 	default:
 		break;

@@ -17,13 +17,16 @@
 #include "../inc/ptrace.h"
 #include "../inc/log.h"
 #include "../inc/uffd_handler.h"
+#include "../inc/compel_handler.h"
 
 #define NO_NEW_PAGEFAULT 			0xFF
 #define NEW_PAGEFAULT_READ  		0x00
-#define NEW_PAGEFAULT_WRITE 		0x01 // UFFD_PAGEFAULT_FLAG_WRITE
-#define PAGEFAULT_WRITE_PROTECTION 	0x03 // UFFD_PAGEFAULT_FLAG_WRITE | UFFDIO_REGISTER_MODE_WP 
+#define NEW_PAGEFAULT_WRITE 		UFFD_PAGEFAULT_FLAG_WRITE
+#define PAGEFAULT_WRITE_PROTECTION 	(UFFD_PAGEFAULT_FLAG_WRITE | UFFD_PAGEFAULT_FLAG_WP) 
 
 #define errExit(msg) do{ perror(msg); exit(EXIT_FAILURE);}while(0)
+
+pid_t victimPid = -1;
 
 /**
   * @brief It peeks the page using ptrace
@@ -67,25 +70,27 @@ static int retrieve_victim_page_postwrite(pid_t victim_pid, __u64 address, char 
   * @param page 
   * @return int 
   */
-static int handle_wprotect_pagefaults(long uffd, struct uffd_msg msg, popsgx_child *tracee, char *page)
+static int handle_wprotect_pagefaults(long uffd, struct uffd_msg msg, popsgx_child *tracee, char *page, int i)
 {
 	struct uffdio_writeprotect uffdio_wp;
 	int ret = 0;
 
     pthread_mutex_lock(&tracee->mutex);
-	ptrace(PTRACE_ATTACH, tracee->c_pid, NULL, NULL);
-	//wait(NULL);
+	ret = ptrace(PTRACE_ATTACH, tracee->c_pid, NULL, NULL);
+	log_info("return value is %d %d", ret, errno);
+	wait(NULL);
 
-	uffdio_wp.range.start = msg.arg.pagefault.address;
- 	uffdio_wp.range.len = sysconf(_SC_PAGE_SIZE);
+	log_info("--");
+	uffdio_wp.range.start = tracee->spaces.space[i].address;
+ 	uffdio_wp.range.len = sysconf(_SC_PAGE_SIZE) * tracee->spaces.space[i].size;
  	uffdio_wp.mode = 0;
  	if (ioctl(uffd, UFFDIO_WRITEPROTECT, &uffdio_wp) == -1){
 		log_error("UFFDIO_WRITEPROTECT failed\n");
 		goto fail_handle_wprotect_pagefaults;
 	} 
 
-	//log_info("xxxxxxx");
-	ptrace(PTRACE_SINGLESTEP, tracee->c_pid, NULL, NULL);
+	log_info("xxxxxxx");
+	//ret = ptrace(PTRACE_SINGLESTEP, tracee->c_pid, NULL, NULL);
 	//wait(NULL);
 	
 	if(retrieve_victim_page_postwrite(tracee->c_pid, msg.arg.pagefault.address, page))
@@ -94,19 +99,23 @@ static int handle_wprotect_pagefaults(long uffd, struct uffd_msg msg, popsgx_chi
 		goto fail_handle_wprotect_pagefaults; 
 	}
 
+	
 	log_info("Setting the Write Protection of the page");
-	uffdio_wp.mode = UFFDIO_WRITEPROTECT_MODE_WP;
- 	if (ioctl(uffd, UFFDIO_WRITEPROTECT, &uffdio_wp) == -1)
-	{ 
-   		log_error("ioctl-UFFDIO_WRITEPROTECT");
-		goto fail_handle_wprotect_pagefaults;
-	}
+	// uffdio_wp.mode = UFFDIO_WRITEPROTECT_MODE_WP;
+ 	// if (ioctl(uffd, UFFDIO_WRITEPROTECT, &uffdio_wp) == -1)
+	// { 
+   	// 	log_error("ioctl-UFFDIO_WRITEPROTECT");
+	// 	goto fail_handle_wprotect_pagefaults;
+	// }
 
 	ptrace(PTRACE_DETACH, tracee->c_pid, NULL, NULL);
+	//wait(NULL);
 	pthread_mutex_unlock(&tracee->mutex);
+	
 	return 0;
 
 fail_handle_wprotect_pagefaults:
+	ptrace(PTRACE_DETACH, tracee->c_pid, NULL, NULL);
     pthread_mutex_unlock(&tracee->mutex);
 	return -1;
 }
@@ -129,21 +138,27 @@ static uint8_t handle_rw_pagefault(long uffd, struct uffd_msg msg, char *page, m
 	if(msg.event == UFFD_EVENT_PAGEFAULT && 
 	  (msg.arg.pagefault.flags == NEW_PAGEFAULT_READ))
 	{
-		msi_request_page(msi, sk, page, (void*)msg.arg.pagefault.address, msg.arg.pagefault.flags);
-        //memset(page, '0', PAGE_SIZE);
+		log_info("new read protection fault");
+		//msi_request_page(msi, sk, page, (void*)msg.arg.pagefault.address, msg.arg.pagefault.flags);
+        memset(page, '0', PAGE_SIZE);
 		new_pagefault_type = NEW_PAGEFAULT_READ;
+		//get_child_data(victimPid, page, msg.arg.pagefault.address, 4096);
 	}
+
 	//New pagefault due to write
 	else if(msg.event == UFFD_EVENT_PAGEFAULT && 
 		   (msg.arg.pagefault.flags == NEW_PAGEFAULT_WRITE))
 	{
+		log_info("new write protection fault");
 		new_pagefault_type = NEW_PAGEFAULT_WRITE;
+		memset(page, '0', PAGE_SIZE);
 	}
 
 	//Second write page fault
 	else if(msg.event == UFFD_EVENT_PAGEFAULT && 
 		   (msg.arg.pagefault.flags == PAGEFAULT_WRITE_PROTECTION))
 	{
+		log_info("old write protection fault");
 		new_pagefault_type = PAGEFAULT_WRITE_PROTECTION;
 	}
 
@@ -158,6 +173,7 @@ static uint8_t handle_rw_pagefault(long uffd, struct uffd_msg msg, char *page, m
 			errExit("ioctl-UFFDIO_COPY");
 	}
 	
+	log_info("exiting handle_rw_pagefault");
 	return new_pagefault_type;
 }
 
@@ -179,6 +195,9 @@ fault_handler_thread(void *arg)
 	char *page = NULL;
 	struct uffdio_copy uffdio_copy;
 	ssize_t nread;
+	int ret = 0;
+
+	victimPid = tracee->c_pid;
 
 	uffd = tracee->uffd;
 	no_uffd = tracee->uffd_no;
@@ -199,7 +218,12 @@ fault_handler_thread(void *arg)
 			errExit("poll");
 
 		for(int i = 0; i < no_uffd; i++){
+			if(i == 3)
+				continue;
+
 			if(pollfd[i].revents & POLLIN){
+				
+				log_info("polling id is %d", i);
 				nread = read(uffd[i], &msg, sizeof(msg));
 				if (nread == 0) {
 					log_error("EOF on userfaultfd!");
@@ -210,7 +234,7 @@ fault_handler_thread(void *arg)
 					errExit("read");
 
 				if (msg.event != UFFD_EVENT_PAGEFAULT) {
-					log_error("Unexpected event on userfaultfd");
+					log_error("Unexpected event on userfaultfd %d", msg.event);
 					exit(EXIT_FAILURE);
 				}
 
@@ -226,14 +250,38 @@ fault_handler_thread(void *arg)
 				}
 
 				if(pagefault_type == NEW_PAGEFAULT_WRITE || pagefault_type == PAGEFAULT_WRITE_PROTECTION){
-					volatile void *t = alloca(sysconf(_SC_PAGE_SIZE));
-					if(handle_wprotect_pagefaults(uffd[i], msg, tracee, t)){
+					log_info("entry!!");
+					void *t = malloc(sysconf(_SC_PAGE_SIZE));
+					log_info("entrys!!");
+					if(handle_wprotect_pagefaults(uffd[i], msg, tracee, t, i)){
 						log_error("Erros in handling write-protect pagefaults");
 					}
+					log_info("entryx!!");
+					free(t);
 
-					msi_handle_write_command(handler_arg->msi ,handler_arg->sock_fd, msg.arg.pagefault.address, t, sysconf(_SC_PAGE_SIZE));
+					int state;
+					state =  compel_stop_task(tracee->c_pid);
+    				if(ret < 0){
+        				log_error("Could not stop the victim for compel infection");
+    				}
 
-					log_info("[%p]PAGEFAULT", (void *)msg.arg.pagefault.address);
+					log_info("post compel stop task");
+
+					ret = compel_remove_uffd(tracee, uffd[i], tracee->spaces.space[i].address, tracee->spaces.space[i].size);
+					if(ret){
+						log_error("failed to remove the uffd for the range 0x%lx", tracee->spaces.space[i].address);
+					}
+
+					compel_resume_task(tracee->c_pid, state, state);
+					log_info("exiting compel_resume_task");
+					
+					// log_info("%d", handler_arg->msi->_can_request);
+					// log_info("%d", handler_arg->sock_fd);
+					// log_info("%p", msg.arg.pagefault.address);
+					// log_info("%c ", *((char*)(t)));
+					//msi_handle_write_command(handler_arg->msi ,handler_arg->sock_fd, msg.arg.pagefault.address, t, sysconf(_SC_PAGE_SIZE));
+
+					//log_info("[%p]PAGEFAULT", (void *)msg.arg.pagefault.address);
 				}
 			}
 		}

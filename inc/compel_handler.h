@@ -18,6 +18,7 @@
 #define PARASITE_CMD_GET_STDUFLT_FD       PARASITE_USER_CMDS + 3
 #define PARASITE_CMD_SET_MADVISE_NO_NEED  PARASITE_USER_CMDS + 4
 #define PARASITE_CORRECT_HEAP_OFFSET      PARASITE_USER_CMDS + 5
+#define PARASITE_CMD_REM_STDUFLT_FD       PARASITE_USER_CMDS + 6
 
 /* --------------------------------------------------------------------
  * Structures & Required Datatypes
@@ -42,4 +43,5 @@ int compel_steal_fd(popsgx_child *tracee, compel_fd fd_type, int *fd);
 int compel_steal_uffd(popsgx_child *tracee, int *fd, void* addr, int no_pages);
 int compel_do_madvise(popsgx_child *process, void *addr);
 int compel_correct_heap_offset(popsgx_child *tracee, uint64_t size);
+int compel_remove_uffd(popsgx_child *tracee, void *fd, void* addr, int no_pages);
 #endif

@@ -165,13 +165,13 @@ int dsm_main(dsm_handler *mdsm, int mode){
         }
     }
 
-    dsm_bus->args.dsm_sock = dsm->socket_fd;
-    dsm_bus->args.msi = &dsm->msi; 
-    rc = start_dsm_bus_handler(dsm_bus);
-    if(rc){
-        log_error("Couldn't start the dsm bus thread");
-        goto out_dsm_bus_fail;
-    }
+    // dsm_bus->args.dsm_sock = dsm->socket_fd;
+    // dsm_bus->args.msi = &dsm->msi; 
+    // rc = start_dsm_bus_handler(dsm_bus);
+    // if(rc){
+    //     log_error("Couldn't start the dsm bus thread");
+    //     goto out_dsm_bus_fail;
+    // }
 
     return rc;
 

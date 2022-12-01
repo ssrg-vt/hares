@@ -25,6 +25,7 @@ extern char* __progname;
 // Starting address for the buffer 
 #define BUFFER_ADDRESS 0x10000
 
+
 /**
  * @brief Printing the help message
  * 
@@ -50,6 +51,35 @@ static void usage(void)
 }
 
 /**
+ * @brief This function is only to be used to stop the child at main
+ *   
+ * 
+ * @param cpid 
+ * @param addr 
+ */
+static void wait_child_main(pid_t cpid, unsigned long addr)
+{
+    int wait_status;
+    wait(&wait_status);
+    if (WIFSTOPPED(wait_status))
+    {
+        log_info("Child got a signal: %s\n", strsignal(WSTOPSIG(wait_status)));
+    }
+    else
+    {
+        log_error("wait");
+        EXIT_FAILURE;
+    }
+
+    //Set a breakpoint to stop at the main function
+    long main_data = set_breakpoint(cpid,  addr);
+    ptrace(PTRACE_CONT, cpid, NULL, NULL);
+    wait(&wait_status);
+    clear_breakpoint(cpid, addr, main_data);
+    ptrace(PTRACE_DETACH, cpid, NULL, NULL);
+}
+
+/**
  * @brief Execute the tracee application 
  * 
  * @param tracee 
@@ -64,6 +94,12 @@ static int execute_tracee_app(popsgx_child *tracee){
         log_error("Forking failed with error %s", strerror(errno));
         return -1;
     }else if(tracee_pid == 0){
+        if (ptrace(PTRACE_TRACEME, 0, 0, 0) < 0)
+        {
+            log_error("ptrace");
+            return;
+        }
+
         char *user_args[] = {"./host/file-encryptorhost", "testfile",  "./enclave/file-encryptorenc.signed",       \
                              "--simulate", NULL};
         execve(user_args[0], user_args, NULL);
@@ -109,7 +145,7 @@ static int cnt_rw_address_space(FILE *fp){
         while(token != NULL){
             //extract the rw-p word from the maps line
             if(i == 1){
-                if(strchr(token, 'w') != NULL){
+                if(strchr(token, 'w') != NULL && strchr(token, 'p') != NULL){
                     //count the number of lines containing the word w in rwxp
                     read_write_addr_cnt++;
                 }
@@ -159,6 +195,7 @@ static int scan_address_space(pid_t child_pid, address_spaces *spaces){
     }
     log_info("There are %d address spaces with read-write permissions", read_write_addr_cnt);
 
+    free(spaces->space);
     spaces->space = malloc(sizeof(address_space) * read_write_addr_cnt);
     spaces->size = read_write_addr_cnt;
 
@@ -170,7 +207,7 @@ static int scan_address_space(pid_t child_pid, address_spaces *spaces){
         while(token != NULL){
             //extract the rw-p word from the maps line
             if(i == 1){
-                if(strchr(token, 'w') != NULL){
+                if(strchr(token, 'w') != NULL && strchr(token, 'p') != NULL){
                     unsigned long end_address;
                     char *ptr;
                     spaces->space[iter].address =  strtoul(line, &ptr, 16);
@@ -283,14 +320,16 @@ int main(int argc, char *argv[]){
 		usage();
 	}
 
+    //Execute and Wait for the child at main instruction
     ret = execute_tracee_app(&monitor_app.dsm.child);
     if(ret){
         log_error("failed to execute the tracee app");
         goto out_fail; 
     }
+    wait_child_main(monitor_app.dsm.child.c_pid, 0x40a790);
 
-    //Stop the tracee process as soon as possible
-    kill(monitor_app.dsm.child.c_pid, SIGSTOP);
+    
+    //This gets resumed when we steal uffd
     ret =  compel_stop_task(monitor_app.dsm.child.c_pid);
     if(ret < 0){
         log_error("Could not stop the victim for compel infection");
@@ -298,73 +337,62 @@ int main(int argc, char *argv[]){
     }
 
     //setting up the breakpoints
-    monitor_app.dsm.child.trpoints.size = 1;
-    monitor_app.dsm.child.trpoints.breakpoints = malloc(sizeof(unsigned long) *                         \
+    monitor_app.dsm.child.trpoints.size = 10;
+    monitor_app.dsm.child.trpoints.breakpoints = malloc(sizeof(unsigned long int) *                                  \
                                                         monitor_app.dsm.child.trpoints.size);
-    monitor_app.dsm.child.trpoints.old_instructions = malloc(sizeof(long) *                             \
+    monitor_app.dsm.child.trpoints.old_instructions = malloc(sizeof(unsigned long int) *                             \
                                                              monitor_app.dsm.child.trpoints.size);
     monitor_app.dsm.child.trpoints.breakpoints[0] = 0x40aaef;
-    //monitor_app.dsm.child.trpoints.breakpoints[1] = 0x40aaf4;
-    place_breakpoints(monitor_app.dsm.child.c_pid, &monitor_app.dsm.child.trpoints);
+    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x40aaf4;
+    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x4090ff;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x409104;
+    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x409807;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x40980c;
+    monitor_app.dsm.child.trpoints.breakpoints[6] = 0x409807;
+    monitor_app.dsm.child.trpoints.breakpoints[7] = 0x40980c;
+    monitor_app.dsm.child.trpoints.breakpoints[8] = 0x409807;
+    monitor_app.dsm.child.trpoints.breakpoints[9] = 0x40980c;
     
-    ptrace(PTRACE_CONT, monitor_app.dsm.child.c_pid, NULL, NULL);
-    wait(&ret);
-    log_info("Application hit a breakpoint");
-    
-    ret = scan_address_space(monitor_app.dsm.child.c_pid, &monitor_app.dsm.child.spaces);
-    if(ret < 0){
-        log_error("Could not scan the address space for read write permissions");
-        goto out_stop_fail;
-    }else{
-        log_info("Overall size of the rw pages are %ld", ret);
-    }
-
-    //Registering for uffd 
-    monitor_app.dsm.child.uffd = malloc(sizeof(int) * monitor_app.dsm.child.spaces.size);
-    monitor_app.dsm.child.uffd_no = monitor_app.dsm.child.spaces.size;
-    for(int i = 0; i < monitor_app.dsm.child.spaces.size; i++){
-        log_info("Registering for the address 0x%lx", monitor_app.dsm.child.spaces.space[i].address);
-        if(i != 3){
-            ret = compel_steal_uffd(&monitor_app.dsm.child,                                       \
-                                    &monitor_app.dsm.child.uffd[i],                               \
-                                    monitor_app.dsm.child.spaces.space[i].address,                \   
-                                    monitor_app.dsm.child.spaces.space[i].size);                  \
-
-            log_info("Registered uffd %d for the address 0x%lx", monitor_app.dsm.child.uffd[i],   \
-                      monitor_app.dsm.child.spaces.space[i].address);
-        }
-    }
-
-    ret = initialize_msi_page(&monitor_app.dsm.msi,                         \
-                              monitor_app.buffer,                           \
-                              monitor_app.dsm.child.spaces.nr_pages);
+    //Needed the child process id in the msi
+    monitor_app.dsm.msi.child = monitor_app.dsm.child;
+    ret = create_msi_pages(&monitor_app.dsm.msi, 0, 0);
     if(ret){
-        log_error("Could not initialize msi page");
-        goto out_msi_fail;
+        log_error("Failed to start msi");
+        goto out_dsm_fail;
     }
 
+    //Establishing connection to the remote node!!
     ret = dsm_main(&monitor_app.dsm, monitor_app.mode);
     if(ret){
         log_error("Failed to start dsm");
         goto out_dsm_fail;
     }
-
-    monitor_app.uffd_hdl.args.child = &monitor_app.dsm.child;
-    monitor_app.uffd_hdl.args.msi = &monitor_app.dsm.msi;
-    monitor_app.uffd_hdl.args.sock_fd = monitor_app.dsm.socket_fd;
-    ret = start_uffd_thread_handler(&monitor_app.uffd_hdl);
-    if(ret){
-        log_error("failed to start uffd thread");
-        goto out_uffd_thread_fail;
-    }
-
+    
     if(monitor_app.mode == SERVER){
-        clear_breakpoint(monitor_app.dsm.child.c_pid, monitor_app.dsm.child.trpoints.breakpoints[0],    \
-                            monitor_app.dsm.child.trpoints.old_instructions[0]);
+        monitor_app.dsm.child.trpoints.old_instructions[0] = set_breakpoint(monitor_app.dsm.child.c_pid,  monitor_app.dsm.child.trpoints.breakpoints[0]);
         ptrace(PTRACE_CONT, monitor_app.dsm.child.c_pid, NULL, NULL);
-        //wait(&ret);
-        //log_info("Client hit a breakpoint %p\n", monitor_app.dsm.child.trpoints.breakpoints[0]);
+        wait(&ret);
+        clear_breakpoint(monitor_app.dsm.child.c_pid, monitor_app.dsm.child.trpoints.breakpoints[0], monitor_app.dsm.child.trpoints.old_instructions[0]);
+        log_info("Application hit the breakpoint %p", monitor_app.dsm.child.trpoints.breakpoints[0]);
+       
+        ret = scan_address_space(monitor_app.dsm.child.c_pid, &monitor_app.dsm.child.spaces);
+        if(ret < 0){
+            log_error("Could not scan the address space for read write permissions");
+            goto out_stop_fail;
+        }else{
+            log_info("Overall size of the rw pages are %ld", ret);
+        }
+        
+        //Starting the idc communication!!
+        msi_request_remote_execute(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd);
+        msi_handle_send_vma(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, monitor_app.dsm.child.spaces);
+        
+    }else{
+        //Read for request from clients!!
+        msi_handle_remote_execution(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd);
+        msi_handle_rec_vma(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd);
     }
+    
     while(1);
 
     return 0;
