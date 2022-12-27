@@ -24,6 +24,7 @@
 #define PARASITE_CMD_SET_MADVISE_NO_NEED  PARASITE_USER_CMDS + 4
 #define PARASITE_CORRECT_HEAP_OFFSET      PARASITE_USER_CMDS + 5
 #define PARASITE_CMD_REM_STDUFLT_FD       PARASITE_USER_CMDS + 6
+#define PARASITE_CMD_CREATE_MMAP          PARASITE_USER_CMDS + 7
 
 #define PAGE_SIZE 4096
 char *dummy_addr = NULL;
@@ -38,15 +39,29 @@ static int set_madvise(void *addr, size_t len, int advice_type)
   return 0;
 }
 
+static int create_new_map(uint64_t desired_addr, uint64_t no_of_pages)
+{
+    int ret = 0;
+    char *addr;
+    int page_size;
+    u_int64_t noPages;
+    u_int64_t memorySize;
+
+    page_size = PAGE_SIZE;
+    noPages = no_of_pages;
+    memorySize = noPages * page_size;
+
+    addr = sys_mmap(desired_addr, memorySize, PROT_READ|PROT_WRITE, MAP_ANON|MAP_PRIVATE|MAP_FIXED, -1, 0);
+    if(addr == MAP_FAILED){
+           return -1;
+    }
+
+    return 0;
+}
+
 static int correct_heap_offset(uint64_t memory_size)
 {
     int ret = 0;
-    // char *addr;
-
-    // addr = sys_mmap(0x4bc000, memory_size, PROT_READ|PROT_WRITE, MAP_ANON|MAP_PRIVATE, -1, 0);
-    // if(addr == MAP_FAILED){
-    //          return -1;
-    // }
 
     dummy_addr = sys_brk(memory_size);
     if(dummy_addr == MAP_FAILED){
@@ -186,6 +201,12 @@ int parasite_daemon_cmd(int cmd, void *args)
         
     case PARASITE_CORRECT_HEAP_OFFSET:
         return correct_heap_offset(*(uint64_t *)args);
+        break;
+    
+    case PARASITE_CMD_CREATE_MMAP:
+        addr = *(uint64_t*)(args);
+        noOfPages = *(uint64_t*)(args + 8);
+        return create_new_map(addr, noOfPages);
         break;
 
 	default:

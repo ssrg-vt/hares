@@ -14,6 +14,8 @@
 #include "../inc/dsm_handler.h"
 #include "../inc/compel_handler.h"
 
+#define log_info(args...) 
+
 extern popsgx_child *victim;
 /* --------------------------------------------------------------------
  * Public Functions defintions
@@ -208,11 +210,12 @@ void msi_handle_regs_reply(msi_handler *msi, int sk, struct msi_message *in_msg)
     pthread_mutex_unlock(&msi->mutex);
 }
 
-void msi_request_remote_execute(msi_handler *msi, int sk){
+void msi_request_remote_execute(msi_handler *msi, int sk, uint64_t ret_addr){
     int ret = 0;
     struct msi_message msg;
     pthread_mutex_lock(&msi->mutex);
     msg.message_type = REMOTE_EXECUTE;
+    msg.payload.remote_request_message.instr_address = ret_addr;
     ret = write(sk, &msg, sizeof(msg));
     if(ret <= 0){
         log_error("Bad write in MSI");
@@ -220,7 +223,7 @@ void msi_request_remote_execute(msi_handler *msi, int sk){
     pthread_mutex_unlock(&msi->mutex);
 }
 
-void msi_handle_remote_execution(msi_handler *msi, int sk, struct msi_message *in_msg){
+void msi_handle_remote_execution(msi_handler *msi, int sk, uint64_t *ret_addr){
     int ret = 0;
     struct msi_message remote_msg;
 
@@ -228,6 +231,10 @@ void msi_handle_remote_execution(msi_handler *msi, int sk, struct msi_message *i
     while(!remote_msg.message_type == REMOTE_EXECUTE){
         continue;
     }
+
+    *ret_addr = remote_msg.payload.remote_request_message.instr_address;
+
+    log_error("The instruction address received is %p", remote_msg.payload.remote_request_message.instr_address);
     // pthread_mutex_lock(&msi->mutex);
     // msi->_can_request = true;
     // pthread_mutex_unlock(&msi->mutex);
@@ -301,6 +308,8 @@ int msi_handle_rec_vma(msi_handler *msi, int sk){
                 log_info("recieved the vma_buffer_header");
                 log_info("vma address is %lx with size is %d", vma_buffer_header_msg.payload.vma_buffer_message.vma_address, \
                                                                vma_buffer_header_msg.payload.vma_buffer_message.size);
+                
+                //if(vma_buffer_header_msg.payload.vma_buffer_message.vma_address == 0x7ffff42b7000) continue;
 
                 vma_buffer_header_msg.message_type = VMA_BUFFER_HEADER_ACK;
                 ret = write(sk, &vma_buffer_header_msg, sizeof(vma_buffer_header_msg));
@@ -348,11 +357,89 @@ int msi_handle_rec_vma(msi_handler *msi, int sk){
         }
     }
 
+    struct msi_message trans_ack;
+    trans_ack.message_type = VMA_TRANS_ACK;
+    ret = write(sk, &trans_ack, sizeof(trans_ack));
+    if(ret <= 0){
+        log_error("Bad write in MSI");
+    }
+    log_info("sent the vma_trans_ack");
+
 vma_buffer_fail:
 msi_handle_rec_vma_fail:
 msi_handle_rec_vma_out:
     pthread_mutex_unlock(&msi->mutex);
     return 0;
+}
+
+int msi_handle_rec_regs(msi_handler *msi, int sk, struct user_regs_struct *reg){
+    int ret;
+    struct msi_message msg;
+    
+    msg.message_type = REMOTE_REGS_REPLY;
+
+    pthread_mutex_lock(&msi->mutex);
+
+    ret = read(sk, &msg, sizeof(msg));
+    if(msg.message_type == REMOTE_REGS){
+        log_info("received the remote_regs");
+        memcpy(reg, &msg.payload.regs_message, sizeof(struct user_regs_struct));
+
+        ptrace(PTRACE_SETREGS, msi->child.c_pid, NULL, reg);
+
+        msg.message_type = REMOTE_REGS_REPLY;
+        ret = write(sk, &msg, sizeof(msg));
+        if(ret <= 0){
+            log_error("Bad write in MSI");
+        }
+        log_info("sent the remote_regs_reply acknowledgement");
+
+    }else{
+        log_error("Couldn't recieve REMOTE_REGS");
+        goto msi_handle_rec_reg;
+    }
+
+    pthread_mutex_unlock(&msi->mutex);
+    return 0;
+
+msi_handle_rec_reg:
+    pthread_mutex_unlock(&msi->mutex);
+    return -1;
+}
+
+int msi_handle_send_regs(msi_handler *msi, int sk, struct user_regs_struct *reg){
+    int ret;
+    int as[100];
+    struct msi_message reg_to_remote;
+
+    pthread_mutex_lock(&msi->child.mutex);
+    get_regs_args(msi->child.c_pid, reg, &as);
+    pthread_mutex_unlock(&msi->child.mutex);
+
+    reg_to_remote.message_type = REMOTE_REGS;
+    memcpy(&reg_to_remote.payload.regs_message, reg, sizeof(struct user_regs_struct));
+    
+    pthread_mutex_lock(&msi->mutex);
+    ret = write(sk, &reg_to_remote, sizeof(reg_to_remote));
+    if(ret <= 0){
+        goto msi_handle_reg_request_fail;
+    }
+
+    ret = read(sk, &reg_to_remote, sizeof(reg_to_remote));
+    if(reg_to_remote.message_type == REMOTE_REGS_REPLY){
+        log_info("received  remote_regs_reply");
+    }else{
+        log_error("Couldn't recieve REMOTE_REGS_REPLY");
+        goto msi_handle_reg_request_fail;
+    }
+
+    pthread_mutex_unlock(&msi->mutex);
+    return 0;
+
+msi_handle_reg_request_fail:
+    pthread_mutex_unlock(&msi->mutex);
+    return ret;
+
 }
 
 int msi_handle_send_vma(msi_handler *msi, int sk, address_spaces vmas){
@@ -392,6 +479,8 @@ int msi_handle_send_vma(msi_handler *msi, int sk, address_spaces vmas){
             log_error("Bad write in MSI");
         }
 
+        // if(vmas.space[i].address == 0x7ffff42b7000) continue;
+        
         ret = read(sk, &vma_buffer_header_msg, sizeof(vma_buffer_header_msg));
         if(vma_buffer_header_msg.message_type == VMA_BUFFER_HEADER_ACK){
             log_info("recieved the vma_buffer_header ack");
@@ -433,6 +522,13 @@ int msi_handle_send_vma(msi_handler *msi, int sk, address_spaces vmas){
         }
 
         free(vma_buffer);
+    }
+
+    ret = read(sk, &vma_from_remote_msg, sizeof(vma_from_remote_msg));
+    if(vma_from_remote_msg.message_type == VMA_TRANS_ACK){
+        log_info("Received VMA_TRANS_ACK");
+    }else{
+        log_error("Failed in receiving VMA_TRANS_ACK");
     }
 
 vma_buffer_fail:

@@ -20,7 +20,8 @@ enum msi_message_type
 	VMA_BUFFER_HEADER,
 	VMA_BUFFER_HEADER_ACK,
 	VMA_BUFFER,
-	VMA_BUFFER_ACK
+	VMA_BUFFER_ACK,
+	VMA_TRANS_ACK
 };
 
 
@@ -65,6 +66,10 @@ struct vma_header
 	uint64_t no_vma;
 };
 
+struct remote_request_header{
+	uint64_t instr_address;
+};
+
 /* Message payload and its structure */
 union message_payload
 {
@@ -75,6 +80,7 @@ union message_payload
 	struct user_regs regs_message;
 	struct vma_header vma_header_message;
 	struct vma_buffer_header vma_buffer_message;
+	struct remote_request_header remote_request_message;
 	char page_data[4096];
 };
 

@@ -332,3 +332,38 @@ int compel_correct_heap_offset(popsgx_child *tracee, uint64_t heap_size){
 
     return rc;
 }
+
+
+int compel_create_new_map(popsgx_child *tracee, uint64_t addr, uint64_t pages){
+    int rc;
+    compel_handler cmpl_hdl;
+    uint64_t *compel_arg;
+
+    pthread_mutex_lock(&tracee->mutex);
+    compel_log_init(print_vmsg, COMPEL_LOG_LEVEL);
+    rc = __compel_prepare_infection(&cmpl_hdl, tracee->c_pid);
+    if(rc){
+        log_error("Could not prepare infection on tracee");
+    }
+
+    compel_arg = compel_parasite_args(cmpl_hdl.ctl, sizeof((uint64_t)addr) + sizeof((uint64_t)pages));
+    
+    compel_arg[0] = (uint64_t)addr;
+    compel_arg[1] = (uint64_t)pages;
+
+    if(compel_rpc_call_sync(PARASITE_CMD_CREATE_MMAP, cmpl_hdl.ctl)){
+        log_error("compel_rpc_call_sync failed");
+    }
+
+    if(compel_rpc_call_sync(PARASITE_CMD_CREATE_MMAP, cmpl_hdl.ctl)){
+        log_error("compel_rpc_call_sync failed");
+    }
+
+    rc = __compel_disinfection(&cmpl_hdl);
+    if(rc){
+        log_error("Could not disinfect tracee");
+    }
+    pthread_mutex_unlock(&tracee->mutex);
+
+    return rc;
+}

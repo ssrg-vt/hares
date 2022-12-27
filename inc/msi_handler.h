@@ -33,7 +33,7 @@ int msi_handle_page_request(msi_handler *msi ,int sk, struct msi_message *in_msg
 void msi_handle_page_reply(msi_handler *msi, int sk, struct msi_message *in_msg);
 int msi_handle_write_command(msi_handler *msi, int sk, void *addr, void *data, size_t data_size);
 
-void msi_request_remote_execute(msi_handler *msi, int sk);
+void msi_request_remote_execute(msi_handler *msi, int sk, unsigned long ret_addr);
 void msi_handle_regs_reply(msi_handler *msi, int sk, struct msi_message *in_msg);
 int msi_handle_reg_request(msi_handler *msi, int sk);
 int msi_request_proc_reg(msi_handler *msi, int sk,  struct user_regs_struct *regs);
