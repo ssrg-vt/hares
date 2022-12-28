@@ -16,6 +16,7 @@
 #include "../inc/dsm_handler.h"
 #include "../inc/uffd_handler.h"
 #include "../inc/msi_handler.h"
+#include "../inc/vmscan_util.h"
 
 #define log_info(args...) 
 
@@ -231,6 +232,9 @@ static int scan_address_space(pid_t child_pid, address_spaces *spaces){
     fclose(fp);
 
     spaces->nr_pages = ret;
+    
+    address_spaces delta;
+    find_vma_delta(spaces, &delta);
 
     get_frame_fail:
         return ret;
@@ -420,7 +424,7 @@ int main(int argc, char *argv[]){
                 log_error("Could not scan the address space for read write permissions");
                 goto out_stop_fail;
             }else{
-                log_info("Overall size of the rw pages are %ld", ret);
+                log_error("Overall size of the rw pages are %ld", ret);
             }
 
             //Starting the idc communication!!

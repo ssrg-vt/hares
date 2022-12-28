@@ -10,7 +10,7 @@ obj/popsgx_monitor.o: src/popsgx_monitor.c src/../inc/ptrace.h \
  src/../inc/../inc/../inc/dsm_handler.h src/../inc/compel_handler.h \
  src/../inc/parasite.h src/../inc/../inc/popsgx_monitor.h \
  src/../inc/dsm_handler.h src/../inc/uffd_handler.h \
- src/../inc/msi_handler.h
+ src/../inc/msi_handler.h src/../inc/vmscan_util.h
 src/popsgx_monitor.c:
 src/../inc/ptrace.h:
 src/../inc/log.h:
@@ -31,3 +31,4 @@ src/../inc/../inc/popsgx_monitor.h:
 src/../inc/dsm_handler.h:
 src/../inc/uffd_handler.h:
 src/../inc/msi_handler.h:
+src/../inc/vmscan_util.h:
