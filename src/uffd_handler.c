@@ -75,10 +75,10 @@ static int handle_wprotect_pagefaults(long uffd, struct uffd_msg msg, popsgx_chi
 	struct uffdio_writeprotect uffdio_wp;
 	int ret = 0;
 
-    pthread_mutex_lock(&tracee->mutex);
-	ret = ptrace(PTRACE_ATTACH, tracee->c_pid, NULL, NULL);
-	log_info("return value is %d %d", ret, errno);
-	wait(NULL);
+    // pthread_mutex_lock(&tracee->mutex);
+	// ret = ptrace(PTRACE_ATTACH, tracee->c_pid, NULL, NULL);
+	// log_info("return value is %d %d", ret, errno);
+	// wait(NULL);
 
 	log_info("--");
 	uffdio_wp.range.start = tracee->spaces.space[i].address;
@@ -93,11 +93,11 @@ static int handle_wprotect_pagefaults(long uffd, struct uffd_msg msg, popsgx_chi
 	//ret = ptrace(PTRACE_SINGLESTEP, tracee->c_pid, NULL, NULL);
 	//wait(NULL);
 	
-	if(retrieve_victim_page_postwrite(tracee->c_pid, msg.arg.pagefault.address, page))
-	{
-		log_error("retrieve_victim_page_postwrite failed\n");
-		goto fail_handle_wprotect_pagefaults; 
-	}
+	// if(retrieve_victim_page_postwrite(tracee->c_pid, msg.arg.pagefault.address, page))
+	// {
+	// 	log_error("retrieve_victim_page_postwrite failed\n");
+	// 	goto fail_handle_wprotect_pagefaults; 
+	// }
 
 	
 	log_info("Setting the Write Protection of the page");
@@ -108,15 +108,15 @@ static int handle_wprotect_pagefaults(long uffd, struct uffd_msg msg, popsgx_chi
 	// 	goto fail_handle_wprotect_pagefaults;
 	// }
 
-	ptrace(PTRACE_DETACH, tracee->c_pid, NULL, NULL);
-	//wait(NULL);
-	pthread_mutex_unlock(&tracee->mutex);
+	// ptrace(PTRACE_DETACH, tracee->c_pid, NULL, NULL);
+	// //wait(NULL);
+	// pthread_mutex_unlock(&tracee->mutex);
 	
 	return 0;
 
 fail_handle_wprotect_pagefaults:
-	ptrace(PTRACE_DETACH, tracee->c_pid, NULL, NULL);
-    pthread_mutex_unlock(&tracee->mutex);
+	// ptrace(PTRACE_DETACH, tracee->c_pid, NULL, NULL);
+    // pthread_mutex_unlock(&tracee->mutex);
 	return -1;
 }
 
@@ -259,21 +259,21 @@ fault_handler_thread(void *arg)
 					log_info("entryx!!");
 					free(t);
 
-					int state;
-					state =  compel_stop_task(tracee->c_pid);
-    				if(ret < 0){
-        				log_error("Could not stop the victim for compel infection");
-    				}
+					// int state;
+					// state =  compel_stop_task(tracee->c_pid);
+    				// if(ret < 0){
+        			// 	log_error("Could not stop the victim for compel infection");
+    				// }
 
-					log_info("post compel stop task");
+					// log_info("post compel stop task");
 
-					ret = compel_remove_uffd(tracee, uffd[i], tracee->spaces.space[i].address, tracee->spaces.space[i].size);
-					if(ret){
-						log_error("failed to remove the uffd for the range 0x%lx", tracee->spaces.space[i].address);
-					}
+					// ret = compel_remove_uffd(tracee, uffd[i], tracee->spaces.space[i].address, tracee->spaces.space[i].size);
+					// if(ret){
+					// 	log_error("failed to remove the uffd for the range 0x%lx", tracee->spaces.space[i].address);
+					// }
 
-					compel_resume_task(tracee->c_pid, state, state);
-					log_info("exiting compel_resume_task");
+					// compel_resume_task(tracee->c_pid, state, state);
+					// log_info("exiting compel_resume_task");
 					
 					// log_info("%d", handler_arg->msi->_can_request);
 					// log_info("%d", handler_arg->sock_fd);

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <pthread.h>
 
 #include "../inc/log.h"
 #include "../inc/popsgx_child.h"

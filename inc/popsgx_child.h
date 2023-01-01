@@ -29,7 +29,8 @@ typedef struct popsgx_child_app_t{
     int uffd_no;
     pthread_mutex_t mutex;
     tracepoints trpoints;
-    address_spaces spaces; 
+    address_spaces spaces;
+    address_spaces delta_spaces; 
 } popsgx_child;
 
 #endif

@@ -214,8 +214,6 @@ static int _compel_steal_fd(popsgx_child *tracee, compel_fd fd_type, void *fd,  
         log_error("Could not disinfect tracee");
     }
 
-    log_info("cleared");
-
 out_infection_fail:
     pthread_mutex_unlock(&tracee->mutex);
 out_fail:

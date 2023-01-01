@@ -18,7 +18,7 @@
 #include "../inc/msi_handler.h"
 #include "../inc/vmscan_util.h"
 
-#define log_info(args...) 
+//#define log_info(args...) 
 
 extern char* __progname;
 
@@ -112,6 +112,7 @@ static int execute_tracee_app(popsgx_child *tracee){
     }
 
     tracee->c_pid = tracee_pid;
+
     log_info("Successfully forked the tracee as a child process %d", tracee_pid);
     return ret;
 }
@@ -232,9 +233,6 @@ static int scan_address_space(pid_t child_pid, address_spaces *spaces){
     fclose(fp);
 
     spaces->nr_pages = ret;
-    
-    address_spaces delta;
-    find_vma_delta(spaces, &delta);
 
     get_frame_fail:
         return ret;
@@ -410,14 +408,68 @@ int main(int argc, char *argv[]){
         unsigned long ret_address;
 
         while(i <= LIMIT){
-            log_info("The value of i is %d !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", i);
 
-            monitor_app.dsm.child.trpoints.old_instructions[i] = set_breakpoint(monitor_app.dsm.child.c_pid,  monitor_app.dsm.child.trpoints.breakpoints[i]);
+            ret = scan_address_space(monitor_app.dsm.child.c_pid, &monitor_app.dsm.child.spaces);
+            if(ret < 0){
+                log_error("Could not scan the address space for read write permissions");
+                goto out_stop_fail;
+            }else{
+                log_error("Overall size of the rw pages are %ld", ret);
+            }
+
+            monitor_app.dsm.child.uffd = malloc(sizeof(int) * monitor_app.dsm.child.spaces.size);
+            monitor_app.dsm.child.uffd_no = monitor_app.dsm.child.spaces.size;
+            for(int i = 0; i < monitor_app.dsm.child.spaces.size; i++){
+                log_info("Registering for the address 0x%lx", monitor_app.dsm.child.spaces.space[i].address);
+                if(i != 3){
+                    ret = compel_steal_uffd(&monitor_app.dsm.child,                                             \
+                                         &monitor_app.dsm.child.uffd[i],                                        \
+                                         monitor_app.dsm.child.spaces.space[i].address,                         \
+                                         monitor_app.dsm.child.spaces.space[i].size);                           \
+
+                    log_info("Registered uffd %d for the address 0x%lx", monitor_app.dsm.child.uffd[i],         \
+                            monitor_app.dsm.child.spaces.space[i].address);
+                }
+            }
+
+            int rc;
+            monitor_app.uffd_hdl.args.child = &monitor_app.dsm.child;
+            monitor_app.uffd_hdl.args.msi = &monitor_app.dsm.msi;
+            monitor_app.uffd_hdl.args.sock_fd = monitor_app.dsm.socket_fd;
+            rc = start_uffd_thread_handler(&monitor_app.uffd_hdl);
+            if(rc){
+                log_error("failed to start uffd thread");
+                goto out_uffd_thread_fail;
+            }
+
+            monitor_app.dsm.child.trpoints.old_instructions[i] = set_breakpoint(monitor_app.dsm.child.c_pid,    \
+                                                                 monitor_app.dsm.child.trpoints.breakpoints[i]);   
             ptrace(PTRACE_CONT, monitor_app.dsm.child.c_pid, NULL, NULL);
             wait(&ret);
-            clear_breakpoint(monitor_app.dsm.child.c_pid,  monitor_app.dsm.child.trpoints.breakpoints[i], monitor_app.dsm.child.trpoints.old_instructions[i]);
+            clear_breakpoint(monitor_app.dsm.child.c_pid,                                                       \
+                             monitor_app.dsm.child.trpoints.breakpoints[i],                                     \
+                             monitor_app.dsm.child.trpoints.old_instructions[i]);
+
+            ret = pthread_cancel(monitor_app.uffd_hdl.thread);
+            log_info("Destroyed the thread %d", ret);
+            
+            // for(int i = 0; i < monitor_app.dsm.child.spaces.size; i++){
+            //     if(i != 3){
+            //         ret = compel_remove_uffd(&monitor_app.dsm.child,                                            \
+            //                                  monitor_app.dsm.child.uffd[i],                                     \
+            //                                  monitor_app.dsm.child.spaces.space[i].address,                     \
+            //                                  monitor_app.dsm.child.spaces.space[i].size);
+
+            //         log_info("Unregistered uffd %d for the address 0x%lx with size %d",                         \
+            //                   monitor_app.dsm.child.uffd[i],                                                    \
+            //                   monitor_app.dsm.child.spaces.space[i].address,                                    \
+            //                   monitor_app.dsm.child.spaces.space[i].size);
+            //     }
+            // }
 
             log_info("Application hit the breakpoint %p", monitor_app.dsm.child.trpoints.breakpoints[i]);
+
+            while(1);
 
             ret = scan_address_space(monitor_app.dsm.child.c_pid, &monitor_app.dsm.child.spaces);
             if(ret < 0){
@@ -455,7 +507,6 @@ int main(int argc, char *argv[]){
         unsigned long old_instructions;
 
         while(i <= LIMIT){
-            log_info("The value of i is %d !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", i);
 
             if(i == 17){
                 uint64_t heap_pages = 0x500000;

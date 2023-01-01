@@ -108,14 +108,14 @@ static int send_uffd(uint64_t desired_addr, uint16_t no_of_pages){
     ufFd_register.range.len   = memorySize;
     //ufFd_register.mode = UFFDIO_REGISTER_MODE_MISSING | UFFDIO_REGISTER_MODE_WP;
     ufFd_register.mode = UFFDIO_REGISTER_MODE_WP;
-    if(sys_ioctl(ufFd, UFFDIO_REGISTER, &ufFd_register) == -1){
+    if(sys_ioctl(ufFd, UFFDIO_REGISTER, &ufFd_register)){
             return -1;
     }
 
     ufFd_register.range.start = (unsigned long long)addr;
     ufFd_register.range.len   = memorySize;
     ufFd_register.mode = UFFDIO_WRITEPROTECT_MODE_WP;
-    if(sys_ioctl(ufFd, UFFDIO_WRITEPROTECT, &ufFd_register) == -1){
+    if(sys_ioctl(ufFd, UFFDIO_WRITEPROTECT, &ufFd_register)){
             return -1;
     }
 
@@ -130,13 +130,13 @@ static int unregister_uffd(int ufFd, uint64_t desired_addr, uint16_t no_of_pages
     struct uffdio_register ufFd_register;
     char* addr;
     addr = desired_addr;
+    int ret = 0;
 
     ufFd_register.range.start = (unsigned long long)addr;
     ufFd_register.range.len   = no_of_pages * PAGE_SIZE;
 
-    if(sys_ioctl(ufFd, UFFDIO_UNREGISTER, &ufFd_register.range)){
+    if(sys_ioctl(ufFd, UFFDIO_UNREGISTER, &ufFd_register.range) == -1)
         return -1;
-    }
 
     return 0;
 }
