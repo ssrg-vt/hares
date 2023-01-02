@@ -19,6 +19,8 @@
 #include "../inc/uffd_handler.h"
 #include "../inc/compel_handler.h"
 
+#define log_info(args...) 
+
 #define NO_NEW_PAGEFAULT 			0xFF
 #define NEW_PAGEFAULT_READ  		0x00
 #define NEW_PAGEFAULT_WRITE 		UFFD_PAGEFAULT_FLAG_WRITE
@@ -298,10 +300,57 @@ int start_uffd_thread_handler(uffd_thread_handler *uffd_hdl){
 
     rc = pthread_create(&uffd_hdl->thread, NULL, fault_handler_thread, (void*) &uffd_hdl->args);
     if (rc != 0) {
-		log_error("Could not create a dsm bus handler thread");
+		log_error("Could not create a uffd handler thread");
         goto out_fail;
 	}
 
 out_fail:
     return rc;
+}
+
+int stop_uffd_thread_handler(uffd_thread_handler *uffd_hdl){
+	int rc = 0;
+
+	rc = pthread_cancel(uffd_hdl->thread);
+	if(rc != 0){
+		log_error("Could not stop the uffd handler thread");
+		goto out_fail;
+	}
+
+out_fail:
+	return rc;
+
+}
+
+int register_uffd(popsgx_child *child){
+	int ret = 0;
+	for(int i = 0; i < child->spaces.size; i++){
+        log_info("Registering for the address 0x%lx", child->spaces.space[i].address);
+        if(child->spaces.space[i].address != 0x7ffff72ee000){
+            ret = compel_steal_uffd(child,                                             		\
+                                 &child->uffd[i],                                        	\
+                                 child->spaces.space[i].address,                         	\
+                                 child->spaces.space[i].size);                           
+            log_info("Registered uffd %d for the address 0x%lx", child->uffd[i],   		  	\
+                    							child->spaces.space[i].address);
+        }
+    }
+	return 0;
+}
+
+int deregister_uffd(popsgx_child *child){
+	int ret = 0;
+	for(int i = 0; i < child->spaces.size; i++){
+		if((child->spaces.space[i].address != 0x7ffff72ee000) && (child->uffd[i] != -1)){
+			ret = compel_remove_uffd(child,                                            		\
+									 child->uffd[i],                                     	\
+									 child->spaces.space[i].address,                     	\
+									 child->spaces.space[i].size);
+			log_info("Unregistered uffd %d for the address 0x%lx with size %d",          	\
+														child->uffd[i],                 	\
+														child->spaces.space[i].address,   	\
+														child->spaces.space[i].size);
+		}
+	}
+	return 0;
 }

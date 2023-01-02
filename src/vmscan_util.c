@@ -7,6 +7,8 @@
 #include "../inc/log.h"
 #include "../inc/popsgx_child.h"
 
+#define log_info(args...) 
+
 address_spaces empty_vm_stat_snapshot = {NULL, -1, -1};
 static address_spaces vm_stat_snapshot = {NULL, -1, -1};
 
@@ -137,4 +139,113 @@ int find_vma_delta(address_spaces* curr_vma, address_spaces* delta_vma){
 
 find_vma_delta_exit:
     return ret;
+}
+
+
+/**
+ * @brief Read the number of read-write address space
+ * 
+ * @param fp 
+ * @return int 
+ */
+static int cnt_rw_address_space(FILE *fp){
+    int read_write_addr_cnt = 0;
+    char line[128];
+
+    if(!fp)
+        return -1;
+
+    while(fgets(line, sizeof(line), fp)){
+        char * token = strtok(line, " ");
+        int i = 0;
+        while(token != NULL){
+            //extract the rw-p word from the maps line
+            if(i == 1){
+                if(strchr(token, 'w') != NULL && strchr(token, 'p') != NULL){
+                    //count the number of lines containing the word w in rwxp
+                    read_write_addr_cnt++;
+                }
+                break;
+            }
+            token = strtok(NULL, " ");
+            i++;
+        }
+    }
+
+    return read_write_addr_cnt;
+}
+
+/**
+ * @brief Scan and retrieve the address space information of the spaces
+ * containing read and write permissions!!
+ * 
+ * @param child_pid 
+ * @return int 
+ */
+int scan_address_space(pid_t child_pid, address_spaces *spaces){
+    int ret = 0;
+    char file_name[50];
+    char line[128];
+    FILE *fp;
+    int read_write_addr_cnt = 0;
+
+    ret = snprintf(file_name, 50, "/proc/%d/maps", child_pid);
+    if(ret < 0){
+        log_error("failed in finding the maps file for the process %d", child_pid);
+        goto get_frame_fail;
+    }
+
+    fp = fopen(file_name, "r");
+    if(!fp){
+        ret = errno;
+        goto get_frame_fail;
+    }
+
+    read_write_addr_cnt = cnt_rw_address_space(fp);
+    if(read_write_addr_cnt == -1){
+        log_error("failed in reading the number of rw address spaces");
+        ret = read_write_addr_cnt;
+        goto get_frame_fail;
+    }else{
+        fseek(fp, 0, SEEK_SET);
+    }
+    log_info("There are %d address spaces with read-write permissions", read_write_addr_cnt);
+
+    free(spaces->space);
+    spaces->space = malloc(sizeof(address_space) * read_write_addr_cnt);
+    spaces->size = read_write_addr_cnt;
+
+    ret = 0;
+    int iter = 0;
+    while(fgets(line, sizeof(line), fp)){
+        //log_info("%s", line);
+        char * token = strtok(line, " ");
+        int i = 0;
+        while(token != NULL){
+            //extract the rw-p word from the maps line
+            if(i == 1){
+                if(strchr(token, 'w') != NULL && strchr(token, 'p') != NULL){
+                    unsigned long end_address;
+                    char *ptr;
+                    spaces->space[iter].address =  strtoul(line, &ptr, 16);
+                    end_address = strtoul(ptr+1, NULL, 16);
+                    spaces->space[iter].size =  (end_address - spaces->space[iter].address)/4096;
+                    ret += spaces->space[iter].size;
+                    log_info("Found rw address at 0x%lx with a size %ld",                               \
+                              spaces->space[iter].address, spaces->space[iter].size);
+                    iter++;
+                }
+                break;
+            }
+            token = strtok(NULL, " ");
+            i++;
+        }
+    }
+
+    fclose(fp);
+
+    spaces->nr_pages = ret;
+
+    get_frame_fail:
+        return ret;
 }

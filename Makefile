@@ -19,7 +19,7 @@ OBJEXT      := o
 # Flags, Libraries and Includes
 CFLAGS      := -Wall -O3 -g -DNDEBUG 
 LIB         := -lpthread
-INC         := -I$(INCDIR) -I/usr/local/include
+INC         := -I$(INCDIR) -I/usr/local/include 
 INCDEP      := -I$(INCDIR)
 
 # Compel Macros
