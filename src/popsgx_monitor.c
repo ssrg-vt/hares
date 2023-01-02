@@ -18,7 +18,7 @@
 #include "../inc/msi_handler.h"
 #include "../inc/vmscan_util.h"
 
-#define log_info(args...) 
+//#define log_info(args...) 
 
 extern char* __progname;
 
@@ -112,6 +112,7 @@ static int execute_tracee_app(popsgx_child *tracee){
     }
 
     tracee->c_pid = tracee_pid;
+
     log_info("Successfully forked the tracee as a child process %d", tracee_pid);
     return ret;
 }
@@ -127,117 +128,6 @@ static void place_breakpoints(pid_t child_pid, tracepoints *trc){
         log_info("Setting breakpoints at 0x%lx", trc->breakpoints[i]);
         trc->old_instructions[i] = set_breakpoint(child_pid, trc->breakpoints[i]);
     }
-}
-
-/**
- * @brief Read the number of read-write address space
- * 
- * @param fp 
- * @return int 
- */
-static int cnt_rw_address_space(FILE *fp){
-    int read_write_addr_cnt = 0;
-    char line[128];
-
-    if(!fp)
-        return -1;
-
-    while(fgets(line, sizeof(line), fp)){
-        char * token = strtok(line, " ");
-        int i = 0;
-        while(token != NULL){
-            //extract the rw-p word from the maps line
-            if(i == 1){
-                if(strchr(token, 'w') != NULL && strchr(token, 'p') != NULL){
-                    //count the number of lines containing the word w in rwxp
-                    read_write_addr_cnt++;
-                }
-                break;
-            }
-            token = strtok(NULL, " ");
-            i++;
-        }
-    }
-
-    return read_write_addr_cnt;
-}
-
-/**
- * @brief Scan and retrieve the address space information of the spaces
- * containing read and write permissions!!
- * 
- * @param child_pid 
- * @return int 
- */
-static int scan_address_space(pid_t child_pid, address_spaces *spaces){
-    int ret = 0;
-    char file_name[50];
-    char line[128];
-    FILE *fp;
-    int read_write_addr_cnt = 0;
-
-    ret = snprintf(file_name, 50, "/proc/%d/maps", child_pid);
-    if(ret < 0){
-        log_error("failed in finding the maps file for the process %d", child_pid);
-        goto get_frame_fail;
-    }
-
-    fp = fopen(file_name, "r");
-    if(!fp){
-        ret = errno;
-        goto get_frame_fail;
-    }
-
-    read_write_addr_cnt = cnt_rw_address_space(fp);
-    if(read_write_addr_cnt == -1){
-        log_error("failed in reading the number of rw address spaces");
-        ret = read_write_addr_cnt;
-        goto get_frame_fail;
-    }else{
-        fseek(fp, 0, SEEK_SET);
-    }
-    log_info("There are %d address spaces with read-write permissions", read_write_addr_cnt);
-
-    free(spaces->space);
-    spaces->space = malloc(sizeof(address_space) * read_write_addr_cnt);
-    spaces->size = read_write_addr_cnt;
-
-    ret = 0;
-    int iter = 0;
-    while(fgets(line, sizeof(line), fp)){
-        //log_info("%s", line);
-        char * token = strtok(line, " ");
-        int i = 0;
-        while(token != NULL){
-            //extract the rw-p word from the maps line
-            if(i == 1){
-                if(strchr(token, 'w') != NULL && strchr(token, 'p') != NULL){
-                    unsigned long end_address;
-                    char *ptr;
-                    spaces->space[iter].address =  strtoul(line, &ptr, 16);
-                    end_address = strtoul(ptr+1, NULL, 16);
-                    spaces->space[iter].size =  (end_address - spaces->space[iter].address)/4096;
-                    ret += spaces->space[iter].size;
-                    log_info("Found rw address at 0x%lx with a size %ld",                               \
-                              spaces->space[iter].address, spaces->space[iter].size);
-                    iter++;
-                }
-                break;
-            }
-            token = strtok(NULL, " ");
-            i++;
-        }
-    }
-
-    fclose(fp);
-
-    spaces->nr_pages = ret;
-    
-    address_spaces delta;
-    find_vma_delta(spaces, &delta);
-
-    get_frame_fail:
-        return ret;
 }
 
 /**
@@ -343,6 +233,7 @@ int main(int argc, char *argv[]){
         goto out_stop_fail;
     }
 
+    //uint64_t heap_pages = 0x4de000;
     uint64_t heap_pages = 0x4de000;
     ret = compel_correct_heap_offset(&monitor_app.dsm.child, heap_pages);
     if(ret){
@@ -410,13 +301,50 @@ int main(int argc, char *argv[]){
         unsigned long ret_address;
 
         while(i <= LIMIT){
-            log_info("The value of i is %d !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", i);
+            int rc;
+            
+            log_error("The i value is %d !!!!!!!!!!!!!!!!!!!!!!!", i);
 
-            monitor_app.dsm.child.trpoints.old_instructions[i] = set_breakpoint(monitor_app.dsm.child.c_pid,  monitor_app.dsm.child.trpoints.breakpoints[i]);
+            ret = scan_address_space(monitor_app.dsm.child.c_pid, &monitor_app.dsm.child.spaces);
+            if(ret < 0){
+                log_error("Could not scan the address space for read write permissions");
+                goto out_stop_fail;
+            }else{
+                log_error("Overall size of the rw pages are %ld", ret);
+            }
+
+            monitor_app.dsm.child.uffd = realloc( monitor_app.dsm.child.uffd, sizeof(int) * monitor_app.dsm.child.spaces.size);
+            monitor_app.dsm.child.uffd_no = monitor_app.dsm.child.spaces.size;
+            
+            //Registering for uffd
+            ret = register_uffd(&monitor_app.dsm.child);
+
+            monitor_app.uffd_hdl.args.child = &monitor_app.dsm.child;
+            monitor_app.uffd_hdl.args.msi = &monitor_app.dsm.msi;
+            monitor_app.uffd_hdl.args.sock_fd = monitor_app.dsm.socket_fd;
+            rc = start_uffd_thread_handler(&monitor_app.uffd_hdl);
+            if(rc){
+                log_error("failed to start uffd thread");
+                goto out_uffd_thread_fail;
+            }
+
+            monitor_app.dsm.child.trpoints.old_instructions[i] = set_breakpoint(monitor_app.dsm.child.c_pid,    \
+                                                                 monitor_app.dsm.child.trpoints.breakpoints[i]);   
             ptrace(PTRACE_CONT, monitor_app.dsm.child.c_pid, NULL, NULL);
             wait(&ret);
-            clear_breakpoint(monitor_app.dsm.child.c_pid,  monitor_app.dsm.child.trpoints.breakpoints[i], monitor_app.dsm.child.trpoints.old_instructions[i]);
+            clear_breakpoint(monitor_app.dsm.child.c_pid,                                                       \
+                             monitor_app.dsm.child.trpoints.breakpoints[i],                                     \
+                             monitor_app.dsm.child.trpoints.old_instructions[i]);
 
+            rc = stop_uffd_thread_handler(&monitor_app.uffd_hdl);
+            if(rc){
+                log_error("failed to stop uffd thread");
+                goto out_uffd_thread_fail;
+            }
+            
+            //Deregistering for uffd
+            ret = deregister_uffd(&monitor_app.dsm.child);
+            
             log_info("Application hit the breakpoint %p", monitor_app.dsm.child.trpoints.breakpoints[i]);
 
             ret = scan_address_space(monitor_app.dsm.child.c_pid, &monitor_app.dsm.child.spaces);
@@ -455,7 +383,6 @@ int main(int argc, char *argv[]){
         unsigned long old_instructions;
 
         while(i <= LIMIT){
-            log_info("The value of i is %d !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", i);
 
             if(i == 17){
                 uint64_t heap_pages = 0x500000;
@@ -480,7 +407,7 @@ int main(int argc, char *argv[]){
             wait(&ret);
             
             clear_breakpoint(monitor_app.dsm.child.c_pid, address, old_instructions);
-            log_error("Application hit the breakpoint %p", address);
+            log_info("Application hit the breakpoint %p", address);
 
             ret = scan_address_space(monitor_app.dsm.child.c_pid, &monitor_app.dsm.child.spaces);
             if(ret < 0){

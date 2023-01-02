@@ -102,7 +102,10 @@ int update_child_data(pid_t pid, long long dst, char *src, size_t len)
 	for (i = 0; i < cnt; i++) {
 		memcpy(input.str, src+i*8, 8);
 		ret = ptrace(PTRACE_POKEDATA, pid, dst+i*8, input.val);
-		if (ret) log_error("%s error", __func__);
+		if (ret){ 
+			log_error("%s error %d", __func__, errno);
+			while(1);
+		}
 	}
 
 	return 0;

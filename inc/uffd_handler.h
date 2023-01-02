@@ -18,4 +18,8 @@ typedef struct uffd_thread_handler_t{
 }uffd_thread_handler;
 
 int start_uffd_thread_handler(uffd_thread_handler *uffd_hdl);
+int stop_uffd_thread_handler(uffd_thread_handler *uffd_hdl);
+
+int register_uffd(popsgx_child *child);
+int deregister_uffd(popsgx_child *child);
 #endif

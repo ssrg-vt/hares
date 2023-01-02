@@ -234,7 +234,7 @@ void msi_handle_remote_execution(msi_handler *msi, int sk, uint64_t *ret_addr){
 
     *ret_addr = remote_msg.payload.remote_request_message.instr_address;
 
-    log_error("The instruction address received is %p", remote_msg.payload.remote_request_message.instr_address);
+    log_info("The instruction address received is %p", remote_msg.payload.remote_request_message.instr_address);
     // pthread_mutex_lock(&msi->mutex);
     // msi->_can_request = true;
     // pthread_mutex_unlock(&msi->mutex);

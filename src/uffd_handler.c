@@ -19,6 +19,8 @@
 #include "../inc/uffd_handler.h"
 #include "../inc/compel_handler.h"
 
+#define log_info(args...) 
+
 #define NO_NEW_PAGEFAULT 			0xFF
 #define NEW_PAGEFAULT_READ  		0x00
 #define NEW_PAGEFAULT_WRITE 		UFFD_PAGEFAULT_FLAG_WRITE
@@ -75,10 +77,10 @@ static int handle_wprotect_pagefaults(long uffd, struct uffd_msg msg, popsgx_chi
 	struct uffdio_writeprotect uffdio_wp;
 	int ret = 0;
 
-    pthread_mutex_lock(&tracee->mutex);
-	ret = ptrace(PTRACE_ATTACH, tracee->c_pid, NULL, NULL);
-	log_info("return value is %d %d", ret, errno);
-	wait(NULL);
+    // pthread_mutex_lock(&tracee->mutex);
+	// ret = ptrace(PTRACE_ATTACH, tracee->c_pid, NULL, NULL);
+	// log_info("return value is %d %d", ret, errno);
+	// wait(NULL);
 
 	log_info("--");
 	uffdio_wp.range.start = tracee->spaces.space[i].address;
@@ -93,11 +95,11 @@ static int handle_wprotect_pagefaults(long uffd, struct uffd_msg msg, popsgx_chi
 	//ret = ptrace(PTRACE_SINGLESTEP, tracee->c_pid, NULL, NULL);
 	//wait(NULL);
 	
-	if(retrieve_victim_page_postwrite(tracee->c_pid, msg.arg.pagefault.address, page))
-	{
-		log_error("retrieve_victim_page_postwrite failed\n");
-		goto fail_handle_wprotect_pagefaults; 
-	}
+	// if(retrieve_victim_page_postwrite(tracee->c_pid, msg.arg.pagefault.address, page))
+	// {
+	// 	log_error("retrieve_victim_page_postwrite failed\n");
+	// 	goto fail_handle_wprotect_pagefaults; 
+	// }
 
 	
 	log_info("Setting the Write Protection of the page");
@@ -108,15 +110,15 @@ static int handle_wprotect_pagefaults(long uffd, struct uffd_msg msg, popsgx_chi
 	// 	goto fail_handle_wprotect_pagefaults;
 	// }
 
-	ptrace(PTRACE_DETACH, tracee->c_pid, NULL, NULL);
-	//wait(NULL);
-	pthread_mutex_unlock(&tracee->mutex);
+	// ptrace(PTRACE_DETACH, tracee->c_pid, NULL, NULL);
+	// //wait(NULL);
+	// pthread_mutex_unlock(&tracee->mutex);
 	
 	return 0;
 
 fail_handle_wprotect_pagefaults:
-	ptrace(PTRACE_DETACH, tracee->c_pid, NULL, NULL);
-    pthread_mutex_unlock(&tracee->mutex);
+	// ptrace(PTRACE_DETACH, tracee->c_pid, NULL, NULL);
+    // pthread_mutex_unlock(&tracee->mutex);
 	return -1;
 }
 
@@ -259,21 +261,21 @@ fault_handler_thread(void *arg)
 					log_info("entryx!!");
 					free(t);
 
-					int state;
-					state =  compel_stop_task(tracee->c_pid);
-    				if(ret < 0){
-        				log_error("Could not stop the victim for compel infection");
-    				}
+					// int state;
+					// state =  compel_stop_task(tracee->c_pid);
+    				// if(ret < 0){
+        			// 	log_error("Could not stop the victim for compel infection");
+    				// }
 
-					log_info("post compel stop task");
+					// log_info("post compel stop task");
 
-					ret = compel_remove_uffd(tracee, uffd[i], tracee->spaces.space[i].address, tracee->spaces.space[i].size);
-					if(ret){
-						log_error("failed to remove the uffd for the range 0x%lx", tracee->spaces.space[i].address);
-					}
+					// ret = compel_remove_uffd(tracee, uffd[i], tracee->spaces.space[i].address, tracee->spaces.space[i].size);
+					// if(ret){
+					// 	log_error("failed to remove the uffd for the range 0x%lx", tracee->spaces.space[i].address);
+					// }
 
-					compel_resume_task(tracee->c_pid, state, state);
-					log_info("exiting compel_resume_task");
+					// compel_resume_task(tracee->c_pid, state, state);
+					// log_info("exiting compel_resume_task");
 					
 					// log_info("%d", handler_arg->msi->_can_request);
 					// log_info("%d", handler_arg->sock_fd);
@@ -298,10 +300,57 @@ int start_uffd_thread_handler(uffd_thread_handler *uffd_hdl){
 
     rc = pthread_create(&uffd_hdl->thread, NULL, fault_handler_thread, (void*) &uffd_hdl->args);
     if (rc != 0) {
-		log_error("Could not create a dsm bus handler thread");
+		log_error("Could not create a uffd handler thread");
         goto out_fail;
 	}
 
 out_fail:
     return rc;
+}
+
+int stop_uffd_thread_handler(uffd_thread_handler *uffd_hdl){
+	int rc = 0;
+
+	rc = pthread_cancel(uffd_hdl->thread);
+	if(rc != 0){
+		log_error("Could not stop the uffd handler thread");
+		goto out_fail;
+	}
+
+out_fail:
+	return rc;
+
+}
+
+int register_uffd(popsgx_child *child){
+	int ret = 0;
+	for(int i = 0; i < child->spaces.size; i++){
+        log_info("Registering for the address 0x%lx", child->spaces.space[i].address);
+        if(child->spaces.space[i].address != 0x7ffff72ee000){
+            ret = compel_steal_uffd(child,                                             		\
+                                 &child->uffd[i],                                        	\
+                                 child->spaces.space[i].address,                         	\
+                                 child->spaces.space[i].size);                           
+            log_info("Registered uffd %d for the address 0x%lx", child->uffd[i],   		  	\
+                    							child->spaces.space[i].address);
+        }
+    }
+	return 0;
+}
+
+int deregister_uffd(popsgx_child *child){
+	int ret = 0;
+	for(int i = 0; i < child->spaces.size; i++){
+		if((child->spaces.space[i].address != 0x7ffff72ee000) && (child->uffd[i] != -1)){
+			ret = compel_remove_uffd(child,                                            		\
+									 child->uffd[i],                                     	\
+									 child->spaces.space[i].address,                     	\
+									 child->spaces.space[i].size);
+			log_info("Unregistered uffd %d for the address 0x%lx with size %d",          	\
+														child->uffd[i],                 	\
+														child->spaces.space[i].address,   	\
+														child->spaces.space[i].size);
+		}
+	}
+	return 0;
 }

@@ -5,6 +5,8 @@
 #include "../inc/log.h"
 #include "../inc/compel_handler.h"
 
+#define log_info(args...) 
+
 /* --------------------------------------------------------------------
  * Defines
  * -------------------------------------------------------------------*/
@@ -214,8 +216,6 @@ static int _compel_steal_fd(popsgx_child *tracee, compel_fd fd_type, void *fd,  
         log_error("Could not disinfect tracee");
     }
 
-    log_info("cleared");
-
 out_infection_fail:
     pthread_mutex_unlock(&tracee->mutex);
 out_fail:
@@ -259,17 +259,22 @@ int compel_remove_uffd(popsgx_child *tracee, void *fd, void* addr, int no_pages)
     }
 
     compel_arg = compel_parasite_args(cmpl_hdl.ctl,                                                         \
-                                  sizeof(int) +sizeof((unsigned long long)addr) + sizeof(no_pages));
+                                  sizeof(long) +sizeof((unsigned long long)addr) + sizeof(no_pages));
     log_info("The fd is %d", (int)fd);
-    compel_arg[0] = (int)fd;
+    compel_arg[0] = (long)fd;
     compel_arg[1] = (unsigned long long)addr;
     compel_arg[2] = no_pages;
 
-    if(compel_rpc_call_sync(PARASITE_CMD_REM_STDUFLT_FD, cmpl_hdl.ctl)){
+    if(compel_rpc_call(PARASITE_CMD_REM_STDUFLT_FD, cmpl_hdl.ctl)){
         log_error("compel_rpc_call_sync failed");
     }
 
-    if(compel_rpc_call_sync(PARASITE_CMD_REM_STDUFLT_FD, cmpl_hdl.ctl)){
+    compel_util_send_fd(cmpl_hdl.ctl, (long)fd);
+    log_info("compel_util_send_fd");
+    
+    close(fd);
+
+    if(compel_rpc_sync(PARASITE_CMD_REM_STDUFLT_FD, cmpl_hdl.ctl)){
         log_error("compel_rpc_call_sync failed");
     }
 
