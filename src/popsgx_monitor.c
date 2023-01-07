@@ -302,7 +302,7 @@ int main(int argc, char *argv[]){
 
         while(i <= LIMIT){
             int rc;
-            
+
             log_error("The i value is %d !!!!!!!!!!!!!!!!!!!!!!!", i);
 
             ret = scan_address_space(monitor_app.dsm.child.c_pid, &monitor_app.dsm.child.spaces);
@@ -329,12 +329,16 @@ int main(int argc, char *argv[]){
             }
 
             monitor_app.dsm.child.trpoints.old_instructions[i] = set_breakpoint(monitor_app.dsm.child.c_pid,    \
-                                                                 monitor_app.dsm.child.trpoints.breakpoints[i]);   
+                                                                 monitor_app.dsm.child.trpoints.breakpoints[i]);
+
             ptrace(PTRACE_CONT, monitor_app.dsm.child.c_pid, NULL, NULL);
             wait(&ret);
+            
             clear_breakpoint(monitor_app.dsm.child.c_pid,                                                       \
                              monitor_app.dsm.child.trpoints.breakpoints[i],                                     \
                              monitor_app.dsm.child.trpoints.old_instructions[i]);
+
+            log_info("Application hit the breakpoint %p", monitor_app.dsm.child.trpoints.breakpoints[i]);
 
             rc = stop_uffd_thread_handler(&monitor_app.uffd_hdl);
             if(rc){
@@ -345,8 +349,6 @@ int main(int argc, char *argv[]){
             //Deregistering for uffd
             ret = deregister_uffd(&monitor_app.dsm.child);
             
-            log_info("Application hit the breakpoint %p", monitor_app.dsm.child.trpoints.breakpoints[i]);
-
             ret = scan_address_space(monitor_app.dsm.child.c_pid, &monitor_app.dsm.child.spaces);
             if(ret < 0){
                 log_error("Could not scan the address space for read write permissions");
@@ -373,6 +375,8 @@ int main(int argc, char *argv[]){
             msi_handle_rec_regs(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, &monitor_app.dsm.msi.regs);
 
             i += 2;
+
+            log_error("End! %d", i - 2);
         }
 
     }else{
@@ -383,6 +387,8 @@ int main(int argc, char *argv[]){
         unsigned long old_instructions;
 
         while(i <= LIMIT){
+            
+            log_error("Starting2 !!!");
 
             if(i == 17){
                 uint64_t heap_pages = 0x500000;
@@ -426,6 +432,7 @@ int main(int argc, char *argv[]){
             //Grabbing and sending the child process registers to remote
             msi_handle_send_regs(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, &monitor_app.dsm.msi.regs);
             i += 2;
+            log_error("End2! %d", i-2);
         }
 
     }
