@@ -19,7 +19,7 @@
 #include "../inc/uffd_handler.h"
 #include "../inc/compel_handler.h"
 
-//#define log_info(args...) 
+#define log_info(args...) 
 
 #define NO_NEW_PAGEFAULT 			0xFF
 #define NEW_PAGEFAULT_READ  		0x00

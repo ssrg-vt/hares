@@ -1,6 +1,11 @@
 #ifndef __CHILD_HANDLER_H__
 #define __CHILD_HANDLER_H__
 
+typedef enum address_type_t{
+    STACK = 0,
+    HEAP,
+    ANONYMOUS
+}address_type;
 
 typedef struct child_tracepoints_t{
     unsigned long int *breakpoints;
@@ -12,6 +17,7 @@ typedef struct child_tracepoints_t{
 typedef struct child_address_space_t{
     unsigned long address;
     long size;
+    address_type type;
 }address_space;
 
 typedef struct child_address_spaces_t{
@@ -30,7 +36,8 @@ typedef struct popsgx_child_app_t{
     pthread_mutex_t mutex;
     tracepoints trpoints;
     address_spaces spaces;
-    address_spaces delta_spaces; 
+    address_spaces delta_spaces;
+    unsigned long heap_address; 
 } popsgx_child;
 
 #endif

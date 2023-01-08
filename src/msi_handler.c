@@ -280,14 +280,15 @@ msi_handle_write_fail:
     return ret;
 }
 
-int msi_handle_rec_vma(msi_handler *msi, int sk){
+int msi_handle_rec_vma(msi_handler *msi, int sk, bool is_delta){
     int ret = 0;
     struct msi_message vma_from_remote_msg;
     
     pthread_mutex_lock(&msi->mutex);
 
     ret = read(sk, &vma_from_remote_msg, sizeof(vma_from_remote_msg));
-    if(vma_from_remote_msg.message_type == VMA_FROM_REMOTE){
+    enum msi_message_type to_recieve_cmd = VMA_FROM_REMOTE;
+    if(vma_from_remote_msg.message_type == to_recieve_cmd){
         log_info("recieved the vma_from_remote");
         struct vma_header vma_hdr = vma_from_remote_msg.payload.vma_header_message;
         log_info("vma: %d", vma_hdr.no_vma);
@@ -320,6 +321,8 @@ int msi_handle_rec_vma(msi_handler *msi, int sk){
 
                 uint64_t vma_addr = vma_buffer_header_msg.payload.vma_buffer_message.vma_address;
                 uint64_t pages = vma_buffer_header_msg.payload.vma_buffer_message.size;
+                address_type type = vma_buffer_header_msg.payload.vma_buffer_message.type;
+
                 char *vma_buffer = malloc(sizeof(char) * (sysconf(_SC_PAGE_SIZE)) * pages);
 
                 //Reading pages in a vma
@@ -343,11 +346,27 @@ int msi_handle_rec_vma(msi_handler *msi, int sk){
                     log_info("sent the vma_buffer_ack");
                 }
 
-                //Now paste it onto the child process
-                pthread_mutex_lock(&msi->child.mutex);
-
-                ret = update_child_data(msi->child.c_pid, (void*)vma_addr, vma_buffer, (sysconf(_SC_PAGE_SIZE)) * pages);
-                pthread_mutex_unlock(&msi->child.mutex);
+               
+                if(!is_delta){
+                     //Now paste it onto the child process
+                    pthread_mutex_lock(&msi->child.mutex);
+                    ret = update_child_data(msi->child.c_pid, (void*)vma_addr, vma_buffer, (sysconf(_SC_PAGE_SIZE)) * pages);
+                    pthread_mutex_unlock(&msi->child.mutex);
+                }
+                else{
+                    if(type == HEAP){
+                            log_info("Correcting heap offset");
+                            uint64_t heap_pages = vma_addr + (pages * 4096);
+                            ret = compel_correct_heap_offset(&msi->child, heap_pages);
+                            if(ret){
+                                log_error("compel_correct_heap_offset failed");
+                            }
+                            log_info("Corrected heap offset");
+                    }else{
+                        while(1);
+                    }
+                }
+                
                 free(vma_buffer);
 
             }else{
@@ -442,7 +461,7 @@ msi_handle_reg_request_fail:
 
 }
 
-int msi_handle_send_vma(msi_handler *msi, int sk, address_spaces vmas){
+int msi_handle_send_vma(msi_handler *msi, int sk, address_spaces vmas, bool is_delta){
     struct msi_message vma_from_remote_msg;
     int ret = 0;
 
@@ -452,6 +471,7 @@ int msi_handle_send_vma(msi_handler *msi, int sk, address_spaces vmas){
     pthread_mutex_lock(&msi->mutex);
 
     log_info("Wrote VMA_FROM_REMOTE");
+
     ret = write(sk, &vma_from_remote_msg, sizeof(vma_from_remote_msg));
     if(ret <= 0){
         log_error("Bad write in MSI");
@@ -474,6 +494,7 @@ int msi_handle_send_vma(msi_handler *msi, int sk, address_spaces vmas){
         vma_buffer_header_msg.message_type = VMA_BUFFER_HEADER;
         vma_buffer_header_msg.payload.vma_buffer_message.vma_address = vmas.space[i].address;
         vma_buffer_header_msg.payload.vma_buffer_message.size = vmas.space[i].size;
+        vma_buffer_header_msg.payload.vma_buffer_message.type = vmas.space[i].type;
         ret = write(sk, &vma_buffer_header_msg, sizeof(vma_buffer_header_msg));
         if(ret <= 0){
             log_error("Bad write in MSI");

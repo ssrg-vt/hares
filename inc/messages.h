@@ -17,6 +17,8 @@ enum msi_message_type
 	REMOTE_REGS_REPLY,
 	VMA_FROM_REMOTE,
 	VMA_FROM_REMOTE_ACK,
+	DELTA_VMA_FROM_REMOTE,
+	DELTA_VMA_FROM_REMOTE_ACK,
 	VMA_BUFFER_HEADER,
 	VMA_BUFFER_HEADER_ACK,
 	VMA_BUFFER,
@@ -59,6 +61,7 @@ struct vma_page{
 struct vma_buffer_header{
 	uint64_t vma_address;
 	uint64_t size;
+	int type;
 };
 
 struct vma_header

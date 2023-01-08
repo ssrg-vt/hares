@@ -37,6 +37,7 @@ void _copy_address_spaces(address_spaces* dest, address_spaces *src){
     for(int i = 0; i < dest->size; i++){
         dest->space[i].address = src->space[i].address;
         dest->space[i].size = src->space[i].size;
+        dest->space[i].type = src->space[i].type;
     }
 }
 
@@ -87,11 +88,11 @@ int _add_new_or_extended_vma(address_spaces* curr_vma, address_spaces* delta_vma
                                        sizeof(address_space) * count);
             delta_vma->space[count - 1].address = curr_vma->space[i].address;
             delta_vma->space[count - 1].size = curr_vma->space[i].size;
+            delta_vma->space[count - 1].type = curr_vma->space[i].type;
 
             delta_vma->size++;
             delta_vma->nr_pages += curr_vma->space[i].size;
         }
-
     }
 
     log_info("New or extended VMA count : %d", count);
@@ -111,7 +112,6 @@ int _find_vma_delta(address_spaces* curr_vma, address_spaces* delta_vma){
 }
 
 
-
 int find_vma_delta(address_spaces* curr_vma, address_spaces* delta_vma){
     int ret = 0;
     
@@ -122,7 +122,7 @@ int find_vma_delta(address_spaces* curr_vma, address_spaces* delta_vma){
        vm_stat_snapshot.size     == empty_vm_stat_snapshot.size)
     {
         _copy_address_spaces(&vm_stat_snapshot, curr_vma);
-        _copy_address_spaces(delta_vma, curr_vma);
+        //_copy_address_spaces(delta_vma, curr_vma);
         
         goto find_vma_delta_exit;
     }
@@ -132,8 +132,8 @@ int find_vma_delta(address_spaces* curr_vma, address_spaces* delta_vma){
         log_info("delta vma size : %d", delta_vma->size);
         log_info("delta vma pages : %ld", delta_vma->nr_pages);
         for(int i = 0; i < ret; i++){
-            log_info("delta vma space address : %lx size : %ld",                        \
-                        delta_vma->space[i].address, delta_vma->space[i].size);
+            log_info("delta vma space address : %lx size : %ld type : %d",                        \
+                        delta_vma->space[i].address, delta_vma->space[i].size, delta_vma->space[i].type);
         }
     }
 
@@ -182,11 +182,13 @@ static int cnt_rw_address_space(FILE *fp){
  * @param child_pid 
  * @return int 
  */
-int scan_address_space(pid_t child_pid, address_spaces *spaces){
+int scan_address_space(popsgx_child child, address_spaces *spaces){
     int ret = 0;
     char file_name[50];
     char line[128];
     FILE *fp;
+    pid_t child_pid = child.c_pid;
+    unsigned long heap_address = child.heap_address;
     int read_write_addr_cnt = 0;
 
     ret = snprintf(file_name, 50, "/proc/%d/maps", child_pid);
@@ -228,6 +230,13 @@ int scan_address_space(pid_t child_pid, address_spaces *spaces){
                     unsigned long end_address;
                     char *ptr;
                     spaces->space[iter].address =  strtoul(line, &ptr, 16);
+
+                    if(spaces->space[iter].address == heap_address){
+                        spaces->space[iter].type = HEAP;
+                    }else{
+                        spaces->space[iter].type = ANONYMOUS;
+                    }
+
                     end_address = strtoul(ptr+1, NULL, 16);
                     spaces->space[iter].size =  (end_address - spaces->space[iter].address)/4096;
                     ret += spaces->space[iter].size;
@@ -248,4 +257,53 @@ int scan_address_space(pid_t child_pid, address_spaces *spaces){
 
     get_frame_fail:
         return ret;
+}
+
+/**
+ * @brief Get the stack frame address
+ * 
+ * @param tracee_pid 
+ * @param stack_start_address 
+ * @return int (size of the stack frame)
+ */
+int get_virtual_address_frame_by_name(pid_t tracee_pid, unsigned long *stack_start_address, char *frame){
+    int ret = 0;
+    char *sret;
+    FILE *fp;
+    char file_name[50];
+    char line[128];
+    unsigned long stack_end_address;
+
+    ret = snprintf(file_name, 50, "/proc/%d/maps", tracee_pid);
+    if(ret < 0){
+        log_error("failed in finding the maps file for the process %d", tracee_pid);
+        goto get_stack_frame_fail;
+    }
+
+    fp = fopen(file_name, "r");
+    if(!fp)
+        goto get_stack_frame_fail;
+    
+    while(fgets(line, sizeof(line), fp)){
+        sret = strstr(line, frame);
+        if(sret){
+            char *ptr;
+            *stack_start_address = strtoul(line, &ptr, 16);            
+            stack_end_address = strtoul(ptr+1, NULL, 16);
+            log_info("The starting address of the pid %d %s : %lx", tracee_pid, frame, *stack_start_address);
+            log_info("The ending address of the pid %d %s : %lx", tracee_pid, frame, stack_end_address);
+            ret = stack_end_address - *stack_start_address;
+            break;
+        }
+    }
+
+    if(!sret){
+        log_debug("Could not find the stack frame in the tracee proc map");
+        ret = -1;
+    }
+    
+    fclose(fp);
+
+get_stack_frame_fail:
+    return ret;
 }
