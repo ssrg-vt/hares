@@ -1,0 +1,67 @@
+003f5000-00400000 rw-p 00000000 08:03 2097454                            /home/abi/Drive/workspace/ssrg/open-enclave/user_sdk/openenclave/share/openenclave/samples/file-encryptor/host/file-encryptorhost
+00400000-00406000 r--p 0000b000 08:03 2097454                            /home/abi/Drive/workspace/ssrg/open-enclave/user_sdk/openenclave/share/openenclave/samples/file-encryptor/host/file-encryptorhost
+00406000-00484000 r-xp 00011000 08:03 2097454                            /home/abi/Drive/workspace/ssrg/open-enclave/user_sdk/openenclave/share/openenclave/samples/file-encryptor/host/file-encryptorhost
+00484000-00493000 r--p 0008f000 08:03 2097454                            /home/abi/Drive/workspace/ssrg/open-enclave/user_sdk/openenclave/share/openenclave/samples/file-encryptor/host/file-encryptorhost
+00494000-00495000 r--p 0009e000 08:03 2097454                            /home/abi/Drive/workspace/ssrg/open-enclave/user_sdk/openenclave/share/openenclave/samples/file-encryptor/host/file-encryptorhost
+00495000-00496000 rw-p 0009f000 08:03 2097454                            /home/abi/Drive/workspace/ssrg/open-enclave/user_sdk/openenclave/share/openenclave/samples/file-encryptor/host/file-encryptorhost
+00496000-004bc000 rw-p 00000000 00:00 0                                  [heap]
+7ffff72ee000-7ffff72f5000 rw-p 00000000 00:00 0 
+7ffff72f5000-7ffff72f6000 r--p 00000000 08:03 4332009                    /usr/local/lib/glibc-testing/lib/libpthread.so.0
+7ffff72f6000-7ffff72f7000 r-xp 00001000 08:03 4332009                    /usr/local/lib/glibc-testing/lib/libpthread.so.0
+7ffff72f7000-7ffff72f8000 r--p 00002000 08:03 4332009                    /usr/local/lib/glibc-testing/lib/libpthread.so.0
+7ffff72f8000-7ffff72f9000 r--p 00002000 08:03 4332009                    /usr/local/lib/glibc-testing/lib/libpthread.so.0
+7ffff72f9000-7ffff72fa000 rw-p 00003000 08:03 4332009                    /usr/local/lib/glibc-testing/lib/libpthread.so.0
+7ffff72fa000-7ffff72fb000 r--p 00000000 08:03 4332000                    /usr/local/lib/glibc-testing/lib/libdl.so.2
+7ffff72fb000-7ffff72fc000 r-xp 00001000 08:03 4332000                    /usr/local/lib/glibc-testing/lib/libdl.so.2
+7ffff72fc000-7ffff72fd000 r--p 00002000 08:03 4332000                    /usr/local/lib/glibc-testing/lib/libdl.so.2
+7ffff72fd000-7ffff72fe000 r--p 00002000 08:03 4332000                    /usr/local/lib/glibc-testing/lib/libdl.so.2
+7ffff72fe000-7ffff72ff000 rw-p 00003000 08:03 4332000                    /usr/local/lib/glibc-testing/lib/libdl.so.2
+7ffff72ff000-7ffff73b1000 r--p 00000000 08:03 4334295                    /usr/local/lib/glibc-testing/lib/libcrypto.so.3
+7ffff73b1000-7ffff760e000 r-xp 000b2000 08:03 4334295                    /usr/local/lib/glibc-testing/lib/libcrypto.so.3
+7ffff760e000-7ffff76e0000 r--p 0030f000 08:03 4334295                    /usr/local/lib/glibc-testing/lib/libcrypto.so.3
+7ffff76e0000-7ffff773b000 r--p 003e0000 08:03 4334295                    /usr/local/lib/glibc-testing/lib/libcrypto.so.3
+7ffff773b000-7ffff773e000 rw-p 0043b000 08:03 4334295                    /usr/local/lib/glibc-testing/lib/libcrypto.so.3
+7ffff773e000-7ffff7741000 rw-p 00000000 00:00 0 
+7ffff7741000-7ffff7763000 r--p 00000000 08:03 4332210                    /usr/local/lib/glibc-testing/lib/libc.so.6
+7ffff7763000-7ffff78b2000 r-xp 00022000 08:03 4332210                    /usr/local/lib/glibc-testing/lib/libc.so.6
+7ffff78b2000-7ffff7907000 r--p 00171000 08:03 4332210                    /usr/local/lib/glibc-testing/lib/libc.so.6
+7ffff7907000-7ffff790b000 r--p 001c5000 08:03 4332210                    /usr/local/lib/glibc-testing/lib/libc.so.6
+7ffff790b000-7ffff790d000 rw-p 001c9000 08:03 4332210                    /usr/local/lib/glibc-testing/lib/libc.so.6
+7ffff790d000-7ffff791c000 rw-p 00000000 00:00 0 
+7ffff791c000-7ffff791f000 r--p 00000000 08:03 4334301                    /usr/local/lib/glibc-testing/lib/libgcc_s.so.1
+7ffff791f000-7ffff7936000 r-xp 00003000 08:03 4334301                    /usr/local/lib/glibc-testing/lib/libgcc_s.so.1
+7ffff7936000-7ffff793a000 r--p 0001a000 08:03 4334301                    /usr/local/lib/glibc-testing/lib/libgcc_s.so.1
+7ffff793a000-7ffff793b000 r--p 0001d000 08:03 4334301                    /usr/local/lib/glibc-testing/lib/libgcc_s.so.1
+7ffff793b000-7ffff793c000 rw-p 0001e000 08:03 4334301                    /usr/local/lib/glibc-testing/lib/libgcc_s.so.1
+7ffff793c000-7ffff794a000 r--p 00000000 08:03 4331976                    /usr/local/lib/glibc-testing/lib/libm.so.6
+7ffff794a000-7ffff79bd000 r-xp 0000e000 08:03 4331976                    /usr/local/lib/glibc-testing/lib/libm.so.6
+7ffff79bd000-7ffff7a18000 r--p 00081000 08:03 4331976                    /usr/local/lib/glibc-testing/lib/libm.so.6
+7ffff7a18000-7ffff7a19000 r--p 000db000 08:03 4331976                    /usr/local/lib/glibc-testing/lib/libm.so.6
+7ffff7a19000-7ffff7a1a000 rw-p 000dc000 08:03 4331976                    /usr/local/lib/glibc-testing/lib/libm.so.6
+7ffff7a1a000-7ffff7ab4000 r--p 00000000 08:03 4334299                    /usr/local/lib/glibc-testing/lib/libstdc++.so.6
+7ffff7ab4000-7ffff7bc5000 r-xp 0009a000 08:03 4334299                    /usr/local/lib/glibc-testing/lib/libstdc++.so.6
+7ffff7bc5000-7ffff7c35000 r--p 001ab000 08:03 4334299                    /usr/local/lib/glibc-testing/lib/libstdc++.so.6
+7ffff7c35000-7ffff7c40000 r--p 0021a000 08:03 4334299                    /usr/local/lib/glibc-testing/lib/libstdc++.so.6
+7ffff7c40000-7ffff7c43000 rw-p 00225000 08:03 4334299                    /usr/local/lib/glibc-testing/lib/libstdc++.so.6
+7ffff7c43000-7ffff7c46000 rw-p 00000000 00:00 0 
+7ffff7c46000-7ffff7cbe000 r--p 00000000 08:03 4334294                    /usr/local/lib/glibc-testing/lib/libcrypto.so.1.1
+7ffff7cbe000-7ffff7e59000 r-xp 00078000 08:03 4334294                    /usr/local/lib/glibc-testing/lib/libcrypto.so.1.1
+7ffff7e59000-7ffff7eea000 r--p 00213000 08:03 4334294                    /usr/local/lib/glibc-testing/lib/libcrypto.so.1.1
+7ffff7eea000-7ffff7f16000 r--p 002a3000 08:03 4334294                    /usr/local/lib/glibc-testing/lib/libcrypto.so.1.1
+7ffff7f16000-7ffff7f18000 rw-p 002cf000 08:03 4334294                    /usr/local/lib/glibc-testing/lib/libcrypto.so.1.1
+7ffff7f18000-7ffff7f1c000 rw-p 00000000 00:00 0 
+7ffff7f1c000-7ffff7f3a000 r--p 00000000 08:03 4334289                    /usr/local/lib/glibc-testing/lib/libssl.so.3
+7ffff7f3a000-7ffff7f95000 r-xp 0001e000 08:03 4334289                    /usr/local/lib/glibc-testing/lib/libssl.so.3
+7ffff7f95000-7ffff7fb2000 r--p 00079000 08:03 4334289                    /usr/local/lib/glibc-testing/lib/libssl.so.3
+7ffff7fb2000-7ffff7fbc000 r--p 00095000 08:03 4334289                    /usr/local/lib/glibc-testing/lib/libssl.so.3
+7ffff7fbc000-7ffff7fc0000 rw-p 0009f000 08:03 4334289                    /usr/local/lib/glibc-testing/lib/libssl.so.3
+7ffff7fc1000-7ffff7fc3000 rw-p 00000000 00:00 0 
+7ffff7fc3000-7ffff7fc7000 r--p 00000000 00:00 0                          [vvar]
+7ffff7fc7000-7ffff7fc9000 r-xp 00000000 00:00 0                          [vdso]
+7ffff7fc9000-7ffff7fca000 r--p 00000000 08:03 4332161                    /usr/local/lib/glibc-testing/lib/ld-linux-x86-64.so.2
+7ffff7fca000-7ffff7ff0000 r-xp 00001000 08:03 4332161                    /usr/local/lib/glibc-testing/lib/ld-linux-x86-64.so.2
+7ffff7ff0000-7ffff7ffb000 r--p 00027000 08:03 4332161                    /usr/local/lib/glibc-testing/lib/ld-linux-x86-64.so.2
+7ffff7ffb000-7ffff7ffd000 r--p 00031000 08:03 4332161                    /usr/local/lib/glibc-testing/lib/ld-linux-x86-64.so.2
+7ffff7ffd000-7ffff7fff000 rw-p 00033000 08:03 4332161                    /usr/local/lib/glibc-testing/lib/ld-linux-x86-64.so.2
+7ffffffde000-7ffffffff000 rw-p 00000000 00:00 0                          [stack]
+ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]
