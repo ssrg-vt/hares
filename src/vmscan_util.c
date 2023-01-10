@@ -18,6 +18,14 @@ void _empty_address_space(address_spaces* addr){
     addr->nr_pages = 0;
 }
 
+void empty_address_space(address_spaces* addr){
+    
+    if(addr == NULL)
+        return;
+
+    _empty_address_space(addr);
+}
+
 
 /**
  * @brief This function copies the src onto the dest. furthermore,
@@ -188,7 +196,7 @@ int scan_address_space(popsgx_child child, address_spaces *spaces){
     char line[128];
     FILE *fp;
     pid_t child_pid = child.c_pid;
-    unsigned long heap_address = child.heap_address;
+    unsigned long heap_address = child.heap_start_address;
     int read_write_addr_cnt = 0;
 
     ret = snprintf(file_name, 50, "/proc/%d/maps", child_pid);
@@ -221,6 +229,7 @@ int scan_address_space(popsgx_child child, address_spaces *spaces){
     int iter = 0;
     while(fgets(line, sizeof(line), fp)){
         //log_info("%s", line);
+        bool is_set = false;
         char * token = strtok(line, " ");
         int i = 0;
         while(token != NULL){
@@ -242,10 +251,27 @@ int scan_address_space(popsgx_child child, address_spaces *spaces){
                     ret += spaces->space[iter].size;
                     log_info("Found rw address at 0x%lx with a size %ld",                               \
                               spaces->space[iter].address, spaces->space[iter].size);
-                    iter++;
+                    is_set = true;
                 }
-                break;
+                //break;
             }
+
+            if(is_set)
+                if(i == 5){
+                    if(strstr(token, "[heap]") != NULL){
+                        spaces->space[iter].type = HEAP;
+                    }else if(strstr(token, "[stack]") != NULL){
+                        spaces->space[iter].type = STACK;
+                    }else if(strlen(token) == 1){
+                        //String length of anonymous mapping would always be 1
+                        spaces->space[iter].type = ANONYMOUS;
+                    }else{
+                        spaces->space[iter].type = FILE_BACKED;
+                    }
+                    iter++;
+                    break;
+                }
+                
             token = strtok(NULL, " ");
             i++;
         }
@@ -266,7 +292,7 @@ int scan_address_space(popsgx_child child, address_spaces *spaces){
  * @param stack_start_address 
  * @return int (size of the stack frame)
  */
-int get_virtual_address_frame_by_name(pid_t tracee_pid, unsigned long *stack_start_address, char *frame){
+int get_virtual_address_frame_by_name(pid_t tracee_pid, unsigned long *start_address, unsigned long *end_address, char *frame){
     int ret = 0;
     char *sret;
     FILE *fp;
@@ -288,11 +314,12 @@ int get_virtual_address_frame_by_name(pid_t tracee_pid, unsigned long *stack_sta
         sret = strstr(line, frame);
         if(sret){
             char *ptr;
-            *stack_start_address = strtoul(line, &ptr, 16);            
+            *start_address = strtoul(line, &ptr, 16);            
             stack_end_address = strtoul(ptr+1, NULL, 16);
-            log_info("The starting address of the pid %d %s : %lx", tracee_pid, frame, *stack_start_address);
+            log_info("The starting address of the pid %d %s : %lx", tracee_pid, frame, *start_address);
             log_info("The ending address of the pid %d %s : %lx", tracee_pid, frame, stack_end_address);
-            ret = stack_end_address - *stack_start_address;
+            ret = stack_end_address - *start_address;
+            *end_address = stack_end_address;
             break;
         }
     }

@@ -348,22 +348,38 @@ int msi_handle_rec_vma(msi_handler *msi, int sk, bool is_delta){
 
                
                 if(!is_delta){
-                     //Now paste it onto the child process
-                    pthread_mutex_lock(&msi->child.mutex);
-                    ret = update_child_data(msi->child.c_pid, (void*)vma_addr, vma_buffer, (sysconf(_SC_PAGE_SIZE)) * pages);
-                    pthread_mutex_unlock(&msi->child.mutex);
-                }
-                else{
+                    //Now paste it onto the child process
                     if(type == HEAP){
-                            log_info("Correcting heap offset");
+                        if(msi->child.heap_end_address != (vma_addr + (pages * 4096))){
                             uint64_t heap_pages = vma_addr + (pages * 4096);
                             ret = compel_correct_heap_offset(&msi->child, heap_pages);
                             if(ret){
                                 log_error("compel_correct_heap_offset failed");
                             }
                             log_info("Corrected heap offset");
+                        }
+                    }
+
+                    pthread_mutex_lock(&msi->child.mutex);
+                    ret = update_child_data(msi->child.c_pid, (void*)vma_addr, vma_buffer, (sysconf(_SC_PAGE_SIZE)) * pages);
+                    pthread_mutex_unlock(&msi->child.mutex);
+                }
+                else{
+                    if(type == HEAP){
+                        log_info("Correcting heap offset");
+                        uint64_t heap_pages = vma_addr + (pages * 4096);
+                        ret = compel_correct_heap_offset(&msi->child, heap_pages);
+                        if(ret){
+                            log_error("compel_correct_heap_offset failed");
+                        }
+                        log_info("Corrected heap offset");
                     }else{
-                        while(1);
+                        log_info("Creating a new vma to sync with remote");
+                        ret = compel_create_new_map(&msi->child, vma_addr, pages);
+                        if(ret){
+                            log_error("compel_create_new_map failed");
+                        }   
+                        log_info("Created a new vma");
                     }
                 }
                 

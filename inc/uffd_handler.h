@@ -10,6 +10,7 @@ typedef struct uffd_thread_args_t{
     int sock_fd;
     popsgx_child *child;
     msi_handler *msi;
+    address_spaces *faulting_spaces;
 }uffd_thread_args;
 
 typedef struct uffd_thread_handler_t{

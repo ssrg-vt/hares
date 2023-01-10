@@ -4,7 +4,8 @@
 typedef enum address_type_t{
     STACK = 0,
     HEAP,
-    ANONYMOUS
+    ANONYMOUS, 
+    FILE_BACKED
 }address_type;
 
 typedef struct child_tracepoints_t{
@@ -37,7 +38,8 @@ typedef struct popsgx_child_app_t{
     tracepoints trpoints;
     address_spaces spaces;
     address_spaces delta_spaces;
-    unsigned long heap_address; 
+    unsigned long heap_start_address;
+    unsigned long heap_end_address;  
 } popsgx_child;
 
 #endif

@@ -30,37 +30,6 @@
 
 pid_t victimPid = -1;
 
-/**
-  * @brief It peeks the page using ptrace
-  * 
-  * @param victim_pid 
-  * @param address 
-  * @param page 
-  * @return int 
-  */
-static int retrieve_victim_page_postwrite(pid_t victim_pid, __u64 address, char *page){
-   	int err;
-
-   	err = get_child_data(victim_pid, page, (void*)address, (sysconf(_SC_PAGE_SIZE)));
-   	if(err)
-   	    return err;
-
-
-    // for(int i = 0; i < sysconf(_SC_PAGE_SIZE); i += 8){
-    //     fprintf(stderr, "The stolen value from %p is ", address + i);
-    //     fprintf(stderr, "%c ", *((char*)(page+i)));
-    //     fprintf(stderr, "%c ", *((char*)(page+i+1)));
-    //     fprintf(stderr, "%c ", *((char*)(page+i+2)));
-    //     fprintf(stderr, "%c ", *((char*)(page+i+3)));
-    //     fprintf(stderr, "%c ", *((char*)(page+i+4)));
-    //     fprintf(stderr, "%c ", *((char*)(page+i+5)));
-    //     fprintf(stderr, "%c ", *((char*)(page+i+6)));
-    //     fprintf(stderr, "%c\n", *((char*)(page+i+7)));
-    // }
-
-	return 0;
-}
-
  /**
   * @brief It handles the pagefaults that are caused by a write operation and 
   *        make the page write unprotected and take a snapshot of the page in the next instruction,
@@ -72,17 +41,11 @@ static int retrieve_victim_page_postwrite(pid_t victim_pid, __u64 address, char 
   * @param page 
   * @return int 
   */
-static int handle_wprotect_pagefaults(long uffd, struct uffd_msg msg, popsgx_child *tracee, char *page, int i)
+static int handle_wprotect_pagefaults(long uffd, struct uffd_msg msg, popsgx_child *tracee, int i)
 {
 	struct uffdio_writeprotect uffdio_wp;
 	int ret = 0;
 
-    // pthread_mutex_lock(&tracee->mutex);
-	// ret = ptrace(PTRACE_ATTACH, tracee->c_pid, NULL, NULL);
-	// log_info("return value is %d %d", ret, errno);
-	// wait(NULL);
-
-	log_info("--");
 	uffdio_wp.range.start = tracee->spaces.space[i].address;
  	uffdio_wp.range.len = sysconf(_SC_PAGE_SIZE) * tracee->spaces.space[i].size;
  	uffdio_wp.mode = 0;
@@ -91,34 +54,9 @@ static int handle_wprotect_pagefaults(long uffd, struct uffd_msg msg, popsgx_chi
 		goto fail_handle_wprotect_pagefaults;
 	} 
 
-	log_info("xxxxxxx");
-	//ret = ptrace(PTRACE_SINGLESTEP, tracee->c_pid, NULL, NULL);
-	//wait(NULL);
-	
-	// if(retrieve_victim_page_postwrite(tracee->c_pid, msg.arg.pagefault.address, page))
-	// {
-	// 	log_error("retrieve_victim_page_postwrite failed\n");
-	// 	goto fail_handle_wprotect_pagefaults; 
-	// }
-
-	
-	log_info("Setting the Write Protection of the page");
-	// uffdio_wp.mode = UFFDIO_WRITEPROTECT_MODE_WP;
- 	// if (ioctl(uffd, UFFDIO_WRITEPROTECT, &uffdio_wp) == -1)
-	// { 
-   	// 	log_error("ioctl-UFFDIO_WRITEPROTECT");
-	// 	goto fail_handle_wprotect_pagefaults;
-	// }
-
-	// ptrace(PTRACE_DETACH, tracee->c_pid, NULL, NULL);
-	// //wait(NULL);
-	// pthread_mutex_unlock(&tracee->mutex);
-	
 	return 0;
 
 fail_handle_wprotect_pagefaults:
-	// ptrace(PTRACE_DETACH, tracee->c_pid, NULL, NULL);
-    // pthread_mutex_unlock(&tracee->mutex);
 	return -1;
 }
 
@@ -141,10 +79,8 @@ static uint8_t handle_rw_pagefault(long uffd, struct uffd_msg msg, char *page, m
 	  (msg.arg.pagefault.flags == NEW_PAGEFAULT_READ))
 	{
 		log_info("new read protection fault");
-		//msi_request_page(msi, sk, page, (void*)msg.arg.pagefault.address, msg.arg.pagefault.flags);
         memset(page, '0', PAGE_SIZE);
 		new_pagefault_type = NEW_PAGEFAULT_READ;
-		//get_child_data(victimPid, page, msg.arg.pagefault.address, 4096);
 	}
 
 	//New pagefault due to write
@@ -164,7 +100,8 @@ static uint8_t handle_rw_pagefault(long uffd, struct uffd_msg msg, char *page, m
 		new_pagefault_type = PAGEFAULT_WRITE_PROTECTION;
 	}
 
-	if((new_pagefault_type == NEW_PAGEFAULT_READ) || (new_pagefault_type == NEW_PAGEFAULT_WRITE)){
+	if((new_pagefault_type == NEW_PAGEFAULT_READ) || 										\
+	   (new_pagefault_type == NEW_PAGEFAULT_WRITE)){
 		uffdio_copy.src = (unsigned long) page;
 		uffdio_copy.dst = (unsigned long) msg.arg.pagefault.address &
 			~(sysconf(_SC_PAGE_SIZE)- 1);
@@ -186,8 +123,7 @@ static uint8_t handle_rw_pagefault(long uffd, struct uffd_msg msg, char *page, m
  *
  * @return
  */
-void *
-fault_handler_thread(void *arg)
+void *fault_handler_thread(void *arg)
 {
 	static struct uffd_msg msg;   /* Data read from userfaultfd */
 	uffd_thread_args* handler_arg = (struct uffd_thread_args*)arg;
@@ -199,11 +135,14 @@ fault_handler_thread(void *arg)
 	ssize_t nread;
 	int ret = 0;
 
+	address_spaces *faulting_spaces = handler_arg->faulting_spaces;
+	empty_address_space(faulting_spaces);
 	victimPid = tracee->c_pid;
 
 	uffd = tracee->uffd;
 	no_uffd = tracee->uffd_no;
-	page = mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_ANON|MAP_PRIVATE, -1, 0);
+	page = mmap(NULL, sysconf(_SC_PAGESIZE), 												\
+							  PROT_READ|PROT_WRITE, MAP_ANON|MAP_PRIVATE, -1, 0);
     if(page == MAP_FAILED){
         errExit("Memory map failed");
     }
@@ -238,50 +177,39 @@ fault_handler_thread(void *arg)
 					exit(EXIT_FAILURE);
 				}
 
-				log_info("UFFD_EVENT_PAGEFAULT event: ");
-				log_info("flags = %llx; ", msg.arg.pagefault.flags);
-				log_info("address = %llx", msg.arg.pagefault.address);
+				log_debug("UFFD_EVENT_PAGEFAULT event: ");
+				log_debug("flags = %llx; ", msg.arg.pagefault.flags);
+				log_debug("address = %llx", msg.arg.pagefault.address);
 
 				//Check if we need to handle new page-faults
-				uint8_t pagefault_type = handle_rw_pagefault(uffd[i], msg, page, handler_arg->msi, handler_arg->sock_fd);
+				uint8_t pagefault_type = handle_rw_pagefault(uffd[i], 						\
+															 msg, 							\
+															 page, 							\
+															 handler_arg->msi, 				\
+															 handler_arg->sock_fd);
 				if(pagefault_type != NO_NEW_PAGEFAULT){
 					log_info("New pagefault type is %d", pagefault_type);
 					log_info("Handled new pagefault");
 				}
 
-				if(pagefault_type == NEW_PAGEFAULT_WRITE || pagefault_type == PAGEFAULT_WRITE_PROTECTION){
-					log_info("entry!!");
-					void *t = malloc(sysconf(_SC_PAGE_SIZE));
-					log_info("entrys!!");
-					if(handle_wprotect_pagefaults(uffd[i], msg, tracee, t, i)){
+				if(pagefault_type == NEW_PAGEFAULT_WRITE || 								\
+				   pagefault_type == PAGEFAULT_WRITE_PROTECTION){
+					
+					//Filling up the faulting address
+					log_info("Found a faulting address space");
+					faulting_spaces->size += 1;
+					faulting_spaces->space = realloc(faulting_spaces->space, 				\
+													 sizeof(address_space) * 				\
+													 faulting_spaces->size);
+					faulting_spaces->space[faulting_spaces->size - 1].address = 			\
+													tracee->spaces.space[i].address;
+					faulting_spaces->space[faulting_spaces->size - 1].size = 				\
+													tracee->spaces.space[i].size;
+					faulting_spaces->nr_pages += tracee->spaces.space[i].size;
+
+					if(handle_wprotect_pagefaults(uffd[i], msg, tracee, i)){
 						log_error("Erros in handling write-protect pagefaults");
 					}
-					log_info("entryx!!");
-					free(t);
-
-					// int state;
-					// state =  compel_stop_task(tracee->c_pid);
-    				// if(ret < 0){
-        			// 	log_error("Could not stop the victim for compel infection");
-    				// }
-
-					// log_info("post compel stop task");
-
-					// ret = compel_remove_uffd(tracee, uffd[i], tracee->spaces.space[i].address, tracee->spaces.space[i].size);
-					// if(ret){
-					// 	log_error("failed to remove the uffd for the range 0x%lx", tracee->spaces.space[i].address);
-					// }
-
-					// compel_resume_task(tracee->c_pid, state, state);
-					// log_info("exiting compel_resume_task");
-					
-					// log_info("%d", handler_arg->msi->_can_request);
-					// log_info("%d", handler_arg->sock_fd);
-					// log_info("%p", msg.arg.pagefault.address);
-					// log_info("%c ", *((char*)(t)));
-					//msi_handle_write_command(handler_arg->msi ,handler_arg->sock_fd, msg.arg.pagefault.address, t, sysconf(_SC_PAGE_SIZE));
-
-					//log_info("[%p]PAGEFAULT", (void *)msg.arg.pagefault.address);
 				}
 			}
 		}
@@ -296,7 +224,9 @@ int start_uffd_thread_handler(uffd_thread_handler *uffd_hdl){
 		goto out_fail;
     }
 
-    rc = pthread_create(&uffd_hdl->thread, NULL, fault_handler_thread, (void*) &uffd_hdl->args);
+    rc = pthread_create(&uffd_hdl->thread, NULL, 											\
+						fault_handler_thread, 												\
+						(void*) &uffd_hdl->args);
     if (rc != 0) {
 		log_error("Could not create a uffd handler thread");
         goto out_fail;
@@ -324,7 +254,9 @@ int register_uffd(popsgx_child *child){
 	int ret = 0;
 	for(int i = 0; i < child->spaces.size; i++){
         log_info("Registering for the address 0x%lx", child->spaces.space[i].address);
-        if(child->spaces.space[i].address != 0x7ffff72ee000){
+        if(child->spaces.space[i].address != 0x7ffff72ee000 &&								\
+		   child->spaces.space[i].type != FILE_BACKED){
+        //if(child->spaces.space[i].address != 0x7ffff75b4000){
             ret = compel_steal_uffd(child,                                             		\
                                  &child->uffd[i],                                        	\
                                  child->spaces.space[i].address,                         	\
@@ -339,7 +271,9 @@ int register_uffd(popsgx_child *child){
 int deregister_uffd(popsgx_child *child){
 	int ret = 0;
 	for(int i = 0; i < child->spaces.size; i++){
-		if((child->spaces.space[i].address != 0x7ffff72ee000) && (child->uffd[i] != -1)){
+		if((child->spaces.space[i].address != 0x7ffff72ee000) && 							\
+			(child->uffd[i] != -1) && child->spaces.space[i].type != FILE_BACKED){
+		//if((child->spaces.space[i].address != 0x7ffff75b4000) && (child->uffd[i] != -1)){
 			ret = compel_remove_uffd(child,                                            		\
 									 child->uffd[i],                                     	\
 									 child->spaces.space[i].address,                     	\

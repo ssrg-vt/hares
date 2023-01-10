@@ -28,6 +28,17 @@ extern char* __progname;
 // Starting address for the buffer 
 #define BUFFER_ADDRESS 0x10000
 
+#define FILEENCRYPT 1
+
+// Helloworld main function address
+#ifdef HELLOWORLD
+#define MAIN 0x43fd70
+#elif FILEENCRYPT
+#define MAIN 0x40a790
+#elif SWITCHLESS
+#define MAIN 0x444cf0
+#endif
+
 
 /**
  * @brief Printing the help message
@@ -103,8 +114,20 @@ static int execute_tracee_app(popsgx_child *tracee){
             return;
         }
 
+#ifdef HELLOWORLD
+        char *user_args[] = {"host/helloworldhost", "./enclave/helloworldenc.signed",       \
+                             "--simulate", NULL};
+#elif FILEENCRYPT
         char *user_args[] = {"./host/file-encryptorhost", "testfile",  "./enclave/file-encryptorenc.signed",       \
                              "--simulate", NULL};
+#elif SWITCHLESS
+        char *user_args[] = {"host/switchlesshost", "./enclave/switchlessenc.signed",       \
+                             "--simulate", NULL};
+#elif PLUGGABLEALLOCATOR
+        char *user_args[] = {"./host/allocator_demo_host", "./enclave/enclave_default.signed",  "./enclave/enclave_custom.signed",   \
+                             "--simulate", NULL};
+#endif
+
         execve(user_args[0], user_args, NULL);
         // Should not execute the below line
         log_error("Failed on execl of the tracee with error %s", strerror(errno));
@@ -223,7 +246,7 @@ int main(int argc, char *argv[]){
         log_error("failed to execute the tracee app");
         goto out_fail; 
     }
-    wait_child_main(monitor_app.dsm.child.c_pid, 0x40a790);
+    wait_child_main(monitor_app.dsm.child.c_pid, MAIN);
 
     
     //This gets resumed when we steal uffd
@@ -234,11 +257,11 @@ int main(int argc, char *argv[]){
     }
 
     //uint64_t heap_pages = 0x4de000;
-    uint64_t heap_pages = 0x4de000;
-    ret = compel_correct_heap_offset(&monitor_app.dsm.child, heap_pages);
-    if(ret){
-        log_error("compel_correct_heap_offset failed");
-    }
+    // uint64_t heap_pages = 0x4de000;
+    // ret = compel_correct_heap_offset(&monitor_app.dsm.child, heap_pages);
+    // if(ret){
+    //     log_error("compel_correct_heap_offset failed");
+    // }
     
     
     //Needed the child process id in the msi
@@ -257,7 +280,7 @@ int main(int argc, char *argv[]){
     }
     
     //Grabbing the heap address
-    get_virtual_address_frame_by_name(monitor_app.dsm.child.c_pid, &monitor_app.dsm.child.heap_address, "[heap]");
+    get_virtual_address_frame_by_name(monitor_app.dsm.child.c_pid, &monitor_app.dsm.child.heap_start_address, &monitor_app.dsm.child.heap_end_address, "[heap]");
 
     //setting up the breakpoints
     monitor_app.dsm.child.trpoints.size = 40;
@@ -265,6 +288,22 @@ int main(int argc, char *argv[]){
                                                         monitor_app.dsm.child.trpoints.size);
     monitor_app.dsm.child.trpoints.old_instructions = malloc(sizeof(unsigned long int) *                             \
                                                              monitor_app.dsm.child.trpoints.size);
+    
+    
+
+#ifdef HELLOWORLD
+
+    //Hello world
+    monitor_app.dsm.child.trpoints.breakpoints[0] = 0x43fff6;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x43fffb;
+    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x4400e6;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x4400eb;
+    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x440278;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x44027d;
+    #define LIMIT 5
+
+#elif FILEENCRYPT
+    //file encryption
     monitor_app.dsm.child.trpoints.breakpoints[0] = 0x40aaef;
     monitor_app.dsm.child.trpoints.breakpoints[1] = 0x40aaf4;
     monitor_app.dsm.child.trpoints.breakpoints[2] = 0x4090ff;
@@ -282,8 +321,33 @@ int main(int argc, char *argv[]){
     monitor_app.dsm.child.trpoints.breakpoints[13] = 0x40a664;
     monitor_app.dsm.child.trpoints.breakpoints[14] = 0x40b982;
     monitor_app.dsm.child.trpoints.breakpoints[15] = 0x40b987;
-
     #define LIMIT 15
+
+#elif SWITCHLESS
+    monitor_app.dsm.child.trpoints.breakpoints[0] = 0x444f5c;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x444f61;
+    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x445064;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x445069;
+    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x445241;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x445246;
+    monitor_app.dsm.child.trpoints.breakpoints[6] = 0x44544a;
+    monitor_app.dsm.child.trpoints.breakpoints[7] = 0x44544f;
+    monitor_app.dsm.child.trpoints.breakpoints[8] = 0x4456ae;
+    monitor_app.dsm.child.trpoints.breakpoints[9] = 0x4456b3;
+    monitor_app.dsm.child.trpoints.breakpoints[10] = 0x4458b4;
+    monitor_app.dsm.child.trpoints.breakpoints[11] = 0x4458b9;
+    #define LIMIT 11
+
+#elif PLUGGABLEALLOCATOR
+    monitor_app.dsm.child.trpoints.breakpoints[0] = 0x43c5b6;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x43c5bb;
+    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x43d920;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x43d925;
+    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x446d4c;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x446d4c;
+    monitor_app.dsm.child.trpoints.breakpoints[6] = 0x446d52;
+    #define LIMIT 6
+#endif
 
     if(monitor_app.mode == SERVER){
         for(int i = 0; i <= LIMIT ; i = i + 2){
@@ -300,6 +364,32 @@ int main(int argc, char *argv[]){
             int index = -1;
             int delta = 0;
 
+            // ret = scan_address_space(monitor_app.dsm.child, &monitor_app.dsm.child.spaces);
+            // if(ret < 0){
+            //     log_error("Could not scan the address space for read write permissions");
+            //     goto out_stop_fail;
+            // }else{
+            //     log_info("Overall size of the rw pages are %ld", ret);
+            // }
+
+            // //uffd logic
+            // monitor_app.dsm.child.uffd = realloc( monitor_app.dsm.child.uffd, sizeof(int) * monitor_app.dsm.child.spaces.size);
+            // monitor_app.dsm.child.uffd_no = monitor_app.dsm.child.spaces.size;
+            
+            // //Registering for uffd
+            // ret = register_uffd(&monitor_app.dsm.child);
+
+            // address_spaces uffd_faulted_spaces;
+            // monitor_app.uffd_hdl.args.child = &monitor_app.dsm.child;
+            // monitor_app.uffd_hdl.args.msi = &monitor_app.dsm.msi;
+            // monitor_app.uffd_hdl.args.sock_fd = monitor_app.dsm.socket_fd;
+            // monitor_app.uffd_hdl.args.faulting_spaces = &uffd_faulted_spaces;
+            // ret = start_uffd_thread_handler(&monitor_app.uffd_hdl);
+            // if(ret){
+            //     log_error("failed to start uffd thread");
+            //     goto out_uffd_thread_fail;
+            // }
+
             ptrace(PTRACE_CONT, monitor_app.dsm.child.c_pid, NULL, NULL);
             wait(&ret);
 
@@ -307,6 +397,16 @@ int main(int argc, char *argv[]){
                 log_info("Child process got exited");
                 break;
             }
+            
+            // //closing the uffd logic
+            // ret = stop_uffd_thread_handler(&monitor_app.uffd_hdl);
+            // if(ret){
+            //     log_error("failed to stop uffd thread");
+            //     goto out_uffd_thread_fail;
+            // }
+            
+            // //Deregistering for uffd
+            // ret = deregister_uffd(&monitor_app.dsm.child);
 
             get_regs_args(monitor_app.dsm.child.c_pid, &regs, &as);
 
@@ -320,7 +420,7 @@ int main(int argc, char *argv[]){
             if(index == -1){
                 break;
             }
-
+            
             log_info("The instruction pointer 0x%x", regs.rip);
 
             clear_breakpoint(monitor_app.dsm.child.c_pid,                                                           \
@@ -329,7 +429,7 @@ int main(int argc, char *argv[]){
             
             monitor_app.dsm.child.trpoints.old_instructions[index] = set_breakpoint(monitor_app.dsm.child.c_pid,    \
                                                                  monitor_app.dsm.child.trpoints.breakpoints[index]);
-            
+
             ret = scan_address_space(monitor_app.dsm.child, &monitor_app.dsm.child.spaces);
             if(ret < 0){
                 log_error("Could not scan the address space for read write permissions");
@@ -388,6 +488,17 @@ int main(int argc, char *argv[]){
             //Receive and update child process regs
             msi_handle_rec_regs(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, &monitor_app.dsm.msi.regs);
             
+            ret = scan_address_space(monitor_app.dsm.child, &monitor_app.dsm.child.spaces);
+            if(ret < 0){
+                log_error("Could not scan the address space for read write permissions");
+                goto out_stop_fail;
+            }else{
+                log_info("Overall size of the rw pages are %ld", ret);
+            }
+
+            address_spaces delta_spaces;
+            delta = find_vma_delta(&monitor_app.dsm.child.spaces , &delta_spaces);
+
             log_info("Setting the breakpoint at %p", address);
             old_instructions = set_breakpoint(monitor_app.dsm.child.c_pid, (unsigned long)address);
             ptrace(PTRACE_CONT, monitor_app.dsm.child.c_pid, NULL, NULL);
@@ -404,7 +515,6 @@ int main(int argc, char *argv[]){
                 log_info("Overall size of the rw pages are %ld", ret);
             }
 
-            address_spaces delta_spaces;
             delta = find_vma_delta(&monitor_app.dsm.child.spaces , &delta_spaces);
 
             log_info("Starting the idc communication!!");
