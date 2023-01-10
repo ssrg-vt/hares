@@ -4,8 +4,8 @@
 typedef enum address_type_t{
     STACK = 0,
     HEAP,
-    ANONYMOUS, 
-    FILE_BACKED
+    FILE_BACKED,
+    ANONYMOUS
 }address_type;
 
 typedef struct child_tracepoints_t{
