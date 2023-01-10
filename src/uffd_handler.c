@@ -196,10 +196,10 @@ void *fault_handler_thread(void *arg)
 				   pagefault_type == PAGEFAULT_WRITE_PROTECTION){
 					
 					//Filling up the faulting address
-					log_info("Found a faulting address space");
+					log_info("Found a faulting address space %lx", tracee->spaces.space[i].address);
 					faulting_spaces->size += 1;
 					faulting_spaces->space = realloc(faulting_spaces->space, 				\
-													 sizeof(address_space) * 				\
+					                                 sizeof(address_space) * 				\
 													 faulting_spaces->size);
 					faulting_spaces->space[faulting_spaces->size - 1].address = 			\
 													tracee->spaces.space[i].address;
@@ -252,11 +252,16 @@ out_fail:
 
 int register_uffd(popsgx_child *child){
 	int ret = 0;
+
 	for(int i = 0; i < child->spaces.size; i++){
-        log_info("Registering for the address 0x%lx", child->spaces.space[i].address);
+		child->uffd[i] = -1;
+	}
+
+	for(int i = 0; i < child->spaces.size; i++){
         if(child->spaces.space[i].address != 0x7ffff72ee000 &&								\
 		   child->spaces.space[i].type != FILE_BACKED){
         //if(child->spaces.space[i].address != 0x7ffff75b4000){
+			log_info("Registering for the address 0x%lx", child->spaces.space[i].address);
             ret = compel_steal_uffd(child,                                             		\
                                  &child->uffd[i],                                        	\
                                  child->spaces.space[i].address,                         	\

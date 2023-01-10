@@ -321,7 +321,7 @@ int msi_handle_rec_vma(msi_handler *msi, int sk, bool is_delta){
 
                 uint64_t vma_addr = vma_buffer_header_msg.payload.vma_buffer_message.vma_address;
                 uint64_t pages = vma_buffer_header_msg.payload.vma_buffer_message.size;
-                address_type type = vma_buffer_header_msg.payload.vma_buffer_message.type;
+                address_type type = (address_type)vma_buffer_header_msg.payload.vma_buffer_message.type;
 
                 char *vma_buffer = malloc(sizeof(char) * (sysconf(_SC_PAGE_SIZE)) * pages);
 
@@ -373,7 +373,7 @@ int msi_handle_rec_vma(msi_handler *msi, int sk, bool is_delta){
                             log_error("compel_correct_heap_offset failed");
                         }
                         log_info("Corrected heap offset");
-                    }else{
+                    }else if(type == FILE_BACKED){
                         log_info("Creating a new vma to sync with remote");
                         ret = compel_create_new_map(&msi->child, vma_addr, pages);
                         if(ret){
@@ -506,11 +506,11 @@ int msi_handle_send_vma(msi_handler *msi, int sk, address_spaces vmas, bool is_d
         //log_info("%lx", vmas.space[i].address);
 
         //Writing Buffer Header
-        log_info("Sendig VMA_BUFFER_HEADER");
+        log_info("Sending VMA_BUFFER_HEADER");
         vma_buffer_header_msg.message_type = VMA_BUFFER_HEADER;
         vma_buffer_header_msg.payload.vma_buffer_message.vma_address = vmas.space[i].address;
         vma_buffer_header_msg.payload.vma_buffer_message.size = vmas.space[i].size;
-        vma_buffer_header_msg.payload.vma_buffer_message.type = vmas.space[i].type;
+        vma_buffer_header_msg.payload.vma_buffer_message.type = (int)vmas.space[i].type;
         ret = write(sk, &vma_buffer_header_msg, sizeof(vma_buffer_header_msg));
         if(ret <= 0){
             log_error("Bad write in MSI");

@@ -240,17 +240,15 @@ int scan_address_space(popsgx_child child, address_spaces *spaces){
                     char *ptr;
                     spaces->space[iter].address =  strtoul(line, &ptr, 16);
 
-                    if(spaces->space[iter].address == heap_address){
-                        spaces->space[iter].type = HEAP;
-                    }else{
-                        spaces->space[iter].type = ANONYMOUS;
-                    }
+                    // if(spaces->space[iter].address == heap_address){
+                    //     spaces->space[iter].type = HEAP;
+                    // }else{
+                    //     spaces->space[iter].type = ANONYMOUS;
+                    // }
 
                     end_address = strtoul(ptr+1, NULL, 16);
                     spaces->space[iter].size =  (end_address - spaces->space[iter].address)/4096;
                     ret += spaces->space[iter].size;
-                    log_info("Found rw address at 0x%lx with a size %ld",                               \
-                              spaces->space[iter].address, spaces->space[iter].size);
                     is_set = true;
                 }
                 //break;
@@ -268,6 +266,8 @@ int scan_address_space(popsgx_child child, address_spaces *spaces){
                     }else{
                         spaces->space[iter].type = FILE_BACKED;
                     }
+                    log_info("Found rw address at 0x%lx with a size %ld and type %d",                                   \
+                              spaces->space[iter].address, spaces->space[iter].size, spaces->space[iter].type);
                     iter++;
                     break;
                 }
