@@ -194,11 +194,11 @@ void *fault_handler_thread(void *arg)
 				log_debug("address = %llx", msg.arg.pagefault.address);
 
 				//Check if we need to handle new page-faults
-				uint8_t pagefault_type = handle_rw_pagefault(uffd[i],                       \
-															 msg,                           \
-															 page,                          \
-															 handler_arg->msi,              \
-															 handler_arg->sock_fd);
+				uint8_t pagefault_type = handle_rw_pagefault(uffd[i],                      \
+									     msg,                          \
+									     page,                         \
+									     handler_arg->msi,             \
+									     handler_arg->sock_fd);
 				if(pagefault_type != NO_NEW_PAGEFAULT){
 					log_info("New pagefault type is %d", pagefault_type);
 					log_info("Handled new pagefault");
@@ -210,15 +210,15 @@ void *fault_handler_thread(void *arg)
 					//Filling up the faulting address
 					log_info("Found a faulting address space %lx", tracee->spaces.space[i].address);
 					faulting_spaces->size += 1;
-					faulting_spaces->space = realloc(faulting_spaces->space,                \
-													 sizeof(address_space) *                \
-													 faulting_spaces->size);
-					faulting_spaces->space[faulting_spaces->size - 1].address =             \
-													tracee->spaces.space[i].address;
-					faulting_spaces->space[faulting_spaces->size - 1].size =                \
-													tracee->spaces.space[i].size;
-					faulting_spaces->space[faulting_spaces->size - 1].type =                \
-													tracee->spaces.space[i].type;
+					faulting_spaces->space = realloc(faulting_spaces->space,            \
+									 sizeof(address_space) *            \
+									 faulting_spaces->size);
+					faulting_spaces->space[faulting_spaces->size - 1].address =         \
+									 tracee->spaces.space[i].address;
+					faulting_spaces->space[faulting_spaces->size - 1].size =            \
+                                                                         tracee->spaces.space[i].size;
+					faulting_spaces->space[faulting_spaces->size - 1].type =            \
+                                                                         tracee->spaces.space[i].type;
 					faulting_spaces->nr_pages += tracee->spaces.space[i].size;
 
 					if(handle_wprotect_pagefaults(uffd[i], msg, tracee, i)){
@@ -238,8 +238,8 @@ int start_uffd_thread_handler(uffd_thread_handler *uffd_hdl){
 		goto out_fail;
 	}
 
-	rc = pthread_create(&uffd_hdl->thread, NULL,                                            \
-						fault_handler_thread,                                               \
+	rc = pthread_create(&uffd_hdl->thread, NULL,                                                         \
+						fault_handler_thread,                                        \
 						(void*) &uffd_hdl->args);
 	if (rc != 0) {
 		log_error("Could not create a uffd handler thread");
@@ -280,12 +280,12 @@ int register_uffd(popsgx_child *child){
 		   child->spaces.space[i].type != FILE_BACKED){
 #endif
 			log_info("Registering for the address 0x%lx", child->spaces.space[i].address);
-			ret = compel_steal_uffd(child,                                                  \
-								 &child->uffd[i],                                           \
-								 child->spaces.space[i].address,                            \
-								 child->spaces.space[i].size);
-			log_info("Registered uffd %d for the address 0x%lx", child->uffd[i],            \
-												child->spaces.space[i].address);
+			ret = compel_steal_uffd(child,                                              \
+					        &child->uffd[i],                                    \
+						child->spaces.space[i].address,                     \
+					        child->spaces.space[i].size);
+			log_info("Registered uffd %d for the address 0x%lx", child->uffd[i],        \
+					        child->spaces.space[i].address);
 		}
 	}
 	return 0;
@@ -302,13 +302,13 @@ int deregister_uffd(popsgx_child *child){
 			(child->uffd[i] != -1) && child->spaces.space[i].type != FILE_BACKED){
 #endif
 			ret = compel_remove_uffd(child,                                                 \
-									 child->uffd[i],                                        \
-									 child->spaces.space[i].address,                        \
-									 child->spaces.space[i].size);
+						 child->uffd[i],                                        \
+						 child->spaces.space[i].address,                        \
+						child->spaces.space[i].size);
 			log_info("Unregistered uffd %d for the address 0x%lx with size %d",             \
-														child->uffd[i],                     \
-														child->spaces.space[i].address,     \
-														child->spaces.space[i].size);
+								    child->uffd[i],                     \
+								    child->spaces.space[i].address,     \
+								    child->spaces.space[i].size);
 		}
 	}
 	return 0;
