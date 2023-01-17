@@ -27,12 +27,18 @@ typedef struct child_address_spaces_t{
     long nr_pages;
 }address_spaces;
 
+typedef struct uffd_t{
+    unsigned long address;
+    int fd;
+    address_type type;
+}uffd_t;
+
 typedef struct popsgx_child_app_t{
     pid_t c_pid;
     int   c_argc;
     char  *c_argv;
     char  *c_path; 
-    int   *uffd;
+    uffd_t  *uffd;
     int uffd_no;
     pthread_mutex_t mutex;
     tracepoints trpoints;

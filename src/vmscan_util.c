@@ -69,15 +69,15 @@ int _add_new_or_extended_vma(address_spaces* curr_vma, address_spaces* delta_vma
         
         for(int j = 0; j < vm_stat_snapshot.size; j++){
             if(curr_vma->space[i].address == vm_stat_snapshot.space[j].address){
-                if(curr_vma->space[i].size == vm_stat_snapshot.space[j].size)
+                if((curr_vma->space[i].size == vm_stat_snapshot.space[j].size))  
                 {
                     
-                    log_debug("curr_vma->space[i].address : %p                          \
+                    log_info("curr_vma->space[i].address : %p                           \
                                vm_stat_snapshot.space[j].address : %p",                 \
                                 curr_vma->space[i].address,                             \
                                 vm_stat_snapshot.space[j].address);
 
-                    log_debug("curr_vma->space[i].size : %p                             \
+                    log_info("curr_vma->space[i].size : %p                              \
                                vm_stat_snapshot.space[j].size : %p",                    \
                                 curr_vma->space[i].size,                                \
                                 vm_stat_snapshot.space[j].size);
@@ -138,10 +138,10 @@ int find_new_vma_delta(address_spaces* curr_vma, address_spaces* delta_vma){
 
     ret = _find_new_vma_delta(curr_vma, delta_vma);
     if(ret){
-        log_info("delta vma size : %d", delta_vma->size);
-        log_info("delta vma pages : %ld", delta_vma->nr_pages);
+        log_error("delta vma size : %d", delta_vma->size);
+        log_error("delta vma pages : %ld", delta_vma->nr_pages);
         for(int i = 0; i < ret; i++){
-            log_info("delta vma space address : %lx size : %ld type : %d",                        \
+            log_error("delta vma space address : %lx size : %ld type : %d",                        \
                         delta_vma->space[i].address, delta_vma->space[i].size, delta_vma->space[i].type);
         }
     }
@@ -158,7 +158,8 @@ int accumulate_diff_between_vma(address_spaces* src_vma, address_spaces* dest_vm
         bool match_found = false;
 
         for(int j = 0; j < dest_vma->size; j++){
-            if(dest_vma->space[i].address == src_vma->space[i].address){
+            if(src_vma->space[i].address >= dest_vma->space[i].address &&  \
+               src_vma->space[i].address < (dest_vma->space[i].address + dest_vma->space[i].size)){
                 match_found = true;
                 break;
             }
@@ -170,7 +171,7 @@ int accumulate_diff_between_vma(address_spaces* src_vma, address_spaces* dest_vm
             temp.space[temp.size].size = src_vma->space[i].size;
             temp.space[temp.size].type = src_vma->space[i].type;
             temp.size += 1;
-            temp.nr_pages += 1;
+            temp.nr_pages += src_vma->space[i].size;
         }
     }
 
@@ -198,7 +199,8 @@ int accumulate_diff_between_vma_with_type(address_spaces* src_vma, address_space
         bool match_found = false;
 
         for(int j = 0; j < dest_vma->size; j++){
-            if(dest_vma->space[i].address == src_vma->space[i].address){
+            if(src_vma->space[i].address >= dest_vma->space[i].address &&  \
+               src_vma->space[i].address < (dest_vma->space[i].address + dest_vma->space[i].size)){
                 match_found = true;
                 break;
             }
@@ -270,13 +272,12 @@ static int cnt_rw_address_space(FILE *fp){
  * @param child_pid 
  * @return int 
  */
-int scan_address_space(popsgx_child child, address_spaces *spaces){
+int scan_address_space(popsgx_child *child, address_spaces *spaces){
     int ret = 0;
     char file_name[50];
     char line[128];
     FILE *fp;
-    pid_t child_pid = child.c_pid;
-    unsigned long heap_address = child.heap_start_address;
+    pid_t child_pid = child->c_pid;
     int read_write_addr_cnt = 0;
 
     ret = snprintf(file_name, 50, "/proc/%d/maps", child_pid);
@@ -319,15 +320,9 @@ int scan_address_space(popsgx_child child, address_spaces *spaces){
                     unsigned long end_address;
                     char *ptr;
                     spaces->space[iter].address =  strtoul(line, &ptr, 16);
-
-                    // if(spaces->space[iter].address == heap_address){
-                    //     spaces->space[iter].type = HEAP;
-                    // }else{
-                    //     spaces->space[iter].type = ANONYMOUS;
-                    // }
-
                     end_address = strtoul(ptr+1, NULL, 16);
                     spaces->space[iter].size =  (end_address - spaces->space[iter].address)/4096;
+                    log_info("the start addr : %lx end addr : %lx", spaces->space[iter].address, end_address);
                     ret += spaces->space[iter].size;
                     is_set = true;
                 }
@@ -338,6 +333,7 @@ int scan_address_space(popsgx_child child, address_spaces *spaces){
                 if(i == 5){
                     if(strstr(token, "[heap]") != NULL){
                         spaces->space[iter].type = HEAP;
+                        //while(1);
                     }else if(strstr(token, "[stack]") != NULL){
                         spaces->space[iter].type = STACK;
                     }else if(strlen(token) == 1){

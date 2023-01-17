@@ -353,6 +353,7 @@ int main(int argc, char *argv[]){
 
         int i = 0;
         unsigned long ret_address;
+        int iter = 0;
 
         while(1){
             int as[100];
@@ -360,8 +361,8 @@ int main(int argc, char *argv[]){
             int index = -1;
             int delta = 0;
 
-            // Logic block for uffd registration
-            ret = scan_address_space(monitor_app.dsm.child, &monitor_app.dsm.child.spaces);
+            //Logic block for uffd registration
+            ret = scan_address_space(&monitor_app.dsm.child, &monitor_app.dsm.child.spaces);
             if(ret < 0){
                 log_error("Could not scan the address space for read write permissions");
                 goto out_stop_fail;
@@ -369,9 +370,13 @@ int main(int argc, char *argv[]){
                 log_info("Overall size of the rw pages are %ld", ret);
             }
 
+            address_spaces new_spaces;
+            if(iter)
+            delta = find_new_vma_delta(&monitor_app.dsm.child.spaces , &new_spaces);
+
             //uffd logic
-            monitor_app.dsm.child.uffd = realloc( monitor_app.dsm.child.uffd, sizeof(int) * monitor_app.dsm.child.spaces.size);
-            monitor_app.dsm.child.uffd_no = monitor_app.dsm.child.spaces.size;
+            monitor_app.dsm.child.uffd = realloc( monitor_app.dsm.child.uffd, sizeof(uffd_t) * monitor_app.dsm.child.spaces.nr_pages);
+            monitor_app.dsm.child.uffd_no = monitor_app.dsm.child.spaces.nr_pages;
             
             //Registering for uffd
             ret = register_uffd(&monitor_app.dsm.child);
@@ -397,6 +402,7 @@ int main(int argc, char *argv[]){
             }
             
             get_regs_args(monitor_app.dsm.child.c_pid, &regs, &as);
+            log_info("The instruction pointer 0x%x", regs.rip);
 
             for(int i = 0; i <= LIMIT; i++){
                 if((regs.rip - 1) ==  monitor_app.dsm.child.trpoints.breakpoints[i]){
@@ -408,8 +414,6 @@ int main(int argc, char *argv[]){
             if(index == -1){
                 break;
             }
-            
-            log_info("The instruction pointer 0x%x", regs.rip);
 
             clear_breakpoint(monitor_app.dsm.child.c_pid,                                                           \
                              monitor_app.dsm.child.trpoints.breakpoints[index],                                     \
@@ -428,7 +432,7 @@ int main(int argc, char *argv[]){
             //Deregistering for uffd
             ret = deregister_uffd(&monitor_app.dsm.child);
 
-            ret = scan_address_space(monitor_app.dsm.child, &monitor_app.dsm.child.spaces);
+            ret = scan_address_space(&monitor_app.dsm.child, &monitor_app.dsm.child.spaces);
             if(ret < 0){
                 log_error("Could not scan the address space for read write permissions");
                 goto out_stop_fail;
@@ -436,20 +440,33 @@ int main(int argc, char *argv[]){
                 log_info("Overall size of the rw pages are %ld", ret);
             }
 
-            address_spaces new_spaces;
             delta = find_new_vma_delta(&monitor_app.dsm.child.spaces , &new_spaces);
+            
+            log_info("First new space");
+            for(int i = 0; i < new_spaces.size; i++){
+                log_info("The address is %lx with a size %d", new_spaces.space[i].address, new_spaces.space[i].size);
+            }
 
             //Starting the idc communication!!
             msi_request_remote_execute(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, monitor_app.dsm.child.trpoints.breakpoints[index+1]);
 
             //Grabbing and sending the child process delta vma to remote
             msi_handle_send_vma(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, new_spaces, 1);
+            
+            iter++;
 
             delta = accumulate_diff_between_vma(monitor_app.uffd_hdl.args.faulting_spaces, &new_spaces);
             delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, FILE_BACKED);
+            //delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, HEAP);
+            delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, STACK);
+
+            log_info("Final new space");
+            for(int i = 0; i < new_spaces.size; i++){
+                log_info("The address is %lx with a size %d with type %d", new_spaces.space[i].address, new_spaces.space[i].size, new_spaces.space[i].type);
+            }
 
             //Grabbing and sending the child process vma to remote
-            msi_handle_send_vma(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd,new_spaces, 0);
+            msi_handle_send_vma(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, new_spaces, 0);
 
             //Grabbing and sending the child process registers to remote
             msi_handle_send_regs(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, &monitor_app.dsm.msi.regs);
@@ -471,7 +488,7 @@ int main(int argc, char *argv[]){
     }else{
 
         struct user_regs_struct usr_reg;
-        int i = 1;
+        int iter = 0;
         uint64_t address;
         unsigned long old_instructions;
         int delta = 0;
@@ -481,7 +498,11 @@ int main(int argc, char *argv[]){
             msi_handle_remote_execution(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, &address);
 
             //Receive and update the child process delta vma
-            msi_handle_rec_vma(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, 1);
+            if(1){
+                msi_handle_rec_vma(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, 1);
+            }else{
+                iter++;
+            }
 
             //Receive and update child process vma
             msi_handle_rec_vma(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, 0);
@@ -489,7 +510,7 @@ int main(int argc, char *argv[]){
             //Receive and update child process regs
             msi_handle_rec_regs(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, &monitor_app.dsm.msi.regs);
             
-            ret = scan_address_space(monitor_app.dsm.child, &monitor_app.dsm.child.spaces);
+            ret = scan_address_space(&monitor_app.dsm.child, &monitor_app.dsm.child.spaces);
             if(ret < 0){
                 log_error("Could not scan the address space for read write permissions");
                 goto out_stop_fail;
@@ -497,14 +518,19 @@ int main(int argc, char *argv[]){
                 log_info("Overall size of the rw pages are %ld", ret);
             }
 
-            address_spaces new_spaces;
-            delta = find_new_vma_delta(&monitor_app.dsm.child.spaces , &new_spaces);
+            log_info("11child space:");
+            for(int i = 0; i < monitor_app.dsm.child.spaces.size; i++){
+                log_info("The address is %lx with a size %d", monitor_app.dsm.child.spaces.space[i].address, monitor_app.dsm.child.spaces.space[i].size);
+            }
 
+
+            address_spaces new_spaces, tmp_spaces;
+            delta = find_new_vma_delta(&monitor_app.dsm.child.spaces , &new_spaces);
 
             // Logic block for uffd registration
             //uffd logic
-            monitor_app.dsm.child.uffd = realloc( monitor_app.dsm.child.uffd, sizeof(int) * monitor_app.dsm.child.spaces.size);
-            monitor_app.dsm.child.uffd_no = monitor_app.dsm.child.spaces.size;
+            monitor_app.dsm.child.uffd = realloc( monitor_app.dsm.child.uffd, sizeof(uffd_t) * monitor_app.dsm.child.spaces.nr_pages);
+            monitor_app.dsm.child.uffd_no = monitor_app.dsm.child.spaces.nr_pages;
             
             //Registering for uffd
             ret = register_uffd(&monitor_app.dsm.child);
@@ -520,7 +546,6 @@ int main(int argc, char *argv[]){
                 goto out_uffd_thread_fail;
             }
             // Ending part of uffd registration logic
-
 
             log_info("Setting the breakpoint at %p", address);
             old_instructions = set_breakpoint(monitor_app.dsm.child.c_pid, (unsigned long)address);
@@ -540,7 +565,7 @@ int main(int argc, char *argv[]){
             //Deregistering for uffd
             ret = deregister_uffd(&monitor_app.dsm.child);
 
-            ret = scan_address_space(monitor_app.dsm.child, &monitor_app.dsm.child.spaces);
+            ret = scan_address_space(&monitor_app.dsm.child, &monitor_app.dsm.child.spaces);
             if(ret < 0){
                 log_error("Could not scan the address space for read write permissions");
                 goto out_stop_fail;
@@ -550,6 +575,11 @@ int main(int argc, char *argv[]){
 
             delta = find_new_vma_delta(&monitor_app.dsm.child.spaces , &new_spaces);
 
+            log_info("First new space:");
+            for(int i = 0; i < new_spaces.size; i++){
+                log_info("The address is %lx with a size %d", new_spaces.space[i].address, new_spaces.space[i].size);
+            }
+
             log_info("Starting the idc communication!!");
             msi_request_remote_execute(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, 0x00);
 
@@ -558,10 +588,22 @@ int main(int argc, char *argv[]){
 
             delta = accumulate_diff_between_vma(monitor_app.uffd_hdl.args.faulting_spaces, &new_spaces);
             delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, FILE_BACKED);
+            delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, STACK);
+            
+
+            log_info("Final new space:");
+            for(int i = 0; i < new_spaces.size; i++){
+                log_info("The address is %lx with a size %d", new_spaces.space[i].address, new_spaces.space[i].size);
+            }
+
+            log_info("child space:");
+            for(int i = 0; i < monitor_app.dsm.child.spaces.size; i++){
+                log_info("The address is %lx with a size %d", monitor_app.dsm.child.spaces.space[i].address, monitor_app.dsm.child.spaces.space[i].size);
+            }
 
             //Grabbing and sending the child process vma to remote
-            msi_handle_send_vma(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, monitor_app.dsm.child.spaces, 0);
-
+            msi_handle_send_vma(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, new_spaces, 0);
+               
             //Grabbing and sending the child process registers to remote
             msi_handle_send_regs(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, &monitor_app.dsm.msi.regs);
         }
