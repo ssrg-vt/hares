@@ -138,10 +138,10 @@ int find_new_vma_delta(address_spaces* curr_vma, address_spaces* delta_vma){
 
     ret = _find_new_vma_delta(curr_vma, delta_vma);
     if(ret){
-        log_error("delta vma size : %d", delta_vma->size);
-        log_error("delta vma pages : %ld", delta_vma->nr_pages);
+        log_info("delta vma size : %d", delta_vma->size);
+        log_info("delta vma pages : %ld", delta_vma->nr_pages);
         for(int i = 0; i < ret; i++){
-            log_error("delta vma space address : %lx size : %ld type : %d",                        \
+            log_info("delta vma space address : %lx size : %ld type : %d",                        \
                         delta_vma->space[i].address, delta_vma->space[i].size, delta_vma->space[i].type);
         }
     }
@@ -158,8 +158,8 @@ int accumulate_diff_between_vma(address_spaces* src_vma, address_spaces* dest_vm
         bool match_found = false;
 
         for(int j = 0; j < dest_vma->size; j++){
-            if(src_vma->space[i].address >= dest_vma->space[i].address &&  \
-               src_vma->space[i].address < (dest_vma->space[i].address + dest_vma->space[i].size)){
+            if(dest_vma->space[i].address >= src_vma->space[i].address &&  \
+               dest_vma->space[i].address < (src_vma->space[i].address + src_vma->space[i].size)){
                 match_found = true;
                 break;
             }
@@ -199,8 +199,8 @@ int accumulate_diff_between_vma_with_type(address_spaces* src_vma, address_space
         bool match_found = false;
 
         for(int j = 0; j < dest_vma->size; j++){
-            if(src_vma->space[i].address >= dest_vma->space[i].address &&  \
-               src_vma->space[i].address < (dest_vma->space[i].address + dest_vma->space[i].size)){
+            if(dest_vma->space[i].address >= src_vma->space[i].address &&  \
+               dest_vma->space[i].address < (src_vma->space[i].address + src_vma->space[i].size)){
                 match_found = true;
                 break;
             }

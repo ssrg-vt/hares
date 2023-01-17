@@ -19,7 +19,7 @@
 #include "../inc/uffd_handler.h"
 #include "../inc/compel_handler.h"
 
-//#define log_info(args...)
+#define log_info(args...)
 
 #define FILEENCRYPT 1
 
@@ -276,7 +276,7 @@ int register_uffd(popsgx_child *child){
 	for(int i = 0; i < child->spaces.size; i++){
 #ifdef FILEENCRYPT
 		if(child->spaces.space[i].address != 0x7ffff72ee000 &&                                \
-		   child->spaces.space[i].type != FILE_BACKED && (child->spaces.space[i].type != STACK)){
+		   child->spaces.space[i].type != FILE_BACKED){
 #elif SWITCHLESS
 		if(child->spaces.space[i].address != 0x7ffff75b4000 &&                                \
 		   child->spaces.space[i].type != FILE_BACKED){
@@ -294,7 +294,7 @@ int register_uffd(popsgx_child *child){
 				uffd_no++;
 			}
 		}else{
-			log_info("Skipping pages %d of type %d", child->spaces.space[i].size, child->spaces.space[i].type);
+			log_info("Skipping uffd registration for pages %d of type %d", child->spaces.space[i].size, child->spaces.space[i].type);
 			uffd_no += child->spaces.space[i].size;
 		}
 	}
@@ -308,7 +308,7 @@ int deregister_uffd(popsgx_child *child){
 	for(int i = 0; i < child->spaces.size; i++){
 #ifdef FILEENCRYPT
 		if((child->spaces.space[i].address != 0x7ffff72ee000) &&                              \
-			(child->uffd[uffd_no].fd != -1) && (child->spaces.space[i].type != FILE_BACKED) && (child->spaces.space[i].type != STACK))
+			(child->uffd[uffd_no].fd != -1) && (child->spaces.space[i].type != FILE_BACKED))
 			{
 #elif SWITCHLESS
 		if((child->spaces.space[i].address != 0x7ffff75b4000) &&                            \

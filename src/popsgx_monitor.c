@@ -118,7 +118,7 @@ static int execute_tracee_app(popsgx_child *tracee){
         char *user_args[] = {"host/helloworldhost", "./enclave/helloworldenc.signed",       \
                              "--simulate", NULL};
 #elif FILEENCRYPT
-        char *user_args[] = {"./host/file-encryptorhost", "testfile",  "./enclave/file-encryptorenc.signed",       \
+        char *user_args[] = {"./host/file-encryptorhost", "testfile",  "./enclave/file-encryptorenc.signed",  \
                              "--simulate", NULL};
 #elif SWITCHLESS
         char *user_args[] = {"host/switchlesshost", "./enclave/switchlessenc.signed",       \
@@ -255,13 +255,6 @@ int main(int argc, char *argv[]){
         log_error("Could not stop the victim for compel infection");
         goto out_stop_fail;
     }
-
-    //uint64_t heap_pages = 0x4de000;
-    // uint64_t heap_pages = 0x4de000;
-    // ret = compel_correct_heap_offset(&monitor_app.dsm.child, heap_pages);
-    // if(ret){
-    //     log_error("compel_correct_heap_offset failed");
-    // }
     
     
     //Needed the child process id in the msi
@@ -458,7 +451,7 @@ int main(int argc, char *argv[]){
             delta = accumulate_diff_between_vma(monitor_app.uffd_hdl.args.faulting_spaces, &new_spaces);
             delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, FILE_BACKED);
             //delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, HEAP);
-            delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, STACK);
+            //delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, STACK);
 
             log_info("Final new space");
             for(int i = 0; i < new_spaces.size; i++){
@@ -588,7 +581,7 @@ int main(int argc, char *argv[]){
 
             delta = accumulate_diff_between_vma(monitor_app.uffd_hdl.args.faulting_spaces, &new_spaces);
             delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, FILE_BACKED);
-            delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, STACK);
+            //delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, STACK);
             
 
             log_info("Final new space:");

@@ -357,19 +357,19 @@ int msi_handle_rec_vma(msi_handler *msi, int sk, bool is_delta){
                 else{
                     if(type == HEAP){
                         uint64_t heap_pages = vma_addr + (pages * 4096);
-                        log_error("Correcting heap offset %lx", heap_pages);
+                        log_info("Correcting heap offset %lx", heap_pages);
                         ret = compel_correct_heap_offset(&msi->child, heap_pages);
                         if(ret){
                             log_error("compel_correct_heap_offset failed");
                         }
-                        log_error("Corrected heap offset");
+                        log_info("Corrected heap offset");
                     }else if((type == FILE_BACKED || type == ANONYMOUS || type == STACK) && (iter != 0)){
-                        log_error("Creating a new vma to sync with remote");
+                        log_info("Creating a new vma to sync with remote");
                         ret = compel_create_new_map(&msi->child, vma_addr, pages);
                         if(ret){
                             log_error("compel_create_new_map failed");
                         }   
-                        log_error("Created a new vma");
+                        log_info("Created a new vma");
                     }
                 }
                 
