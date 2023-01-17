@@ -363,7 +363,7 @@ int msi_handle_rec_vma(msi_handler *msi, int sk, bool is_delta){
                             log_error("compel_correct_heap_offset failed");
                         }
                         log_info("Corrected heap offset");
-                    }else if((type == FILE_BACKED || type == ANONYMOUS || type == STACK) && (iter != 0)){
+                    }else{
                         log_info("Creating a new vma to sync with remote");
                         ret = compel_create_new_map(&msi->child, vma_addr, pages);
                         if(ret){

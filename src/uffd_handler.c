@@ -21,7 +21,7 @@
 
 #define log_info(args...)
 
-#define FILEENCRYPT 1
+#define SWITCHLESS 1
 
 // Helloworld main function address
 #ifdef HELLOWORLD

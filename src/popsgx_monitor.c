@@ -28,7 +28,7 @@ extern char* __progname;
 // Starting address for the buffer 
 #define BUFFER_ADDRESS 0x10000
 
-#define FILEENCRYPT 1
+#define SWITCHLESS 1
 
 // Helloworld main function address
 #ifdef HELLOWORLD
