@@ -21,7 +21,7 @@
 
 #define log_info(args...)
 
-#define SWITCHLESS 1
+#define LOGCALLBACK 1
 
 // Helloworld main function address
 #ifdef HELLOWORLD
@@ -30,6 +30,10 @@
 #define MAIN 0x40a790
 #elif SWITCHLESS
 #define MAIN 0x444cf0
+#elif DEBUGMALLOC
+#define MAIN 0x43c0e0
+#elif LOGCALLBACK
+#define MAIN 0x43f0d0
 #endif
 
 
@@ -166,10 +170,13 @@ void *fault_handler_thread(void *arg)
 			pollfd[i].fd = uffd[i].fd;
 			pollfd[i].events = POLLIN;
 		}
-		nready = poll(pollfd, no_uffd, -1);
-		if (nready == -1)
-			errExit("poll");
 
+		nready = poll(pollfd, no_uffd, -1);
+		if (nready == -1){
+			while(1);
+			errExit("poll");
+		}
+			
 		for(int i = 0; i < no_uffd; i++){
 
 			if(pollfd[i].revents & POLLIN){
@@ -280,6 +287,13 @@ int register_uffd(popsgx_child *child){
 #elif SWITCHLESS
 		if(child->spaces.space[i].address != 0x7ffff75b4000 &&                                \
 		   child->spaces.space[i].type != FILE_BACKED){
+#elif DEBUGMALLOC
+		if(child->spaces.space[i].address != 0x7ffff7a9d000 &&                                \
+		   child->spaces.space[i].type != FILE_BACKED){
+#elif LOGCALLBACK
+		if(child->spaces.space[i].address != 0x7ffff7a9e000 &&                                \
+		   child->spaces.space[i].address != 0x7ffff7a9d000 &&								  \
+		   child->spaces.space[i].type != FILE_BACKED){
 #endif
 			for(unsigned long j = 0; j < child->spaces.space[i].size; j++){
 				child->uffd[uffd_no].address = child->spaces.space[i].address + (j * getpagesize());
@@ -312,6 +326,13 @@ int deregister_uffd(popsgx_child *child){
 			{
 #elif SWITCHLESS
 		if((child->spaces.space[i].address != 0x7ffff75b4000) &&                            \
+			(child->uffd[uffd_no].fd != -1) && child->spaces.space[i].type != FILE_BACKED){
+#elif DEBUGMALLOC
+		if((child->spaces.space[i].address != 0x7ffff7a9d000) &&                            \
+			(child->uffd[uffd_no].fd != -1) && child->spaces.space[i].type != FILE_BACKED){
+#elif LOGCALLBACK
+		if((child->spaces.space[i].address != 0x7ffff7a9e000) &&                            \
+			(child->spaces.space[i].address != 0x7ffff7a9d000) &&							\
 			(child->uffd[uffd_no].fd != -1) && child->spaces.space[i].type != FILE_BACKED){
 #endif
 			for(unsigned long j = 0; j < child->spaces.space[i].size; j++){

@@ -17,11 +17,6 @@
 #include <syscall.h>		// SYS_getpid
 //#include "debug.h"		// PRINT
 
-union u {
-    long val;
-    char str[8];
-} input;
-
 /**
  * Start the tracee syscall and wait until it traps back.
  * */

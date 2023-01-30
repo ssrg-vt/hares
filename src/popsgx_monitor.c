@@ -28,7 +28,7 @@ extern char* __progname;
 // Starting address for the buffer 
 #define BUFFER_ADDRESS 0x10000
 
-#define SWITCHLESS 1
+#define LOGCALLBACK 1
 
 // Helloworld main function address
 #ifdef HELLOWORLD
@@ -37,6 +37,10 @@ extern char* __progname;
 #define MAIN 0x40a790
 #elif SWITCHLESS
 #define MAIN 0x444cf0
+#elif DEBUGMALLOC
+#define MAIN 0x43c0e0
+#elif LOGCALLBACK
+#define MAIN 0x43f0d0
 #endif
 
 
@@ -125,6 +129,12 @@ static int execute_tracee_app(popsgx_child *tracee){
                              "--simulate", NULL};
 #elif PLUGGABLEALLOCATOR
         char *user_args[] = {"./host/allocator_demo_host", "./enclave/enclave_default.signed",  "./enclave/enclave_custom.signed",   \
+                             "--simulate", NULL};
+#elif DEBUGMALLOC
+        char *user_args[] = {"./host/debugmallochost", "./enclave/debugmallocenc.signed",   \
+                             "--simulate", NULL};
+#elif LOGCALLBACK
+        char *user_args[] = {"host/log_callbackhost", "./enclave/log_callbackenc.signed",   \
                              "--simulate", NULL};
 #endif
 
@@ -328,6 +338,7 @@ int main(int argc, char *argv[]){
     #define LIMIT 11
 
 #elif PLUGGABLEALLOCATOR
+    //Check the below break-points
     monitor_app.dsm.child.trpoints.breakpoints[0] = 0x43c5b6;
     monitor_app.dsm.child.trpoints.breakpoints[1] = 0x43c5bb;
     monitor_app.dsm.child.trpoints.breakpoints[2] = 0x43d920;
@@ -336,6 +347,27 @@ int main(int argc, char *argv[]){
     monitor_app.dsm.child.trpoints.breakpoints[5] = 0x446d4c;
     monitor_app.dsm.child.trpoints.breakpoints[6] = 0x446d52;
     #define LIMIT 6
+
+#elif DEBUGMALLOC
+    monitor_app.dsm.child.trpoints.breakpoints[0] = 0x43c252;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x43c257;
+    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x43c330;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x43c335;
+    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x43c46d;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x43c472;
+    #define LIMIT 5
+
+#elif LOGCALLBACK
+    monitor_app.dsm.child.trpoints.breakpoints[0] = 0x43f2ff;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x43f304;
+    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x43f41a;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x43f41f;
+    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x43f5ae;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x43f5b3;
+    monitor_app.dsm.child.trpoints.breakpoints[6] = 0x43f3ec;
+    monitor_app.dsm.child.trpoints.breakpoints[7] = 0x43f3f1;
+    #define LIMIT 7
+
 #endif
 
     if(monitor_app.mode == SERVER){

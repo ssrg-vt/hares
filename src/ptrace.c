@@ -1,6 +1,11 @@
 #include "ptrace.h"
 #include "log.h"
 
+union u {
+    long val;
+    char str[8];
+} input;
+
 /**
  * Get syscall arguments from user_regs_struct
  * Arch-dependent part
