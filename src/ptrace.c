@@ -6,6 +6,7 @@ union u {
     char str[8];
 } input;
 
+
 /**
  * Get syscall arguments from user_regs_struct
  * Arch-dependent part

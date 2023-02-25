@@ -28,19 +28,23 @@ extern char* __progname;
 // Starting address for the buffer 
 #define BUFFER_ADDRESS 0x10000
 
-#define LOGCALLBACK 1
+#define SWITCHLESS 1
 
 // Helloworld main function address
 #ifdef HELLOWORLD
-#define MAIN 0x43fd70
+#define MAIN 0x43ed80
 #elif FILEENCRYPT
-#define MAIN 0x40a790
+#define MAIN 0x40a7b0
 #elif SWITCHLESS
-#define MAIN 0x444cf0
+#define MAIN 0x443d00
 #elif DEBUGMALLOC
-#define MAIN 0x43c0e0
+#define MAIN 0x43ed80
 #elif LOGCALLBACK
-#define MAIN 0x43f0d0
+#define MAIN 0x441d70
+#elif APKMAN
+#define MAIN 0x43e980
+#elif DATASEALING
+#define MAIN 0x407b80
 #endif
 
 
@@ -119,23 +123,30 @@ static int execute_tracee_app(popsgx_child *tracee){
         }
 
 #ifdef HELLOWORLD
-        char *user_args[] = {"host/helloworldhost", "./enclave/helloworldenc.signed",       \
-                             "--simulate", NULL};
+        char *user_args[] = {"host/helloworld_host", "./enclave/enclave.signed",       \
+                             NULL};
 #elif FILEENCRYPT
         char *user_args[] = {"./host/file-encryptorhost", "testfile",  "./enclave/file-encryptorenc.signed",  \
-                             "--simulate", NULL};
+                             NULL};
 #elif SWITCHLESS
         char *user_args[] = {"host/switchlesshost", "./enclave/switchlessenc.signed",       \
-                             "--simulate", NULL};
+                              NULL};
 #elif PLUGGABLEALLOCATOR
         char *user_args[] = {"./host/allocator_demo_host", "./enclave/enclave_default.signed",  "./enclave/enclave_custom.signed",   \
                              "--simulate", NULL};
 #elif DEBUGMALLOC
         char *user_args[] = {"./host/debugmallochost", "./enclave/debugmallocenc.signed",   \
-                             "--simulate", NULL};
+                             NULL};
 #elif LOGCALLBACK
         char *user_args[] = {"host/log_callbackhost", "./enclave/log_callbackenc.signed",   \
-                             "--simulate", NULL};
+                             NULL};
+#elif APKMAN
+        char *user_args[] = {"host/sqlite_host", "./enclave/enclave.signed",   \
+                             NULL};
+
+#elif DATASEALING
+        char *user_args[] = {"host/host", "./enclave_a_v1/enclave.signed",   \
+                             "enclave_a_v2/enclave.signed", "enclave_b/enclave.signed", NULL};
 #endif
 
         execve(user_args[0], user_args, NULL);
@@ -295,50 +306,47 @@ int main(int argc, char *argv[]){
     
 
 #ifdef HELLOWORLD
-
     //Hello world
-    monitor_app.dsm.child.trpoints.breakpoints[0] = 0x43fff6;
-    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x43fffb;
-    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x4400e6;
-    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x4400eb;
-    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x440278;
-    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x44027d;
+    monitor_app.dsm.child.trpoints.breakpoints[0] = 0x43eef2;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x43eef7;
+    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x43efd0;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x43efd5;
+    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x43f10d;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x43f112;
     #define LIMIT 5
 
 #elif FILEENCRYPT
     //file encryption
-    monitor_app.dsm.child.trpoints.breakpoints[0] = 0x40aaef;
-    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x40aaf4;
-    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x4090ff;
-    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x409104;
-    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x409807;
-    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x40980c;
-    monitor_app.dsm.child.trpoints.breakpoints[6] = 0x40a1aa;
-    monitor_app.dsm.child.trpoints.breakpoints[7] = 0x40a1af;
-    monitor_app.dsm.child.trpoints.breakpoints[8] = 0x40a65f;
-    monitor_app.dsm.child.trpoints.breakpoints[9] = 0x40a664;
-
-    monitor_app.dsm.child.trpoints.breakpoints[10] = 0x40b982;
-    monitor_app.dsm.child.trpoints.breakpoints[11] = 0x40b987;
+    monitor_app.dsm.child.trpoints.breakpoints[0] = 0x40ab0f;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x40ab14;
+    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x40911f;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x409124;
+    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x409827;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x40982c;
+    monitor_app.dsm.child.trpoints.breakpoints[6] = 0x40a1ca;
+    monitor_app.dsm.child.trpoints.breakpoints[7] = 0x40a1cf;
+    monitor_app.dsm.child.trpoints.breakpoints[8] = 0x40a67f;
+    monitor_app.dsm.child.trpoints.breakpoints[9] = 0x40a684;
+    monitor_app.dsm.child.trpoints.breakpoints[10] = 0x40b9a2;
+    monitor_app.dsm.child.trpoints.breakpoints[11] = 0x40b9a7;
     #define LIMIT 11
 
 #elif SWITCHLESS
-    monitor_app.dsm.child.trpoints.breakpoints[0] = 0x444f5c;
-    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x444f61;
-    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x445064;
-    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x445069;
-    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x445241;
-    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x445246;
-    monitor_app.dsm.child.trpoints.breakpoints[6] = 0x44544a;
-    monitor_app.dsm.child.trpoints.breakpoints[7] = 0x44544f;
-    monitor_app.dsm.child.trpoints.breakpoints[8] = 0x4456ae;
-    monitor_app.dsm.child.trpoints.breakpoints[9] = 0x4456b3;
-    monitor_app.dsm.child.trpoints.breakpoints[10] = 0x4458b4;
-    monitor_app.dsm.child.trpoints.breakpoints[11] = 0x4458b9;
+    monitor_app.dsm.child.trpoints.breakpoints[0] = 0x443f6c;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x443f71;
+    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x444074;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x444079;
+    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x444251;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x444256;
+    monitor_app.dsm.child.trpoints.breakpoints[6] = 0x44445a;
+    monitor_app.dsm.child.trpoints.breakpoints[7] = 0x44445f;
+    monitor_app.dsm.child.trpoints.breakpoints[8] = 0x4446be;
+    monitor_app.dsm.child.trpoints.breakpoints[9] = 0x4446c3;
+    monitor_app.dsm.child.trpoints.breakpoints[10] = 0x4448c4;
+    monitor_app.dsm.child.trpoints.breakpoints[11] = 0x4448c9;
     #define LIMIT 11
 
 #elif PLUGGABLEALLOCATOR
-    //Check the below break-points
     monitor_app.dsm.child.trpoints.breakpoints[0] = 0x43c5b6;
     monitor_app.dsm.child.trpoints.breakpoints[1] = 0x43c5bb;
     monitor_app.dsm.child.trpoints.breakpoints[2] = 0x43d920;
@@ -348,24 +356,44 @@ int main(int argc, char *argv[]){
     monitor_app.dsm.child.trpoints.breakpoints[6] = 0x446d52;
     #define LIMIT 6
 
+#elif LOGCALLBACK
+    monitor_app.dsm.child.trpoints.breakpoints[0] = 0x441f9f;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x441fa4;
+    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x4420ba;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x4420bf;
+    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x44208c;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x442091;
+    monitor_app.dsm.child.trpoints.breakpoints[6] = 0x44224e;
+    monitor_app.dsm.child.trpoints.breakpoints[7] = 0x442253;
+    #define LIMIT 7
+
 #elif DEBUGMALLOC
-    monitor_app.dsm.child.trpoints.breakpoints[0] = 0x43c252;
-    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x43c257;
-    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x43c330;
-    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x43c335;
-    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x43c46d;
-    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x43c472;
+    monitor_app.dsm.child.trpoints.breakpoints[0] = 0x43eef2;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x43eef7;
+    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x43efd0;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x43efd5;
+    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x43f10d;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x43f112;
     #define LIMIT 5
 
-#elif LOGCALLBACK
-    monitor_app.dsm.child.trpoints.breakpoints[0] = 0x43f2ff;
-    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x43f304;
-    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x43f41a;
-    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x43f41f;
-    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x43f5ae;
-    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x43f5b3;
-    monitor_app.dsm.child.trpoints.breakpoints[6] = 0x43f3ec;
-    monitor_app.dsm.child.trpoints.breakpoints[7] = 0x43f3f1;
+#elif APKMAN
+    monitor_app.dsm.child.trpoints.breakpoints[0] = 0x43eaf9;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x43eafe;
+    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x43ebda;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x43ebdf;
+    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x43ed17;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x43ed1c;
+    #define LIMIT 5
+
+#elif DATASEALING
+    monitor_app.dsm.child.trpoints.breakpoints[0] = 0x40632b;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x406330;
+    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x406ecd;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x406ed2;
+    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x406614;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x406619;
+    monitor_app.dsm.child.trpoints.breakpoints[6] = 0x40854b;
+    monitor_app.dsm.child.trpoints.breakpoints[7] = 0x408550;
     #define LIMIT 7
 
 #endif

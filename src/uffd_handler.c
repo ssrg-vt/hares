@@ -21,7 +21,7 @@
 
 #define log_info(args...)
 
-#define LOGCALLBACK 1
+#define SWITCHLESS 1
 
 // Helloworld main function address
 #ifdef HELLOWORLD
@@ -29,11 +29,15 @@
 #elif FILEENCRYPT
 #define MAIN 0x40a790
 #elif SWITCHLESS
-#define MAIN 0x444cf0
+#define MAIN 0x443d00
 #elif DEBUGMALLOC
 #define MAIN 0x43c0e0
 #elif LOGCALLBACK
 #define MAIN 0x43f0d0
+#elif APKMAN
+#define MAIN 0x43e980
+#elif DATASEALING
+#define MAIN 0x407b80
 #endif
 
 
@@ -281,7 +285,10 @@ int register_uffd(popsgx_child *child){
 
 	int uffd_no = 0;
 	for(int i = 0; i < child->spaces.size; i++){
-#ifdef FILEENCRYPT
+#ifdef HELLOWORLD
+		if(child->spaces.space[i].address != 0x7ffff7efa000 &&                                \
+		   child->spaces.space[i].type != FILE_BACKED){
+#elif FILEENCRYPT
 		if(child->spaces.space[i].address != 0x7ffff72ee000 &&                                \
 		   child->spaces.space[i].type != FILE_BACKED){
 #elif SWITCHLESS
@@ -293,6 +300,12 @@ int register_uffd(popsgx_child *child){
 #elif LOGCALLBACK
 		if(child->spaces.space[i].address != 0x7ffff7a9e000 &&                                \
 		   child->spaces.space[i].address != 0x7ffff7a9d000 &&								  \
+		   child->spaces.space[i].type != FILE_BACKED){
+#elif APKMAN
+		if(child->spaces.space[i].address != 0x7ffff7a9d000 &&                                \
+		   child->spaces.space[i].type != FILE_BACKED){
+#elif DATASEALING
+		if(child->spaces.space[i].address != 0x7ffff7a9d000 &&                                \
 		   child->spaces.space[i].type != FILE_BACKED){
 #endif
 			for(unsigned long j = 0; j < child->spaces.space[i].size; j++){
@@ -311,6 +324,8 @@ int register_uffd(popsgx_child *child){
 			log_info("Skipping uffd registration for pages %d of type %d", child->spaces.space[i].size, child->spaces.space[i].type);
 			uffd_no += child->spaces.space[i].size;
 		}
+
+		log_info("X");
 	}
 	
 	return 0;
@@ -320,10 +335,12 @@ int deregister_uffd(popsgx_child *child){
 	int ret = 0;
 	int uffd_no = 0;
 	for(int i = 0; i < child->spaces.size; i++){
-#ifdef FILEENCRYPT
+#ifdef HELLOWORLD
+		if((child->spaces.space[i].address != 0x7ffff7efa000) &&                              \
+			(child->uffd[uffd_no].fd != -1) && (child->spaces.space[i].type != FILE_BACKED)){
+#elif FILEENCRYPT
 		if((child->spaces.space[i].address != 0x7ffff72ee000) &&                              \
-			(child->uffd[uffd_no].fd != -1) && (child->spaces.space[i].type != FILE_BACKED))
-			{
+			(child->uffd[uffd_no].fd != -1) && (child->spaces.space[i].type != FILE_BACKED)){
 #elif SWITCHLESS
 		if((child->spaces.space[i].address != 0x7ffff75b4000) &&                            \
 			(child->uffd[uffd_no].fd != -1) && child->spaces.space[i].type != FILE_BACKED){
@@ -334,6 +351,12 @@ int deregister_uffd(popsgx_child *child){
 		if((child->spaces.space[i].address != 0x7ffff7a9e000) &&                            \
 			(child->spaces.space[i].address != 0x7ffff7a9d000) &&							\
 			(child->uffd[uffd_no].fd != -1) && child->spaces.space[i].type != FILE_BACKED){
+#elif APKMAN
+		if(child->spaces.space[i].address != 0x7ffff7a9d000 &&                                \
+		   child->spaces.space[i].type != FILE_BACKED){
+#elif DATASEALING
+		if(child->spaces.space[i].address != 0x7ffff7a9d000 &&                                \
+		   child->spaces.space[i].type != FILE_BACKED){
 #endif
 			for(unsigned long j = 0; j < child->spaces.space[i].size; j++){
 				ret = compel_remove_uffd(child,                                                 \
