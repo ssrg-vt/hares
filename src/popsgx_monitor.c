@@ -28,9 +28,9 @@ extern char* __progname;
 // Starting address for the buffer 
 #define BUFFER_ADDRESS 0x10000
 
-#define SWITCHLESS 1
+#define FILEENCRYPT 1
 
-// Helloworld main function address
+// Helloworld main function address 
 #ifdef HELLOWORLD
 #define MAIN 0x43ed80
 #elif FILEENCRYPT
@@ -425,12 +425,12 @@ int main(int argc, char *argv[]){
 
             address_spaces new_spaces;
             if(iter)
-            delta = find_new_vma_delta(&monitor_app.dsm.child.spaces , &new_spaces);
+                delta = find_new_vma_delta(&monitor_app.dsm.child.spaces , &new_spaces);
 
             //uffd logic
-            monitor_app.dsm.child.uffd = realloc( monitor_app.dsm.child.uffd, sizeof(uffd_t) * monitor_app.dsm.child.spaces.nr_pages);
-            monitor_app.dsm.child.uffd_no = monitor_app.dsm.child.spaces.nr_pages;
-            
+            monitor_app.dsm.child.uffd = realloc( monitor_app.dsm.child.uffd, sizeof(uffd_t) * monitor_app.dsm.child.spaces.size);
+            monitor_app.dsm.child.uffd_no = monitor_app.dsm.child.spaces.size;
+
             //Registering for uffd
             ret = register_uffd(&monitor_app.dsm.child);
 
@@ -444,6 +444,7 @@ int main(int argc, char *argv[]){
                 log_error("failed to start uffd thread");
                 goto out_uffd_thread_fail;
             }
+
             // Ending part of uffd registration logic
 
             ptrace(PTRACE_CONT, monitor_app.dsm.child.c_pid, NULL, NULL);
@@ -468,22 +469,22 @@ int main(int argc, char *argv[]){
                 break;
             }
 
-            clear_breakpoint(monitor_app.dsm.child.c_pid,                                                           \
-                             monitor_app.dsm.child.trpoints.breakpoints[index],                                     \
-                             monitor_app.dsm.child.trpoints.old_instructions[index]);
-            
-            monitor_app.dsm.child.trpoints.old_instructions[index] = set_breakpoint(monitor_app.dsm.child.c_pid,    \
-                                                                 monitor_app.dsm.child.trpoints.breakpoints[index]);
-
             //closing the uffd logic
             ret = stop_uffd_thread_handler(&monitor_app.uffd_hdl);
             if(ret){
                 log_error("failed to stop uffd thread");
                 goto out_uffd_thread_fail;
             }
-            
+
             //Deregistering for uffd
             ret = deregister_uffd(&monitor_app.dsm.child);
+
+            clear_breakpoint(monitor_app.dsm.child.c_pid,                                                           \
+                             monitor_app.dsm.child.trpoints.breakpoints[index],                                     \
+                             monitor_app.dsm.child.trpoints.old_instructions[index]);
+            
+            monitor_app.dsm.child.trpoints.old_instructions[index] = set_breakpoint(monitor_app.dsm.child.c_pid,    \
+                                                                 monitor_app.dsm.child.trpoints.breakpoints[index]);
 
             ret = scan_address_space(&monitor_app.dsm.child, &monitor_app.dsm.child.spaces);
             if(ret < 0){
@@ -582,8 +583,8 @@ int main(int argc, char *argv[]){
 
             // Logic block for uffd registration
             //uffd logic
-            monitor_app.dsm.child.uffd = realloc( monitor_app.dsm.child.uffd, sizeof(uffd_t) * monitor_app.dsm.child.spaces.nr_pages);
-            monitor_app.dsm.child.uffd_no = monitor_app.dsm.child.spaces.nr_pages;
+            monitor_app.dsm.child.uffd = realloc( monitor_app.dsm.child.uffd, sizeof(uffd_t) * monitor_app.dsm.child.spaces.size);
+            monitor_app.dsm.child.uffd_no = monitor_app.dsm.child.spaces.size;
             
             //Registering for uffd
             ret = register_uffd(&monitor_app.dsm.child);

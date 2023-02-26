@@ -21,7 +21,7 @@
 
 #define log_info(args...)
 
-#define SWITCHLESS 1
+#define FILEENCRYPT 1
 
 // Helloworld main function address
 #ifdef HELLOWORLD
@@ -66,13 +66,58 @@ static int handle_wprotect_pagefaults(long uffd, struct uffd_msg msg, popsgx_chi
 	struct uffdio_writeprotect uffdio_wp;
 	int ret = 0;
 
-	uffdio_wp.range.start = tracee->uffd[i].address;
+	uffdio_wp.range.start = msg.arg.pagefault.address;
 	uffdio_wp.range.len = sysconf(_SC_PAGE_SIZE);
 	uffdio_wp.mode = 0;
 	if (ioctl(uffd, UFFDIO_WRITEPROTECT, &uffdio_wp) == -1){
 		log_error("UFFDIO_WRITEPROTECT failed\n");
 		goto fail_handle_wprotect_pagefaults;
 	}
+
+	return 0;
+
+fail_handle_wprotect_pagefaults:
+	return -1;
+}
+
+
+int disable_wprotect(long uffd, popsgx_child *tracee, int i)
+{
+	struct uffdio_writeprotect uffdio_wp;
+	int ret = 0;
+
+	uffdio_wp.range.start = tracee->spaces.space[i].address;
+	uffdio_wp.range.len = tracee->spaces.space[i].size * sysconf(_SC_PAGE_SIZE);
+	uffdio_wp.mode = 0;
+	
+	if (ioctl(uffd, UFFDIO_WRITEPROTECT, &uffdio_wp) == -1){
+		log_error("UFFDIO_WRITEPROTECT failed\n");
+		goto fail_handle_wprotect_pagefaults;
+	}
+
+	log_info("S1");
+
+	return 0;
+
+fail_handle_wprotect_pagefaults:
+	return -1;
+}
+
+int enable_wprotect(long uffd, popsgx_child *tracee, int i)
+{
+	struct uffdio_writeprotect uffdio_wp;
+	int ret = 0;
+
+	uffdio_wp.range.start = tracee->spaces.space[i].address;
+	uffdio_wp.range.len = tracee->spaces.space[i].size * sysconf(_SC_PAGE_SIZE);
+	uffdio_wp.mode = UFFDIO_WRITEPROTECT_MODE_WP;
+	
+	if (ioctl(uffd, UFFDIO_WRITEPROTECT, &uffdio_wp) == -1){
+		log_error("UFFDIO_WRITEPROTECT failed\n");
+		goto fail_handle_wprotect_pagefaults;
+	}
+
+	log_info("S1");
 
 	return 0;
 
@@ -210,7 +255,7 @@ void *fault_handler_thread(void *arg)
 									     page,                                             \
 									     handler_arg->msi,                                 \
 									     handler_arg->sock_fd);
-				if(pagefault_type != NO_NEW_PAGEFAULT){
+				if(pagefault_type == NEW_PAGEFAULT_READ || pagefault_type == NEW_PAGEFAULT_WRITE){
 					log_info("New pagefault type is %d", pagefault_type);
 					log_info("Handled new pagefault");
 				}
@@ -219,13 +264,13 @@ void *fault_handler_thread(void *arg)
 				   pagefault_type == PAGEFAULT_WRITE_PROTECTION){
 
 					//Filling up the faulting address
-					log_info("Found a faulting address space %lx", tracee->uffd[i].address);
+					log_info("Found a faulting address space %lx", msg.arg.pagefault.address);
 					faulting_spaces->size += 1;
 					faulting_spaces->space = realloc(faulting_spaces->space,                 \
 									 sizeof(address_space) *                                 \
 									 faulting_spaces->size);
 					faulting_spaces->space[faulting_spaces->size - 1].address =              \
-									 tracee->uffd[i].address;
+									 msg.arg.pagefault.address;
 					faulting_spaces->space[faulting_spaces->size - 1].size = 1;              \
 					faulting_spaces->space[faulting_spaces->size - 1].type =                 \
                                                                          tracee->uffd[i].type;
@@ -277,7 +322,7 @@ out_fail:
 int register_uffd(popsgx_child *child){
 	int ret = 0;
 
-	for(int i = 0; i < child->spaces.nr_pages; i++){
+	for(int i = 0; i < child->spaces.size; i++){
 		child->uffd[i].fd = -1;
 		child->uffd[i].address = 0x0;
 		child->uffd[i].type = STACK;
@@ -308,24 +353,20 @@ int register_uffd(popsgx_child *child){
 		if(child->spaces.space[i].address != 0x7ffff7a9d000 &&                                \
 		   child->spaces.space[i].type != FILE_BACKED){
 #endif
-			for(unsigned long j = 0; j < child->spaces.space[i].size; j++){
-				child->uffd[uffd_no].address = child->spaces.space[i].address + (j * getpagesize());
-				child->uffd[uffd_no].type = child->spaces.space[i].type;
-				log_info("Registering for the address 0x%lx", child->spaces.space[i].address + (j * getpagesize()));
+			// for(unsigned long j = 0; j < child->spaces.space[i].size; j++){
+				child->uffd[i].address = child->spaces.space[i].address;
+				child->uffd[i].type = child->spaces.space[i].type;
+				log_info("Registering for the address 0x%lx", child->spaces.space[i].address);
 				ret = compel_steal_uffd(child,                                                \
-						        &child->uffd[uffd_no].fd,                                     \
-							    child->spaces.space[i].address + (j * getpagesize()),         \
-						        1);
-				log_info("Registered uffd %d for the address 0x%lx", child->uffd[uffd_no].fd, \
-						        child->spaces.space[i].address + (j * getpagesize()));
-				uffd_no++;
-			}
-		}else{
-			log_info("Skipping uffd registration for pages %d of type %d", child->spaces.space[i].size, child->spaces.space[i].type);
-			uffd_no += child->spaces.space[i].size;
+						        &child->uffd[i].fd,                                     \
+							    child->spaces.space[i].address,         \
+						        child->spaces.space[i].size);
+				log_info("Registered uffd %d for the address 0x%lx", child->uffd[i].fd, \
+						        child->spaces.space[i].address);
+				//uffd_no++;
+			// }
 		}
 
-		log_info("X");
 	}
 	
 	return 0;
@@ -337,20 +378,20 @@ int deregister_uffd(popsgx_child *child){
 	for(int i = 0; i < child->spaces.size; i++){
 #ifdef HELLOWORLD
 		if((child->spaces.space[i].address != 0x7ffff7efa000) &&                              \
-			(child->uffd[uffd_no].fd != -1) && (child->spaces.space[i].type != FILE_BACKED)){
+			(child->uffd[i].fd != -1) && (child->spaces.space[i].type != FILE_BACKED)){
 #elif FILEENCRYPT
 		if((child->spaces.space[i].address != 0x7ffff72ee000) &&                              \
-			(child->uffd[uffd_no].fd != -1) && (child->spaces.space[i].type != FILE_BACKED)){
+			(child->uffd[i].fd != -1) && (child->spaces.space[i].type != FILE_BACKED)){
 #elif SWITCHLESS
 		if((child->spaces.space[i].address != 0x7ffff75b4000) &&                            \
-			(child->uffd[uffd_no].fd != -1) && child->spaces.space[i].type != FILE_BACKED){
+			(child->uffd[i].fd != -1) && child->spaces.space[i].type != FILE_BACKED){
 #elif DEBUGMALLOC
 		if((child->spaces.space[i].address != 0x7ffff7a9d000) &&                            \
-			(child->uffd[uffd_no].fd != -1) && child->spaces.space[i].type != FILE_BACKED){
+			(child->uffd[i].fd != -1) && child->spaces.space[i].type != FILE_BACKED){
 #elif LOGCALLBACK
 		if((child->spaces.space[i].address != 0x7ffff7a9e000) &&                            \
 			(child->spaces.space[i].address != 0x7ffff7a9d000) &&							\
-			(child->uffd[uffd_no].fd != -1) && child->spaces.space[i].type != FILE_BACKED){
+			(child->uffd[i].fd != -1) && child->spaces.space[i].type != FILE_BACKED){
 #elif APKMAN
 		if(child->spaces.space[i].address != 0x7ffff7a9d000 &&                                \
 		   child->spaces.space[i].type != FILE_BACKED){
@@ -358,19 +399,16 @@ int deregister_uffd(popsgx_child *child){
 		if(child->spaces.space[i].address != 0x7ffff7a9d000 &&                                \
 		   child->spaces.space[i].type != FILE_BACKED){
 #endif
-			for(unsigned long j = 0; j < child->spaces.space[i].size; j++){
+			//for(unsigned long j = 0; j < child->spaces.space[i].size; j++){
 				ret = compel_remove_uffd(child,                                                 \
-							child->uffd[uffd_no].fd,                                            \
-							child->spaces.space[i].address + (j * getpagesize()),               \
-							1);
+							child->uffd[i].fd,                                            \
+							child->spaces.space[i].address,               \
+							child->spaces.space[i].size);
 				log_info("Unregistered uffd %d for the address 0x%lx with size %d",             \
-									    child->uffd[uffd_no].fd,                                \
-									    child->spaces.space[i].address + (j * getpagesize()),   \
-									    getpagesize());
-				uffd_no++;
-			}
-		}else{
-			uffd_no += child->spaces.space[i].size;
+									    child->uffd[i].fd,                                \
+									    child->spaces.space[i].address,   \
+									    child->spaces.space[i].size);
+			//}
 		}
 	}
 	return 0;
