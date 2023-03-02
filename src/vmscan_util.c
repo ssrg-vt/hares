@@ -7,10 +7,10 @@
 #include "../inc/log.h"
 #include "../inc/popsgx_child.h"
 
-#define log_info(args...) 
+#define log_info(args...)
 
 address_spaces empty_vm_stat_snapshot = {NULL, -1, -1};
-static address_spaces vm_stat_snapshot = {NULL, -1, -1};
+address_spaces vm_stat_snapshot = {NULL, -1, -1};
 
 void _empty_address_space(address_spaces* addr){
     addr->space = (address_space*)realloc(addr->space, 0);
@@ -47,6 +47,11 @@ void _copy_address_spaces(address_spaces* dest, address_spaces *src){
         dest->space[i].size = src->space[i].size;
         dest->space[i].type = src->space[i].type;
     }
+}
+
+
+void copy_vm_stat_address_space(address_spaces *dest){
+    _copy_address_spaces(dest, &vm_stat_snapshot);
 }
 
 /**

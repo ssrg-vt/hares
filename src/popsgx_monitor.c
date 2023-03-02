@@ -28,7 +28,7 @@ extern char* __progname;
 // Starting address for the buffer 
 #define BUFFER_ADDRESS 0x10000
 
-#define FILEENCRYPT 1
+#define SWITCHLESS 1
 
 // Helloworld main function address 
 #ifdef HELLOWORLD
@@ -47,6 +47,7 @@ extern char* __progname;
 #define MAIN 0x407b80
 #endif
 
+address_spaces uffd_stat_snapshot;
 
 /**
  * @brief Printing the help message
@@ -317,31 +318,31 @@ int main(int argc, char *argv[]){
 
 #elif FILEENCRYPT
     //file encryption
-    monitor_app.dsm.child.trpoints.breakpoints[0] = 0x40ab0f;
-    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x40ab14;
-    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x40911f;
-    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x409124;
-    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x409827;
-    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x40982c;
-    monitor_app.dsm.child.trpoints.breakpoints[6] = 0x40a1ca;
-    monitor_app.dsm.child.trpoints.breakpoints[7] = 0x40a1cf;
-    monitor_app.dsm.child.trpoints.breakpoints[8] = 0x40a67f;
-    monitor_app.dsm.child.trpoints.breakpoints[9] = 0x40a684;
+    monitor_app.dsm.child.trpoints.breakpoints[0]  = 0x40ab0f;
+    monitor_app.dsm.child.trpoints.breakpoints[1]  = 0x40ab14;
+    monitor_app.dsm.child.trpoints.breakpoints[2]  = 0x40911f;
+    monitor_app.dsm.child.trpoints.breakpoints[3]  = 0x409124;
+    monitor_app.dsm.child.trpoints.breakpoints[4]  = 0x409827;
+    monitor_app.dsm.child.trpoints.breakpoints[5]  = 0x40982c;
+    monitor_app.dsm.child.trpoints.breakpoints[6]  = 0x40a1ca;
+    monitor_app.dsm.child.trpoints.breakpoints[7]  = 0x40a1cf;
+    monitor_app.dsm.child.trpoints.breakpoints[8]  = 0x40a67f;
+    monitor_app.dsm.child.trpoints.breakpoints[9]  = 0x40a684;
     monitor_app.dsm.child.trpoints.breakpoints[10] = 0x40b9a2;
     monitor_app.dsm.child.trpoints.breakpoints[11] = 0x40b9a7;
     #define LIMIT 11
 
 #elif SWITCHLESS
-    monitor_app.dsm.child.trpoints.breakpoints[0] = 0x443f6c;
-    monitor_app.dsm.child.trpoints.breakpoints[1] = 0x443f71;
-    monitor_app.dsm.child.trpoints.breakpoints[2] = 0x444074;
-    monitor_app.dsm.child.trpoints.breakpoints[3] = 0x444079;
-    monitor_app.dsm.child.trpoints.breakpoints[4] = 0x444251;
-    monitor_app.dsm.child.trpoints.breakpoints[5] = 0x444256;
-    monitor_app.dsm.child.trpoints.breakpoints[6] = 0x44445a;
-    monitor_app.dsm.child.trpoints.breakpoints[7] = 0x44445f;
-    monitor_app.dsm.child.trpoints.breakpoints[8] = 0x4446be;
-    monitor_app.dsm.child.trpoints.breakpoints[9] = 0x4446c3;
+    monitor_app.dsm.child.trpoints.breakpoints[0]  = 0x443f6c;
+    monitor_app.dsm.child.trpoints.breakpoints[1]  = 0x443f71;
+    monitor_app.dsm.child.trpoints.breakpoints[2]  = 0x444074;
+    monitor_app.dsm.child.trpoints.breakpoints[3]  = 0x444079;
+    monitor_app.dsm.child.trpoints.breakpoints[4]  = 0x444251;
+    monitor_app.dsm.child.trpoints.breakpoints[5]  = 0x444256;
+    monitor_app.dsm.child.trpoints.breakpoints[6]  = 0x44445a;
+    monitor_app.dsm.child.trpoints.breakpoints[7]  = 0x44445f;
+    monitor_app.dsm.child.trpoints.breakpoints[8]  = 0x4446be;
+    monitor_app.dsm.child.trpoints.breakpoints[9]  = 0x4446c3;
     monitor_app.dsm.child.trpoints.breakpoints[10] = 0x4448c4;
     monitor_app.dsm.child.trpoints.breakpoints[11] = 0x4448c9;
     #define LIMIT 11
@@ -394,11 +395,15 @@ int main(int argc, char *argv[]){
     monitor_app.dsm.child.trpoints.breakpoints[5] = 0x406619;
     monitor_app.dsm.child.trpoints.breakpoints[6] = 0x40854b;
     monitor_app.dsm.child.trpoints.breakpoints[7] = 0x408550;
-    #define LIMIT 7
+    monitor_app.dsm.child.trpoints.breakpoints[8] = 0x4085c4;
+    monitor_app.dsm.child.trpoints.breakpoints[9] = 0x4085c9;
+    monitor_app.dsm.child.trpoints.breakpoints[10] = 0x40863d;
+    monitor_app.dsm.child.trpoints.breakpoints[11] = 0x408642;
+    #define LIMIT 11
 
 #endif
 
-    if(monitor_app.mode == SERVER){
+    if(monitor_app.mode == CLIENT){
         for(int i = 0; i <= LIMIT ; i = i + 2){
             monitor_app.dsm.child.trpoints.old_instructions[i] = set_breakpoint(monitor_app.dsm.child.c_pid,    \
                                                                       monitor_app.dsm.child.trpoints.breakpoints[i]);
@@ -407,13 +412,16 @@ int main(int argc, char *argv[]){
         int i = 0;
         unsigned long ret_address;
         int iter = 0;
-
+        
         while(1){
             int as[100];
             struct user_regs_struct regs;
             int index = -1;
             int delta = 0;
+            static bool should_change_uffd = true;
+            static address_spaces uffd_faulted_spaces = {NULL, -1, -1};
 
+            empty_address_space(&uffd_faulted_spaces);
             //Logic block for uffd registration
             ret = scan_address_space(&monitor_app.dsm.child, &monitor_app.dsm.child.spaces);
             if(ret < 0){
@@ -424,29 +432,71 @@ int main(int argc, char *argv[]){
             }
 
             address_spaces new_spaces;
-            if(iter)
+            if(iter){
                 delta = find_new_vma_delta(&monitor_app.dsm.child.spaces , &new_spaces);
 
-            //uffd logic
-            monitor_app.dsm.child.uffd = realloc( monitor_app.dsm.child.uffd, sizeof(uffd_t) * monitor_app.dsm.child.spaces.size);
-            monitor_app.dsm.child.uffd_no = monitor_app.dsm.child.spaces.size;
+                if(new_spaces.size && should_change_uffd == false){
+                    //closing the uffd logic
+                    ret = stop_uffd_thread_handler(&monitor_app.uffd_hdl);
+                    if(ret){
+                        log_error("failed to stop uffd thread");
+                        goto out_uffd_thread_fail;
+                    }
+                    //Deregistering for uffd
+                    ret = deregister_uffd(&monitor_app.dsm.child, &uffd_stat_snapshot);
 
-            //Registering for uffd
-            ret = register_uffd(&monitor_app.dsm.child);
-
-            address_spaces uffd_faulted_spaces = {NULL, -1, -1};
-            monitor_app.uffd_hdl.args.child = &monitor_app.dsm.child;
-            monitor_app.uffd_hdl.args.msi = &monitor_app.dsm.msi;
-            monitor_app.uffd_hdl.args.sock_fd = monitor_app.dsm.socket_fd;
-            monitor_app.uffd_hdl.args.faulting_spaces = &uffd_faulted_spaces;
-            ret = start_uffd_thread_handler(&monitor_app.uffd_hdl);
-            if(ret){
-                log_error("failed to start uffd thread");
-                goto out_uffd_thread_fail;
+                    should_change_uffd = true;
+                }
             }
 
-            // Ending part of uffd registration logic
+            
+            if(!iter){
+                // log_error("1");
+                //uffd logic
+                monitor_app.dsm.child.uffd = realloc( monitor_app.dsm.child.uffd, sizeof(uffd_t) * monitor_app.dsm.child.spaces.size);
+                monitor_app.dsm.child.uffd_no = monitor_app.dsm.child.spaces.size;
+                //Registering for uffd
+                ret = register_uffd(&monitor_app.dsm.child, &monitor_app.dsm.child.spaces);
 
+                monitor_app.uffd_hdl.args.child = &monitor_app.dsm.child;
+                monitor_app.uffd_hdl.args.msi = &monitor_app.dsm.msi;
+                monitor_app.uffd_hdl.args.sock_fd = monitor_app.dsm.socket_fd;
+                monitor_app.uffd_hdl.args.faulting_spaces = &uffd_faulted_spaces;
+                ret = start_uffd_thread_handler(&monitor_app.uffd_hdl);
+                if(ret){
+                    log_error("failed to start uffd thread");
+                    goto out_uffd_thread_fail;
+                }
+            }else{
+                if(should_change_uffd){
+                    copy_vm_stat_address_space(&uffd_stat_snapshot);
+                    //uffd logic
+                    monitor_app.dsm.child.uffd = realloc( monitor_app.dsm.child.uffd, sizeof(uffd_t) * uffd_stat_snapshot.size);
+                    monitor_app.dsm.child.uffd_no = uffd_stat_snapshot.size;
+                    //Registering for uffd
+                    ret = register_uffd(&monitor_app.dsm.child, &uffd_stat_snapshot);
+
+                    monitor_app.uffd_hdl.args.child = &monitor_app.dsm.child;
+                    monitor_app.uffd_hdl.args.msi = &monitor_app.dsm.msi;
+                    monitor_app.uffd_hdl.args.sock_fd = monitor_app.dsm.socket_fd;
+                    monitor_app.uffd_hdl.args.faulting_spaces = &uffd_faulted_spaces;
+                    ret = start_uffd_thread_handler(&monitor_app.uffd_hdl);
+                    if(ret){
+                        log_error("failed to start uffd thread");
+                        goto out_uffd_thread_fail;
+                    }
+                }else{
+                    for(int i = 0; i < uffd_stat_snapshot.size; i++){
+                        if(monitor_app.dsm.child.uffd[i].fd != -1){
+                            enable_wprotect(monitor_app.dsm.child.uffd[i].fd, &uffd_stat_snapshot, i);
+                        }
+                    }
+                    should_change_uffd = false;
+                }
+            }
+            
+
+            // Ending part of uffd registration logic
             ptrace(PTRACE_CONT, monitor_app.dsm.child.c_pid, NULL, NULL);
             wait(&ret);
 
@@ -468,16 +518,19 @@ int main(int argc, char *argv[]){
             if(index == -1){
                 break;
             }
-
-            //closing the uffd logic
-            ret = stop_uffd_thread_handler(&monitor_app.uffd_hdl);
-            if(ret){
-                log_error("failed to stop uffd thread");
-                goto out_uffd_thread_fail;
+            
+            if(!iter){
+                // log_error("2");
+                //closing the uffd logic
+                ret = stop_uffd_thread_handler(&monitor_app.uffd_hdl);
+                if(ret){
+                    log_error("failed to stop uffd thread");
+                    goto out_uffd_thread_fail;
+                }
+                //Deregistering for uffd
+                ret = deregister_uffd(&monitor_app.dsm.child, &monitor_app.dsm.child.spaces);
             }
 
-            //Deregistering for uffd
-            ret = deregister_uffd(&monitor_app.dsm.child);
 
             clear_breakpoint(monitor_app.dsm.child.c_pid,                                                           \
                              monitor_app.dsm.child.trpoints.breakpoints[index],                                     \
@@ -499,6 +552,31 @@ int main(int argc, char *argv[]){
             log_info("First new space");
             for(int i = 0; i < new_spaces.size; i++){
                 log_info("The address is %lx with a size %d", new_spaces.space[i].address, new_spaces.space[i].size);
+            }
+
+            if(iter){
+                if(new_spaces.size){
+                    // log_error("7");
+                    // log_error("Found new space 2!!");
+                    //closing the uffd logic
+                    ret = stop_uffd_thread_handler(&monitor_app.uffd_hdl);
+                    if(ret){
+                        log_error("failed to stop uffd thread");
+                        goto out_uffd_thread_fail;
+                    }
+                    //Deregistering for uffd
+                    ret = deregister_uffd(&monitor_app.dsm.child, &uffd_stat_snapshot);
+
+                    should_change_uffd = true;
+                }else{
+                    // log_error("4");
+                    for(int i = 0; i < uffd_stat_snapshot.size; i++){
+                        if(monitor_app.dsm.child.uffd[i].fd != -1){
+                            disable_wprotect(monitor_app.dsm.child.uffd[i].fd, &uffd_stat_snapshot, i);
+                        }
+                    }
+                    should_change_uffd = false;
+                }
             }
 
             //Starting the idc communication!!
@@ -548,15 +626,15 @@ int main(int argc, char *argv[]){
         int delta = 0;
 
         while(1){
+            static address_spaces uffd_faulted_spaces = {NULL, -1, -1};
+            static bool should_change_uffd = true;
+            
+            empty_address_space(&uffd_faulted_spaces);
             //Read for request from clients!!
             msi_handle_remote_execution(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, &address);
 
             //Receive and update the child process delta vma
-            if(1){
-                msi_handle_rec_vma(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, 1);
-            }else{
-                iter++;
-            }
+            msi_handle_rec_vma(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, 1);
 
             //Receive and update child process vma
             msi_handle_rec_vma(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, 0);
@@ -580,26 +658,51 @@ int main(int argc, char *argv[]){
 
             address_spaces new_spaces, tmp_spaces;
             delta = find_new_vma_delta(&monitor_app.dsm.child.spaces , &new_spaces);
-
-            // Logic block for uffd registration
-            //uffd logic
-            monitor_app.dsm.child.uffd = realloc( monitor_app.dsm.child.uffd, sizeof(uffd_t) * monitor_app.dsm.child.spaces.size);
-            monitor_app.dsm.child.uffd_no = monitor_app.dsm.child.spaces.size;
             
-            //Registering for uffd
-            ret = register_uffd(&monitor_app.dsm.child);
+            if(new_spaces.size && should_change_uffd == false){
+                    // log_error("6");
+                    // log_error("Found new space which was false before!!");
+                    //closing the uffd logic
+                    ret = stop_uffd_thread_handler(&monitor_app.uffd_hdl);
+                    if(ret){
+                        log_error("failed to stop uffd thread");
+                        goto out_uffd_thread_fail;
+                    }
+                    //Deregistering for uffd
+                    ret = deregister_uffd(&monitor_app.dsm.child, &uffd_stat_snapshot);
 
-            address_spaces uffd_faulted_spaces = {NULL, -1, -1};
-            monitor_app.uffd_hdl.args.child = &monitor_app.dsm.child;
-            monitor_app.uffd_hdl.args.msi = &monitor_app.dsm.msi;
-            monitor_app.uffd_hdl.args.sock_fd = monitor_app.dsm.socket_fd;
-            monitor_app.uffd_hdl.args.faulting_spaces = &uffd_faulted_spaces;
-            ret = start_uffd_thread_handler(&monitor_app.uffd_hdl);
-            if(ret){
-                log_error("failed to start uffd thread");
-                goto out_uffd_thread_fail;
+                    should_change_uffd = true;
             }
-            // Ending part of uffd registration logic
+
+            if(should_change_uffd){
+                copy_vm_stat_address_space(&uffd_stat_snapshot);
+                // Logic block for uffd registration
+                //uffd logic
+                monitor_app.dsm.child.uffd = realloc( monitor_app.dsm.child.uffd, sizeof(uffd_t) * monitor_app.dsm.child.spaces.size);
+                monitor_app.dsm.child.uffd_no = monitor_app.dsm.child.spaces.size;
+
+                //Registering for uffd
+                ret = register_uffd(&monitor_app.dsm.child, &monitor_app.dsm.child.spaces);
+
+
+                monitor_app.uffd_hdl.args.child = &monitor_app.dsm.child;
+                monitor_app.uffd_hdl.args.msi = &monitor_app.dsm.msi;
+                monitor_app.uffd_hdl.args.sock_fd = monitor_app.dsm.socket_fd;
+                monitor_app.uffd_hdl.args.faulting_spaces = &uffd_faulted_spaces;
+                ret = start_uffd_thread_handler(&monitor_app.uffd_hdl);
+                if(ret){
+                    log_error("failed to start uffd thread");
+                    goto out_uffd_thread_fail;
+                }
+                // Ending part of uffd registration logic
+            }else{
+                for(int i = 0; i < uffd_stat_snapshot.size; i++){
+                    if(monitor_app.dsm.child.uffd[i].fd != -1){
+                        enable_wprotect(monitor_app.dsm.child.uffd[i].fd, &uffd_stat_snapshot, i);
+                    }
+                }
+                should_change_uffd = false;
+            }
 
             log_info("Setting the breakpoint at %p", address);
             old_instructions = set_breakpoint(monitor_app.dsm.child.c_pid, (unsigned long)address);
@@ -608,16 +711,6 @@ int main(int argc, char *argv[]){
             
             clear_breakpoint(monitor_app.dsm.child.c_pid, address, old_instructions);
             log_info("Application hit the breakpoint %p", address);
-
-            //closing the uffd logic
-            ret = stop_uffd_thread_handler(&monitor_app.uffd_hdl);
-            if(ret){
-                log_error("failed to stop uffd thread");
-                goto out_uffd_thread_fail;
-            }
-            
-            //Deregistering for uffd
-            ret = deregister_uffd(&monitor_app.dsm.child);
 
             ret = scan_address_space(&monitor_app.dsm.child, &monitor_app.dsm.child.spaces);
             if(ret < 0){
@@ -632,6 +725,26 @@ int main(int argc, char *argv[]){
             log_info("First new space:");
             for(int i = 0; i < new_spaces.size; i++){
                 log_info("The address is %lx with a size %d", new_spaces.space[i].address, new_spaces.space[i].size);
+            }
+
+            if(new_spaces.size){
+                //closing the uffd logic
+                ret = stop_uffd_thread_handler(&monitor_app.uffd_hdl);
+                if(ret){
+                    log_error("failed to stop uffd thread");
+                    goto out_uffd_thread_fail;
+                }
+                //Deregistering for uffd
+                ret = deregister_uffd(&monitor_app.dsm.child, &uffd_stat_snapshot);
+                should_change_uffd = true;
+            }else{
+                // log_error("4");
+                for(int i = 0; i < uffd_stat_snapshot.size; i++){
+                    if(monitor_app.dsm.child.uffd[i].fd != -1){
+                        disable_wprotect(monitor_app.dsm.child.uffd[i].fd, &uffd_stat_snapshot, i);
+                    }
+                }
+                should_change_uffd = false;
             }
 
             log_info("Starting the idc communication!!");

@@ -21,7 +21,7 @@
 
 #define log_info(args...)
 
-#define FILEENCRYPT 1
+#define SWITCHLESS 1
 
 // Helloworld main function address
 #ifdef HELLOWORLD
@@ -81,13 +81,13 @@ fail_handle_wprotect_pagefaults:
 }
 
 
-int disable_wprotect(long uffd, popsgx_child *tracee, int i)
+int disable_wprotect(long uffd, address_spaces *spaces, int i)
 {
 	struct uffdio_writeprotect uffdio_wp;
 	int ret = 0;
 
-	uffdio_wp.range.start = tracee->spaces.space[i].address;
-	uffdio_wp.range.len = tracee->spaces.space[i].size * sysconf(_SC_PAGE_SIZE);
+	uffdio_wp.range.start = spaces->space[i].address;
+	uffdio_wp.range.len = spaces->space[i].size * sysconf(_SC_PAGE_SIZE);
 	uffdio_wp.mode = 0;
 	
 	if (ioctl(uffd, UFFDIO_WRITEPROTECT, &uffdio_wp) == -1){
@@ -103,13 +103,13 @@ fail_handle_wprotect_pagefaults:
 	return -1;
 }
 
-int enable_wprotect(long uffd, popsgx_child *tracee, int i)
+int enable_wprotect(long uffd, address_spaces *spaces, int i)
 {
 	struct uffdio_writeprotect uffdio_wp;
 	int ret = 0;
 
-	uffdio_wp.range.start = tracee->spaces.space[i].address;
-	uffdio_wp.range.len = tracee->spaces.space[i].size * sysconf(_SC_PAGE_SIZE);
+	uffdio_wp.range.start = spaces->space[i].address;
+	uffdio_wp.range.len = spaces->space[i].size * sysconf(_SC_PAGE_SIZE);
 	uffdio_wp.mode = UFFDIO_WRITEPROTECT_MODE_WP;
 	
 	if (ioctl(uffd, UFFDIO_WRITEPROTECT, &uffdio_wp) == -1){
@@ -319,50 +319,50 @@ out_fail:
 
 }
 
-int register_uffd(popsgx_child *child){
+int register_uffd(popsgx_child *child, address_spaces *spaces){
 	int ret = 0;
 
-	for(int i = 0; i < child->spaces.size; i++){
+	for(int i = 0; i < spaces->size; i++){
 		child->uffd[i].fd = -1;
 		child->uffd[i].address = 0x0;
 		child->uffd[i].type = STACK;
 	}
 
 	int uffd_no = 0;
-	for(int i = 0; i < child->spaces.size; i++){
+	for(int i = 0; i < spaces->size; i++){
 #ifdef HELLOWORLD
-		if(child->spaces.space[i].address != 0x7ffff7efa000 &&                                \
-		   child->spaces.space[i].type != FILE_BACKED){
+		if(spaces->space[i].address != 0x7ffff7efa000 &&                                \
+		   spaces->space[i].type != FILE_BACKED){
 #elif FILEENCRYPT
-		if(child->spaces.space[i].address != 0x7ffff72ee000 &&                                \
-		   child->spaces.space[i].type != FILE_BACKED){
+		if(spaces->space[i].address != 0x7ffff72ee000 &&                                \
+		   spaces->space[i].type != FILE_BACKED){
 #elif SWITCHLESS
-		if(child->spaces.space[i].address != 0x7ffff75b4000 &&                                \
-		   child->spaces.space[i].type != FILE_BACKED){
+		if(spaces->space[i].address != 0x7ffff75b4000 &&                                \
+		   spaces->space[i].type != FILE_BACKED){
 #elif DEBUGMALLOC
-		if(child->spaces.space[i].address != 0x7ffff7a9d000 &&                                \
-		   child->spaces.space[i].type != FILE_BACKED){
+		if(spaces->space[i].address != 0x7ffff7a9d000 &&                                \
+		   spaces->space[i].type != FILE_BACKED){
 #elif LOGCALLBACK
-		if(child->spaces.space[i].address != 0x7ffff7a9e000 &&                                \
-		   child->spaces.space[i].address != 0x7ffff7a9d000 &&								  \
-		   child->spaces.space[i].type != FILE_BACKED){
+		if(spaces->space[i].address != 0x7ffff7a9e000 &&                                \
+		   spaces->space[i].address != 0x7ffff7a9d000 &&								  \
+		   spaces->space[i].type != FILE_BACKED){
 #elif APKMAN
-		if(child->spaces.space[i].address != 0x7ffff7a9d000 &&                                \
-		   child->spaces.space[i].type != FILE_BACKED){
+		if(spaces->space[i].address != 0x7ffff7a9d000 &&                                \
+		   spaces->space[i].type != FILE_BACKED){
 #elif DATASEALING
-		if(child->spaces.space[i].address != 0x7ffff7a9d000 &&                                \
-		   child->spaces.space[i].type != FILE_BACKED){
+		if(spaces->space[i].address != 0x7ffff7a9d000 &&                                \
+		   spaces->space[i].type != FILE_BACKED){
 #endif
 			// for(unsigned long j = 0; j < child->spaces.space[i].size; j++){
-				child->uffd[i].address = child->spaces.space[i].address;
-				child->uffd[i].type = child->spaces.space[i].type;
-				log_info("Registering for the address 0x%lx", child->spaces.space[i].address);
+				child->uffd[i].address = spaces->space[i].address;
+				child->uffd[i].type = spaces->space[i].type;
+				log_info("Registering for the address 0x%lx", spaces->space[i].address);
 				ret = compel_steal_uffd(child,                                                \
 						        &child->uffd[i].fd,                                     \
-							    child->spaces.space[i].address,         \
-						        child->spaces.space[i].size);
+							    spaces->space[i].address,         \
+						        spaces->space[i].size);
 				log_info("Registered uffd %d for the address 0x%lx", child->uffd[i].fd, \
-						        child->spaces.space[i].address);
+						        spaces->space[i].address);
 				//uffd_no++;
 			// }
 		}
@@ -372,42 +372,42 @@ int register_uffd(popsgx_child *child){
 	return 0;
 }
 
-int deregister_uffd(popsgx_child *child){
+int deregister_uffd(popsgx_child *child, address_spaces *spaces){
 	int ret = 0;
 	int uffd_no = 0;
-	for(int i = 0; i < child->spaces.size; i++){
+	for(int i = 0; i < spaces->size; i++){
 #ifdef HELLOWORLD
-		if((child->spaces.space[i].address != 0x7ffff7efa000) &&                              \
-			(child->uffd[i].fd != -1) && (child->spaces.space[i].type != FILE_BACKED)){
+		if((spaces->space[i].address != 0x7ffff7efa000) &&                              \
+			(child->uffd[i].fd != -1) && (spaces->space[i].type != FILE_BACKED)){
 #elif FILEENCRYPT
-		if((child->spaces.space[i].address != 0x7ffff72ee000) &&                              \
-			(child->uffd[i].fd != -1) && (child->spaces.space[i].type != FILE_BACKED)){
+		if((spaces->space[i].address != 0x7ffff72ee000) &&                              \
+			(child->uffd[i].fd != -1) && (spaces->space[i].type != FILE_BACKED)){
 #elif SWITCHLESS
-		if((child->spaces.space[i].address != 0x7ffff75b4000) &&                            \
-			(child->uffd[i].fd != -1) && child->spaces.space[i].type != FILE_BACKED){
+		if((spaces->space[i].address != 0x7ffff75b4000) &&                            	\
+			(child->uffd[i].fd != -1) && spaces->space[i].type != FILE_BACKED){
 #elif DEBUGMALLOC
-		if((child->spaces.space[i].address != 0x7ffff7a9d000) &&                            \
-			(child->uffd[i].fd != -1) && child->spaces.space[i].type != FILE_BACKED){
+		if((spaces->space[i].address != 0x7ffff7a9d000) &&                            	\
+			(child->uffd[i].fd != -1) && spaces->space[i].type != FILE_BACKED){
 #elif LOGCALLBACK
-		if((child->spaces.space[i].address != 0x7ffff7a9e000) &&                            \
-			(child->spaces.space[i].address != 0x7ffff7a9d000) &&							\
-			(child->uffd[i].fd != -1) && child->spaces.space[i].type != FILE_BACKED){
+		if((spaces->space[i].address != 0x7ffff7a9e000) &&                            	\
+			(spaces->space[i].address != 0x7ffff7a9d000) &&								\
+			(child->uffd[i].fd != -1) && spaces->space[i].type != FILE_BACKED){
 #elif APKMAN
-		if(child->spaces.space[i].address != 0x7ffff7a9d000 &&                                \
-		   child->spaces.space[i].type != FILE_BACKED){
+		if(spaces->space[i].address != 0x7ffff7a9d000 &&                                \
+		   spaces->space[i].type != FILE_BACKED){
 #elif DATASEALING
-		if(child->spaces.space[i].address != 0x7ffff7a9d000 &&                                \
-		   child->spaces.space[i].type != FILE_BACKED){
+		if(spaces->space[i].address != 0x7ffff7a9d000 &&                                \
+		   spaces->space[i].type != FILE_BACKED){
 #endif
 			//for(unsigned long j = 0; j < child->spaces.space[i].size; j++){
 				ret = compel_remove_uffd(child,                                                 \
-							child->uffd[i].fd,                                            \
-							child->spaces.space[i].address,               \
-							child->spaces.space[i].size);
+							child->uffd[i].fd,                                            		\
+							spaces->space[i].address,               							\
+							spaces->space[i].size);
 				log_info("Unregistered uffd %d for the address 0x%lx with size %d",             \
-									    child->uffd[i].fd,                                \
-									    child->spaces.space[i].address,   \
-									    child->spaces.space[i].size);
+									    child->uffd[i].fd,                               	 	\
+									    spaces->space[i].address,   							\
+									    spaces->space[i].size);
 			//}
 		}
 	}
