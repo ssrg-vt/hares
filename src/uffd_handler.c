@@ -21,12 +21,12 @@
 
 #define log_info(args...)
 
-#define SWITCHLESS 1
+#define FILEENCRYPT 1
 
 // Helloworld main function address
 #ifdef HELLOWORLD
 #define MAIN 0x43fd70
-#elif FILEENCRYPT
+#elif FILEENCRYPT	
 #define MAIN 0x40a790
 #elif SWITCHLESS
 #define MAIN 0x443d00
@@ -38,6 +38,14 @@
 #define MAIN 0x43e980
 #elif DATASEALING
 #define MAIN 0x407b80
+#elif PLUGGABLEALLOCATOR
+#define MAIN 0x43e8b0
+#elif MICROBENCH
+#define MAIN 0x43e8b0
+#elif VIRTUAL_ASSISTANT
+#define MAIN 0x1d595
+#elif TRUST_FL
+#deinf MAIN 0x27b0
 #endif
 
 
@@ -95,8 +103,6 @@ int disable_wprotect(long uffd, address_spaces *spaces, int i)
 		goto fail_handle_wprotect_pagefaults;
 	}
 
-	log_info("S1");
-
 	return 0;
 
 fail_handle_wprotect_pagefaults:
@@ -116,8 +122,6 @@ int enable_wprotect(long uffd, address_spaces *spaces, int i)
 		log_error("UFFDIO_WRITEPROTECT failed\n");
 		goto fail_handle_wprotect_pagefaults;
 	}
-
-	log_info("S1");
 
 	return 0;
 
@@ -352,6 +356,15 @@ int register_uffd(popsgx_child *child, address_spaces *spaces){
 #elif DATASEALING
 		if(spaces->space[i].address != 0x7ffff7a9d000 &&                                \
 		   spaces->space[i].type != FILE_BACKED){
+#elif PLUGGABLEALLOCATOR
+		if(spaces->space[i].address != 0x7ffff7a9d000 &&                                \
+		   spaces->space[i].type != FILE_BACKED){
+#elif MICROBENCH
+		if(spaces->space[i].address != 0x7ffff7a9d000 &&                                \
+		   spaces->space[i].type != FILE_BACKED){
+#elif VIRTUAL_ASSISTANT
+		if(spaces->space[i].address != 0x7ffff7a9d000 &&                                \
+		   spaces->space[i].type != FILE_BACKED){
 #endif
 			// for(unsigned long j = 0; j < child->spaces.space[i].size; j++){
 				child->uffd[i].address = spaces->space[i].address;
@@ -396,6 +409,15 @@ int deregister_uffd(popsgx_child *child, address_spaces *spaces){
 		if(spaces->space[i].address != 0x7ffff7a9d000 &&                                \
 		   spaces->space[i].type != FILE_BACKED){
 #elif DATASEALING
+		if(spaces->space[i].address != 0x7ffff7a9d000 &&                                \
+		   spaces->space[i].type != FILE_BACKED){
+#elif PLUGGABLEALLOCATOR
+		if(spaces->space[i].address != 0x7ffff7a9d000 &&                                \
+		   spaces->space[i].type != FILE_BACKED){
+#elif MICROBENCH
+		if(spaces->space[i].address != 0x7ffff7a9d000 &&                                \
+		   spaces->space[i].type != FILE_BACKED){
+#elif VIRTUAL_ASSISTANT
 		if(spaces->space[i].address != 0x7ffff7a9d000 &&                                \
 		   spaces->space[i].type != FILE_BACKED){
 #endif

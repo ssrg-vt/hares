@@ -158,14 +158,30 @@ int get_child_data_str(pid_t pid, char *dst, long long src)
 
 long set_breakpoint(pid_t pid, unsigned long addr)
 {
+	// printf("The address passed is %lx\n", addr);
 	long data = ptrace(PTRACE_PEEKTEXT, pid, (void *) addr, 0);
+	if(data == -1)
+	{	
+		log_error("The application failed with errno : %d",  errno);
+		return -1;
+	}
+	
+	// printf("errno : %d data: %lx\n", errno, data);
   	long old_data = data;
 
   	log_debug("Setting a breakpoint at %x\n", addr);
   	log_debug("Value at the address %x %x\n", addr, data);
   	data = (data & ~0xff) | 0xcc;
-  	ptrace(PTRACE_POKETEXT, pid, (void *)addr, data);
-  	//log_debug("Value at the address %x after setting the int 3 opcode %x\n", addr, data);
+  	
+	ptrace(PTRACE_POKETEXT, pid, (void *)addr, data);
+	if(errno)
+	{
+		log_error("The application failed with errno : %d",  errno);
+		return -1;
+	}
+	
+	// printf("errno : %d\n", errno);
+
   	log_debug("Done setting the breatpoint at %x\n\n", addr);
   	return old_data;
 }
