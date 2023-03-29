@@ -28,7 +28,7 @@ extern char* __progname;
 // Starting address for the buffer 
 #define BUFFER_ADDRESS 0x10000
 
-#define SGX_SSL 1
+#define PORPOISE_H20 1
 
 // Helloworld main function address 
 #ifdef HELLOWORLD
@@ -60,6 +60,9 @@ extern char* __progname;
 #elif SGX_SSL
 #define CODE_OFFSET 0x555555554000
 #define MAIN CODE_OFFSET + 0x344d
+#elif PORPOISE_H20
+#define CODE_OFFSET 0x555555554000
+#define MAIN CODE_OFFSET + 0x550d
 #endif
 
 address_spaces uffd_stat_snapshot;
@@ -185,6 +188,8 @@ static int execute_tracee_app(popsgx_child *tracee){
 
 #elif SGX_SSL
         char *user_args[] = {"./app", NULL};
+#elif PORPOISE_H20
+        char *user_args[] = {"./h2o", "--version", NULL};
 #endif
 
         execve(user_args[0], user_args, NULL);
@@ -512,6 +517,32 @@ int main(int argc, char *argv[]){
 
     #define LIMIT 5
 
+#elif PORPOISE_H20
+    //sgx_create_enclave
+    monitor_app.dsm.child.trpoints.breakpoints[0] = CODE_OFFSET + 0x5350;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = CODE_OFFSET + 0x5355;
+
+    //ecall_init_transfer
+    monitor_app.dsm.child.trpoints.breakpoints[2] = CODE_OFFSET + 0x53af;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = CODE_OFFSET + 0x53b4;
+    
+    //ecall_shim_main
+    monitor_app.dsm.child.trpoints.breakpoints[4] = CODE_OFFSET + 0x5585;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = CODE_OFFSET + 0x558a;
+    
+    //ecall_sig_handler
+    monitor_app.dsm.child.trpoints.breakpoints[6] = CODE_OFFSET + 0x15e4;
+    monitor_app.dsm.child.trpoints.breakpoints[7] = CODE_OFFSET + 0x162e;
+
+    //ecall_start_routine
+    monitor_app.dsm.child.trpoints.breakpoints[8] = CODE_OFFSET + 0x54d8;
+    monitor_app.dsm.child.trpoints.breakpoints[9] = CODE_OFFSET + 0x54dd;
+
+    //ecall_destroy_enclave
+    monitor_app.dsm.child.trpoints.breakpoints[10] = CODE_OFFSET + 0x5440;
+    monitor_app.dsm.child.trpoints.breakpoints[11] = CODE_OFFSET + 0x5445;
+
+    #define LIMIT 11
 #endif
 
     if(monitor_app.mode == CLIENT){
