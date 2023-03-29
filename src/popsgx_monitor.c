@@ -18,7 +18,7 @@
 #include "../inc/msi_handler.h"
 #include "../inc/vmscan_util.h"
 
-//#define log_info(args...) 
+#define log_info(args...) 
 
 extern char* __progname;
 
@@ -28,7 +28,7 @@ extern char* __progname;
 // Starting address for the buffer 
 #define BUFFER_ADDRESS 0x10000
 
-#define SQLITE 1
+#define SGX_SSL 1
 
 // Helloworld main function address 
 #ifdef HELLOWORLD
@@ -57,6 +57,9 @@ extern char* __progname;
 #elif SQLITE
 #define CODE_OFFSET 0x555555554000
 #define MAIN CODE_OFFSET + 0x2580
+#elif SGX_SSL
+#define CODE_OFFSET 0x555555554000
+#define MAIN CODE_OFFSET + 0x344d
 #endif
 
 address_spaces uffd_stat_snapshot;
@@ -118,7 +121,7 @@ static void wait_child_main(pid_t cpid, unsigned long addr)
     wait(&wait_status);
 
     clear_breakpoint(cpid, addr, main_data);
-    
+
     ret = ptrace(PTRACE_DETACH, cpid, NULL, NULL);
 }
 
@@ -180,6 +183,8 @@ static int execute_tracee_app(popsgx_child *tracee){
 #elif SQLITE
         char *user_args[] = {"./app", "test.db", NULL};
 
+#elif SGX_SSL
+        char *user_args[] = {"./app", NULL};
 #endif
 
         execve(user_args[0], user_args, NULL);
@@ -466,7 +471,8 @@ int main(int argc, char *argv[]){
     monitor_app.dsm.child.trpoints.breakpoints[8] = CODE_OFFSET + 0x3d77;
     monitor_app.dsm.child.trpoints.breakpoints[9] = CODE_OFFSET + 0x3d86;
     //call ecall_ml_vgg16
-    monitor_app.dsm.child.trpoints.breakpoints[10] = CODE_OFFSET + 0x2810;
+    monitor_app.dsm.child.
+    trpoints.breakpoints[10] = CODE_OFFSET + 0x2810;
     monitor_app.dsm.child.trpoints.breakpoints[11] = CODE_OFFSET + 0x2815;
     //sgx_destroy_enclave
     monitor_app.dsm.child.trpoints.breakpoints[12] = CODE_OFFSET + 0x2828;
@@ -490,6 +496,21 @@ int main(int argc, char *argv[]){
     monitor_app.dsm.child.trpoints.breakpoints[8] = CODE_OFFSET + 0x2754;
     monitor_app.dsm.child.trpoints.breakpoints[9] = CODE_OFFSET + 0x2759;
     #define LIMIT 9
+
+#elif SGX_SSL
+    //sgx_create_enclave
+    monitor_app.dsm.child.trpoints.breakpoints[0] = CODE_OFFSET + 0x3460;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = CODE_OFFSET + 0x3465;
+    
+    //ecall_start_tls_client
+    monitor_app.dsm.child.trpoints.breakpoints[2] = CODE_OFFSET + 0x3491;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = CODE_OFFSET + 0x3496;
+    
+    //SGX_DESTROY_ENCLAVE
+    monitor_app.dsm.child.trpoints.breakpoints[4] = CODE_OFFSET + 0x34a3;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = CODE_OFFSET + 0x34a8;
+
+    #define LIMIT 5
 
 #endif
 
