@@ -18,7 +18,7 @@
 #include "../inc/msi_handler.h"
 #include "../inc/vmscan_util.h"
 
-//#define log_info(args...) 
+#define log_info(args...) 
 
 extern char* __progname;
 
@@ -28,7 +28,7 @@ extern char* __progname;
 // Starting address for the buffer 
 #define BUFFER_ADDRESS 0x10000
 
-#define SGX_DNET 1
+#define PLINIUS 1
 
 // Helloworld main function address 
 #ifdef HELLOWORLD
@@ -66,6 +66,9 @@ extern char* __progname;
 #elif SGX_DNET
 #define CODE_OFFSET 0x555555554000
 #define MAIN CODE_OFFSET + 0x4938
+#elif PLINIUS
+#define CODE_OFFSET 0x555555554000
+#define MAIN CODE_OFFSET + 0x4b4a
 #endif
 
 address_spaces uffd_stat_snapshot;
@@ -197,6 +200,9 @@ static int execute_tracee_app(popsgx_child *tracee){
 
 #elif SGX_DNET
         char *user_args[] = {"./app", NULL};
+
+#elif PLINIUS
+        char *user_args[] = {"./plinius", NULL};
 
 #endif
 
@@ -342,6 +348,8 @@ int main(int argc, char *argv[]){
         log_error("Failed to start dsm");
         goto out_dsm_fail;
     }
+
+    log_info("Connection established!!");
     
     //Grabbing the heap address
     get_virtual_address_frame_by_name(monitor_app.dsm.child.c_pid, &monitor_app.dsm.child.heap_start_address, &monitor_app.dsm.child.heap_end_address, "[heap]");
@@ -575,6 +583,48 @@ int main(int argc, char *argv[]){
 
     #define LIMIT 9
 
+#elif PLINIUS
+    //sgx_create_enclave
+    monitor_app.dsm.child.trpoints.breakpoints[0] = CODE_OFFSET + 0x4b24;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = CODE_OFFSET + 0x4b29;
+
+    //rom_init()
+    monitor_app.dsm.child.trpoints.breakpoints[18] = CODE_OFFSET + 0x4b9c;
+    monitor_app.dsm.child.trpoints.breakpoints[19] = CODE_OFFSET + 0x4ba1;
+
+    //ecall_init
+    monitor_app.dsm.child.trpoints.breakpoints[2] = CODE_OFFSET + 0x4be3;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = CODE_OFFSET + 0x4be8;
+
+    //ecall_nvram_worker not called
+    monitor_app.dsm.child.trpoints.breakpoints[4] = CODE_OFFSET + 0x414a;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = CODE_OFFSET + 0x41b8;
+
+    //empty_ecall not called
+    monitor_app.dsm.child.trpoints.breakpoints[6] = CODE_OFFSET + 0x41b9;
+    monitor_app.dsm.child.trpoints.breakpoints[7] = CODE_OFFSET + 0x41e9;
+
+    //ecall_trainer
+    monitor_app.dsm.child.trpoints.breakpoints[8] = CODE_OFFSET + 0x483e;
+    monitor_app.dsm.child.trpoints.breakpoints[9] = CODE_OFFSET + 0x4843;
+
+    //ecall_tester
+    monitor_app.dsm.child.trpoints.breakpoints[10] = CODE_OFFSET + 0x49c8;
+    monitor_app.dsm.child.trpoints.breakpoints[11] = CODE_OFFSET + 0x49cd;
+
+    //ecall_classify not called
+    monitor_app.dsm.child.trpoints.breakpoints[12] = CODE_OFFSET + 0x42f0;
+    monitor_app.dsm.child.trpoints.breakpoints[13] = CODE_OFFSET + 0x436d;
+    
+    //ecall_set_data not called
+    monitor_app.dsm.child.trpoints.breakpoints[14] = CODE_OFFSET + 0x436e;
+    monitor_app.dsm.child.trpoints.breakpoints[15] = CODE_OFFSET + 0x43bb;
+    
+    //destroy_enclave
+    monitor_app.dsm.child.trpoints.breakpoints[16] = CODE_OFFSET + 0x4d36;
+    monitor_app.dsm.child.trpoints.breakpoints[17] = CODE_OFFSET + 0x5d3b;
+
+    #define LIMIT 19
 #endif
 
     if(monitor_app.mode == CLIENT){
