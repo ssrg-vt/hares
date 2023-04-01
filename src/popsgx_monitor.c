@@ -18,7 +18,7 @@
 #include "../inc/msi_handler.h"
 #include "../inc/vmscan_util.h"
 
-#define log_info(args...) 
+//#define log_info(args...) 
 
 extern char* __progname;
 
@@ -28,7 +28,7 @@ extern char* __progname;
 // Starting address for the buffer 
 #define BUFFER_ADDRESS 0x10000
 
-#define PORPOISE_H20 1
+#define SGX_DNET 1
 
 // Helloworld main function address 
 #ifdef HELLOWORLD
@@ -63,6 +63,9 @@ extern char* __progname;
 #elif PORPOISE_H20
 #define CODE_OFFSET 0x555555554000
 #define MAIN CODE_OFFSET + 0x550d
+#elif SGX_DNET
+#define CODE_OFFSET 0x555555554000
+#define MAIN CODE_OFFSET + 0x4938
 #endif
 
 address_spaces uffd_stat_snapshot;
@@ -188,8 +191,13 @@ static int execute_tracee_app(popsgx_child *tracee){
 
 #elif SGX_SSL
         char *user_args[] = {"./app", NULL};
+
 #elif PORPOISE_H20
         char *user_args[] = {"./h2o", "--version", NULL};
+
+#elif SGX_DNET
+        char *user_args[] = {"./app", NULL};
+
 #endif
 
         execve(user_args[0], user_args, NULL);
@@ -543,6 +551,30 @@ int main(int argc, char *argv[]){
     monitor_app.dsm.child.trpoints.breakpoints[11] = CODE_OFFSET + 0x5445;
 
     #define LIMIT 11
+
+#elif SGX_DNET
+    //sgx_create_enclave
+    monitor_app.dsm.child.trpoints.breakpoints[0] = CODE_OFFSET + 0x4912;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = CODE_OFFSET + 0x4917;
+
+    //sgx_ecall_trainer
+    monitor_app.dsm.child.trpoints.breakpoints[2] = CODE_OFFSET + 0x4245;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = CODE_OFFSET + 0x424a;
+
+    //sgx_ecall_tester
+    monitor_app.dsm.child.trpoints.breakpoints[4] = CODE_OFFSET + 0x4337;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = CODE_OFFSET + 0x433c;
+
+    //sgx_ecall_classify
+    monitor_app.dsm.child.trpoints.breakpoints[6] = CODE_OFFSET + 0x4471;
+    monitor_app.dsm.child.trpoints.breakpoints[7] = CODE_OFFSET + 0x4476;
+
+    //sgx_destroy_enclave
+    monitor_app.dsm.child.trpoints.breakpoints[8] = CODE_OFFSET + 0x4985;
+    monitor_app.dsm.child.trpoints.breakpoints[9] = CODE_OFFSET + 0x498a;
+
+    #define LIMIT 9
+
 #endif
 
     if(monitor_app.mode == CLIENT){
@@ -694,10 +726,11 @@ Handle_childs_child_execution:
 
             delta = find_new_vma_delta(&monitor_app.dsm.child.spaces , &new_spaces);
             
-            // log_info("First new space");
-            // for(int i = 0; i < new_spaces.size; i++){
-            //     log_info("The address is %lx with a size %d", new_spaces.space[i].address, new_spaces.space[i].size);
-            // }
+            log_info("First new space");
+            for(int i = 0; i < new_spaces.size; i++){
+                if(new_spaces.space[i].address >= 0x7ffff7949000 && new_spaces.space[i].address < 0x7ffff7a0f000)
+                    log_info("The address is %lx with a size %d", new_spaces.space[i].address, new_spaces.space[i].size);
+            }
 
             if(iter){
                 if(new_spaces.size){
@@ -737,10 +770,11 @@ Handle_childs_child_execution:
             //delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, HEAP);
             //delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, STACK);
 
-            // log_info("Final new space");
-            // for(int i = 0; i < new_spaces.size; i++){
-            //     log_info("The address is %lx with a size %d with type %d", new_spaces.space[i].address, new_spaces.space[i].size, new_spaces.space[i].type);
-            // }
+            log_info("Final new space");
+            for(int i = 0; i < new_spaces.size; i++){
+                if(new_spaces.space[i].address >= 0x7ffff7949000 && new_spaces.space[i].address < 0x7ffff7a0f000)
+                    log_info("The address is %lx with a size %d with type %d", new_spaces.space[i].address, new_spaces.space[i].size, new_spaces.space[i].type);
+            }
 
             log_info("Starting the idc communication to remote!!");
             //Grabbing and sending the child process vma to remote
@@ -749,12 +783,14 @@ Handle_childs_child_execution:
             //Grabbing and sending the child process registers to remote
             msi_handle_send_regs(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, &monitor_app.dsm.msi.regs);
 
-            log_info("Receiving the idc communication from remote!!");
+            log_info("Waiting to receive the idc communication from remote!!");
 
             msi_handle_remote_execution(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, &ret_address);
 
             //Receive and update the child process delta vma
             msi_handle_rec_vma(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, 1);
+
+            log_info("Receiving the idc communication from remote!!");
 
             //Receive and update child process vma
             msi_handle_rec_vma(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, 0);
@@ -779,13 +815,15 @@ Handle_childs_child_execution:
             
             empty_address_space(&uffd_faulted_spaces);
 
-            log_info("Receiving the idc communication from client!!");
+            log_info("Waiting to receive the idc communication from remote!!");
 
             //Read for request from clients!!
             msi_handle_remote_execution(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, &address);
 
             //Receive and update the child process delta vma
             msi_handle_rec_vma(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, 1);
+            
+            log_info("Receiving the idc communication from client!!");
 
             //Receive and update child process vma
             msi_handle_rec_vma(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, 0);
@@ -873,10 +911,11 @@ Handle_childs_child_execution:
 
             delta = find_new_vma_delta(&monitor_app.dsm.child.spaces , &new_spaces);
 
-            // log_info("First new space:");
-            // for(int i = 0; i < new_spaces.size; i++){
-            //     log_info("The address is %lx with a size %d", new_spaces.space[i].address, new_spaces.space[i].size);
-            // }
+            log_info("First new space:");
+            for(int i = 0; i < new_spaces.size; i++){
+                if(new_spaces.space[i].address >= 0x7ffff7949000 && new_spaces.space[i].address < 0x7ffff7a0f000)
+                    log_info("The address is %lx with a size %d", new_spaces.space[i].address, new_spaces.space[i].size);
+            }
 
             if(new_spaces.size){
                 //closing the uffd logic
@@ -909,10 +948,11 @@ Handle_childs_child_execution:
             //delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, STACK);
             
 
-            // log_info("Final new space:");
-            // for(int i = 0; i < new_spaces.size; i++){
-            //     log_info("The address is %lx with a size %d", new_spaces.space[i].address, new_spaces.space[i].size);
-            // }
+            log_info("Final new space:");
+            for(int i = 0; i < new_spaces.size; i++){
+                if(new_spaces.space[i].address >= 0x7ffff7949000 && new_spaces.space[i].address < 0x7ffff7a0f000)
+                    log_info("The address is %lx with a size %d", new_spaces.space[i].address, new_spaces.space[i].size);
+            }
 
             // log_info("child space:");
             // for(int i = 0; i < monitor_app.dsm.child.spaces.size; i++){
