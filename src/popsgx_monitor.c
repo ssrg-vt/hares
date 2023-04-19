@@ -28,7 +28,7 @@ extern char* __progname;
 // Starting address for the buffer 
 #define BUFFER_ADDRESS 0x10000
 
-#define PLINIUS 1
+#define SQLITE 1
 
 // Helloworld main function address 
 #ifdef HELLOWORLD
@@ -73,6 +73,8 @@ extern char* __progname;
 
 address_spaces uffd_stat_snapshot;
 
+popsgx_app monitor_app;
+
 /**
  * @brief Printing the help message
  * 
@@ -96,6 +98,18 @@ static void usage(void)
              __progname);
     exit(EXIT_SUCCESS);
 }
+
+/*
+ * @brief This is a signal handler for the process
+ *
+ */
+void signal_handler(int signo){
+    if(signo == SIGTERM || signo == SIGINT){
+        close(monitor_app.dsm.socket_fd);
+	exit(0);
+    }
+}
+
 
 /**
  * @brief This function is only to be used to stop the child at main
@@ -260,7 +274,6 @@ int main(int argc, char *argv[]){
     int ret = 0;
     int opt, opt_counter = 0;
     char *mode = NULL;
-    popsgx_app monitor_app;
 
     memset(&monitor_app, 0, sizeof(popsgx_app));
     monitor_app.buffer = BUFFER_ADDRESS;
@@ -348,6 +361,9 @@ int main(int argc, char *argv[]){
         log_error("Failed to start dsm");
         goto out_dsm_fail;
     }
+    
+    signal(SIGTERM, signal_handler);
+    signal(SIGINT, signal_handler);
 
     log_info("Connection established!!");
     
@@ -502,20 +518,20 @@ int main(int argc, char *argv[]){
 
 #elif SQLITE
     //sgx_create_enclave
-    monitor_app.dsm.child.trpoints.breakpoints[0] = CODE_OFFSET + 0x25f2;
-    monitor_app.dsm.child.trpoints.breakpoints[1] = CODE_OFFSET + 0x25f7;
+    monitor_app.dsm.child.trpoints.breakpoints[0] = CODE_OFFSET + 0x25fb;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = CODE_OFFSET + 0x2600;
     //opendb
-    monitor_app.dsm.child.trpoints.breakpoints[2] = CODE_OFFSET + 0x262a;
-    monitor_app.dsm.child.trpoints.breakpoints[3] = CODE_OFFSET + 0x262f;
+    monitor_app.dsm.child.trpoints.breakpoints[2] = CODE_OFFSET + 0x2634;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = CODE_OFFSET + 0x2639;
     //execute_sql
-    monitor_app.dsm.child.trpoints.breakpoints[4] = CODE_OFFSET + 0x26ce;
-    monitor_app.dsm.child.trpoints.breakpoints[5] = CODE_OFFSET + 0x26d3;
+    monitor_app.dsm.child.trpoints.breakpoints[4] = CODE_OFFSET + 0x26eb;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = CODE_OFFSET + 0x26f0;
     //close_db
-    monitor_app.dsm.child.trpoints.breakpoints[6] = CODE_OFFSET + 0x2746;
-    monitor_app.dsm.child.trpoints.breakpoints[7] = CODE_OFFSET + 0x274b;
+    monitor_app.dsm.child.trpoints.breakpoints[6] = CODE_OFFSET + 0x2767;
+    monitor_app.dsm.child.trpoints.breakpoints[7] = CODE_OFFSET + 0x276c;
     //destroy
-    monitor_app.dsm.child.trpoints.breakpoints[8] = CODE_OFFSET + 0x2754;
-    monitor_app.dsm.child.trpoints.breakpoints[9] = CODE_OFFSET + 0x2759;
+    monitor_app.dsm.child.trpoints.breakpoints[8] = CODE_OFFSET + 0x2775;
+    monitor_app.dsm.child.trpoints.breakpoints[9] = CODE_OFFSET + 0x277a;
     #define LIMIT 9
 
 #elif SGX_SSL
@@ -720,7 +736,6 @@ int main(int argc, char *argv[]){
             }
             
 
-Handle_childs_child_execution:
             // Ending part of uffd registration logic
             ptrace(PTRACE_CONT, monitor_app.dsm.child.c_pid, NULL, NULL);
             wait(&ret);
