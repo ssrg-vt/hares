@@ -1,0 +1,19 @@
+# Hashes of file build rules.
+47a128a8913c48c7dbd6328715ece081 CMakeFiles/check
+655838c8a1bc3b9a0c693b98aba58862 CMakeFiles/check-as-root
+19813fedf12c2d33e8537a48288286d2 CMakeFiles/check-as-root-valgrind
+eee09286d6eb3e7126950d160b32492a CMakeFiles/check-valgrind
+1b2d5a343e1cee32ef53b21bd357f3b2 CMakeFiles/doc
+ec6c35a81016379d731d224ad515583f CMakeFiles/doc-clean
+8fdfa1d6f665a423b3c2adb7686f4c22 CMakeFiles/doc-publish
+0b5c399538b9b4b4f3dc332b58bdbefc CMakeFiles/lib-examples
+0b5c399538b9b4b4f3dc332b58bdbefc CMakeFiles/lib-examples-evloop
+0b5c399538b9b4b4f3dc332b58bdbefc CMakeFiles/picotls-cli
+770ca80a8128bfb511c92c2d1ba5b9b2 CMakeFiles/picotls-cli-complete
+bdac8e876b3618ae58e8d4dc4af8da19 picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-build
+5eddaaead32b7a1b139c28bfd482b672 picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-configure
+8fe4c653bdb5b88456c0177ec50f6106 picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-download
+7d1d9f2b3ab6f5ed9f02579d81c99c5f picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-install
+9d465393823e1b1ba37f984a0a754b6b picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-mkdir
+9ec17e8dd07fc8ab6769af503b547947 picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-patch
+2e02ca27614eebf6dac3875abdbcfa1e picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-update

@@ -1,0 +1,1 @@
+cmd='/usr/local/lib/python3.8/dist-packages/cmake/data/bin/cmake;-DOPENSSL_ROOT_DIR=/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/openssl;/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/deps/picotls'
