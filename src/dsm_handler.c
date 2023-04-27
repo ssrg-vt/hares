@@ -2,6 +2,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <pthread.h>
+#include <netinet/tcp.h>
 
 #include "../inc/log.h"
 #include "../inc/dsm_handler.h"
@@ -57,6 +58,13 @@ static int __connect_as_client(char *remote_ip, int remote_port, int *socket_fd)
 		goto out_socket_err;
 	}
 
+    int flag = 1;
+    int result = setsockopt(sk, IPPROTO_TCP, TCP_NODELAY, (char *)&flag, sizeof(flag));
+    if (result < 0) {
+	log_error("setsockopt failed");
+	goto out_socket_err;
+    }
+
     log_info("Connecting as a client to %s:%d", remote_ip, remote_port);
 
     memset(&addr, 0, sizeof(addr));
@@ -91,12 +99,19 @@ static int __connect_as_server(int host_port, int *socket_fd){
     int sk, ask;
     struct sockaddr_in addr;
     
-    sk = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
+    sk = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (sk < 0) {
 		log_error("Failed on creating a socket");
         ret = sk;
         goto connect_as_server_failed;
 	}
+   
+    int flag = 1;
+    int result = setsockopt(sk, IPPROTO_TCP, TCP_NODELAY, (char *)&flag, sizeof(flag));
+    if (result < 0) {
+	log_error("setsockopt failed");
+	goto connect_as_server_failed;
+    }
 
     memset(&addr, 0, sizeof(addr));
 	addr.sin_family = AF_INET;
