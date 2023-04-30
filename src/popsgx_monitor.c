@@ -28,7 +28,7 @@ extern char* __progname;
 // Starting address for the buffer 
 #define BUFFER_ADDRESS 0x10000
 
-#define SQLITE 1
+#define SQLITEB 1
 
 // Helloworld main function address 
 #ifdef HELLOWORLD
@@ -57,6 +57,9 @@ extern char* __progname;
 #elif SQLITE
 #define CODE_OFFSET 0x555555554000
 #define MAIN CODE_OFFSET + 0x2580
+#elif SQLITEB
+#define CODE_OFFSET 0x555555554000
+#define MAIN CODE_OFFSET + 0x2860
 #elif SGX_SSL
 #define CODE_OFFSET 0x555555554000
 #define MAIN CODE_OFFSET + 0x344d
@@ -65,7 +68,7 @@ extern char* __progname;
 #define MAIN CODE_OFFSET + 0x550d
 #elif SGX_DNET
 #define CODE_OFFSET 0x555555554000
-#define MAIN CODE_OFFSET + 0x4938
+#define MAIN CODE_OFFSET + 0x3e30
 #elif PLINIUS
 #define CODE_OFFSET 0x555555554000
 #define MAIN CODE_OFFSET + 0x4b4a
@@ -173,7 +176,7 @@ static int execute_tracee_app(popsgx_child *tracee){
         char *user_args[] = {"host/helloworld_host", "./enclave/enclave.signed",       \
                              NULL};
 #elif FILEENCRYPT
-        char *user_args[] = {"./host/file-encryptorhost", "testfile",  "./enclave/file-encryptorenc.signed",  \
+        char *user_args[] = {"./host/file-encryptorhost", "testfile",  "./enclave/file-encryptorenc.signed", \
                              NULL};
 #elif SWITCHLESS
         char *user_args[] = {"host/switchlesshost", "./enclave/switchlessenc.signed",       \
@@ -205,6 +208,9 @@ static int execute_tracee_app(popsgx_child *tracee){
 
 #elif SQLITE
         char *user_args[] = {"./app", "test.db", NULL};
+
+#elif SQLITEB
+        char *user_args[] = {"./app", "--benchmarks=overwrite", "--num=1", NULL};
 
 #elif SGX_SSL
         char *user_args[] = {"./app", NULL};
@@ -371,7 +377,7 @@ int main(int argc, char *argv[]){
     get_virtual_address_frame_by_name(monitor_app.dsm.child.c_pid, &monitor_app.dsm.child.heap_start_address, &monitor_app.dsm.child.heap_end_address, "[heap]");
 
     //setting up the breakpoints
-    monitor_app.dsm.child.trpoints.size = 50;
+    monitor_app.dsm.child.trpoints.size = 200;
     monitor_app.dsm.child.trpoints.breakpoints = malloc(sizeof(unsigned long int) *                                  \
                                                         monitor_app.dsm.child.trpoints.size);
     monitor_app.dsm.child.trpoints.old_instructions = malloc(sizeof(unsigned long int) *                             \
@@ -508,8 +514,7 @@ int main(int argc, char *argv[]){
     monitor_app.dsm.child.trpoints.breakpoints[8] = CODE_OFFSET + 0x3d77;
     monitor_app.dsm.child.trpoints.breakpoints[9] = CODE_OFFSET + 0x3d86;
     //call ecall_ml_vgg16
-    monitor_app.dsm.child.
-    trpoints.breakpoints[10] = CODE_OFFSET + 0x2810;
+    monitor_app.dsm.child.trpoints.breakpoints[10] = CODE_OFFSET + 0x2810;
     monitor_app.dsm.child.trpoints.breakpoints[11] = CODE_OFFSET + 0x2815;
     //sgx_destroy_enclave
     monitor_app.dsm.child.trpoints.breakpoints[12] = CODE_OFFSET + 0x2828;
@@ -523,9 +528,11 @@ int main(int argc, char *argv[]){
     //opendb
     monitor_app.dsm.child.trpoints.breakpoints[2] = CODE_OFFSET + 0x2634;
     monitor_app.dsm.child.trpoints.breakpoints[3] = CODE_OFFSET + 0x2639;
+
     //execute_sql
     monitor_app.dsm.child.trpoints.breakpoints[4] = CODE_OFFSET + 0x26eb;
     monitor_app.dsm.child.trpoints.breakpoints[5] = CODE_OFFSET + 0x26f0;
+
     //close_db
     monitor_app.dsm.child.trpoints.breakpoints[6] = CODE_OFFSET + 0x2767;
     monitor_app.dsm.child.trpoints.breakpoints[7] = CODE_OFFSET + 0x276c;
@@ -533,6 +540,161 @@ int main(int argc, char *argv[]){
     monitor_app.dsm.child.trpoints.breakpoints[8] = CODE_OFFSET + 0x2775;
     monitor_app.dsm.child.trpoints.breakpoints[9] = CODE_OFFSET + 0x277a;
     #define LIMIT 9
+
+ #elif SQLITEB
+    //sgx_create_enclave
+    monitor_app.dsm.child.trpoints.breakpoints[0] = CODE_OFFSET + 0x292a;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = CODE_OFFSET + 0x292f;
+    
+    //ecall_sqlite3_prepare_v21
+    monitor_app.dsm.child.trpoints.breakpoints[2] = CODE_OFFSET + 0x4d18;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = CODE_OFFSET + 0x4d1d;
+    
+    //ecall_sqlite3_prepare_v22
+    monitor_app.dsm.child.trpoints.breakpoints[4] = CODE_OFFSET + 0x4d2e;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = CODE_OFFSET + 0x4d33;
+
+    monitor_app.dsm.child.trpoints.breakpoints[6] = CODE_OFFSET + 0x50a5;
+    monitor_app.dsm.child.trpoints.breakpoints[7] = CODE_OFFSET + 0x50aa;
+    
+    //ecall_sqlite3_prepare_v23
+    monitor_app.dsm.child.trpoints.breakpoints[8] = CODE_OFFSET + 0x4d44;
+    monitor_app.dsm.child.trpoints.breakpoints[9] = CODE_OFFSET + 0x4d49;
+    
+    monitor_app.dsm.child.trpoints.breakpoints[10] = CODE_OFFSET + 0x50bd;
+    monitor_app.dsm.child.trpoints.breakpoints[11] = CODE_OFFSET + 0x50c2;
+
+    //ecall_sqlite3_prepare_v24
+    monitor_app.dsm.child.trpoints.breakpoints[12] = CODE_OFFSET + 0x50d7;
+    monitor_app.dsm.child.trpoints.breakpoints[13] = CODE_OFFSET + 0x50dc;
+    
+    //ecall_sqlite3_step2 
+    monitor_app.dsm.child.trpoints.breakpoints[14] = CODE_OFFSET + 0x4f8c;
+    monitor_app.dsm.child.trpoints.breakpoints[15] = CODE_OFFSET + 0x4f91;
+    
+    monitor_app.dsm.child.trpoints.breakpoints[16] = CODE_OFFSET + 0x52ab;
+    monitor_app.dsm.child.trpoints.breakpoints[17] = CODE_OFFSET + 0x52b0;
+
+    //ecall_sqlite3_step3
+    monitor_app.dsm.child.trpoints.breakpoints[18] = CODE_OFFSET + 0x4eef;
+    monitor_app.dsm.child.trpoints.breakpoints[19] = CODE_OFFSET + 0x4ef4;
+    
+    monitor_app.dsm.child.trpoints.breakpoints[20] = CODE_OFFSET + 0x52e7;
+    monitor_app.dsm.child.trpoints.breakpoints[21] = CODE_OFFSET + 0x52ec;
+
+    //ecall_sqlite3_step1
+    monitor_app.dsm.child.trpoints.breakpoints[22] = CODE_OFFSET + 0x4e66;
+    monitor_app.dsm.child.trpoints.breakpoints[23] = CODE_OFFSET + 0x4e6b;
+
+    //ecall_sqlite3_step4
+    monitor_app.dsm.child.trpoints.breakpoints[24] = CODE_OFFSET + 0x519a;
+    monitor_app.dsm.child.trpoints.breakpoints[25] = CODE_OFFSET + 0x519f;
+
+    //ecall_sqlite3_clear_bindings1
+    monitor_app.dsm.child.trpoints.breakpoints[26] = CODE_OFFSET + 0x4e72;
+    monitor_app.dsm.child.trpoints.breakpoints[27] = CODE_OFFSET + 0x4e77;
+
+    //ecall_sqlite3_clear_bindings4
+    monitor_app.dsm.child.trpoints.breakpoints[28] = CODE_OFFSET + 0x51ad;
+    monitor_app.dsm.child.trpoints.breakpoints[29] = CODE_OFFSET + 0x51b2;
+
+    //ecall_wal_checkpoint_v2
+    monitor_app.dsm.child.trpoints.breakpoints[30] = CODE_OFFSET + 0x5922;
+    monitor_app.dsm.child.trpoints.breakpoints[31] = CODE_OFFSET + 0x5927;
+
+    //ecall_sqlite3_finalize1
+    monitor_app.dsm.child.trpoints.breakpoints[32] = CODE_OFFSET + 0x4f24;
+    monitor_app.dsm.child.trpoints.breakpoints[33] = CODE_OFFSET + 0x4f29;
+
+    //ecall_sqlite3_finalize2
+    monitor_app.dsm.child.trpoints.breakpoints[34] = CODE_OFFSET + 0x4f3a;
+    monitor_app.dsm.child.trpoints.breakpoints[35] = CODE_OFFSET + 0x4f3f;
+    
+    monitor_app.dsm.child.trpoints.breakpoints[36] = CODE_OFFSET + 0x522c;
+    monitor_app.dsm.child.trpoints.breakpoints[37] = CODE_OFFSET + 0x5231;
+
+    //ecall_sqlite3_finalize3
+    monitor_app.dsm.child.trpoints.breakpoints[38] = CODE_OFFSET + 0x4f50;
+    monitor_app.dsm.child.trpoints.breakpoints[39] = CODE_OFFSET + 0x4f55;
+    
+    monitor_app.dsm.child.trpoints.breakpoints[40] = CODE_OFFSET + 0x5246;
+    monitor_app.dsm.child.trpoints.breakpoints[41] = CODE_OFFSET + 0x524b;
+
+    //ecall_sqlite3_finalize4
+    monitor_app.dsm.child.trpoints.breakpoints[42] = CODE_OFFSET + 0x5212;
+    monitor_app.dsm.child.trpoints.breakpoints[43] = CODE_OFFSET + 0x5217;
+
+    //ecall_sqlite3_reset3
+    monitor_app.dsm.child.trpoints.breakpoints[44] = CODE_OFFSET + 0x4efb;
+    monitor_app.dsm.child.trpoints.breakpoints[45] = CODE_OFFSET + 0x4f00;
+    
+    monitor_app.dsm.child.trpoints.breakpoints[46] = CODE_OFFSET + 0x52f7;
+    monitor_app.dsm.child.trpoints.breakpoints[47] = CODE_OFFSET + 0x52fc;
+
+    //ecall_sqlite3_reset4
+    monitor_app.dsm.child.trpoints.breakpoints[48] = CODE_OFFSET + 0x51c5;
+    monitor_app.dsm.child.trpoints.breakpoints[48] = CODE_OFFSET + 0x51ca;
+
+    //ecall_sqlite3_reset1
+    monitor_app.dsm.child.trpoints.breakpoints[50] = CODE_OFFSET + 0x4e86;
+    monitor_app.dsm.child.trpoints.breakpoints[51] = CODE_OFFSET + 0x4e8b;
+
+    //ecall_sqlite3_reset2
+    monitor_app.dsm.child.trpoints.breakpoints[52] = CODE_OFFSET + 0x4fa1;
+    monitor_app.dsm.child.trpoints.breakpoints[53] = CODE_OFFSET + 0x4fa6;
+    
+    monitor_app.dsm.child.trpoints.breakpoints[54] = CODE_OFFSET + 0x52c6;
+    monitor_app.dsm.child.trpoints.breakpoints[55] = CODE_OFFSET + 0x52cb;
+
+    //ecall_sqlite3_bind_blob1
+    monitor_app.dsm.child.trpoints.breakpoints[56] = CODE_OFFSET + 0x4ded;
+    monitor_app.dsm.child.trpoints.breakpoints[57] = CODE_OFFSET + 0x4df2;
+    
+    monitor_app.dsm.child.trpoints.breakpoints[58] = CODE_OFFSET + 0x4e0c;
+    monitor_app.dsm.child.trpoints.breakpoints[59] = CODE_OFFSET + 0x4e11;
+
+    //ecall_sqlite3_bind_blob4
+    monitor_app.dsm.child.trpoints.breakpoints[60] = CODE_OFFSET + 0x5172;
+    monitor_app.dsm.child.trpoints.breakpoints[61] = CODE_OFFSET + 0x5177;
+
+    //ecall_opendb
+    monitor_app.dsm.child.trpoints.breakpoints[62] = CODE_OFFSET + 0x4acc;
+    monitor_app.dsm.child.trpoints.breakpoints[63] = CODE_OFFSET + 0x4ad1;
+
+    //ecall_execute_sql
+    monitor_app.dsm.child.trpoints.breakpoints[64] = CODE_OFFSET + 0x4b12;
+    monitor_app.dsm.child.trpoints.breakpoints[65] = CODE_OFFSET + 0x4b17;
+    
+    monitor_app.dsm.child.trpoints.breakpoints[66] = CODE_OFFSET + 0x4b6b;
+    monitor_app.dsm.child.trpoints.breakpoints[67] = CODE_OFFSET + 0x4b70;
+    
+    monitor_app.dsm.child.trpoints.breakpoints[68] = CODE_OFFSET + 0x4b87;
+    monitor_app.dsm.child.trpoints.breakpoints[69] = CODE_OFFSET + 0x4b8c;
+    
+    monitor_app.dsm.child.trpoints.breakpoints[70] = CODE_OFFSET + 0x4c1a;
+    monitor_app.dsm.child.trpoints.breakpoints[71] = CODE_OFFSET + 0x4c1f;
+    
+    monitor_app.dsm.child.trpoints.breakpoints[72] = CODE_OFFSET + 0x4c37;
+    monitor_app.dsm.child.trpoints.breakpoints[73] = CODE_OFFSET + 0x4c3c;
+    
+    monitor_app.dsm.child.trpoints.breakpoints[74] = CODE_OFFSET + 0x4c4e;
+    monitor_app.dsm.child.trpoints.breakpoints[75] = CODE_OFFSET + 0x4c53;
+    
+    monitor_app.dsm.child.trpoints.breakpoints[76] = CODE_OFFSET + 0x4d04;
+    monitor_app.dsm.child.trpoints.breakpoints[77] = CODE_OFFSET + 0x4d09;
+    
+    //ecall_closedb
+    monitor_app.dsm.child.trpoints.breakpoints[78] = CODE_OFFSET + 0x4cbd;
+    monitor_app.dsm.child.trpoints.breakpoints[79] = CODE_OFFSET + 0x4cc2;
+    
+    monitor_app.dsm.child.trpoints.breakpoints[80] = CODE_OFFSET + 0x4a3f;
+    monitor_app.dsm.child.trpoints.breakpoints[81] = CODE_OFFSET + 0x4a44;
+
+    //sgx_destroy_enclave
+    monitor_app.dsm.child.trpoints.breakpoints[82] = CODE_OFFSET + 0x2a8c;
+    monitor_app.dsm.child.trpoints.breakpoints[83] = CODE_OFFSET + 0x2a91;
+
+    #define LIMIT 83
 
 #elif SGX_SSL
     //sgx_create_enclave
@@ -578,24 +740,24 @@ int main(int argc, char *argv[]){
 
 #elif SGX_DNET
     //sgx_create_enclave
-    monitor_app.dsm.child.trpoints.breakpoints[0] = CODE_OFFSET + 0x4912;
-    monitor_app.dsm.child.trpoints.breakpoints[1] = CODE_OFFSET + 0x4917;
+    monitor_app.dsm.child.trpoints.breakpoints[0] = CODE_OFFSET + 0x4642;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = CODE_OFFSET + 0x4647;
 
     //sgx_ecall_trainer
-    monitor_app.dsm.child.trpoints.breakpoints[2] = CODE_OFFSET + 0x4245;
-    monitor_app.dsm.child.trpoints.breakpoints[3] = CODE_OFFSET + 0x424a;
+    monitor_app.dsm.child.trpoints.breakpoints[2] = CODE_OFFSET + 0x4812;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = CODE_OFFSET + 0x4817;
 
     //sgx_ecall_tester
-    monitor_app.dsm.child.trpoints.breakpoints[4] = CODE_OFFSET + 0x4337;
-    monitor_app.dsm.child.trpoints.breakpoints[5] = CODE_OFFSET + 0x433c;
+    monitor_app.dsm.child.trpoints.breakpoints[4] = CODE_OFFSET + 0x4a5a;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = CODE_OFFSET + 0x4a5f;
 
     //sgx_ecall_classify
-    monitor_app.dsm.child.trpoints.breakpoints[6] = CODE_OFFSET + 0x4471;
-    monitor_app.dsm.child.trpoints.breakpoints[7] = CODE_OFFSET + 0x4476;
+    monitor_app.dsm.child.trpoints.breakpoints[6] = CODE_OFFSET + 0x45d5;
+    monitor_app.dsm.child.trpoints.breakpoints[7] = CODE_OFFSET + 0x45da;
 
     //sgx_destroy_enclave
-    monitor_app.dsm.child.trpoints.breakpoints[8] = CODE_OFFSET + 0x4985;
-    monitor_app.dsm.child.trpoints.breakpoints[9] = CODE_OFFSET + 0x498a;
+    monitor_app.dsm.child.trpoints.breakpoints[8] = CODE_OFFSET + 0x3e54;
+    monitor_app.dsm.child.trpoints.breakpoints[9] = CODE_OFFSET + 0x3e59;
 
     #define LIMIT 9
 
@@ -828,12 +990,18 @@ int main(int argc, char *argv[]){
             //Grabbing and sending the child process delta vma to remote
             msi_handle_send_vma(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, new_spaces, 1);
             
-            iter++;
 
             delta = accumulate_diff_between_vma(monitor_app.uffd_hdl.args.faulting_spaces, &new_spaces);
             delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, FILE_BACKED);
-            //delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, HEAP);
-            //delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, STACK);
+            
+	    /*
+	    if(!iter){
+	    	delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, HEAP);
+            	delta = accumulate_diff_between_vma_with_type(&monitor_app.dsm.child.spaces, &new_spaces, STACK);
+	    }
+	    */
+
+	    iter++;
 
             log_info("Final new space");
             for(int i = 0; i < new_spaces.size; i++){
