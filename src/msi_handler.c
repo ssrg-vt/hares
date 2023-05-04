@@ -14,7 +14,7 @@
 #include "../inc/dsm_handler.h"
 #include "../inc/compel_handler.h"
 
-#define log_info(args...) 
+//#define log_info(args...) 
 
 static int iter = 0;
 
@@ -342,7 +342,7 @@ int msi_handle_rec_vma(msi_handler *msi, int sk, bool is_delta){
     
     vma_read_from_remote_msg.payload.vma_header_message.no_vma = 0; 
 
-    ret = msi_read(sk, &vma_read_from_remote_msg, sizeof(struct msi_message));
+    ret = msi_read(sk, &vma_read_from_remote_msg, sizeof(enum msi_message_type) + sizeof(struct vma_header));
     if(vma_read_from_remote_msg.message_type == VMA_FROM_REMOTE){
         log_info("recieved the vma_from_remote with size %d", ret);
         struct vma_header vma_hdr = vma_read_from_remote_msg.payload.vma_header_message;
@@ -350,17 +350,16 @@ int msi_handle_rec_vma(msi_handler *msi, int sk, bool is_delta){
 
         vma_write_from_remote_msg.message_type = VMA_FROM_REMOTE_ACK;
         vma_write_from_remote_msg.payload.vma_header_message.no_vma = vma_hdr.no_vma;
-	ret = write(sk, &vma_write_from_remote_msg, sizeof(struct msi_message));
+	ret = write(sk, &vma_write_from_remote_msg, sizeof(enum msi_message_type) + sizeof(struct vma_header));
         if(ret <= 0){
             log_error("Bad write in MSI");
         }
 
         log_info("sent the vma_from_remote_ack with size %d========================================================================", ret);
-;
         for(int i = 0; i < vma_hdr.no_vma; i++){
             struct msi_message vma_buffer_read_header_msg;
             struct msi_message vma_buffer_write_header_msg;
-            ret = msi_read(sk, &vma_buffer_read_header_msg, sizeof(struct msi_message));
+            ret = msi_read(sk, &vma_buffer_read_header_msg, sizeof(enum msi_message_type) + sizeof(struct vma_buffer_header));
             if(vma_buffer_read_header_msg.message_type == VMA_BUFFER_HEADER){
                 log_info("recieved the vma_buffer_header");
                 log_info("vma address is %lx with size is %d", vma_buffer_read_header_msg.payload.vma_buffer_message.vma_address, \
@@ -377,7 +376,7 @@ int msi_handle_rec_vma(msi_handler *msi, int sk, bool is_delta){
                 address_type type = (address_type)vma_buffer_read_header_msg.payload.vma_buffer_message.type;
 
                 if(!is_delta){
-                    ret = write(sk, &vma_buffer_write_header_msg, sizeof(struct msi_message));
+                    ret = write(sk, &vma_buffer_write_header_msg, sizeof(enum msi_message_type) + sizeof(struct vma_buffer_header));
                     if(ret <= 0){
                         log_error("Bad write in MSI");
                     }
@@ -399,7 +398,7 @@ int msi_handle_rec_vma(msi_handler *msi, int sk, bool is_delta){
 
                         vma_write_buffer_msg.message_type = VMA_BUFFER_ACK;
                         vma_write_buffer_msg.payload.page_data[0] = i;
-                        ret = write(sk, &vma_write_buffer_msg, sizeof(struct msi_message));
+                        ret = write(sk, &vma_write_buffer_msg, sizeof(enum msi_message_type) + sizeof(char));
                         if(ret <= 0){
                             log_error("Bad write in MSI");
                         }
@@ -429,7 +428,7 @@ int msi_handle_rec_vma(msi_handler *msi, int sk, bool is_delta){
                         }   
                         log_info("Created a new vma");
                     }
-                    ret = write(sk, &vma_buffer_write_header_msg, sizeof(struct msi_message));
+                    ret = write(sk, &vma_buffer_write_header_msg, sizeof(enum msi_message_type) + sizeof(struct vma_buffer_header));
                     if(ret <= 0){
                         log_error("Bad write in MSI");
                     }
@@ -456,7 +455,7 @@ int msi_handle_rec_vma(msi_handler *msi, int sk, bool is_delta){
 
     struct msi_message trans_ack;
     trans_ack.message_type = VMA_TRANS_ACK;
-    ret = write(sk, &trans_ack, sizeof(struct msi_message));
+    ret = write(sk, &trans_ack, sizeof(enum msi_message_type));
     if(ret <= 0){
         log_error("Bad write in MSI");
     }
@@ -479,7 +478,7 @@ int msi_handle_rec_regs(msi_handler *msi, int sk, struct user_regs_struct *reg){
 
     pthread_mutex_lock(&msi->mutex);
 
-    ret = msi_read(sk, &msg, sizeof(struct msi_message));
+    ret = msi_read(sk, &msg, sizeof(enum msi_message_type) + sizeof(struct user_regs));
     if(msg.message_type == REMOTE_REGS){
         log_info("received the remote_regs");
         memcpy(reg, &msg.payload.regs_message, sizeof(struct user_regs_struct));
@@ -487,7 +486,7 @@ int msi_handle_rec_regs(msi_handler *msi, int sk, struct user_regs_struct *reg){
         ptrace(PTRACE_SETREGS, msi->child.c_pid, NULL, reg);
 
         msg.message_type = REMOTE_REGS_REPLY;
-        ret = write(sk, &msg, sizeof(struct msi_message));
+        ret = write(sk, &msg, sizeof(enum msi_message_type) + sizeof(struct user_regs));
         if(ret <= 0){
             log_error("Bad write in MSI");
         }
@@ -519,12 +518,12 @@ int msi_handle_send_regs(msi_handler *msi, int sk, struct user_regs_struct *reg)
     memcpy(&reg_to_remote.payload.regs_message, reg, sizeof(struct user_regs_struct));
     
     pthread_mutex_lock(&msi->mutex);
-    ret = write(sk, &reg_to_remote, sizeof(reg_to_remote));
+    ret = write(sk, &reg_to_remote, sizeof(enum msi_message_type) + sizeof(struct user_regs));
     if(ret <= 0){
         goto msi_handle_reg_request_fail;
     }
 
-    ret = msi_read(sk, &reg_to_remote, sizeof(struct msi_message));
+    ret = msi_read(sk, &reg_to_remote, sizeof(enum msi_message_type) + sizeof(struct user_regs));
     if(reg_to_remote.message_type == REMOTE_REGS_REPLY){
         log_info("received  remote_regs_reply");
     }else{
@@ -552,14 +551,14 @@ int msi_handle_send_vma(msi_handler *msi, int sk, address_spaces vmas, bool is_d
 
     pthread_mutex_lock(&msi->mutex);
 
-    ret = write(sk, &vma_write_from_remote_msg, sizeof(struct msi_message));
+    ret = write(sk, &vma_write_from_remote_msg, sizeof(enum msi_message_type) + sizeof(struct vma_header));
     if(ret <= 0){
         log_error("Bad write in MSI");
     }
     log_info("Wrote VMA_FROM_REMOTE with size %d xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", ret);
   
     vma_read_from_remote_msg.payload.vma_header_message.no_vma = 0;
-    ret = msi_read(sk, &vma_read_from_remote_msg, sizeof(struct msi_message));
+    ret = msi_read(sk, &vma_read_from_remote_msg, sizeof(enum msi_message_type) + sizeof(struct vma_header));
     if(vma_read_from_remote_msg.message_type == VMA_FROM_REMOTE_ACK && vma_read_from_remote_msg.payload.vma_header_message.no_vma == vmas.size){
         log_info("Received VMA_FROM_REMOTE_ACK with size %d", ret);
     }else{
@@ -579,12 +578,12 @@ int msi_handle_send_vma(msi_handler *msi, int sk, address_spaces vmas, bool is_d
         vma_buffer_write_header_msg.payload.vma_buffer_message.vma_address = vmas.space[i].address;
         vma_buffer_write_header_msg.payload.vma_buffer_message.size = vmas.space[i].size;
         vma_buffer_write_header_msg.payload.vma_buffer_message.type = (int)vmas.space[i].type;
-        ret = write(sk, &vma_buffer_write_header_msg, sizeof(struct msi_message));
+        ret = write(sk, &vma_buffer_write_header_msg, sizeof(enum msi_message_type) + sizeof(struct vma_buffer_header));
         if(ret <= 0){
             log_error("Bad write in MSI");
         }
         // if(vmas.space[i].address == 0x7ffff42b7000) continue;
-        ret = msi_read(sk, &vma_buffer_read_header_msg, sizeof(struct msi_message));
+        ret = msi_read(sk, &vma_buffer_read_header_msg, sizeof(enum msi_message_type) + sizeof(struct vma_buffer_header));
         if(vma_buffer_read_header_msg.message_type == VMA_BUFFER_HEADER_ACK){
             log_info("recieved the vma_buffer_header ack");
         }else{
@@ -615,7 +614,7 @@ int msi_handle_send_vma(msi_handler *msi, int sk, address_spaces vmas, bool is_d
                     log_error("Error in sending the vma page buffer");
                     goto vma_buffer_fail;
                 }
-                ret = msi_read(sk, &vma_read_buffer_msg, sizeof(struct msi_message));
+                ret = msi_read(sk, &vma_read_buffer_msg, sizeof(enum msi_message_type) + sizeof(char));
                 if(vma_read_buffer_msg.message_type == VMA_BUFFER_ACK){
                     log_info("recieved the page %d ack", j+1);
                 }else{
@@ -628,7 +627,7 @@ int msi_handle_send_vma(msi_handler *msi, int sk, address_spaces vmas, bool is_d
         }
     }
 
-    ret = msi_read(sk, &vma_read_from_remote_msg, sizeof(struct msi_message));
+    ret = msi_read(sk, &vma_read_from_remote_msg, sizeof(enum msi_message_type));
     if(vma_read_from_remote_msg.message_type == VMA_TRANS_ACK){
         log_info("Received VMA_TRANS_ACK xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
     }else{
