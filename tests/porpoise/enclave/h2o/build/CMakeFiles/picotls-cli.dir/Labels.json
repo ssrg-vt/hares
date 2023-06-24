@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/CMakeFiles/picotls-cli"
+		},
+		{
+			"file" : "/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/CMakeFiles/picotls-cli.rule"
+		},
+		{
+			"file" : "/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/CMakeFiles/picotls-cli-complete.rule"
+		},
+		{
+			"file" : "/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-build.rule"
+		},
+		{
+			"file" : "/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-configure.rule"
+		},
+		{
+			"file" : "/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-download.rule"
+		},
+		{
+			"file" : "/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-install.rule"
+		},
+		{
+			"file" : "/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-mkdir.rule"
+		},
+		{
+			"file" : "/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-patch.rule"
+		},
+		{
+			"file" : "/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"picotls-cli"
+		],
+		"name" : "picotls-cli"
+	}
+}

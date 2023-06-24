@@ -1,0 +1,2 @@
+#!/bin/sh
+exec "${REALGCC:-gcc}" "$@" -specs "/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/musl/build/../install/lib/musl-gcc.specs"

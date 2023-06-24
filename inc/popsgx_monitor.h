@@ -14,6 +14,7 @@ typedef struct popsgx_app_t{
     enum app_mode mode;
     dsm_handler dsm;
     uffd_thread_handler uffd_hdl;
+    uint64_t buffer;
 }popsgx_app;
 
 #endif

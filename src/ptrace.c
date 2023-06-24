@@ -1,6 +1,12 @@
 #include "ptrace.h"
 #include "log.h"
 
+union u {
+    long val;
+    char str[8];
+} input;
+
+
 /**
  * Get syscall arguments from user_regs_struct
  * Arch-dependent part
@@ -102,7 +108,10 @@ int update_child_data(pid_t pid, long long dst, char *src, size_t len)
 	for (i = 0; i < cnt; i++) {
 		memcpy(input.str, src+i*8, 8);
 		ret = ptrace(PTRACE_POKEDATA, pid, dst+i*8, input.val);
-		if (ret) log_error("%s error", __func__);
+		if (ret){ 
+			log_error("%s error %d", __func__, errno);
+			while(1);
+		}
 	}
 
 	return 0;
@@ -149,14 +158,30 @@ int get_child_data_str(pid_t pid, char *dst, long long src)
 
 long set_breakpoint(pid_t pid, unsigned long addr)
 {
+	// printf("The address passed is %lx\n", addr);
 	long data = ptrace(PTRACE_PEEKTEXT, pid, (void *) addr, 0);
+	if(data == -1)
+	{	
+		log_error("The application failed with errno : %d",  errno);
+		return -1;
+	}
+	
+	// printf("errno : %d data: %lx\n", errno, data);
   	long old_data = data;
 
   	log_debug("Setting a breakpoint at %x\n", addr);
   	log_debug("Value at the address %x %x\n", addr, data);
   	data = (data & ~0xff) | 0xcc;
-  	ptrace(PTRACE_POKETEXT, pid, (void *)addr, data);
-  	log_debug("Value at the address %x after setting the int 3 opcode %x\n", addr, data);
+  	
+	ptrace(PTRACE_POKETEXT, pid, (void *)addr, data);
+	if(errno)
+	{
+		log_error("The application failed with errno : %d",  errno);
+		return -1;
+	}
+	
+	// printf("errno : %d\n", errno);
+
   	log_debug("Done setting the breatpoint at %x\n\n", addr);
   	return old_data;
 }
@@ -170,11 +195,7 @@ int clear_breakpoint(pid_t pid, unsigned long addr, long old_data)
   	log_debug("Setting the instruction pointer to address %x\n", addr);
   	memset(&regs, 0, sizeof(regs));
   	ptrace(PTRACE_GETREGS, pid, NULL, &regs);
-	#ifdef __i386__
-  		regs.eip = addr;
-	#else
-  		regs.rip = addr;
-	#endif
+	regs.rip = addr;
   	ptrace(PTRACE_SETREGS, pid, NULL, &regs);
   	log_debug("Done setting the instruction pointer\n\n");
 	return 0;

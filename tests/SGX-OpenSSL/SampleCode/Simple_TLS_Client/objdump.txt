@@ -1,0 +1,2103 @@
+
+./app:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+0000000000002000 <_init>:
+    2000:	f3 0f 1e fa          	endbr64 
+    2004:	48 83 ec 08          	sub    $0x8,%rsp
+    2008:	48 8b 05 c9 4f 00 00 	mov    0x4fc9(%rip),%rax        # 6fd8 <__gmon_start__>
+    200f:	48 85 c0             	test   %rax,%rax
+    2012:	74 02                	je     2016 <_init+0x16>
+    2014:	ff d0                	call   *%rax
+    2016:	48 83 c4 08          	add    $0x8,%rsp
+    201a:	c3                   	ret    
+
+Disassembly of section .plt:
+
+0000000000002020 <.plt>:
+    2020:	ff 35 52 4e 00 00    	push   0x4e52(%rip)        # 6e78 <_GLOBAL_OFFSET_TABLE_+0x8>
+    2026:	f2 ff 25 53 4e 00 00 	bnd jmp *0x4e53(%rip)        # 6e80 <_GLOBAL_OFFSET_TABLE_+0x10>
+    202d:	0f 1f 00             	nopl   (%rax)
+    2030:	f3 0f 1e fa          	endbr64 
+    2034:	68 00 00 00 00       	push   $0x0
+    2039:	f2 e9 e1 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    203f:	90                   	nop
+    2040:	f3 0f 1e fa          	endbr64 
+    2044:	68 01 00 00 00       	push   $0x1
+    2049:	f2 e9 d1 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    204f:	90                   	nop
+    2050:	f3 0f 1e fa          	endbr64 
+    2054:	68 02 00 00 00       	push   $0x2
+    2059:	f2 e9 c1 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    205f:	90                   	nop
+    2060:	f3 0f 1e fa          	endbr64 
+    2064:	68 03 00 00 00       	push   $0x3
+    2069:	f2 e9 b1 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    206f:	90                   	nop
+    2070:	f3 0f 1e fa          	endbr64 
+    2074:	68 04 00 00 00       	push   $0x4
+    2079:	f2 e9 a1 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    207f:	90                   	nop
+    2080:	f3 0f 1e fa          	endbr64 
+    2084:	68 05 00 00 00       	push   $0x5
+    2089:	f2 e9 91 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    208f:	90                   	nop
+    2090:	f3 0f 1e fa          	endbr64 
+    2094:	68 06 00 00 00       	push   $0x6
+    2099:	f2 e9 81 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    209f:	90                   	nop
+    20a0:	f3 0f 1e fa          	endbr64 
+    20a4:	68 07 00 00 00       	push   $0x7
+    20a9:	f2 e9 71 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    20af:	90                   	nop
+    20b0:	f3 0f 1e fa          	endbr64 
+    20b4:	68 08 00 00 00       	push   $0x8
+    20b9:	f2 e9 61 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    20bf:	90                   	nop
+    20c0:	f3 0f 1e fa          	endbr64 
+    20c4:	68 09 00 00 00       	push   $0x9
+    20c9:	f2 e9 51 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    20cf:	90                   	nop
+    20d0:	f3 0f 1e fa          	endbr64 
+    20d4:	68 0a 00 00 00       	push   $0xa
+    20d9:	f2 e9 41 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    20df:	90                   	nop
+    20e0:	f3 0f 1e fa          	endbr64 
+    20e4:	68 0b 00 00 00       	push   $0xb
+    20e9:	f2 e9 31 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    20ef:	90                   	nop
+    20f0:	f3 0f 1e fa          	endbr64 
+    20f4:	68 0c 00 00 00       	push   $0xc
+    20f9:	f2 e9 21 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    20ff:	90                   	nop
+    2100:	f3 0f 1e fa          	endbr64 
+    2104:	68 0d 00 00 00       	push   $0xd
+    2109:	f2 e9 11 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    210f:	90                   	nop
+    2110:	f3 0f 1e fa          	endbr64 
+    2114:	68 0e 00 00 00       	push   $0xe
+    2119:	f2 e9 01 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    211f:	90                   	nop
+    2120:	f3 0f 1e fa          	endbr64 
+    2124:	68 0f 00 00 00       	push   $0xf
+    2129:	f2 e9 f1 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    212f:	90                   	nop
+    2130:	f3 0f 1e fa          	endbr64 
+    2134:	68 10 00 00 00       	push   $0x10
+    2139:	f2 e9 e1 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    213f:	90                   	nop
+    2140:	f3 0f 1e fa          	endbr64 
+    2144:	68 11 00 00 00       	push   $0x11
+    2149:	f2 e9 d1 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    214f:	90                   	nop
+    2150:	f3 0f 1e fa          	endbr64 
+    2154:	68 12 00 00 00       	push   $0x12
+    2159:	f2 e9 c1 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    215f:	90                   	nop
+    2160:	f3 0f 1e fa          	endbr64 
+    2164:	68 13 00 00 00       	push   $0x13
+    2169:	f2 e9 b1 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    216f:	90                   	nop
+    2170:	f3 0f 1e fa          	endbr64 
+    2174:	68 14 00 00 00       	push   $0x14
+    2179:	f2 e9 a1 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    217f:	90                   	nop
+    2180:	f3 0f 1e fa          	endbr64 
+    2184:	68 15 00 00 00       	push   $0x15
+    2189:	f2 e9 91 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    218f:	90                   	nop
+    2190:	f3 0f 1e fa          	endbr64 
+    2194:	68 16 00 00 00       	push   $0x16
+    2199:	f2 e9 81 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    219f:	90                   	nop
+    21a0:	f3 0f 1e fa          	endbr64 
+    21a4:	68 17 00 00 00       	push   $0x17
+    21a9:	f2 e9 71 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    21af:	90                   	nop
+    21b0:	f3 0f 1e fa          	endbr64 
+    21b4:	68 18 00 00 00       	push   $0x18
+    21b9:	f2 e9 61 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    21bf:	90                   	nop
+    21c0:	f3 0f 1e fa          	endbr64 
+    21c4:	68 19 00 00 00       	push   $0x19
+    21c9:	f2 e9 51 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    21cf:	90                   	nop
+    21d0:	f3 0f 1e fa          	endbr64 
+    21d4:	68 1a 00 00 00       	push   $0x1a
+    21d9:	f2 e9 41 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    21df:	90                   	nop
+    21e0:	f3 0f 1e fa          	endbr64 
+    21e4:	68 1b 00 00 00       	push   $0x1b
+    21e9:	f2 e9 31 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    21ef:	90                   	nop
+    21f0:	f3 0f 1e fa          	endbr64 
+    21f4:	68 1c 00 00 00       	push   $0x1c
+    21f9:	f2 e9 21 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    21ff:	90                   	nop
+    2200:	f3 0f 1e fa          	endbr64 
+    2204:	68 1d 00 00 00       	push   $0x1d
+    2209:	f2 e9 11 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    220f:	90                   	nop
+    2210:	f3 0f 1e fa          	endbr64 
+    2214:	68 1e 00 00 00       	push   $0x1e
+    2219:	f2 e9 01 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    221f:	90                   	nop
+    2220:	f3 0f 1e fa          	endbr64 
+    2224:	68 1f 00 00 00       	push   $0x1f
+    2229:	f2 e9 f1 fd ff ff    	bnd jmp 2020 <_init+0x20>
+    222f:	90                   	nop
+    2230:	f3 0f 1e fa          	endbr64 
+    2234:	68 20 00 00 00       	push   $0x20
+    2239:	f2 e9 e1 fd ff ff    	bnd jmp 2020 <_init+0x20>
+    223f:	90                   	nop
+    2240:	f3 0f 1e fa          	endbr64 
+    2244:	68 21 00 00 00       	push   $0x21
+    2249:	f2 e9 d1 fd ff ff    	bnd jmp 2020 <_init+0x20>
+    224f:	90                   	nop
+    2250:	f3 0f 1e fa          	endbr64 
+    2254:	68 22 00 00 00       	push   $0x22
+    2259:	f2 e9 c1 fd ff ff    	bnd jmp 2020 <_init+0x20>
+    225f:	90                   	nop
+    2260:	f3 0f 1e fa          	endbr64 
+    2264:	68 23 00 00 00       	push   $0x23
+    2269:	f2 e9 b1 fd ff ff    	bnd jmp 2020 <_init+0x20>
+    226f:	90                   	nop
+    2270:	f3 0f 1e fa          	endbr64 
+    2274:	68 24 00 00 00       	push   $0x24
+    2279:	f2 e9 a1 fd ff ff    	bnd jmp 2020 <_init+0x20>
+    227f:	90                   	nop
+    2280:	f3 0f 1e fa          	endbr64 
+    2284:	68 25 00 00 00       	push   $0x25
+    2289:	f2 e9 91 fd ff ff    	bnd jmp 2020 <_init+0x20>
+    228f:	90                   	nop
+    2290:	f3 0f 1e fa          	endbr64 
+    2294:	68 26 00 00 00       	push   $0x26
+    2299:	f2 e9 81 fd ff ff    	bnd jmp 2020 <_init+0x20>
+    229f:	90                   	nop
+    22a0:	f3 0f 1e fa          	endbr64 
+    22a4:	68 27 00 00 00       	push   $0x27
+    22a9:	f2 e9 71 fd ff ff    	bnd jmp 2020 <_init+0x20>
+    22af:	90                   	nop
+
+Disassembly of section .plt.got:
+
+00000000000022b0 <__cxa_finalize@plt>:
+    22b0:	f3 0f 1e fa          	endbr64 
+    22b4:	f2 ff 25 2d 4d 00 00 	bnd jmp *0x4d2d(%rip)        # 6fe8 <__cxa_finalize@GLIBC_2.2.5>
+    22bb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+Disassembly of section .plt.sec:
+
+00000000000022c0 <getenv@plt>:
+    22c0:	f3 0f 1e fa          	endbr64 
+    22c4:	f2 ff 25 bd 4b 00 00 	bnd jmp *0x4bbd(%rip)        # 6e88 <getenv@GLIBC_2.2.5>
+    22cb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000022d0 <localtime@plt>:
+    22d0:	f3 0f 1e fa          	endbr64 
+    22d4:	f2 ff 25 b5 4b 00 00 	bnd jmp *0x4bb5(%rip)        # 6e90 <localtime@GLIBC_2.2.5>
+    22db:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000022e0 <strncpy@plt>:
+    22e0:	f3 0f 1e fa          	endbr64 
+    22e4:	f2 ff 25 ad 4b 00 00 	bnd jmp *0x4bad(%rip)        # 6e98 <strncpy@GLIBC_2.2.5>
+    22eb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000022f0 <sgx_oc_cpuidex@plt>:
+    22f0:	f3 0f 1e fa          	endbr64 
+    22f4:	f2 ff 25 a5 4b 00 00 	bnd jmp *0x4ba5(%rip)        # 6ea0 <sgx_oc_cpuidex>
+    22fb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002300 <puts@plt>:
+    2300:	f3 0f 1e fa          	endbr64 
+    2304:	f2 ff 25 9d 4b 00 00 	bnd jmp *0x4b9d(%rip)        # 6ea8 <puts@GLIBC_2.2.5>
+    230b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002310 <fread@plt>:
+    2310:	f3 0f 1e fa          	endbr64 
+    2314:	f2 ff 25 95 4b 00 00 	bnd jmp *0x4b95(%rip)        # 6eb0 <fread@GLIBC_2.2.5>
+    231b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002320 <setsockopt@plt>:
+    2320:	f3 0f 1e fa          	endbr64 
+    2324:	f2 ff 25 8d 4b 00 00 	bnd jmp *0x4b8d(%rip)        # 6eb8 <setsockopt@GLIBC_2.2.5>
+    232b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002330 <clock_gettime@plt>:
+    2330:	f3 0f 1e fa          	endbr64 
+    2334:	f2 ff 25 85 4b 00 00 	bnd jmp *0x4b85(%rip)        # 6ec0 <clock_gettime@GLIBC_2.17>
+    233b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002340 <write@plt>:
+    2340:	f3 0f 1e fa          	endbr64 
+    2344:	f2 ff 25 7d 4b 00 00 	bnd jmp *0x4b7d(%rip)        # 6ec8 <write@GLIBC_2.2.5>
+    234b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002350 <sgx_destroy_enclave@plt>:
+    2350:	f3 0f 1e fa          	endbr64 
+    2354:	f2 ff 25 75 4b 00 00 	bnd jmp *0x4b75(%rip)        # 6ed0 <sgx_destroy_enclave>
+    235b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002360 <fclose@plt>:
+    2360:	f3 0f 1e fa          	endbr64 
+    2364:	f2 ff 25 6d 4b 00 00 	bnd jmp *0x4b6d(%rip)        # 6ed8 <fclose@GLIBC_2.2.5>
+    236b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002370 <getpwuid@plt>:
+    2370:	f3 0f 1e fa          	endbr64 
+    2374:	f2 ff 25 65 4b 00 00 	bnd jmp *0x4b65(%rip)        # 6ee0 <getpwuid@GLIBC_2.2.5>
+    237b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002380 <shutdown@plt>:
+    2380:	f3 0f 1e fa          	endbr64 
+    2384:	f2 ff 25 5d 4b 00 00 	bnd jmp *0x4b5d(%rip)        # 6ee8 <shutdown@GLIBC_2.2.5>
+    238b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002390 <strlen@plt>:
+    2390:	f3 0f 1e fa          	endbr64 
+    2394:	f2 ff 25 55 4b 00 00 	bnd jmp *0x4b55(%rip)        # 6ef0 <strlen@GLIBC_2.2.5>
+    239b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000023a0 <getuid@plt>:
+    23a0:	f3 0f 1e fa          	endbr64 
+    23a4:	f2 ff 25 4d 4b 00 00 	bnd jmp *0x4b4d(%rip)        # 6ef8 <getuid@GLIBC_2.2.5>
+    23ab:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000023b0 <printf@plt>:
+    23b0:	f3 0f 1e fa          	endbr64 
+    23b4:	f2 ff 25 45 4b 00 00 	bnd jmp *0x4b45(%rip)        # 6f00 <printf@GLIBC_2.2.5>
+    23bb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000023c0 <gmtime_r@plt>:
+    23c0:	f3 0f 1e fa          	endbr64 
+    23c4:	f2 ff 25 3d 4b 00 00 	bnd jmp *0x4b3d(%rip)        # 6f08 <gmtime_r@GLIBC_2.2.5>
+    23cb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000023d0 <gettimeofday@plt>:
+    23d0:	f3 0f 1e fa          	endbr64 
+    23d4:	f2 ff 25 35 4b 00 00 	bnd jmp *0x4b35(%rip)        # 6f10 <gettimeofday@GLIBC_2.2.5>
+    23db:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000023e0 <memset@plt>:
+    23e0:	f3 0f 1e fa          	endbr64 
+    23e4:	f2 ff 25 2d 4b 00 00 	bnd jmp *0x4b2d(%rip)        # 6f18 <memset@GLIBC_2.2.5>
+    23eb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000023f0 <freopen@plt>:
+    23f0:	f3 0f 1e fa          	endbr64 
+    23f4:	f2 ff 25 25 4b 00 00 	bnd jmp *0x4b25(%rip)        # 6f20 <freopen@GLIBC_2.2.5>
+    23fb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002400 <close@plt>:
+    2400:	f3 0f 1e fa          	endbr64 
+    2404:	f2 ff 25 1d 4b 00 00 	bnd jmp *0x4b1d(%rip)        # 6f28 <close@GLIBC_2.2.5>
+    240b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002410 <read@plt>:
+    2410:	f3 0f 1e fa          	endbr64 
+    2414:	f2 ff 25 15 4b 00 00 	bnd jmp *0x4b15(%rip)        # 6f30 <read@GLIBC_2.2.5>
+    241b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002420 <getsockopt@plt>:
+    2420:	f3 0f 1e fa          	endbr64 
+    2424:	f2 ff 25 0d 4b 00 00 	bnd jmp *0x4b0d(%rip)        # 6f38 <getsockopt@GLIBC_2.2.5>
+    242b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002430 <getchar@plt>:
+    2430:	f3 0f 1e fa          	endbr64 
+    2434:	f2 ff 25 05 4b 00 00 	bnd jmp *0x4b05(%rip)        # 6f40 <getchar@GLIBC_2.2.5>
+    243b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002440 <memcpy@plt>:
+    2440:	f3 0f 1e fa          	endbr64 
+    2444:	f2 ff 25 fd 4a 00 00 	bnd jmp *0x4afd(%rip)        # 6f48 <memcpy@GLIBC_2.14>
+    244b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002450 <sgx_thread_setwait_untrusted_events_ocall@plt>:
+    2450:	f3 0f 1e fa          	endbr64 
+    2454:	f2 ff 25 f5 4a 00 00 	bnd jmp *0x4af5(%rip)        # 6f50 <sgx_thread_setwait_untrusted_events_ocall>
+    245b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002460 <time@plt>:
+    2460:	f3 0f 1e fa          	endbr64 
+    2464:	f2 ff 25 ed 4a 00 00 	bnd jmp *0x4aed(%rip)        # 6f58 <time@GLIBC_2.2.5>
+    246b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002470 <sgx_ecall@plt>:
+    2470:	f3 0f 1e fa          	endbr64 
+    2474:	f2 ff 25 e5 4a 00 00 	bnd jmp *0x4ae5(%rip)        # 6f60 <sgx_ecall>
+    247b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002480 <listen@plt>:
+    2480:	f3 0f 1e fa          	endbr64 
+    2484:	f2 ff 25 dd 4a 00 00 	bnd jmp *0x4add(%rip)        # 6f68 <listen@GLIBC_2.2.5>
+    248b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002490 <sgx_thread_set_multiple_untrusted_events_ocall@plt>:
+    2490:	f3 0f 1e fa          	endbr64 
+    2494:	f2 ff 25 d5 4a 00 00 	bnd jmp *0x4ad5(%rip)        # 6f70 <sgx_thread_set_multiple_untrusted_events_ocall>
+    249b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000024a0 <bind@plt>:
+    24a0:	f3 0f 1e fa          	endbr64 
+    24a4:	f2 ff 25 cd 4a 00 00 	bnd jmp *0x4acd(%rip)        # 6f78 <bind@GLIBC_2.2.5>
+    24ab:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000024b0 <sgx_thread_wait_untrusted_event_ocall@plt>:
+    24b0:	f3 0f 1e fa          	endbr64 
+    24b4:	f2 ff 25 c5 4a 00 00 	bnd jmp *0x4ac5(%rip)        # 6f80 <sgx_thread_wait_untrusted_event_ocall>
+    24bb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000024c0 <fopen@plt>:
+    24c0:	f3 0f 1e fa          	endbr64 
+    24c4:	f2 ff 25 bd 4a 00 00 	bnd jmp *0x4abd(%rip)        # 6f88 <fopen@GLIBC_2.2.5>
+    24cb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000024d0 <sgx_thread_set_untrusted_event_ocall@plt>:
+    24d0:	f3 0f 1e fa          	endbr64 
+    24d4:	f2 ff 25 b5 4a 00 00 	bnd jmp *0x4ab5(%rip)        # 6f90 <sgx_thread_set_untrusted_event_ocall>
+    24db:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000024e0 <accept@plt>:
+    24e0:	f3 0f 1e fa          	endbr64 
+    24e4:	f2 ff 25 ad 4a 00 00 	bnd jmp *0x4aad(%rip)        # 6f98 <accept@GLIBC_2.2.5>
+    24eb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000024f0 <exit@plt>:
+    24f0:	f3 0f 1e fa          	endbr64 
+    24f4:	f2 ff 25 a5 4a 00 00 	bnd jmp *0x4aa5(%rip)        # 6fa0 <exit@GLIBC_2.2.5>
+    24fb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002500 <connect@plt>:
+    2500:	f3 0f 1e fa          	endbr64 
+    2504:	f2 ff 25 9d 4a 00 00 	bnd jmp *0x4a9d(%rip)        # 6fa8 <connect@GLIBC_2.2.5>
+    250b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002510 <fwrite@plt>:
+    2510:	f3 0f 1e fa          	endbr64 
+    2514:	f2 ff 25 95 4a 00 00 	bnd jmp *0x4a95(%rip)        # 6fb0 <fwrite@GLIBC_2.2.5>
+    251b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002520 <sgx_create_enclave@plt>:
+    2520:	f3 0f 1e fa          	endbr64 
+    2524:	f2 ff 25 8d 4a 00 00 	bnd jmp *0x4a8d(%rip)        # 6fb8 <sgx_create_enclave>
+    252b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002530 <socket@plt>:
+    2530:	f3 0f 1e fa          	endbr64 
+    2534:	f2 ff 25 85 4a 00 00 	bnd jmp *0x4a85(%rip)        # 6fc0 <socket@GLIBC_2.2.5>
+    253b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+Disassembly of section .text:
+
+0000000000002540 <_start>:
+    2540:	f3 0f 1e fa          	endbr64 
+    2544:	31 ed                	xor    %ebp,%ebp
+    2546:	49 89 d1             	mov    %rdx,%r9
+    2549:	5e                   	pop    %rsi
+    254a:	48 89 e2             	mov    %rsp,%rdx
+    254d:	48 83 e4 f0          	and    $0xfffffffffffffff0,%rsp
+    2551:	50                   	push   %rax
+    2552:	54                   	push   %rsp
+    2553:	4c 8d 05 e6 0f 00 00 	lea    0xfe6(%rip),%r8        # 3540 <__libc_csu_fini>
+    255a:	48 8d 0d 6f 0f 00 00 	lea    0xf6f(%rip),%rcx        # 34d0 <__libc_csu_init>
+    2561:	48 8d 3d e5 0e 00 00 	lea    0xee5(%rip),%rdi        # 344d <main>
+    2568:	ff 15 62 4a 00 00    	call   *0x4a62(%rip)        # 6fd0 <__libc_start_main@GLIBC_2.2.5>
+    256e:	f4                   	hlt    
+    256f:	90                   	nop
+
+0000000000002570 <deregister_tm_clones>:
+    2570:	48 8d 3d 11 4c 00 00 	lea    0x4c11(%rip),%rdi        # 7188 <__TMC_END__>
+    2577:	48 8d 05 0a 4c 00 00 	lea    0x4c0a(%rip),%rax        # 7188 <__TMC_END__>
+    257e:	48 39 f8             	cmp    %rdi,%rax
+    2581:	74 15                	je     2598 <deregister_tm_clones+0x28>
+    2583:	48 8b 05 3e 4a 00 00 	mov    0x4a3e(%rip),%rax        # 6fc8 <_ITM_deregisterTMCloneTable>
+    258a:	48 85 c0             	test   %rax,%rax
+    258d:	74 09                	je     2598 <deregister_tm_clones+0x28>
+    258f:	ff e0                	jmp    *%rax
+    2591:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+    2598:	c3                   	ret    
+    2599:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+00000000000025a0 <register_tm_clones>:
+    25a0:	48 8d 3d e1 4b 00 00 	lea    0x4be1(%rip),%rdi        # 7188 <__TMC_END__>
+    25a7:	48 8d 35 da 4b 00 00 	lea    0x4bda(%rip),%rsi        # 7188 <__TMC_END__>
+    25ae:	48 29 fe             	sub    %rdi,%rsi
+    25b1:	48 c1 fe 03          	sar    $0x3,%rsi
+    25b5:	48 89 f0             	mov    %rsi,%rax
+    25b8:	48 c1 e8 3f          	shr    $0x3f,%rax
+    25bc:	48 01 c6             	add    %rax,%rsi
+    25bf:	48 d1 fe             	sar    %rsi
+    25c2:	74 14                	je     25d8 <register_tm_clones+0x38>
+    25c4:	48 8b 05 15 4a 00 00 	mov    0x4a15(%rip),%rax        # 6fe0 <_ITM_registerTMCloneTable>
+    25cb:	48 85 c0             	test   %rax,%rax
+    25ce:	74 08                	je     25d8 <register_tm_clones+0x38>
+    25d0:	ff e0                	jmp    *%rax
+    25d2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+    25d8:	c3                   	ret    
+    25d9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+00000000000025e0 <__do_global_dtors_aux>:
+    25e0:	f3 0f 1e fa          	endbr64 
+    25e4:	80 3d 9d 4b 00 00 00 	cmpb   $0x0,0x4b9d(%rip)        # 7188 <__TMC_END__>
+    25eb:	75 2b                	jne    2618 <__do_global_dtors_aux+0x38>
+    25ed:	55                   	push   %rbp
+    25ee:	48 83 3d f2 49 00 00 	cmpq   $0x0,0x49f2(%rip)        # 6fe8 <__cxa_finalize@GLIBC_2.2.5>
+    25f5:	00 
+    25f6:	48 89 e5             	mov    %rsp,%rbp
+    25f9:	74 0c                	je     2607 <__do_global_dtors_aux+0x27>
+    25fb:	48 8b 3d 06 4a 00 00 	mov    0x4a06(%rip),%rdi        # 7008 <__dso_handle>
+    2602:	e8 a9 fc ff ff       	call   22b0 <__cxa_finalize@plt>
+    2607:	e8 64 ff ff ff       	call   2570 <deregister_tm_clones>
+    260c:	c6 05 75 4b 00 00 01 	movb   $0x1,0x4b75(%rip)        # 7188 <__TMC_END__>
+    2613:	5d                   	pop    %rbp
+    2614:	c3                   	ret    
+    2615:	0f 1f 00             	nopl   (%rax)
+    2618:	c3                   	ret    
+    2619:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+0000000000002620 <frame_dummy>:
+    2620:	f3 0f 1e fa          	endbr64 
+    2624:	e9 77 ff ff ff       	jmp    25a0 <register_tm_clones>
+
+0000000000002629 <Enclave_ocall_sgx_clock>:
+	const void** ms_waiters;
+	size_t ms_total;
+} ms_sgx_thread_set_multiple_untrusted_events_ocall_t;
+
+static sgx_status_t SGX_CDECL Enclave_ocall_sgx_clock(void* pms)
+{
+    2629:	f3 0f 1e fa          	endbr64 
+    262d:	55                   	push   %rbp
+    262e:	48 89 e5             	mov    %rsp,%rbp
+    2631:	48 83 ec 20          	sub    $0x20,%rsp
+    2635:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_ocall_sgx_clock_t* ms = SGX_CAST(ms_ocall_sgx_clock_t*, pms);
+    2639:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    263d:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = ocall_sgx_clock();
+    2641:	e8 17 06 00 00       	call   2c5d <ocall_sgx_clock>
+    2646:	48 89 c2             	mov    %rax,%rdx
+    2649:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    264d:	48 89 10             	mov    %rdx,(%rax)
+
+	return SGX_SUCCESS;
+    2650:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    2655:	c9                   	leave  
+    2656:	c3                   	ret    
+
+0000000000002657 <Enclave_ocall_sgx_time>:
+
+static sgx_status_t SGX_CDECL Enclave_ocall_sgx_time(void* pms)
+{
+    2657:	f3 0f 1e fa          	endbr64 
+    265b:	55                   	push   %rbp
+    265c:	48 89 e5             	mov    %rsp,%rbp
+    265f:	48 83 ec 20          	sub    $0x20,%rsp
+    2663:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_ocall_sgx_time_t* ms = SGX_CAST(ms_ocall_sgx_time_t*, pms);
+    2667:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    266b:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = ocall_sgx_time(ms->ms_timep, ms->ms_t_len);
+    266f:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2673:	8b 50 10             	mov    0x10(%rax),%edx
+    2676:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    267a:	48 8b 40 08          	mov    0x8(%rax),%rax
+    267e:	89 d6                	mov    %edx,%esi
+    2680:	48 89 c7             	mov    %rax,%rdi
+    2683:	e8 37 06 00 00       	call   2cbf <ocall_sgx_time>
+    2688:	48 89 c2             	mov    %rax,%rdx
+    268b:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    268f:	48 89 10             	mov    %rdx,(%rax)
+
+	return SGX_SUCCESS;
+    2692:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    2697:	c9                   	leave  
+    2698:	c3                   	ret    
+
+0000000000002699 <Enclave_ocall_sgx_localtime>:
+
+static sgx_status_t SGX_CDECL Enclave_ocall_sgx_localtime(void* pms)
+{
+    2699:	f3 0f 1e fa          	endbr64 
+    269d:	55                   	push   %rbp
+    269e:	48 89 e5             	mov    %rsp,%rbp
+    26a1:	48 83 ec 20          	sub    $0x20,%rsp
+    26a5:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_ocall_sgx_localtime_t* ms = SGX_CAST(ms_ocall_sgx_localtime_t*, pms);
+    26a9:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    26ad:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = ocall_sgx_localtime(ms->ms_timep, ms->ms_t_len);
+    26b1:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    26b5:	8b 50 10             	mov    0x10(%rax),%edx
+    26b8:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    26bc:	48 8b 40 08          	mov    0x8(%rax),%rax
+    26c0:	89 d6                	mov    %edx,%esi
+    26c2:	48 89 c7             	mov    %rax,%rdi
+    26c5:	e8 16 06 00 00       	call   2ce0 <ocall_sgx_localtime>
+    26ca:	48 89 c2             	mov    %rax,%rdx
+    26cd:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    26d1:	48 89 10             	mov    %rdx,(%rax)
+
+	return SGX_SUCCESS;
+    26d4:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    26d9:	c9                   	leave  
+    26da:	c3                   	ret    
+
+00000000000026db <Enclave_ocall_sgx_gmtime_r>:
+
+static sgx_status_t SGX_CDECL Enclave_ocall_sgx_gmtime_r(void* pms)
+{
+    26db:	f3 0f 1e fa          	endbr64 
+    26df:	55                   	push   %rbp
+    26e0:	48 89 e5             	mov    %rsp,%rbp
+    26e3:	48 83 ec 20          	sub    $0x20,%rsp
+    26e7:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_ocall_sgx_gmtime_r_t* ms = SGX_CAST(ms_ocall_sgx_gmtime_r_t*, pms);
+    26eb:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    26ef:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = ocall_sgx_gmtime_r(ms->ms_timep, ms->ms_t_len, ms->ms_tmp, ms->ms_tmp_len);
+    26f3:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    26f7:	8b 48 20             	mov    0x20(%rax),%ecx
+    26fa:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    26fe:	48 8b 50 18          	mov    0x18(%rax),%rdx
+    2702:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2706:	8b 70 10             	mov    0x10(%rax),%esi
+    2709:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    270d:	48 8b 40 08          	mov    0x8(%rax),%rax
+    2711:	48 89 c7             	mov    %rax,%rdi
+    2714:	e8 e8 05 00 00       	call   2d01 <ocall_sgx_gmtime_r>
+    2719:	48 89 c2             	mov    %rax,%rdx
+    271c:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2720:	48 89 10             	mov    %rdx,(%rax)
+
+	return SGX_SUCCESS;
+    2723:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    2728:	c9                   	leave  
+    2729:	c3                   	ret    
+
+000000000000272a <Enclave_ocall_sgx_gettimeofday>:
+
+static sgx_status_t SGX_CDECL Enclave_ocall_sgx_gettimeofday(void* pms)
+{
+    272a:	f3 0f 1e fa          	endbr64 
+    272e:	55                   	push   %rbp
+    272f:	48 89 e5             	mov    %rsp,%rbp
+    2732:	48 83 ec 20          	sub    $0x20,%rsp
+    2736:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_ocall_sgx_gettimeofday_t* ms = SGX_CAST(ms_ocall_sgx_gettimeofday_t*, pms);
+    273a:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    273e:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = ocall_sgx_gettimeofday(ms->ms_tv, ms->ms_tv_size);
+    2742:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2746:	8b 50 10             	mov    0x10(%rax),%edx
+    2749:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    274d:	48 8b 40 08          	mov    0x8(%rax),%rax
+    2751:	89 d6                	mov    %edx,%esi
+    2753:	48 89 c7             	mov    %rax,%rdi
+    2756:	e8 d5 05 00 00       	call   2d30 <ocall_sgx_gettimeofday>
+    275b:	89 c2                	mov    %eax,%edx
+    275d:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2761:	89 10                	mov    %edx,(%rax)
+
+	return SGX_SUCCESS;
+    2763:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    2768:	c9                   	leave  
+    2769:	c3                   	ret    
+
+000000000000276a <Enclave_ocall_sgx_getsockopt>:
+
+static sgx_status_t SGX_CDECL Enclave_ocall_sgx_getsockopt(void* pms)
+{
+    276a:	f3 0f 1e fa          	endbr64 
+    276e:	55                   	push   %rbp
+    276f:	48 89 e5             	mov    %rsp,%rbp
+    2772:	48 83 ec 20          	sub    $0x20,%rsp
+    2776:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_ocall_sgx_getsockopt_t* ms = SGX_CAST(ms_ocall_sgx_getsockopt_t*, pms);
+    277a:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    277e:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = ocall_sgx_getsockopt(ms->ms_s, ms->ms_level, ms->ms_optname, ms->ms_optval, ms->ms_optval_len, ms->ms_optlen);
+    2782:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2786:	4c 8b 40 20          	mov    0x20(%rax),%r8
+    278a:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    278e:	8b 78 18             	mov    0x18(%rax),%edi
+    2791:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2795:	48 8b 48 10          	mov    0x10(%rax),%rcx
+    2799:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    279d:	8b 50 0c             	mov    0xc(%rax),%edx
+    27a0:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    27a4:	8b 70 08             	mov    0x8(%rax),%esi
+    27a7:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    27ab:	8b 40 04             	mov    0x4(%rax),%eax
+    27ae:	4d 89 c1             	mov    %r8,%r9
+    27b1:	41 89 f8             	mov    %edi,%r8d
+    27b4:	89 c7                	mov    %eax,%edi
+    27b6:	e8 9b 05 00 00       	call   2d56 <ocall_sgx_getsockopt>
+    27bb:	89 c2                	mov    %eax,%edx
+    27bd:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    27c1:	89 10                	mov    %edx,(%rax)
+
+	return SGX_SUCCESS;
+    27c3:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    27c8:	c9                   	leave  
+    27c9:	c3                   	ret    
+
+00000000000027ca <Enclave_ocall_sgx_setsockopt>:
+
+static sgx_status_t SGX_CDECL Enclave_ocall_sgx_setsockopt(void* pms)
+{
+    27ca:	f3 0f 1e fa          	endbr64 
+    27ce:	55                   	push   %rbp
+    27cf:	48 89 e5             	mov    %rsp,%rbp
+    27d2:	48 83 ec 20          	sub    $0x20,%rsp
+    27d6:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_ocall_sgx_setsockopt_t* ms = SGX_CAST(ms_ocall_sgx_setsockopt_t*, pms);
+    27da:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    27de:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = ocall_sgx_setsockopt(ms->ms_s, ms->ms_level, ms->ms_optname, ms->ms_optval, ms->ms_optlen);
+    27e2:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    27e6:	8b 78 18             	mov    0x18(%rax),%edi
+    27e9:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    27ed:	48 8b 48 10          	mov    0x10(%rax),%rcx
+    27f1:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    27f5:	8b 50 0c             	mov    0xc(%rax),%edx
+    27f8:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    27fc:	8b 70 08             	mov    0x8(%rax),%esi
+    27ff:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2803:	8b 40 04             	mov    0x4(%rax),%eax
+    2806:	41 89 f8             	mov    %edi,%r8d
+    2809:	89 c7                	mov    %eax,%edi
+    280b:	e8 84 05 00 00       	call   2d94 <ocall_sgx_setsockopt>
+    2810:	89 c2                	mov    %eax,%edx
+    2812:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2816:	89 10                	mov    %edx,(%rax)
+
+	return SGX_SUCCESS;
+    2818:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    281d:	c9                   	leave  
+    281e:	c3                   	ret    
+
+000000000000281f <Enclave_ocall_sgx_socket>:
+
+static sgx_status_t SGX_CDECL Enclave_ocall_sgx_socket(void* pms)
+{
+    281f:	f3 0f 1e fa          	endbr64 
+    2823:	55                   	push   %rbp
+    2824:	48 89 e5             	mov    %rsp,%rbp
+    2827:	48 83 ec 20          	sub    $0x20,%rsp
+    282b:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_ocall_sgx_socket_t* ms = SGX_CAST(ms_ocall_sgx_socket_t*, pms);
+    282f:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2833:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = ocall_sgx_socket(ms->ms_af, ms->ms_type, ms->ms_protocol);
+    2837:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    283b:	8b 50 0c             	mov    0xc(%rax),%edx
+    283e:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2842:	8b 48 08             	mov    0x8(%rax),%ecx
+    2845:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2849:	8b 40 04             	mov    0x4(%rax),%eax
+    284c:	89 ce                	mov    %ecx,%esi
+    284e:	89 c7                	mov    %eax,%edi
+    2850:	e8 78 05 00 00       	call   2dcd <ocall_sgx_socket>
+    2855:	89 c2                	mov    %eax,%edx
+    2857:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    285b:	89 10                	mov    %edx,(%rax)
+
+	return SGX_SUCCESS;
+    285d:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    2862:	c9                   	leave  
+    2863:	c3                   	ret    
+
+0000000000002864 <Enclave_ocall_sgx_listen>:
+
+static sgx_status_t SGX_CDECL Enclave_ocall_sgx_listen(void* pms)
+{
+    2864:	f3 0f 1e fa          	endbr64 
+    2868:	55                   	push   %rbp
+    2869:	48 89 e5             	mov    %rsp,%rbp
+    286c:	48 83 ec 20          	sub    $0x20,%rsp
+    2870:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_ocall_sgx_listen_t* ms = SGX_CAST(ms_ocall_sgx_listen_t*, pms);
+    2874:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2878:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = ocall_sgx_listen(ms->ms_s, ms->ms_backlog);
+    287c:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2880:	8b 50 08             	mov    0x8(%rax),%edx
+    2883:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2887:	8b 40 04             	mov    0x4(%rax),%eax
+    288a:	89 d6                	mov    %edx,%esi
+    288c:	89 c7                	mov    %eax,%edi
+    288e:	e8 95 05 00 00       	call   2e28 <ocall_sgx_listen>
+    2893:	89 c2                	mov    %eax,%edx
+    2895:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2899:	89 10                	mov    %edx,(%rax)
+
+	return SGX_SUCCESS;
+    289b:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    28a0:	c9                   	leave  
+    28a1:	c3                   	ret    
+
+00000000000028a2 <Enclave_ocall_sgx_bind>:
+
+static sgx_status_t SGX_CDECL Enclave_ocall_sgx_bind(void* pms)
+{
+    28a2:	f3 0f 1e fa          	endbr64 
+    28a6:	55                   	push   %rbp
+    28a7:	48 89 e5             	mov    %rsp,%rbp
+    28aa:	48 83 ec 20          	sub    $0x20,%rsp
+    28ae:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_ocall_sgx_bind_t* ms = SGX_CAST(ms_ocall_sgx_bind_t*, pms);
+    28b2:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    28b6:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = ocall_sgx_bind(ms->ms_s, ms->ms_addr, ms->ms_addr_size);
+    28ba:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    28be:	8b 50 10             	mov    0x10(%rax),%edx
+    28c1:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    28c5:	48 8b 48 08          	mov    0x8(%rax),%rcx
+    28c9:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    28cd:	8b 40 04             	mov    0x4(%rax),%eax
+    28d0:	48 89 ce             	mov    %rcx,%rsi
+    28d3:	89 c7                	mov    %eax,%edi
+    28d5:	e8 22 05 00 00       	call   2dfc <ocall_sgx_bind>
+    28da:	89 c2                	mov    %eax,%edx
+    28dc:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    28e0:	89 10                	mov    %edx,(%rax)
+
+	return SGX_SUCCESS;
+    28e2:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    28e7:	c9                   	leave  
+    28e8:	c3                   	ret    
+
+00000000000028e9 <Enclave_ocall_sgx_connect>:
+
+static sgx_status_t SGX_CDECL Enclave_ocall_sgx_connect(void* pms)
+{
+    28e9:	f3 0f 1e fa          	endbr64 
+    28ed:	55                   	push   %rbp
+    28ee:	48 89 e5             	mov    %rsp,%rbp
+    28f1:	48 83 ec 20          	sub    $0x20,%rsp
+    28f5:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_ocall_sgx_connect_t* ms = SGX_CAST(ms_ocall_sgx_connect_t*, pms);
+    28f9:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    28fd:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = ocall_sgx_connect(ms->ms_s, ms->ms_addr, ms->ms_addrlen);
+    2901:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2905:	8b 50 10             	mov    0x10(%rax),%edx
+    2908:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    290c:	48 8b 48 08          	mov    0x8(%rax),%rcx
+    2910:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2914:	8b 40 04             	mov    0x4(%rax),%eax
+    2917:	48 89 ce             	mov    %rcx,%rsi
+    291a:	89 c7                	mov    %eax,%edi
+    291c:	e8 2a 05 00 00       	call   2e4b <ocall_sgx_connect>
+    2921:	89 c2                	mov    %eax,%edx
+    2923:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2927:	89 10                	mov    %edx,(%rax)
+
+	return SGX_SUCCESS;
+    2929:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    292e:	c9                   	leave  
+    292f:	c3                   	ret    
+
+0000000000002930 <Enclave_ocall_sgx_accept>:
+
+static sgx_status_t SGX_CDECL Enclave_ocall_sgx_accept(void* pms)
+{
+    2930:	f3 0f 1e fa          	endbr64 
+    2934:	55                   	push   %rbp
+    2935:	48 89 e5             	mov    %rsp,%rbp
+    2938:	48 83 ec 20          	sub    $0x20,%rsp
+    293c:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_ocall_sgx_accept_t* ms = SGX_CAST(ms_ocall_sgx_accept_t*, pms);
+    2940:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2944:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = ocall_sgx_accept(ms->ms_s, ms->ms_addr, ms->ms_addr_size, ms->ms_addrlen);
+    2948:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    294c:	48 8b 48 18          	mov    0x18(%rax),%rcx
+    2950:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2954:	8b 50 10             	mov    0x10(%rax),%edx
+    2957:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    295b:	48 8b 70 08          	mov    0x8(%rax),%rsi
+    295f:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2963:	8b 40 04             	mov    0x4(%rax),%eax
+    2966:	89 c7                	mov    %eax,%edi
+    2968:	e8 10 05 00 00       	call   2e7d <ocall_sgx_accept>
+    296d:	89 c2                	mov    %eax,%edx
+    296f:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2973:	89 10                	mov    %edx,(%rax)
+
+	return SGX_SUCCESS;
+    2975:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    297a:	c9                   	leave  
+    297b:	c3                   	ret    
+
+000000000000297c <Enclave_ocall_sgx_shutdown>:
+
+static sgx_status_t SGX_CDECL Enclave_ocall_sgx_shutdown(void* pms)
+{
+    297c:	f3 0f 1e fa          	endbr64 
+    2980:	55                   	push   %rbp
+    2981:	48 89 e5             	mov    %rsp,%rbp
+    2984:	48 83 ec 20          	sub    $0x20,%rsp
+    2988:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_ocall_sgx_shutdown_t* ms = SGX_CAST(ms_ocall_sgx_shutdown_t*, pms);
+    298c:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2990:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = ocall_sgx_shutdown(ms->ms_fd, ms->ms_how);
+    2994:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2998:	8b 50 08             	mov    0x8(%rax),%edx
+    299b:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    299f:	8b 40 04             	mov    0x4(%rax),%eax
+    29a2:	89 d6                	mov    %edx,%esi
+    29a4:	89 c7                	mov    %eax,%edi
+    29a6:	e8 03 05 00 00       	call   2eae <ocall_sgx_shutdown>
+    29ab:	89 c2                	mov    %eax,%edx
+    29ad:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    29b1:	89 10                	mov    %edx,(%rax)
+
+	return SGX_SUCCESS;
+    29b3:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    29b8:	c9                   	leave  
+    29b9:	c3                   	ret    
+
+00000000000029ba <Enclave_ocall_sgx_read>:
+
+static sgx_status_t SGX_CDECL Enclave_ocall_sgx_read(void* pms)
+{
+    29ba:	f3 0f 1e fa          	endbr64 
+    29be:	55                   	push   %rbp
+    29bf:	48 89 e5             	mov    %rsp,%rbp
+    29c2:	48 83 ec 20          	sub    $0x20,%rsp
+    29c6:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_ocall_sgx_read_t* ms = SGX_CAST(ms_ocall_sgx_read_t*, pms);
+    29ca:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    29ce:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = ocall_sgx_read(ms->ms_fd, ms->ms_buf, ms->ms_n);
+    29d2:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    29d6:	8b 50 10             	mov    0x10(%rax),%edx
+    29d9:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    29dd:	48 8b 48 08          	mov    0x8(%rax),%rcx
+    29e1:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    29e5:	8b 40 04             	mov    0x4(%rax),%eax
+    29e8:	48 89 ce             	mov    %rcx,%rsi
+    29eb:	89 c7                	mov    %eax,%edi
+    29ed:	e8 df 04 00 00       	call   2ed1 <ocall_sgx_read>
+    29f2:	89 c2                	mov    %eax,%edx
+    29f4:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    29f8:	89 10                	mov    %edx,(%rax)
+
+	return SGX_SUCCESS;
+    29fa:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    29ff:	c9                   	leave  
+    2a00:	c3                   	ret    
+
+0000000000002a01 <Enclave_ocall_sgx_write>:
+
+static sgx_status_t SGX_CDECL Enclave_ocall_sgx_write(void* pms)
+{
+    2a01:	f3 0f 1e fa          	endbr64 
+    2a05:	55                   	push   %rbp
+    2a06:	48 89 e5             	mov    %rsp,%rbp
+    2a09:	48 83 ec 20          	sub    $0x20,%rsp
+    2a0d:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_ocall_sgx_write_t* ms = SGX_CAST(ms_ocall_sgx_write_t*, pms);
+    2a11:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2a15:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = ocall_sgx_write(ms->ms_fd, ms->ms_buf, ms->ms_n);
+    2a19:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2a1d:	8b 50 10             	mov    0x10(%rax),%edx
+    2a20:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2a24:	48 8b 48 08          	mov    0x8(%rax),%rcx
+    2a28:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2a2c:	8b 40 04             	mov    0x4(%rax),%eax
+    2a2f:	48 89 ce             	mov    %rcx,%rsi
+    2a32:	89 c7                	mov    %eax,%edi
+    2a34:	e8 c7 04 00 00       	call   2f00 <ocall_sgx_write>
+    2a39:	89 c2                	mov    %eax,%edx
+    2a3b:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2a3f:	89 10                	mov    %edx,(%rax)
+
+	return SGX_SUCCESS;
+    2a41:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    2a46:	c9                   	leave  
+    2a47:	c3                   	ret    
+
+0000000000002a48 <Enclave_ocall_sgx_close>:
+
+static sgx_status_t SGX_CDECL Enclave_ocall_sgx_close(void* pms)
+{
+    2a48:	f3 0f 1e fa          	endbr64 
+    2a4c:	55                   	push   %rbp
+    2a4d:	48 89 e5             	mov    %rsp,%rbp
+    2a50:	48 83 ec 20          	sub    $0x20,%rsp
+    2a54:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_ocall_sgx_close_t* ms = SGX_CAST(ms_ocall_sgx_close_t*, pms);
+    2a58:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2a5c:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = ocall_sgx_close(ms->ms_fd);
+    2a60:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2a64:	8b 40 04             	mov    0x4(%rax),%eax
+    2a67:	89 c7                	mov    %eax,%edi
+    2a69:	e8 c1 04 00 00       	call   2f2f <ocall_sgx_close>
+    2a6e:	89 c2                	mov    %eax,%edx
+    2a70:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2a74:	89 10                	mov    %edx,(%rax)
+
+	return SGX_SUCCESS;
+    2a76:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    2a7b:	c9                   	leave  
+    2a7c:	c3                   	ret    
+
+0000000000002a7d <Enclave_ocall_sgx_getenv>:
+
+static sgx_status_t SGX_CDECL Enclave_ocall_sgx_getenv(void* pms)
+{
+    2a7d:	f3 0f 1e fa          	endbr64 
+    2a81:	55                   	push   %rbp
+    2a82:	48 89 e5             	mov    %rsp,%rbp
+    2a85:	48 83 ec 20          	sub    $0x20,%rsp
+    2a89:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_ocall_sgx_getenv_t* ms = SGX_CAST(ms_ocall_sgx_getenv_t*, pms);
+    2a8d:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2a91:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = ocall_sgx_getenv(ms->ms_env, ms->ms_envlen, ms->ms_ret_str, ms->ms_ret_len);
+    2a95:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2a99:	8b 48 20             	mov    0x20(%rax),%ecx
+    2a9c:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2aa0:	48 8b 50 18          	mov    0x18(%rax),%rdx
+    2aa4:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2aa8:	8b 70 10             	mov    0x10(%rax),%esi
+    2aab:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2aaf:	48 8b 40 08          	mov    0x8(%rax),%rax
+    2ab3:	48 89 c7             	mov    %rax,%rdi
+    2ab6:	e8 8f 04 00 00       	call   2f4a <ocall_sgx_getenv>
+    2abb:	89 c2                	mov    %eax,%edx
+    2abd:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2ac1:	89 10                	mov    %edx,(%rax)
+
+	return SGX_SUCCESS;
+    2ac3:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    2ac8:	c9                   	leave  
+    2ac9:	c3                   	ret    
+
+0000000000002aca <Enclave_ocall_print_string>:
+
+static sgx_status_t SGX_CDECL Enclave_ocall_print_string(void* pms)
+{
+    2aca:	f3 0f 1e fa          	endbr64 
+    2ace:	55                   	push   %rbp
+    2acf:	48 89 e5             	mov    %rsp,%rbp
+    2ad2:	48 83 ec 20          	sub    $0x20,%rsp
+    2ad6:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_ocall_print_string_t* ms = SGX_CAST(ms_ocall_print_string_t*, pms);
+    2ada:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2ade:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ocall_print_string(ms->ms_str);
+    2ae2:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2ae6:	48 8b 00             	mov    (%rax),%rax
+    2ae9:	48 89 c7             	mov    %rax,%rdi
+    2aec:	e8 bb 04 00 00       	call   2fac <ocall_print_string>
+
+	return SGX_SUCCESS;
+    2af1:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    2af6:	c9                   	leave  
+    2af7:	c3                   	ret    
+
+0000000000002af8 <Enclave_sgx_oc_cpuidex>:
+
+static sgx_status_t SGX_CDECL Enclave_sgx_oc_cpuidex(void* pms)
+{
+    2af8:	f3 0f 1e fa          	endbr64 
+    2afc:	55                   	push   %rbp
+    2afd:	48 89 e5             	mov    %rsp,%rbp
+    2b00:	48 83 ec 20          	sub    $0x20,%rsp
+    2b04:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_sgx_oc_cpuidex_t* ms = SGX_CAST(ms_sgx_oc_cpuidex_t*, pms);
+    2b08:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2b0c:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	sgx_oc_cpuidex(ms->ms_cpuinfo, ms->ms_leaf, ms->ms_subleaf);
+    2b10:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2b14:	8b 50 0c             	mov    0xc(%rax),%edx
+    2b17:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2b1b:	8b 48 08             	mov    0x8(%rax),%ecx
+    2b1e:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2b22:	48 8b 00             	mov    (%rax),%rax
+    2b25:	89 ce                	mov    %ecx,%esi
+    2b27:	48 89 c7             	mov    %rax,%rdi
+    2b2a:	e8 c1 f7 ff ff       	call   22f0 <sgx_oc_cpuidex@plt>
+
+	return SGX_SUCCESS;
+    2b2f:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    2b34:	c9                   	leave  
+    2b35:	c3                   	ret    
+
+0000000000002b36 <Enclave_sgx_thread_wait_untrusted_event_ocall>:
+
+static sgx_status_t SGX_CDECL Enclave_sgx_thread_wait_untrusted_event_ocall(void* pms)
+{
+    2b36:	f3 0f 1e fa          	endbr64 
+    2b3a:	55                   	push   %rbp
+    2b3b:	48 89 e5             	mov    %rsp,%rbp
+    2b3e:	48 83 ec 20          	sub    $0x20,%rsp
+    2b42:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_sgx_thread_wait_untrusted_event_ocall_t* ms = SGX_CAST(ms_sgx_thread_wait_untrusted_event_ocall_t*, pms);
+    2b46:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2b4a:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = sgx_thread_wait_untrusted_event_ocall(ms->ms_self);
+    2b4e:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2b52:	48 8b 40 08          	mov    0x8(%rax),%rax
+    2b56:	48 89 c7             	mov    %rax,%rdi
+    2b59:	e8 52 f9 ff ff       	call   24b0 <sgx_thread_wait_untrusted_event_ocall@plt>
+    2b5e:	89 c2                	mov    %eax,%edx
+    2b60:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2b64:	89 10                	mov    %edx,(%rax)
+
+	return SGX_SUCCESS;
+    2b66:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    2b6b:	c9                   	leave  
+    2b6c:	c3                   	ret    
+
+0000000000002b6d <Enclave_sgx_thread_set_untrusted_event_ocall>:
+
+static sgx_status_t SGX_CDECL Enclave_sgx_thread_set_untrusted_event_ocall(void* pms)
+{
+    2b6d:	f3 0f 1e fa          	endbr64 
+    2b71:	55                   	push   %rbp
+    2b72:	48 89 e5             	mov    %rsp,%rbp
+    2b75:	48 83 ec 20          	sub    $0x20,%rsp
+    2b79:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_sgx_thread_set_untrusted_event_ocall_t* ms = SGX_CAST(ms_sgx_thread_set_untrusted_event_ocall_t*, pms);
+    2b7d:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2b81:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = sgx_thread_set_untrusted_event_ocall(ms->ms_waiter);
+    2b85:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2b89:	48 8b 40 08          	mov    0x8(%rax),%rax
+    2b8d:	48 89 c7             	mov    %rax,%rdi
+    2b90:	e8 3b f9 ff ff       	call   24d0 <sgx_thread_set_untrusted_event_ocall@plt>
+    2b95:	89 c2                	mov    %eax,%edx
+    2b97:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2b9b:	89 10                	mov    %edx,(%rax)
+
+	return SGX_SUCCESS;
+    2b9d:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    2ba2:	c9                   	leave  
+    2ba3:	c3                   	ret    
+
+0000000000002ba4 <Enclave_sgx_thread_setwait_untrusted_events_ocall>:
+
+static sgx_status_t SGX_CDECL Enclave_sgx_thread_setwait_untrusted_events_ocall(void* pms)
+{
+    2ba4:	f3 0f 1e fa          	endbr64 
+    2ba8:	55                   	push   %rbp
+    2ba9:	48 89 e5             	mov    %rsp,%rbp
+    2bac:	48 83 ec 20          	sub    $0x20,%rsp
+    2bb0:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_sgx_thread_setwait_untrusted_events_ocall_t* ms = SGX_CAST(ms_sgx_thread_setwait_untrusted_events_ocall_t*, pms);
+    2bb4:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2bb8:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = sgx_thread_setwait_untrusted_events_ocall(ms->ms_waiter, ms->ms_self);
+    2bbc:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2bc0:	48 8b 50 10          	mov    0x10(%rax),%rdx
+    2bc4:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2bc8:	48 8b 40 08          	mov    0x8(%rax),%rax
+    2bcc:	48 89 d6             	mov    %rdx,%rsi
+    2bcf:	48 89 c7             	mov    %rax,%rdi
+    2bd2:	e8 79 f8 ff ff       	call   2450 <sgx_thread_setwait_untrusted_events_ocall@plt>
+    2bd7:	89 c2                	mov    %eax,%edx
+    2bd9:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2bdd:	89 10                	mov    %edx,(%rax)
+
+	return SGX_SUCCESS;
+    2bdf:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    2be4:	c9                   	leave  
+    2be5:	c3                   	ret    
+
+0000000000002be6 <Enclave_sgx_thread_set_multiple_untrusted_events_ocall>:
+
+static sgx_status_t SGX_CDECL Enclave_sgx_thread_set_multiple_untrusted_events_ocall(void* pms)
+{
+    2be6:	f3 0f 1e fa          	endbr64 
+    2bea:	55                   	push   %rbp
+    2beb:	48 89 e5             	mov    %rsp,%rbp
+    2bee:	48 83 ec 20          	sub    $0x20,%rsp
+    2bf2:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	ms_sgx_thread_set_multiple_untrusted_events_ocall_t* ms = SGX_CAST(ms_sgx_thread_set_multiple_untrusted_events_ocall_t*, pms);
+    2bf6:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2bfa:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	ms->ms_retval = sgx_thread_set_multiple_untrusted_events_ocall(ms->ms_waiters, ms->ms_total);
+    2bfe:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2c02:	48 8b 50 10          	mov    0x10(%rax),%rdx
+    2c06:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2c0a:	48 8b 40 08          	mov    0x8(%rax),%rax
+    2c0e:	48 89 d6             	mov    %rdx,%rsi
+    2c11:	48 89 c7             	mov    %rax,%rdi
+    2c14:	e8 77 f8 ff ff       	call   2490 <sgx_thread_set_multiple_untrusted_events_ocall@plt>
+    2c19:	89 c2                	mov    %eax,%edx
+    2c1b:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2c1f:	89 10                	mov    %edx,(%rax)
+
+	return SGX_SUCCESS;
+    2c21:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    2c26:	c9                   	leave  
+    2c27:	c3                   	ret    
+
+0000000000002c28 <ecall_start_tls_client>:
+		(void*)Enclave_sgx_thread_setwait_untrusted_events_ocall,
+		(void*)Enclave_sgx_thread_set_multiple_untrusted_events_ocall,
+	}
+};
+sgx_status_t ecall_start_tls_client(sgx_enclave_id_t eid)
+{
+    2c28:	f3 0f 1e fa          	endbr64 
+    2c2c:	55                   	push   %rbp
+    2c2d:	48 89 e5             	mov    %rsp,%rbp
+    2c30:	48 83 ec 20          	sub    $0x20,%rsp
+    2c34:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+	sgx_status_t status;
+	status = sgx_ecall(eid, 0, &ocall_table_Enclave, NULL);
+    2c38:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2c3c:	b9 00 00 00 00       	mov    $0x0,%ecx
+    2c41:	48 8d 15 58 3f 00 00 	lea    0x3f58(%rip),%rdx        # 6ba0 <ocall_table_Enclave>
+    2c48:	be 00 00 00 00       	mov    $0x0,%esi
+    2c4d:	48 89 c7             	mov    %rax,%rdi
+    2c50:	e8 1b f8 ff ff       	call   2470 <sgx_ecall@plt>
+    2c55:	89 45 fc             	mov    %eax,-0x4(%rbp)
+	return status;
+    2c58:	8b 45 fc             	mov    -0x4(%rbp),%eax
+}
+    2c5b:	c9                   	leave  
+    2c5c:	c3                   	ret    
+
+0000000000002c5d <ocall_sgx_clock>:
+#include "Ocall_implements.h"
+#include "Enclave_u.h"
+
+long ocall_sgx_clock(void)
+{
+    2c5d:	f3 0f 1e fa          	endbr64 
+    2c61:	55                   	push   %rbp
+    2c62:	48 89 e5             	mov    %rsp,%rbp
+    2c65:	48 83 ec 10          	sub    $0x10,%rsp
+	struct timespec tstart={0,0};
+    2c69:	48 c7 45 f0 00 00 00 	movq   $0x0,-0x10(%rbp)
+    2c70:	00 
+    2c71:	48 c7 45 f8 00 00 00 	movq   $0x0,-0x8(%rbp)
+    2c78:	00 
+	clock_gettime(CLOCK_MONOTONIC, &tstart);
+    2c79:	48 8d 45 f0          	lea    -0x10(%rbp),%rax
+    2c7d:	48 89 c6             	mov    %rax,%rsi
+    2c80:	bf 01 00 00 00       	mov    $0x1,%edi
+    2c85:	e8 a6 f6 ff ff       	call   2330 <clock_gettime@plt>
+	return tstart.tv_sec * 1000000 + tstart.tv_nsec/1000; // Return micro seconds
+    2c8a:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+    2c8e:	48 69 f0 40 42 0f 00 	imul   $0xf4240,%rax,%rsi
+    2c95:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
+    2c99:	48 ba cf f7 53 e3 a5 	movabs $0x20c49ba5e353f7cf,%rdx
+    2ca0:	9b c4 20 
+    2ca3:	48 89 c8             	mov    %rcx,%rax
+    2ca6:	48 f7 ea             	imul   %rdx
+    2ca9:	48 c1 fa 07          	sar    $0x7,%rdx
+    2cad:	48 89 c8             	mov    %rcx,%rax
+    2cb0:	48 c1 f8 3f          	sar    $0x3f,%rax
+    2cb4:	48 29 c2             	sub    %rax,%rdx
+    2cb7:	48 89 d0             	mov    %rdx,%rax
+    2cba:	48 01 f0             	add    %rsi,%rax
+}
+    2cbd:	c9                   	leave  
+    2cbe:	c3                   	ret    
+
+0000000000002cbf <ocall_sgx_time>:
+
+time_t ocall_sgx_time(time_t *timep, int t_len)
+{
+    2cbf:	f3 0f 1e fa          	endbr64 
+    2cc3:	55                   	push   %rbp
+    2cc4:	48 89 e5             	mov    %rsp,%rbp
+    2cc7:	48 83 ec 10          	sub    $0x10,%rsp
+    2ccb:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+    2ccf:	89 75 f4             	mov    %esi,-0xc(%rbp)
+	return 	time(timep);
+    2cd2:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2cd6:	48 89 c7             	mov    %rax,%rdi
+    2cd9:	e8 82 f7 ff ff       	call   2460 <time@plt>
+}
+    2cde:	c9                   	leave  
+    2cdf:	c3                   	ret    
+
+0000000000002ce0 <ocall_sgx_localtime>:
+
+struct tm *ocall_sgx_localtime(const time_t *timep, int t_len)
+{
+    2ce0:	f3 0f 1e fa          	endbr64 
+    2ce4:	55                   	push   %rbp
+    2ce5:	48 89 e5             	mov    %rsp,%rbp
+    2ce8:	48 83 ec 10          	sub    $0x10,%rsp
+    2cec:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+    2cf0:	89 75 f4             	mov    %esi,-0xc(%rbp)
+	return localtime(timep);
+    2cf3:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2cf7:	48 89 c7             	mov    %rax,%rdi
+    2cfa:	e8 d1 f5 ff ff       	call   22d0 <localtime@plt>
+}
+    2cff:	c9                   	leave  
+    2d00:	c3                   	ret    
+
+0000000000002d01 <ocall_sgx_gmtime_r>:
+
+struct tm *ocall_sgx_gmtime_r(const time_t *timep, int t_len, struct tm *tmp, int tmp_len)
+{
+    2d01:	f3 0f 1e fa          	endbr64 
+    2d05:	55                   	push   %rbp
+    2d06:	48 89 e5             	mov    %rsp,%rbp
+    2d09:	48 83 ec 20          	sub    $0x20,%rsp
+    2d0d:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+    2d11:	89 75 f4             	mov    %esi,-0xc(%rbp)
+    2d14:	48 89 55 e8          	mov    %rdx,-0x18(%rbp)
+    2d18:	89 4d f0             	mov    %ecx,-0x10(%rbp)
+	return gmtime_r(timep, tmp);
+    2d1b:	48 8b 55 e8          	mov    -0x18(%rbp),%rdx
+    2d1f:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2d23:	48 89 d6             	mov    %rdx,%rsi
+    2d26:	48 89 c7             	mov    %rax,%rdi
+    2d29:	e8 92 f6 ff ff       	call   23c0 <gmtime_r@plt>
+}
+    2d2e:	c9                   	leave  
+    2d2f:	c3                   	ret    
+
+0000000000002d30 <ocall_sgx_gettimeofday>:
+
+int ocall_sgx_gettimeofday(void *tv, int tv_size)
+{
+    2d30:	f3 0f 1e fa          	endbr64 
+    2d34:	55                   	push   %rbp
+    2d35:	48 89 e5             	mov    %rsp,%rbp
+    2d38:	48 83 ec 10          	sub    $0x10,%rsp
+    2d3c:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+    2d40:	89 75 f4             	mov    %esi,-0xc(%rbp)
+	return gettimeofday((struct timeval *)tv, NULL);
+    2d43:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2d47:	be 00 00 00 00       	mov    $0x0,%esi
+    2d4c:	48 89 c7             	mov    %rax,%rdi
+    2d4f:	e8 7c f6 ff ff       	call   23d0 <gettimeofday@plt>
+}
+    2d54:	c9                   	leave  
+    2d55:	c3                   	ret    
+
+0000000000002d56 <ocall_sgx_getsockopt>:
+
+int ocall_sgx_getsockopt(int s, int level, int optname, char *optval, int optval_len, int* optlen)
+{
+    2d56:	f3 0f 1e fa          	endbr64 
+    2d5a:	55                   	push   %rbp
+    2d5b:	48 89 e5             	mov    %rsp,%rbp
+    2d5e:	48 83 ec 20          	sub    $0x20,%rsp
+    2d62:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    2d65:	89 75 f8             	mov    %esi,-0x8(%rbp)
+    2d68:	89 55 f4             	mov    %edx,-0xc(%rbp)
+    2d6b:	48 89 4d e8          	mov    %rcx,-0x18(%rbp)
+    2d6f:	44 89 45 f0          	mov    %r8d,-0x10(%rbp)
+    2d73:	4c 89 4d e0          	mov    %r9,-0x20(%rbp)
+    return getsockopt(s, level, optname, optval, (socklen_t *)optlen);
+    2d77:	48 8b 7d e0          	mov    -0x20(%rbp),%rdi
+    2d7b:	48 8b 4d e8          	mov    -0x18(%rbp),%rcx
+    2d7f:	8b 55 f4             	mov    -0xc(%rbp),%edx
+    2d82:	8b 75 f8             	mov    -0x8(%rbp),%esi
+    2d85:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    2d88:	49 89 f8             	mov    %rdi,%r8
+    2d8b:	89 c7                	mov    %eax,%edi
+    2d8d:	e8 8e f6 ff ff       	call   2420 <getsockopt@plt>
+}
+    2d92:	c9                   	leave  
+    2d93:	c3                   	ret    
+
+0000000000002d94 <ocall_sgx_setsockopt>:
+
+int ocall_sgx_setsockopt(int s, int level, int optname, const void *optval, int optlen)
+{
+    2d94:	f3 0f 1e fa          	endbr64 
+    2d98:	55                   	push   %rbp
+    2d99:	48 89 e5             	mov    %rsp,%rbp
+    2d9c:	48 83 ec 20          	sub    $0x20,%rsp
+    2da0:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    2da3:	89 75 f8             	mov    %esi,-0x8(%rbp)
+    2da6:	89 55 f4             	mov    %edx,-0xc(%rbp)
+    2da9:	48 89 4d e8          	mov    %rcx,-0x18(%rbp)
+    2dad:	44 89 45 f0          	mov    %r8d,-0x10(%rbp)
+	return setsockopt(s, level, optname, optval, optlen);
+    2db1:	8b 7d f0             	mov    -0x10(%rbp),%edi
+    2db4:	48 8b 4d e8          	mov    -0x18(%rbp),%rcx
+    2db8:	8b 55 f4             	mov    -0xc(%rbp),%edx
+    2dbb:	8b 75 f8             	mov    -0x8(%rbp),%esi
+    2dbe:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    2dc1:	41 89 f8             	mov    %edi,%r8d
+    2dc4:	89 c7                	mov    %eax,%edi
+    2dc6:	e8 55 f5 ff ff       	call   2320 <setsockopt@plt>
+}
+    2dcb:	c9                   	leave  
+    2dcc:	c3                   	ret    
+
+0000000000002dcd <ocall_sgx_socket>:
+
+int ocall_sgx_socket(int af, int type, int protocol)
+{
+    2dcd:	f3 0f 1e fa          	endbr64 
+    2dd1:	55                   	push   %rbp
+    2dd2:	48 89 e5             	mov    %rsp,%rbp
+    2dd5:	48 83 ec 20          	sub    $0x20,%rsp
+    2dd9:	89 7d ec             	mov    %edi,-0x14(%rbp)
+    2ddc:	89 75 e8             	mov    %esi,-0x18(%rbp)
+    2ddf:	89 55 e4             	mov    %edx,-0x1c(%rbp)
+	int retv;
+	retv = socket(af, type, protocol);
+    2de2:	8b 55 e4             	mov    -0x1c(%rbp),%edx
+    2de5:	8b 4d e8             	mov    -0x18(%rbp),%ecx
+    2de8:	8b 45 ec             	mov    -0x14(%rbp),%eax
+    2deb:	89 ce                	mov    %ecx,%esi
+    2ded:	89 c7                	mov    %eax,%edi
+    2def:	e8 3c f7 ff ff       	call   2530 <socket@plt>
+    2df4:	89 45 fc             	mov    %eax,-0x4(%rbp)
+	return retv;
+    2df7:	8b 45 fc             	mov    -0x4(%rbp),%eax
+}
+    2dfa:	c9                   	leave  
+    2dfb:	c3                   	ret    
+
+0000000000002dfc <ocall_sgx_bind>:
+
+int ocall_sgx_bind(int s, const void *addr, int addr_size)
+{
+    2dfc:	f3 0f 1e fa          	endbr64 
+    2e00:	55                   	push   %rbp
+    2e01:	48 89 e5             	mov    %rsp,%rbp
+    2e04:	48 83 ec 10          	sub    $0x10,%rsp
+    2e08:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    2e0b:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
+    2e0f:	89 55 f8             	mov    %edx,-0x8(%rbp)
+	return bind(s, (struct sockaddr *)addr, addr_size);
+    2e12:	8b 55 f8             	mov    -0x8(%rbp),%edx
+    2e15:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
+    2e19:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    2e1c:	48 89 ce             	mov    %rcx,%rsi
+    2e1f:	89 c7                	mov    %eax,%edi
+    2e21:	e8 7a f6 ff ff       	call   24a0 <bind@plt>
+}
+    2e26:	c9                   	leave  
+    2e27:	c3                   	ret    
+
+0000000000002e28 <ocall_sgx_listen>:
+
+int ocall_sgx_listen(int s, int backlog)
+{
+    2e28:	f3 0f 1e fa          	endbr64 
+    2e2c:	55                   	push   %rbp
+    2e2d:	48 89 e5             	mov    %rsp,%rbp
+    2e30:	48 83 ec 10          	sub    $0x10,%rsp
+    2e34:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    2e37:	89 75 f8             	mov    %esi,-0x8(%rbp)
+	return listen(s, backlog);
+    2e3a:	8b 55 f8             	mov    -0x8(%rbp),%edx
+    2e3d:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    2e40:	89 d6                	mov    %edx,%esi
+    2e42:	89 c7                	mov    %eax,%edi
+    2e44:	e8 37 f6 ff ff       	call   2480 <listen@plt>
+}
+    2e49:	c9                   	leave  
+    2e4a:	c3                   	ret    
+
+0000000000002e4b <ocall_sgx_connect>:
+
+int ocall_sgx_connect(int s, const void *addr, int addrlen)
+{
+    2e4b:	f3 0f 1e fa          	endbr64 
+    2e4f:	55                   	push   %rbp
+    2e50:	48 89 e5             	mov    %rsp,%rbp
+    2e53:	48 83 ec 20          	sub    $0x20,%rsp
+    2e57:	89 7d ec             	mov    %edi,-0x14(%rbp)
+    2e5a:	48 89 75 e0          	mov    %rsi,-0x20(%rbp)
+    2e5e:	89 55 e8             	mov    %edx,-0x18(%rbp)
+	int retv = connect(s, (struct sockaddr *)addr, addrlen);
+    2e61:	8b 55 e8             	mov    -0x18(%rbp),%edx
+    2e64:	48 8b 4d e0          	mov    -0x20(%rbp),%rcx
+    2e68:	8b 45 ec             	mov    -0x14(%rbp),%eax
+    2e6b:	48 89 ce             	mov    %rcx,%rsi
+    2e6e:	89 c7                	mov    %eax,%edi
+    2e70:	e8 8b f6 ff ff       	call   2500 <connect@plt>
+    2e75:	89 45 fc             	mov    %eax,-0x4(%rbp)
+	return retv;
+    2e78:	8b 45 fc             	mov    -0x4(%rbp),%eax
+}
+    2e7b:	c9                   	leave  
+    2e7c:	c3                   	ret    
+
+0000000000002e7d <ocall_sgx_accept>:
+
+int ocall_sgx_accept(int s, void *addr, int addr_size, int *addrlen)
+{
+    2e7d:	f3 0f 1e fa          	endbr64 
+    2e81:	55                   	push   %rbp
+    2e82:	48 89 e5             	mov    %rsp,%rbp
+    2e85:	48 83 ec 20          	sub    $0x20,%rsp
+    2e89:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    2e8c:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
+    2e90:	89 55 f8             	mov    %edx,-0x8(%rbp)
+    2e93:	48 89 4d e8          	mov    %rcx,-0x18(%rbp)
+	return accept(s, (struct sockaddr *)addr, (socklen_t *)addrlen);
+    2e97:	48 8b 55 e8          	mov    -0x18(%rbp),%rdx
+    2e9b:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
+    2e9f:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    2ea2:	48 89 ce             	mov    %rcx,%rsi
+    2ea5:	89 c7                	mov    %eax,%edi
+    2ea7:	e8 34 f6 ff ff       	call   24e0 <accept@plt>
+}
+    2eac:	c9                   	leave  
+    2ead:	c3                   	ret    
+
+0000000000002eae <ocall_sgx_shutdown>:
+
+int ocall_sgx_shutdown(int fd, int how)
+{
+    2eae:	f3 0f 1e fa          	endbr64 
+    2eb2:	55                   	push   %rbp
+    2eb3:	48 89 e5             	mov    %rsp,%rbp
+    2eb6:	48 83 ec 10          	sub    $0x10,%rsp
+    2eba:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    2ebd:	89 75 f8             	mov    %esi,-0x8(%rbp)
+	return shutdown(fd, how);
+    2ec0:	8b 55 f8             	mov    -0x8(%rbp),%edx
+    2ec3:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    2ec6:	89 d6                	mov    %edx,%esi
+    2ec8:	89 c7                	mov    %eax,%edi
+    2eca:	e8 b1 f4 ff ff       	call   2380 <shutdown@plt>
+}
+    2ecf:	c9                   	leave  
+    2ed0:	c3                   	ret    
+
+0000000000002ed1 <ocall_sgx_read>:
+
+int ocall_sgx_read(int fd, void *buf, int n)
+{
+    2ed1:	f3 0f 1e fa          	endbr64 
+    2ed5:	55                   	push   %rbp
+    2ed6:	48 89 e5             	mov    %rsp,%rbp
+    2ed9:	48 83 ec 10          	sub    $0x10,%rsp
+    2edd:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    2ee0:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
+    2ee4:	89 55 f8             	mov    %edx,-0x8(%rbp)
+	return read(fd, buf, n);
+    2ee7:	8b 45 f8             	mov    -0x8(%rbp),%eax
+    2eea:	48 63 d0             	movslq %eax,%rdx
+    2eed:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
+    2ef1:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    2ef4:	48 89 ce             	mov    %rcx,%rsi
+    2ef7:	89 c7                	mov    %eax,%edi
+    2ef9:	e8 12 f5 ff ff       	call   2410 <read@plt>
+}
+    2efe:	c9                   	leave  
+    2eff:	c3                   	ret    
+
+0000000000002f00 <ocall_sgx_write>:
+
+int ocall_sgx_write(int fd, const void *buf, int n)
+{
+    2f00:	f3 0f 1e fa          	endbr64 
+    2f04:	55                   	push   %rbp
+    2f05:	48 89 e5             	mov    %rsp,%rbp
+    2f08:	48 83 ec 10          	sub    $0x10,%rsp
+    2f0c:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    2f0f:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
+    2f13:	89 55 f8             	mov    %edx,-0x8(%rbp)
+	return write(fd, buf, n);
+    2f16:	8b 45 f8             	mov    -0x8(%rbp),%eax
+    2f19:	48 63 d0             	movslq %eax,%rdx
+    2f1c:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
+    2f20:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    2f23:	48 89 ce             	mov    %rcx,%rsi
+    2f26:	89 c7                	mov    %eax,%edi
+    2f28:	e8 13 f4 ff ff       	call   2340 <write@plt>
+}
+    2f2d:	c9                   	leave  
+    2f2e:	c3                   	ret    
+
+0000000000002f2f <ocall_sgx_close>:
+
+int ocall_sgx_close(int fd)
+{
+    2f2f:	f3 0f 1e fa          	endbr64 
+    2f33:	55                   	push   %rbp
+    2f34:	48 89 e5             	mov    %rsp,%rbp
+    2f37:	48 83 ec 10          	sub    $0x10,%rsp
+    2f3b:	89 7d fc             	mov    %edi,-0x4(%rbp)
+	return close(fd);
+    2f3e:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    2f41:	89 c7                	mov    %eax,%edi
+    2f43:	e8 b8 f4 ff ff       	call   2400 <close@plt>
+}
+    2f48:	c9                   	leave  
+    2f49:	c3                   	ret    
+
+0000000000002f4a <ocall_sgx_getenv>:
+
+int ocall_sgx_getenv(const char *env, int envlen, char *ret_str,int ret_len)
+{
+    2f4a:	f3 0f 1e fa          	endbr64 
+    2f4e:	55                   	push   %rbp
+    2f4f:	48 89 e5             	mov    %rsp,%rbp
+    2f52:	48 83 ec 30          	sub    $0x30,%rsp
+    2f56:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+    2f5a:	89 75 e4             	mov    %esi,-0x1c(%rbp)
+    2f5d:	48 89 55 d8          	mov    %rdx,-0x28(%rbp)
+    2f61:	89 4d e0             	mov    %ecx,-0x20(%rbp)
+	const char *env_val = getenv(env);
+    2f64:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2f68:	48 89 c7             	mov    %rax,%rdi
+    2f6b:	e8 50 f3 ff ff       	call   22c0 <getenv@plt>
+    2f70:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+	if(env_val == NULL){
+    2f74:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+    2f79:	75 07                	jne    2f82 <ocall_sgx_getenv+0x38>
+		return -1;
+    2f7b:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+    2f80:	eb 28                	jmp    2faa <ocall_sgx_getenv+0x60>
+	}
+	memcpy(ret_str, env_val, strlen(env_val)+1);
+    2f82:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2f86:	48 89 c7             	mov    %rax,%rdi
+    2f89:	e8 02 f4 ff ff       	call   2390 <strlen@plt>
+    2f8e:	48 8d 50 01          	lea    0x1(%rax),%rdx
+    2f92:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
+    2f96:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+    2f9a:	48 89 ce             	mov    %rcx,%rsi
+    2f9d:	48 89 c7             	mov    %rax,%rdi
+    2fa0:	e8 9b f4 ff ff       	call   2440 <memcpy@plt>
+	return 0;
+    2fa5:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    2faa:	c9                   	leave  
+    2fab:	c3                   	ret    
+
+0000000000002fac <ocall_print_string>:
+
+void ocall_print_string(const char *str)
+{
+    2fac:	f3 0f 1e fa          	endbr64 
+    2fb0:	55                   	push   %rbp
+    2fb1:	48 89 e5             	mov    %rsp,%rbp
+    2fb4:	48 83 ec 10          	sub    $0x10,%rsp
+    2fb8:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+    printf("%s", str);
+    2fbc:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2fc0:	48 89 c6             	mov    %rax,%rsi
+    2fc3:	48 8d 3d 3a 10 00 00 	lea    0x103a(%rip),%rdi        # 4004 <_IO_stdin_used+0x4>
+    2fca:	b8 00 00 00 00       	mov    $0x0,%eax
+    2fcf:	e8 dc f3 ff ff       	call   23b0 <printf@plt>
+}
+    2fd4:	90                   	nop
+    2fd5:	c9                   	leave  
+    2fd6:	c3                   	ret    
+
+0000000000002fd7 <_Z14ocall_sgx_exiti>:
+
+void ocall_sgx_exit(int e)
+{
+    2fd7:	f3 0f 1e fa          	endbr64 
+    2fdb:	55                   	push   %rbp
+    2fdc:	48 89 e5             	mov    %rsp,%rbp
+    2fdf:	48 83 ec 10          	sub    $0x10,%rsp
+    2fe3:	89 7d fc             	mov    %edi,-0x4(%rbp)
+	exit(e);
+    2fe6:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    2fe9:	89 c7                	mov    %eax,%edi
+    2feb:	e8 00 f5 ff ff       	call   24f0 <exit@plt>
+
+0000000000002ff0 <_Z19print_error_message9_status_t>:
+    },
+};
+
+/* Check error conditions for loading enclave */
+void print_error_message(sgx_status_t ret)
+{
+    2ff0:	f3 0f 1e fa          	endbr64 
+    2ff4:	55                   	push   %rbp
+    2ff5:	48 89 e5             	mov    %rsp,%rbp
+    2ff8:	48 83 ec 20          	sub    $0x20,%rsp
+    2ffc:	89 7d ec             	mov    %edi,-0x14(%rbp)
+    size_t idx = 0;
+    2fff:	48 c7 45 f8 00 00 00 	movq   $0x0,-0x8(%rbp)
+    3006:	00 
+    size_t ttl = sizeof sgx_errlist/sizeof sgx_errlist[0];
+    3007:	48 c7 45 f0 0f 00 00 	movq   $0xf,-0x10(%rbp)
+    300e:	00 
+
+    for (idx = 0; idx < ttl; idx++) {
+    300f:	48 c7 45 f8 00 00 00 	movq   $0x0,-0x8(%rbp)
+    3016:	00 
+    3017:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    301b:	48 3b 45 f0          	cmp    -0x10(%rbp),%rax
+    301f:	0f 83 bd 00 00 00    	jae    30e2 <_Z19print_error_message9_status_t+0xf2>
+        if(ret == sgx_errlist[idx].err) {
+    3025:	48 8b 55 f8          	mov    -0x8(%rbp),%rdx
+    3029:	48 89 d0             	mov    %rdx,%rax
+    302c:	48 01 c0             	add    %rax,%rax
+    302f:	48 01 d0             	add    %rdx,%rax
+    3032:	48 c1 e0 03          	shl    $0x3,%rax
+    3036:	48 89 c2             	mov    %rax,%rdx
+    3039:	48 8d 05 e0 3f 00 00 	lea    0x3fe0(%rip),%rax        # 7020 <_ZL11sgx_errlist>
+    3040:	8b 04 02             	mov    (%rdx,%rax,1),%eax
+    3043:	39 45 ec             	cmp    %eax,-0x14(%rbp)
+    3046:	0f 85 8c 00 00 00    	jne    30d8 <_Z19print_error_message9_status_t+0xe8>
+            if(NULL != sgx_errlist[idx].sug)
+    304c:	48 8b 55 f8          	mov    -0x8(%rbp),%rdx
+    3050:	48 89 d0             	mov    %rdx,%rax
+    3053:	48 01 c0             	add    %rax,%rax
+    3056:	48 01 d0             	add    %rdx,%rax
+    3059:	48 c1 e0 03          	shl    $0x3,%rax
+    305d:	48 89 c2             	mov    %rax,%rdx
+    3060:	48 8d 05 c9 3f 00 00 	lea    0x3fc9(%rip),%rax        # 7030 <_ZL11sgx_errlist+0x10>
+    3067:	48 8b 04 02          	mov    (%rdx,%rax,1),%rax
+    306b:	48 85 c0             	test   %rax,%rax
+    306e:	74 33                	je     30a3 <_Z19print_error_message9_status_t+0xb3>
+                printf("Info: %s\n", sgx_errlist[idx].sug);
+    3070:	48 8b 55 f8          	mov    -0x8(%rbp),%rdx
+    3074:	48 89 d0             	mov    %rdx,%rax
+    3077:	48 01 c0             	add    %rax,%rax
+    307a:	48 01 d0             	add    %rdx,%rax
+    307d:	48 c1 e0 03          	shl    $0x3,%rax
+    3081:	48 89 c2             	mov    %rax,%rdx
+    3084:	48 8d 05 a5 3f 00 00 	lea    0x3fa5(%rip),%rax        # 7030 <_ZL11sgx_errlist+0x10>
+    308b:	48 8b 04 02          	mov    (%rdx,%rax,1),%rax
+    308f:	48 89 c6             	mov    %rax,%rsi
+    3092:	48 8d 3d 76 11 00 00 	lea    0x1176(%rip),%rdi        # 420f <_IO_stdin_used+0x20f>
+    3099:	b8 00 00 00 00       	mov    $0x0,%eax
+    309e:	e8 0d f3 ff ff       	call   23b0 <printf@plt>
+            printf("Error: %s\n", sgx_errlist[idx].msg);
+    30a3:	48 8b 55 f8          	mov    -0x8(%rbp),%rdx
+    30a7:	48 89 d0             	mov    %rdx,%rax
+    30aa:	48 01 c0             	add    %rax,%rax
+    30ad:	48 01 d0             	add    %rdx,%rax
+    30b0:	48 c1 e0 03          	shl    $0x3,%rax
+    30b4:	48 89 c2             	mov    %rax,%rdx
+    30b7:	48 8d 05 6a 3f 00 00 	lea    0x3f6a(%rip),%rax        # 7028 <_ZL11sgx_errlist+0x8>
+    30be:	48 8b 04 02          	mov    (%rdx,%rax,1),%rax
+    30c2:	48 89 c6             	mov    %rax,%rsi
+    30c5:	48 8d 3d 4d 11 00 00 	lea    0x114d(%rip),%rdi        # 4219 <_IO_stdin_used+0x219>
+    30cc:	b8 00 00 00 00       	mov    $0x0,%eax
+    30d1:	e8 da f2 ff ff       	call   23b0 <printf@plt>
+            break;
+    30d6:	eb 0a                	jmp    30e2 <_Z19print_error_message9_status_t+0xf2>
+    for (idx = 0; idx < ttl; idx++) {
+    30d8:	48 83 45 f8 01       	addq   $0x1,-0x8(%rbp)
+    30dd:	e9 35 ff ff ff       	jmp    3017 <_Z19print_error_message9_status_t+0x27>
+        }
+    }
+    
+    if (idx == ttl)
+    30e2:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    30e6:	48 3b 45 f0          	cmp    -0x10(%rbp),%rax
+    30ea:	75 0c                	jne    30f8 <_Z19print_error_message9_status_t+0x108>
+        printf("Error: Unexpected error occurred.\n");
+    30ec:	48 8d 3d 35 11 00 00 	lea    0x1135(%rip),%rdi        # 4228 <_IO_stdin_used+0x228>
+    30f3:	e8 08 f2 ff ff       	call   2300 <puts@plt>
+}
+    30f8:	90                   	nop
+    30f9:	c9                   	leave  
+    30fa:	c3                   	ret    
+
+00000000000030fb <_Z18initialize_enclavev>:
+ *   Step 1: try to retrieve the launch token saved by last transaction
+ *   Step 2: call sgx_create_enclave to initialize an enclave instance
+ *   Step 3: save the launch token if it is updated
+ */
+int initialize_enclave(void)
+{
+    30fb:	f3 0f 1e fa          	endbr64 
+    30ff:	55                   	push   %rbp
+    3100:	48 89 e5             	mov    %rsp,%rbp
+    3103:	48 81 ec 00 10 00 00 	sub    $0x1000,%rsp
+    310a:	48 83 0c 24 00       	orq    $0x0,(%rsp)
+    310f:	48 81 ec 40 04 00 00 	sub    $0x440,%rsp
+    char token_path[MAX_PATH] = {'\0'};
+    3116:	48 8d 95 d0 ef ff ff 	lea    -0x1030(%rbp),%rdx
+    311d:	b8 00 00 00 00       	mov    $0x0,%eax
+    3122:	b9 00 02 00 00       	mov    $0x200,%ecx
+    3127:	48 89 d7             	mov    %rdx,%rdi
+    312a:	f3 48 ab             	rep stos %rax,%es:(%rdi)
+    sgx_launch_token_t token = {0};
+    312d:	48 8d 95 d0 eb ff ff 	lea    -0x1430(%rbp),%rdx
+    3134:	b8 00 00 00 00       	mov    $0x0,%eax
+    3139:	b9 80 00 00 00       	mov    $0x80,%ecx
+    313e:	48 89 d7             	mov    %rdx,%rdi
+    3141:	f3 48 ab             	rep stos %rax,%es:(%rdi)
+    sgx_status_t ret = SGX_ERROR_UNEXPECTED;
+    3144:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%rbp)
+    int updated = 0;
+    314b:	c7 85 cc eb ff ff 00 	movl   $0x0,-0x1434(%rbp)
+    3152:	00 00 00 
+    
+    /* Step 1: try to retrieve the launch token saved by last transaction 
+     *         if there is no token, then create a new one.
+     */
+    /* try to get the token saved in $HOME */
+    const char *home_dir = getpwuid(getuid())->pw_dir;
+    3155:	e8 46 f2 ff ff       	call   23a0 <getuid@plt>
+    315a:	89 c7                	mov    %eax,%edi
+    315c:	e8 0f f2 ff ff       	call   2370 <getpwuid@plt>
+    3161:	48 8b 40 20          	mov    0x20(%rax),%rax
+    3165:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+    
+    if (home_dir != NULL && 
+    3169:	48 83 7d e8 00       	cmpq   $0x0,-0x18(%rbp)
+    316e:	0f 84 c0 00 00 00    	je     3234 <_Z18initialize_enclavev+0x139>
+        (strlen(home_dir)+strlen("/")+sizeof(TOKEN_FILENAME)+1) <= MAX_PATH) {
+    3174:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    3178:	48 89 c7             	mov    %rax,%rdi
+    317b:	e8 10 f2 ff ff       	call   2390 <strlen@plt>
+    3180:	48 83 c0 10          	add    $0x10,%rax
+    if (home_dir != NULL && 
+    3184:	48 3d 00 10 00 00    	cmp    $0x1000,%rax
+    318a:	0f 87 a4 00 00 00    	ja     3234 <_Z18initialize_enclavev+0x139>
+        /* compose the token path */
+        strncpy(token_path, home_dir, strlen(home_dir));
+    3190:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    3194:	48 89 c7             	mov    %rax,%rdi
+    3197:	e8 f4 f1 ff ff       	call   2390 <strlen@plt>
+    319c:	48 89 c2             	mov    %rax,%rdx
+    319f:	48 8b 4d e8          	mov    -0x18(%rbp),%rcx
+    31a3:	48 8d 85 d0 ef ff ff 	lea    -0x1030(%rbp),%rax
+    31aa:	48 89 ce             	mov    %rcx,%rsi
+    31ad:	48 89 c7             	mov    %rax,%rdi
+    31b0:	e8 2b f1 ff ff       	call   22e0 <strncpy@plt>
+        strncat(token_path, "/", strlen("/"));
+    31b5:	48 8d 85 d0 ef ff ff 	lea    -0x1030(%rbp),%rax
+    31bc:	48 c7 c1 ff ff ff ff 	mov    $0xffffffffffffffff,%rcx
+    31c3:	48 89 c2             	mov    %rax,%rdx
+    31c6:	b8 00 00 00 00       	mov    $0x0,%eax
+    31cb:	48 89 d7             	mov    %rdx,%rdi
+    31ce:	f2 ae                	repnz scas %es:(%rdi),%al
+    31d0:	48 89 c8             	mov    %rcx,%rax
+    31d3:	48 f7 d0             	not    %rax
+    31d6:	48 8d 50 ff          	lea    -0x1(%rax),%rdx
+    31da:	48 8d 85 d0 ef ff ff 	lea    -0x1030(%rbp),%rax
+    31e1:	48 01 d0             	add    %rdx,%rax
+    31e4:	66 c7 00 2f 00       	movw   $0x2f,(%rax)
+        strncat(token_path, TOKEN_FILENAME, sizeof(TOKEN_FILENAME)+1);
+    31e9:	48 8d 85 d0 ef ff ff 	lea    -0x1030(%rbp),%rax
+    31f0:	48 c7 c1 ff ff ff ff 	mov    $0xffffffffffffffff,%rcx
+    31f7:	48 89 c2             	mov    %rax,%rdx
+    31fa:	b8 00 00 00 00       	mov    $0x0,%eax
+    31ff:	48 89 d7             	mov    %rdx,%rdi
+    3202:	f2 ae                	repnz scas %es:(%rdi),%al
+    3204:	48 89 c8             	mov    %rcx,%rax
+    3207:	48 f7 d0             	not    %rax
+    320a:	48 8d 50 ff          	lea    -0x1(%rax),%rdx
+    320e:	48 8d 85 d0 ef ff ff 	lea    -0x1030(%rbp),%rax
+    3215:	48 01 d0             	add    %rdx,%rax
+    3218:	48 be 65 6e 63 6c 61 	movabs $0x2e6576616c636e65,%rsi
+    321f:	76 65 2e 
+    3222:	48 89 30             	mov    %rsi,(%rax)
+    3225:	c7 40 08 74 6f 6b 65 	movl   $0x656b6f74,0x8(%rax)
+    322c:	66 c7 40 0c 6e 00    	movw   $0x6e,0xc(%rax)
+    3232:	eb 21                	jmp    3255 <_Z18initialize_enclavev+0x15a>
+    } else {
+        /* if token path is too long or $HOME is NULL */
+        strncpy(token_path, TOKEN_FILENAME, sizeof(TOKEN_FILENAME));
+    3234:	48 8d 85 d0 ef ff ff 	lea    -0x1030(%rbp),%rax
+    323b:	48 be 65 6e 63 6c 61 	movabs $0x2e6576616c636e65,%rsi
+    3242:	76 65 2e 
+    3245:	48 89 30             	mov    %rsi,(%rax)
+    3248:	c7 40 08 74 6f 6b 65 	movl   $0x656b6f74,0x8(%rax)
+    324f:	66 c7 40 0c 6e 00    	movw   $0x6e,0xc(%rax)
+    }
+
+    FILE *fp = fopen(token_path, "rb");
+    3255:	48 8d 85 d0 ef ff ff 	lea    -0x1030(%rbp),%rax
+    325c:	48 8d 35 e7 0f 00 00 	lea    0xfe7(%rip),%rsi        # 424a <_IO_stdin_used+0x24a>
+    3263:	48 89 c7             	mov    %rax,%rdi
+    3266:	e8 55 f2 ff ff       	call   24c0 <fopen@plt>
+    326b:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    if (fp == NULL && (fp = fopen(token_path, "wb")) == NULL) {
+    326f:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+    3274:	75 28                	jne    329e <_Z18initialize_enclavev+0x1a3>
+    3276:	48 8d 85 d0 ef ff ff 	lea    -0x1030(%rbp),%rax
+    327d:	48 8d 35 c9 0f 00 00 	lea    0xfc9(%rip),%rsi        # 424d <_IO_stdin_used+0x24d>
+    3284:	48 89 c7             	mov    %rax,%rdi
+    3287:	e8 34 f2 ff ff       	call   24c0 <fopen@plt>
+    328c:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    3290:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+    3295:	75 07                	jne    329e <_Z18initialize_enclavev+0x1a3>
+    3297:	b8 01 00 00 00       	mov    $0x1,%eax
+    329c:	eb 05                	jmp    32a3 <_Z18initialize_enclavev+0x1a8>
+    329e:	b8 00 00 00 00       	mov    $0x0,%eax
+    32a3:	84 c0                	test   %al,%al
+    32a5:	74 1b                	je     32c2 <_Z18initialize_enclavev+0x1c7>
+        printf("Warning: Failed to create/open the launch token file \"%s\".\n", token_path);
+    32a7:	48 8d 85 d0 ef ff ff 	lea    -0x1030(%rbp),%rax
+    32ae:	48 89 c6             	mov    %rax,%rsi
+    32b1:	48 8d 3d 98 0f 00 00 	lea    0xf98(%rip),%rdi        # 4250 <_IO_stdin_used+0x250>
+    32b8:	b8 00 00 00 00       	mov    $0x0,%eax
+    32bd:	e8 ee f0 ff ff       	call   23b0 <printf@plt>
+    }
+
+    if (fp != NULL) {
+    32c2:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+    32c7:	74 69                	je     3332 <_Z18initialize_enclavev+0x237>
+        /* read the token from saved file */
+        size_t read_num = fread(token, 1, sizeof(sgx_launch_token_t), fp);
+    32c9:	48 8b 55 f8          	mov    -0x8(%rbp),%rdx
+    32cd:	48 8d 85 d0 eb ff ff 	lea    -0x1430(%rbp),%rax
+    32d4:	48 89 d1             	mov    %rdx,%rcx
+    32d7:	ba 00 04 00 00       	mov    $0x400,%edx
+    32dc:	be 01 00 00 00       	mov    $0x1,%esi
+    32e1:	48 89 c7             	mov    %rax,%rdi
+    32e4:	e8 27 f0 ff ff       	call   2310 <fread@plt>
+    32e9:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
+        if (read_num != 0 && read_num != sizeof(sgx_launch_token_t)) {
+    32ed:	48 83 7d e0 00       	cmpq   $0x0,-0x20(%rbp)
+    32f2:	74 3e                	je     3332 <_Z18initialize_enclavev+0x237>
+    32f4:	48 81 7d e0 00 04 00 	cmpq   $0x400,-0x20(%rbp)
+    32fb:	00 
+    32fc:	74 34                	je     3332 <_Z18initialize_enclavev+0x237>
+            /* if token is invalid, clear the buffer */
+            memset(&token, 0x0, sizeof(sgx_launch_token_t));
+    32fe:	48 8d 85 d0 eb ff ff 	lea    -0x1430(%rbp),%rax
+    3305:	ba 00 04 00 00       	mov    $0x400,%edx
+    330a:	be 00 00 00 00       	mov    $0x0,%esi
+    330f:	48 89 c7             	mov    %rax,%rdi
+    3312:	e8 c9 f0 ff ff       	call   23e0 <memset@plt>
+            printf("Warning: Invalid launch token read from \"%s\".\n", token_path);
+    3317:	48 8d 85 d0 ef ff ff 	lea    -0x1030(%rbp),%rax
+    331e:	48 89 c6             	mov    %rax,%rsi
+    3321:	48 8d 3d 68 0f 00 00 	lea    0xf68(%rip),%rdi        # 4290 <_IO_stdin_used+0x290>
+    3328:	b8 00 00 00 00       	mov    $0x0,%eax
+    332d:	e8 7e f0 ff ff       	call   23b0 <printf@plt>
+        }
+    }
+    /* Step 2: call sgx_create_enclave to initialize an enclave instance */
+    /* Debug Support: set 2nd parameter to 1 */
+    ret = sgx_create_enclave(ENCLAVE_FILENAME, SGX_DEBUG_FLAG, &token, &updated, &global_eid, NULL);
+    3332:	48 8d 95 cc eb ff ff 	lea    -0x1434(%rbp),%rdx
+    3339:	48 8d 85 d0 eb ff ff 	lea    -0x1430(%rbp),%rax
+    3340:	41 b9 00 00 00 00    	mov    $0x0,%r9d
+    3346:	48 8d 0d 43 3e 00 00 	lea    0x3e43(%rip),%rcx        # 7190 <global_eid>
+    334d:	49 89 c8             	mov    %rcx,%r8
+    3350:	48 89 d1             	mov    %rdx,%rcx
+    3353:	48 89 c2             	mov    %rax,%rdx
+    3356:	be 01 00 00 00       	mov    $0x1,%esi
+    335b:	48 8d 3d 5d 0f 00 00 	lea    0xf5d(%rip),%rdi        # 42bf <_IO_stdin_used+0x2bf>
+    3362:	e8 b9 f1 ff ff       	call   2520 <sgx_create_enclave@plt>
+    3367:	89 45 f4             	mov    %eax,-0xc(%rbp)
+    if (ret != SGX_SUCCESS) {
+    336a:	83 7d f4 00          	cmpl   $0x0,-0xc(%rbp)
+    336e:	74 27                	je     3397 <_Z18initialize_enclavev+0x29c>
+        print_error_message(ret);
+    3370:	8b 45 f4             	mov    -0xc(%rbp),%eax
+    3373:	89 c7                	mov    %eax,%edi
+    3375:	e8 76 fc ff ff       	call   2ff0 <_Z19print_error_message9_status_t>
+        if (fp != NULL) fclose(fp);
+    337a:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+    337f:	74 0c                	je     338d <_Z18initialize_enclavev+0x292>
+    3381:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    3385:	48 89 c7             	mov    %rax,%rdi
+    3388:	e8 d3 ef ff ff       	call   2360 <fclose@plt>
+        return -1;
+    338d:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+    3392:	e9 b4 00 00 00       	jmp    344b <_Z18initialize_enclavev+0x350>
+    }
+
+    /* Step 3: save the launch token if it is updated */
+    if (updated == FALSE || fp == NULL) {
+    3397:	8b 85 cc eb ff ff    	mov    -0x1434(%rbp),%eax
+    339d:	85 c0                	test   %eax,%eax
+    339f:	74 07                	je     33a8 <_Z18initialize_enclavev+0x2ad>
+    33a1:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+    33a6:	75 1d                	jne    33c5 <_Z18initialize_enclavev+0x2ca>
+        /* if the token is not updated, or file handler is invalid, do not perform saving */
+        if (fp != NULL) fclose(fp);
+    33a8:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+    33ad:	74 0c                	je     33bb <_Z18initialize_enclavev+0x2c0>
+    33af:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    33b3:	48 89 c7             	mov    %rax,%rdi
+    33b6:	e8 a5 ef ff ff       	call   2360 <fclose@plt>
+        return 0;
+    33bb:	b8 00 00 00 00       	mov    $0x0,%eax
+    33c0:	e9 86 00 00 00       	jmp    344b <_Z18initialize_enclavev+0x350>
+    }
+
+    /* reopen the file with write capablity */
+    fp = freopen(token_path, "wb", fp);
+    33c5:	48 8b 55 f8          	mov    -0x8(%rbp),%rdx
+    33c9:	48 8d 85 d0 ef ff ff 	lea    -0x1030(%rbp),%rax
+    33d0:	48 8d 35 76 0e 00 00 	lea    0xe76(%rip),%rsi        # 424d <_IO_stdin_used+0x24d>
+    33d7:	48 89 c7             	mov    %rax,%rdi
+    33da:	e8 11 f0 ff ff       	call   23f0 <freopen@plt>
+    33df:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    if (fp == NULL) return 0;
+    33e3:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+    33e8:	75 07                	jne    33f1 <_Z18initialize_enclavev+0x2f6>
+    33ea:	b8 00 00 00 00       	mov    $0x0,%eax
+    33ef:	eb 5a                	jmp    344b <_Z18initialize_enclavev+0x350>
+    size_t write_num = fwrite(token, 1, sizeof(sgx_launch_token_t), fp);
+    33f1:	48 8b 55 f8          	mov    -0x8(%rbp),%rdx
+    33f5:	48 8d 85 d0 eb ff ff 	lea    -0x1430(%rbp),%rax
+    33fc:	48 89 d1             	mov    %rdx,%rcx
+    33ff:	ba 00 04 00 00       	mov    $0x400,%edx
+    3404:	be 01 00 00 00       	mov    $0x1,%esi
+    3409:	48 89 c7             	mov    %rax,%rdi
+    340c:	e8 ff f0 ff ff       	call   2510 <fwrite@plt>
+    3411:	48 89 45 d8          	mov    %rax,-0x28(%rbp)
+    if (write_num != sizeof(sgx_launch_token_t))
+    3415:	48 81 7d d8 00 04 00 	cmpq   $0x400,-0x28(%rbp)
+    341c:	00 
+    341d:	74 1b                	je     343a <_Z18initialize_enclavev+0x33f>
+        printf("Warning: Failed to save launch token to \"%s\".\n", token_path);
+    341f:	48 8d 85 d0 ef ff ff 	lea    -0x1030(%rbp),%rax
+    3426:	48 89 c6             	mov    %rax,%rsi
+    3429:	48 8d 3d a8 0e 00 00 	lea    0xea8(%rip),%rdi        # 42d8 <_IO_stdin_used+0x2d8>
+    3430:	b8 00 00 00 00       	mov    $0x0,%eax
+    3435:	e8 76 ef ff ff       	call   23b0 <printf@plt>
+    fclose(fp);
+    343a:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    343e:	48 89 c7             	mov    %rax,%rdi
+    3441:	e8 1a ef ff ff       	call   2360 <fclose@plt>
+    return 0;
+    3446:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    344b:	c9                   	leave  
+    344c:	c3                   	ret    
+
+000000000000344d <main>:
+
+/* Application entry */
+int SGX_CDECL main(int argc, char *argv[])
+{
+    344d:	f3 0f 1e fa          	endbr64 
+    3451:	55                   	push   %rbp
+    3452:	48 89 e5             	mov    %rsp,%rbp
+    3455:	48 83 ec 10          	sub    $0x10,%rsp
+    3459:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    345c:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
+    (void)(argc);
+    (void)(argv);
+
+
+    /* Initialize the enclave */
+    if(initialize_enclave() < 0){
+    3460:	e8 96 fc ff ff       	call   30fb <_Z18initialize_enclavev>
+    3465:	c1 e8 1f             	shr    $0x1f,%eax
+    3468:	84 c0                	test   %al,%al
+    346a:	74 18                	je     3484 <main+0x37>
+        printf("Enter a character before exit ...\n");
+    346c:	48 8d 3d 95 0e 00 00 	lea    0xe95(%rip),%rdi        # 4308 <_IO_stdin_used+0x308>
+    3473:	e8 88 ee ff ff       	call   2300 <puts@plt>
+        getchar();
+    3478:	e8 b3 ef ff ff       	call   2430 <getchar@plt>
+        return -1; 
+    347d:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+    3482:	eb 46                	jmp    34ca <main+0x7d>
+    }
+ 
+    /* Start TLS Server in Enclave */
+    ecall_start_tls_client(global_eid);
+    3484:	48 8d 05 05 3d 00 00 	lea    0x3d05(%rip),%rax        # 7190 <global_eid>
+    348b:	48 8b 00             	mov    (%rax),%rax
+    348e:	48 89 c7             	mov    %rax,%rdi
+    3491:	e8 92 f7 ff ff       	call   2c28 <ecall_start_tls_client>
+    
+    
+    /* Destroy the enclave */
+    sgx_destroy_enclave(global_eid);
+    3496:	48 8d 05 f3 3c 00 00 	lea    0x3cf3(%rip),%rax        # 7190 <global_eid>
+    349d:	48 8b 00             	mov    (%rax),%rax
+    34a0:	48 89 c7             	mov    %rax,%rdi
+    34a3:	e8 a8 ee ff ff       	call   2350 <sgx_destroy_enclave@plt>
+    
+    printf("Info: Sample TLS Client successfully returned.\n");
+    34a8:	48 8d 3d 81 0e 00 00 	lea    0xe81(%rip),%rdi        # 4330 <_IO_stdin_used+0x330>
+    34af:	e8 4c ee ff ff       	call   2300 <puts@plt>
+
+    printf("Enter a character before exit ...\n");
+    34b4:	48 8d 3d 4d 0e 00 00 	lea    0xe4d(%rip),%rdi        # 4308 <_IO_stdin_used+0x308>
+    34bb:	e8 40 ee ff ff       	call   2300 <puts@plt>
+    getchar();
+    34c0:	e8 6b ef ff ff       	call   2430 <getchar@plt>
+    return 0;
+    34c5:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    34ca:	c9                   	leave  
+    34cb:	c3                   	ret    
+    34cc:	0f 1f 40 00          	nopl   0x0(%rax)
+
+00000000000034d0 <__libc_csu_init>:
+    34d0:	f3 0f 1e fa          	endbr64 
+    34d4:	41 57                	push   %r15
+    34d6:	4c 8d 3d b3 36 00 00 	lea    0x36b3(%rip),%r15        # 6b90 <__frame_dummy_init_array_entry>
+    34dd:	41 56                	push   %r14
+    34df:	49 89 d6             	mov    %rdx,%r14
+    34e2:	41 55                	push   %r13
+    34e4:	49 89 f5             	mov    %rsi,%r13
+    34e7:	41 54                	push   %r12
+    34e9:	41 89 fc             	mov    %edi,%r12d
+    34ec:	55                   	push   %rbp
+    34ed:	48 8d 2d a4 36 00 00 	lea    0x36a4(%rip),%rbp        # 6b98 <__do_global_dtors_aux_fini_array_entry>
+    34f4:	53                   	push   %rbx
+    34f5:	4c 29 fd             	sub    %r15,%rbp
+    34f8:	48 83 ec 08          	sub    $0x8,%rsp
+    34fc:	e8 ff ea ff ff       	call   2000 <_init>
+    3501:	48 c1 fd 03          	sar    $0x3,%rbp
+    3505:	74 1f                	je     3526 <__libc_csu_init+0x56>
+    3507:	31 db                	xor    %ebx,%ebx
+    3509:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+    3510:	4c 89 f2             	mov    %r14,%rdx
+    3513:	4c 89 ee             	mov    %r13,%rsi
+    3516:	44 89 e7             	mov    %r12d,%edi
+    3519:	41 ff 14 df          	call   *(%r15,%rbx,8)
+    351d:	48 83 c3 01          	add    $0x1,%rbx
+    3521:	48 39 dd             	cmp    %rbx,%rbp
+    3524:	75 ea                	jne    3510 <__libc_csu_init+0x40>
+    3526:	48 83 c4 08          	add    $0x8,%rsp
+    352a:	5b                   	pop    %rbx
+    352b:	5d                   	pop    %rbp
+    352c:	41 5c                	pop    %r12
+    352e:	41 5d                	pop    %r13
+    3530:	41 5e                	pop    %r14
+    3532:	41 5f                	pop    %r15
+    3534:	c3                   	ret    
+    3535:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+    353c:	00 00 00 00 
+
+0000000000003540 <__libc_csu_fini>:
+    3540:	f3 0f 1e fa          	endbr64 
+    3544:	c3                   	ret    
+
+Disassembly of section .fini:
+
+0000000000003548 <_fini>:
+    3548:	f3 0f 1e fa          	endbr64 
+    354c:	48 83 ec 08          	sub    $0x8,%rsp
+    3550:	48 83 c4 08          	add    $0x8,%rsp
+    3554:	c3                   	ret    

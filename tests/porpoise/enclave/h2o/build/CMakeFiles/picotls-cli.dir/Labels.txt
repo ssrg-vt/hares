@@ -1,0 +1,13 @@
+# Target labels
+ picotls-cli
+# Source files and their labels
+/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/CMakeFiles/picotls-cli
+/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/CMakeFiles/picotls-cli.rule
+/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/CMakeFiles/picotls-cli-complete.rule
+/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-build.rule
+/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-configure.rule
+/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-download.rule
+/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-install.rule
+/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-mkdir.rule
+/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-patch.rule
+/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/porpoise/enclave/h2o/build/picotls-cli-prefix/src/picotls-cli-stamp/picotls-cli-update.rule

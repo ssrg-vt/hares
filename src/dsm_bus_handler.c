@@ -45,6 +45,7 @@ void* bus_thread_handler(void* arg){
     struct msi_message msg;
     dsm_bus_args *bargs = (dsm_bus_args*) arg;
 	int sock_fd = bargs->dsm_sock;
+	bool exit_loop = false;
 	msi_handler *msi = bargs->msi;
 
     /* In case of thread cancellation, execute this handler */
@@ -61,24 +62,46 @@ void* bus_thread_handler(void* arg){
 				return NULL;
 			case INVALID_STATE_READ:
 				log_debug("INVALID_STATE_READ_MSG_RECEIVED");
-				msi_handle_page_request(msi, sock_fd, &msg);
+				//msi_handle_page_request(msi, sock_fd, &msg);
 			break;
 			case INVALIDATE:
 				log_debug("INVALIDATE_RECEIVED");
-				msi_handle_page_invalidate(msi, sock_fd, &msg);
+				//msi_handle_page_invalidate(msi, sock_fd, &msg);
 			break;
 			case PAGE_REPLY:
 				log_debug("PAGE_REPLY_RECEIVED");
-			    msi_handle_page_reply(msi, sock_fd, &msg);
+			    //msi_handle_page_reply(msi, sock_fd, &msg);
 			break;
 			case INVALIDATE_ACK:
-				printf("INVALIDATE_ACK_RECEIVED\n");
+				log_debug("INVALIDATE_ACK_RECEIVED\n");
+			break;
+			case REMOTE_EXECUTE:
+				log_debug("REMOTE EXECUTION");
+				//msi_handle_remote_execution(msi, sock_fd, &msg);
+			break;
+			case REMOTE_REGS:
+				log_debug("REMOTE_REGS");
+				//msi_handle_reg_request(msi, sock_fd);
+			break;
+			case REMOTE_REGS_REPLY:
+				log_debug("REMOTE_REGS_REPLY");
+				//msi_handle_regs_reply(msi, sock_fd, &msg);
+			break;
+
+			case VMA_FROM_REMOTE:
+				log_info("VMA_FROM_REMOTE");
+				msi_handle_rec_vma(msi, sock_fd, &msg);
 			break;
 			default:
 				log_error("Unhandled bus request, %d",
 				       msg.message_type);
+				close(sock_fd);
+				exit_loop = true;
 			break;
 		}
+
+		if(exit_loop)
+			break;
 	}
 
     /* Cleanup pop 0 argument means we don't execute the handler in normal

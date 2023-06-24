@@ -1,6 +1,7 @@
 #ifndef __MESSAGES_H__
 #define __MESSAGES_H__
 #include <stdint.h>
+#include "ptrace.h"
 
 enum msi_message_type
 {
@@ -10,13 +11,32 @@ enum msi_message_type
 	PAGE_REPLY,
 	INVALIDATE,
 	INVALIDATE_ACK,
-	TOTAL_MESSAGES
+	TOTAL_MESSAGES,
+	REMOTE_EXECUTE,
+	REMOTE_EXECUTE_REPLY,
+	REMOTE_REGS,
+	REMOTE_REGS_REPLY,
+	VMA_FROM_REMOTE,
+	VMA_FROM_REMOTE_ACK,
+	DELTA_VMA_FROM_REMOTE,
+	DELTA_VMA_FROM_REMOTE_ACK,
+	VMA_BUFFER_HEADER,
+	VMA_BUFFER_HEADER_ACK,
+	VMA_BUFFER,
+	VMA_BUFFER_ACK,
+	VMA_TRANS_ACK
 };
+
+
 /* Different types of payloads defined here*/
 struct memory_pair
 {
 	uint64_t address;
 	uint64_t size;
+};
+
+struct user_regs{
+	struct user_regs_struct regs;
 };
 
 struct command_ack
@@ -34,6 +54,26 @@ struct invalidate_page
 {
 	uint64_t address;
 };
+
+struct vma_page{
+	char page_data[4096];
+};
+
+struct vma_buffer_header{
+	uint64_t vma_address;
+	uint64_t size;
+	int type;
+};
+
+struct vma_header
+{
+	uint64_t no_vma;
+};
+
+struct remote_request_header{
+	uint64_t instr_address;
+};
+
 /* Message payload and its structure */
 union message_payload
 {
@@ -41,6 +81,10 @@ union message_payload
 	struct command_ack command_ack;
 	struct request_page request_page;
 	struct invalidate_page invalidate_page;
+	struct user_regs regs_message;
+	struct vma_header vma_header_message;
+	struct vma_buffer_header vma_buffer_message;
+	struct remote_request_header remote_request_message;
 	char page_data[4096];
 };
 

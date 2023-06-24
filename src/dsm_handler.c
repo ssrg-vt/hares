@@ -2,14 +2,40 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <pthread.h>
+#include <netinet/tcp.h>
 
 #include "../inc/log.h"
 #include "../inc/dsm_handler.h"
+
+#define log_info(args...) 
+
+/* --------------------------------------------------------------------
+ * Macros
+ * -------------------------------------------------------------------*/
+#define PAGE_SIZE sysconf(_SC_PAGE_SIZE)
 
 /* --------------------------------------------------------------------
  * Global variables
  * -------------------------------------------------------------------*/
 dsm_handler *dsm = NULL;
+
+int convert_childAddress_popAddress(uint64_t caddr, uint64_t *poff){
+    int ret = 0;
+    uint64_t offset = 0;
+    for(int i = 0; i < dsm->child.spaces.size; i++){
+        long end_address = dsm->child.spaces.space[i].address + dsm->child.spaces.space[i].size * PAGE_SIZE;
+        for(uint64_t iter_addr_space = dsm->child.spaces.space[i].address; iter_addr_space < end_address;  ){
+            if((uint64_t)caddr == iter_addr_space){
+                *poff = offset;
+                return ret;    
+            }
+            offset++;
+            iter_addr_space = iter_addr_space + PAGE_SIZE;
+        }
+    }
+
+    return -1;
+}
 
  /* --------------------------------------------------------------------
  * Local Functions declarations
@@ -31,6 +57,13 @@ static int __connect_as_client(char *remote_ip, int remote_port, int *socket_fd)
         ret = sk;
 		goto out_socket_err;
 	}
+
+    int flag = 1;
+    int result = setsockopt(sk, IPPROTO_TCP, TCP_NODELAY, (char *)&flag, sizeof(flag));
+    if (result < 0) {
+	log_error("setsockopt failed");
+	goto out_socket_err;
+    }
 
     log_info("Connecting as a client to %s:%d", remote_ip, remote_port);
 
@@ -66,12 +99,19 @@ static int __connect_as_server(int host_port, int *socket_fd){
     int sk, ask;
     struct sockaddr_in addr;
     
-    sk = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
+    sk = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (sk < 0) {
 		log_error("Failed on creating a socket");
         ret = sk;
         goto connect_as_server_failed;
 	}
+   
+    int flag = 1;
+    int result = setsockopt(sk, IPPROTO_TCP, TCP_NODELAY, (char *)&flag, sizeof(flag));
+    if (result < 0) {
+	log_error("setsockopt failed");
+	goto connect_as_server_failed;
+    }
 
     memset(&addr, 0, sizeof(addr));
 	addr.sin_family = AF_INET;
@@ -142,13 +182,13 @@ int dsm_main(dsm_handler *mdsm, int mode){
         }
     }
 
-    dsm_bus->args.dsm_sock = dsm->socket_fd;
-    dsm_bus->args.msi = &dsm->msi; 
-    rc = start_dsm_bus_handler(dsm_bus);
-    if(rc){
-        log_error("Couldn't start the dsm bus thread");
-        goto out_dsm_bus_fail;
-    }
+    // dsm_bus->args.dsm_sock = dsm->socket_fd;
+    // dsm_bus->args.msi = &dsm->msi; 
+    // rc = start_dsm_bus_handler(dsm_bus);
+    // if(rc){
+    //     log_error("Couldn't start the dsm bus thread");
+    //     goto out_dsm_bus_fail;
+    // }
 
     return rc;
 
