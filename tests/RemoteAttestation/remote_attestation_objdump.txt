@@ -1,0 +1,3841 @@
+
+app:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+0000000000002000 <_init>:
+    2000:	f3 0f 1e fa          	endbr64 
+    2004:	48 83 ec 08          	sub    $0x8,%rsp
+    2008:	48 8b 05 e1 6f 00 00 	mov    0x6fe1(%rip),%rax        # 8ff0 <__gmon_start__>
+    200f:	48 85 c0             	test   %rax,%rax
+    2012:	74 02                	je     2016 <_init+0x16>
+    2014:	ff d0                	call   *%rax
+    2016:	48 83 c4 08          	add    $0x8,%rsp
+    201a:	c3                   	ret    
+
+Disassembly of section .plt:
+
+0000000000002020 <.plt>:
+    2020:	ff 35 62 6e 00 00    	push   0x6e62(%rip)        # 8e88 <_GLOBAL_OFFSET_TABLE_+0x8>
+    2026:	f2 ff 25 63 6e 00 00 	bnd jmp *0x6e63(%rip)        # 8e90 <_GLOBAL_OFFSET_TABLE_+0x10>
+    202d:	0f 1f 00             	nopl   (%rax)
+    2030:	f3 0f 1e fa          	endbr64 
+    2034:	68 00 00 00 00       	push   $0x0
+    2039:	f2 e9 e1 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    203f:	90                   	nop
+    2040:	f3 0f 1e fa          	endbr64 
+    2044:	68 01 00 00 00       	push   $0x1
+    2049:	f2 e9 d1 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    204f:	90                   	nop
+    2050:	f3 0f 1e fa          	endbr64 
+    2054:	68 02 00 00 00       	push   $0x2
+    2059:	f2 e9 c1 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    205f:	90                   	nop
+    2060:	f3 0f 1e fa          	endbr64 
+    2064:	68 03 00 00 00       	push   $0x3
+    2069:	f2 e9 b1 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    206f:	90                   	nop
+    2070:	f3 0f 1e fa          	endbr64 
+    2074:	68 04 00 00 00       	push   $0x4
+    2079:	f2 e9 a1 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    207f:	90                   	nop
+    2080:	f3 0f 1e fa          	endbr64 
+    2084:	68 05 00 00 00       	push   $0x5
+    2089:	f2 e9 91 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    208f:	90                   	nop
+    2090:	f3 0f 1e fa          	endbr64 
+    2094:	68 06 00 00 00       	push   $0x6
+    2099:	f2 e9 81 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    209f:	90                   	nop
+    20a0:	f3 0f 1e fa          	endbr64 
+    20a4:	68 07 00 00 00       	push   $0x7
+    20a9:	f2 e9 71 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    20af:	90                   	nop
+    20b0:	f3 0f 1e fa          	endbr64 
+    20b4:	68 08 00 00 00       	push   $0x8
+    20b9:	f2 e9 61 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    20bf:	90                   	nop
+    20c0:	f3 0f 1e fa          	endbr64 
+    20c4:	68 09 00 00 00       	push   $0x9
+    20c9:	f2 e9 51 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    20cf:	90                   	nop
+    20d0:	f3 0f 1e fa          	endbr64 
+    20d4:	68 0a 00 00 00       	push   $0xa
+    20d9:	f2 e9 41 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    20df:	90                   	nop
+    20e0:	f3 0f 1e fa          	endbr64 
+    20e4:	68 0b 00 00 00       	push   $0xb
+    20e9:	f2 e9 31 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    20ef:	90                   	nop
+    20f0:	f3 0f 1e fa          	endbr64 
+    20f4:	68 0c 00 00 00       	push   $0xc
+    20f9:	f2 e9 21 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    20ff:	90                   	nop
+    2100:	f3 0f 1e fa          	endbr64 
+    2104:	68 0d 00 00 00       	push   $0xd
+    2109:	f2 e9 11 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    210f:	90                   	nop
+    2110:	f3 0f 1e fa          	endbr64 
+    2114:	68 0e 00 00 00       	push   $0xe
+    2119:	f2 e9 01 ff ff ff    	bnd jmp 2020 <_init+0x20>
+    211f:	90                   	nop
+    2120:	f3 0f 1e fa          	endbr64 
+    2124:	68 0f 00 00 00       	push   $0xf
+    2129:	f2 e9 f1 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    212f:	90                   	nop
+    2130:	f3 0f 1e fa          	endbr64 
+    2134:	68 10 00 00 00       	push   $0x10
+    2139:	f2 e9 e1 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    213f:	90                   	nop
+    2140:	f3 0f 1e fa          	endbr64 
+    2144:	68 11 00 00 00       	push   $0x11
+    2149:	f2 e9 d1 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    214f:	90                   	nop
+    2150:	f3 0f 1e fa          	endbr64 
+    2154:	68 12 00 00 00       	push   $0x12
+    2159:	f2 e9 c1 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    215f:	90                   	nop
+    2160:	f3 0f 1e fa          	endbr64 
+    2164:	68 13 00 00 00       	push   $0x13
+    2169:	f2 e9 b1 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    216f:	90                   	nop
+    2170:	f3 0f 1e fa          	endbr64 
+    2174:	68 14 00 00 00       	push   $0x14
+    2179:	f2 e9 a1 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    217f:	90                   	nop
+    2180:	f3 0f 1e fa          	endbr64 
+    2184:	68 15 00 00 00       	push   $0x15
+    2189:	f2 e9 91 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    218f:	90                   	nop
+    2190:	f3 0f 1e fa          	endbr64 
+    2194:	68 16 00 00 00       	push   $0x16
+    2199:	f2 e9 81 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    219f:	90                   	nop
+    21a0:	f3 0f 1e fa          	endbr64 
+    21a4:	68 17 00 00 00       	push   $0x17
+    21a9:	f2 e9 71 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    21af:	90                   	nop
+    21b0:	f3 0f 1e fa          	endbr64 
+    21b4:	68 18 00 00 00       	push   $0x18
+    21b9:	f2 e9 61 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    21bf:	90                   	nop
+    21c0:	f3 0f 1e fa          	endbr64 
+    21c4:	68 19 00 00 00       	push   $0x19
+    21c9:	f2 e9 51 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    21cf:	90                   	nop
+    21d0:	f3 0f 1e fa          	endbr64 
+    21d4:	68 1a 00 00 00       	push   $0x1a
+    21d9:	f2 e9 41 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    21df:	90                   	nop
+    21e0:	f3 0f 1e fa          	endbr64 
+    21e4:	68 1b 00 00 00       	push   $0x1b
+    21e9:	f2 e9 31 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    21ef:	90                   	nop
+    21f0:	f3 0f 1e fa          	endbr64 
+    21f4:	68 1c 00 00 00       	push   $0x1c
+    21f9:	f2 e9 21 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    21ff:	90                   	nop
+    2200:	f3 0f 1e fa          	endbr64 
+    2204:	68 1d 00 00 00       	push   $0x1d
+    2209:	f2 e9 11 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    220f:	90                   	nop
+    2210:	f3 0f 1e fa          	endbr64 
+    2214:	68 1e 00 00 00       	push   $0x1e
+    2219:	f2 e9 01 fe ff ff    	bnd jmp 2020 <_init+0x20>
+    221f:	90                   	nop
+    2220:	f3 0f 1e fa          	endbr64 
+    2224:	68 1f 00 00 00       	push   $0x1f
+    2229:	f2 e9 f1 fd ff ff    	bnd jmp 2020 <_init+0x20>
+    222f:	90                   	nop
+    2230:	f3 0f 1e fa          	endbr64 
+    2234:	68 20 00 00 00       	push   $0x20
+    2239:	f2 e9 e1 fd ff ff    	bnd jmp 2020 <_init+0x20>
+    223f:	90                   	nop
+    2240:	f3 0f 1e fa          	endbr64 
+    2244:	68 21 00 00 00       	push   $0x21
+    2249:	f2 e9 d1 fd ff ff    	bnd jmp 2020 <_init+0x20>
+    224f:	90                   	nop
+    2250:	f3 0f 1e fa          	endbr64 
+    2254:	68 22 00 00 00       	push   $0x22
+    2259:	f2 e9 c1 fd ff ff    	bnd jmp 2020 <_init+0x20>
+    225f:	90                   	nop
+    2260:	f3 0f 1e fa          	endbr64 
+    2264:	68 23 00 00 00       	push   $0x23
+    2269:	f2 e9 b1 fd ff ff    	bnd jmp 2020 <_init+0x20>
+    226f:	90                   	nop
+    2270:	f3 0f 1e fa          	endbr64 
+    2274:	68 24 00 00 00       	push   $0x24
+    2279:	f2 e9 a1 fd ff ff    	bnd jmp 2020 <_init+0x20>
+    227f:	90                   	nop
+    2280:	f3 0f 1e fa          	endbr64 
+    2284:	68 25 00 00 00       	push   $0x25
+    2289:	f2 e9 91 fd ff ff    	bnd jmp 2020 <_init+0x20>
+    228f:	90                   	nop
+    2290:	f3 0f 1e fa          	endbr64 
+    2294:	68 26 00 00 00       	push   $0x26
+    2299:	f2 e9 81 fd ff ff    	bnd jmp 2020 <_init+0x20>
+    229f:	90                   	nop
+
+Disassembly of section .plt.got:
+
+00000000000022a0 <__cxa_finalize@plt>:
+    22a0:	f3 0f 1e fa          	endbr64 
+    22a4:	f2 ff 25 2d 6d 00 00 	bnd jmp *0x6d2d(%rip)        # 8fd8 <__cxa_finalize@GLIBC_2.2.5>
+    22ab:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+Disassembly of section .plt.sec:
+
+00000000000022b0 <pthread_cond_signal@plt>:
+    22b0:	f3 0f 1e fa          	endbr64 
+    22b4:	f2 ff 25 dd 6b 00 00 	bnd jmp *0x6bdd(%rip)        # 8e98 <pthread_cond_signal@GLIBC_2.3.2>
+    22bb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000022c0 <syscall@plt>:
+    22c0:	f3 0f 1e fa          	endbr64 
+    22c4:	f2 ff 25 d5 6b 00 00 	bnd jmp *0x6bd5(%rip)        # 8ea0 <syscall@GLIBC_2.2.5>
+    22cb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000022d0 <ra_network_send_receive@plt>:
+    22d0:	f3 0f 1e fa          	endbr64 
+    22d4:	f2 ff 25 cd 6b 00 00 	bnd jmp *0x6bcd(%rip)        # 8ea8 <ra_network_send_receive>
+    22db:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000022e0 <pthread_cond_broadcast@plt>:
+    22e0:	f3 0f 1e fa          	endbr64 
+    22e4:	f2 ff 25 c5 6b 00 00 	bnd jmp *0x6bc5(%rip)        # 8eb0 <pthread_cond_broadcast@GLIBC_2.3.2>
+    22eb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000022f0 <sgx_select_att_key_id@plt>:
+    22f0:	f3 0f 1e fa          	endbr64 
+    22f4:	f2 ff 25 bd 6b 00 00 	bnd jmp *0x6bbd(%rip)        # 8eb8 <sgx_select_att_key_id>
+    22fb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002300 <memcmp@plt>:
+    2300:	f3 0f 1e fa          	endbr64 
+    2304:	f2 ff 25 b5 6b 00 00 	bnd jmp *0x6bb5(%rip)        # 8ec0 <memcmp@GLIBC_2.2.5>
+    230b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002310 <sgx_get_quote_size_ex@plt>:
+    2310:	f3 0f 1e fa          	endbr64 
+    2314:	f2 ff 25 ad 6b 00 00 	bnd jmp *0x6bad(%rip)        # 8ec8 <sgx_get_quote_size_ex>
+    231b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002320 <ra_free_network_response_buffer@plt>:
+    2320:	f3 0f 1e fa          	endbr64 
+    2324:	f2 ff 25 a5 6b 00 00 	bnd jmp *0x6ba5(%rip)        # 8ed0 <ra_free_network_response_buffer>
+    232b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002330 <sgx_init_quote@plt>:
+    2330:	f3 0f 1e fa          	endbr64 
+    2334:	f2 ff 25 9d 6b 00 00 	bnd jmp *0x6b9d(%rip)        # 8ed8 <sgx_init_quote>
+    233b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002340 <sgx_destroy_enclave@plt>:
+    2340:	f3 0f 1e fa          	endbr64 
+    2344:	f2 ff 25 95 6b 00 00 	bnd jmp *0x6b95(%rip)        # 8ee0 <sgx_destroy_enclave>
+    234b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002350 <sgx_ecall@plt>:
+    2350:	f3 0f 1e fa          	endbr64 
+    2354:	f2 ff 25 8d 6b 00 00 	bnd jmp *0x6b8d(%rip)        # 8ee8 <sgx_ecall>
+    235b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002360 <pthread_key_create@plt>:
+    2360:	f3 0f 1e fa          	endbr64 
+    2364:	f2 ff 25 85 6b 00 00 	bnd jmp *0x6b85(%rip)        # 8ef0 <pthread_key_create@GLIBC_2.2.5>
+    236b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002370 <calloc@plt>:
+    2370:	f3 0f 1e fa          	endbr64 
+    2374:	f2 ff 25 7d 6b 00 00 	bnd jmp *0x6b7d(%rip)        # 8ef8 <calloc@GLIBC_2.2.5>
+    237b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002380 <sgx_get_quote_ex@plt>:
+    2380:	f3 0f 1e fa          	endbr64 
+    2384:	f2 ff 25 75 6b 00 00 	bnd jmp *0x6b75(%rip)        # 8f00 <sgx_get_quote_ex>
+    238b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002390 <sgx_create_enclave@plt>:
+    2390:	f3 0f 1e fa          	endbr64 
+    2394:	f2 ff 25 6d 6b 00 00 	bnd jmp *0x6b6d(%rip)        # 8f08 <sgx_create_enclave>
+    239b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000023a0 <sleep@plt>:
+    23a0:	f3 0f 1e fa          	endbr64 
+    23a4:	f2 ff 25 65 6b 00 00 	bnd jmp *0x6b65(%rip)        # 8f10 <sleep@GLIBC_2.2.5>
+    23ab:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000023b0 <pthread_mutex_unlock@plt>:
+    23b0:	f3 0f 1e fa          	endbr64 
+    23b4:	f2 ff 25 5d 6b 00 00 	bnd jmp *0x6b5d(%rip)        # 8f18 <pthread_mutex_unlock@GLIBC_2.2.5>
+    23bb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000023c0 <sgx_init_quote_ex@plt>:
+    23c0:	f3 0f 1e fa          	endbr64 
+    23c4:	f2 ff 25 55 6b 00 00 	bnd jmp *0x6b55(%rip)        # 8f20 <sgx_init_quote_ex>
+    23cb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000023d0 <__cxa_atexit@plt>:
+    23d0:	f3 0f 1e fa          	endbr64 
+    23d4:	f2 ff 25 4d 6b 00 00 	bnd jmp *0x6b4d(%rip)        # 8f28 <__cxa_atexit@GLIBC_2.2.5>
+    23db:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000023e0 <memcpy_s@plt>:
+    23e0:	f3 0f 1e fa          	endbr64 
+    23e4:	f2 ff 25 45 6b 00 00 	bnd jmp *0x6b45(%rip)        # 8f30 <memcpy_s>
+    23eb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000023f0 <sgx_get_quote@plt>:
+    23f0:	f3 0f 1e fa          	endbr64 
+    23f4:	f2 ff 25 3d 6b 00 00 	bnd jmp *0x6b3d(%rip)        # 8f38 <sgx_get_quote>
+    23fb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002400 <__stack_chk_fail@plt>:
+    2400:	f3 0f 1e fa          	endbr64 
+    2404:	f2 ff 25 35 6b 00 00 	bnd jmp *0x6b35(%rip)        # 8f40 <__stack_chk_fail@GLIBC_2.4>
+    240b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002410 <pthread_mutex_destroy@plt>:
+    2410:	f3 0f 1e fa          	endbr64 
+    2414:	f2 ff 25 2d 6b 00 00 	bnd jmp *0x6b2d(%rip)        # 8f48 <pthread_mutex_destroy@GLIBC_2.2.5>
+    241b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002420 <free@plt>:
+    2420:	f3 0f 1e fa          	endbr64 
+    2424:	f2 ff 25 25 6b 00 00 	bnd jmp *0x6b25(%rip)        # 8f50 <free@GLIBC_2.2.5>
+    242b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002430 <fputc@plt>:
+    2430:	f3 0f 1e fa          	endbr64 
+    2434:	f2 ff 25 1d 6b 00 00 	bnd jmp *0x6b1d(%rip)        # 8f58 <fputc@GLIBC_2.2.5>
+    243b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002440 <malloc@plt>:
+    2440:	f3 0f 1e fa          	endbr64 
+    2444:	f2 ff 25 15 6b 00 00 	bnd jmp *0x6b15(%rip)        # 8f60 <malloc@GLIBC_2.2.5>
+    244b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002450 <pthread_key_delete@plt>:
+    2450:	f3 0f 1e fa          	endbr64 
+    2454:	f2 ff 25 0d 6b 00 00 	bnd jmp *0x6b0d(%rip)        # 8f68 <pthread_key_delete@GLIBC_2.2.5>
+    245b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002460 <getchar@plt>:
+    2460:	f3 0f 1e fa          	endbr64 
+    2464:	f2 ff 25 05 6b 00 00 	bnd jmp *0x6b05(%rip)        # 8f70 <getchar@GLIBC_2.2.5>
+    246b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002470 <pthread_getspecific@plt>:
+    2470:	f3 0f 1e fa          	endbr64 
+    2474:	f2 ff 25 fd 6a 00 00 	bnd jmp *0x6afd(%rip)        # 8f78 <pthread_getspecific@GLIBC_2.2.5>
+    247b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002480 <fprintf@plt>:
+    2480:	f3 0f 1e fa          	endbr64 
+    2484:	f2 ff 25 f5 6a 00 00 	bnd jmp *0x6af5(%rip)        # 8f80 <fprintf@GLIBC_2.2.5>
+    248b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002490 <pthread_mutex_lock@plt>:
+    2490:	f3 0f 1e fa          	endbr64 
+    2494:	f2 ff 25 ed 6a 00 00 	bnd jmp *0x6aed(%rip)        # 8f88 <pthread_mutex_lock@GLIBC_2.2.5>
+    249b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000024a0 <sgx_calc_quote_size@plt>:
+    24a0:	f3 0f 1e fa          	endbr64 
+    24a4:	f2 ff 25 e5 6a 00 00 	bnd jmp *0x6ae5(%rip)        # 8f90 <sgx_calc_quote_size>
+    24ab:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000024b0 <pthread_cond_wait@plt>:
+    24b0:	f3 0f 1e fa          	endbr64 
+    24b4:	f2 ff 25 dd 6a 00 00 	bnd jmp *0x6add(%rip)        # 8f98 <pthread_cond_wait@GLIBC_2.3.2>
+    24bb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000024c0 <puts@plt>:
+    24c0:	f3 0f 1e fa          	endbr64 
+    24c4:	f2 ff 25 d5 6a 00 00 	bnd jmp *0x6ad5(%rip)        # 8fa0 <puts@GLIBC_2.2.5>
+    24cb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000024d0 <atoi@plt>:
+    24d0:	f3 0f 1e fa          	endbr64 
+    24d4:	f2 ff 25 cd 6a 00 00 	bnd jmp *0x6acd(%rip)        # 8fa8 <atoi@GLIBC_2.2.5>
+    24db:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000024e0 <pthread_setspecific@plt>:
+    24e0:	f3 0f 1e fa          	endbr64 
+    24e4:	f2 ff 25 c5 6a 00 00 	bnd jmp *0x6ac5(%rip)        # 8fb0 <pthread_setspecific@GLIBC_2.2.5>
+    24eb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000024f0 <pthread_cond_destroy@plt>:
+    24f0:	f3 0f 1e fa          	endbr64 
+    24f4:	f2 ff 25 bd 6a 00 00 	bnd jmp *0x6abd(%rip)        # 8fb8 <pthread_cond_destroy@GLIBC_2.3.2>
+    24fb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002500 <sgx_get_extended_epid_group_id@plt>:
+    2500:	f3 0f 1e fa          	endbr64 
+    2504:	f2 ff 25 b5 6a 00 00 	bnd jmp *0x6ab5(%rip)        # 8fc0 <sgx_get_extended_epid_group_id>
+    250b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000002510 <fwrite@plt>:
+    2510:	f3 0f 1e fa          	endbr64 
+    2514:	f2 ff 25 ad 6a 00 00 	bnd jmp *0x6aad(%rip)        # 8fc8 <fwrite@GLIBC_2.2.5>
+    251b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+Disassembly of section .text:
+
+0000000000002520 <ukey_exchange_access_version_dummy1>:
+    2520:	f3 0f 1e fa          	endbr64 
+    2524:	48 8d 05 35 7a 00 00 	lea    0x7a35(%rip),%rax        # 9f60 <sgx_ukey_exchange_version>
+    252b:	c6 00 73             	movb   $0x73,(%rax)
+    252e:	c3                   	ret    
+    252f:	90                   	nop
+
+0000000000002530 <_GLOBAL__sub_I_ukey_exchange.cpp>:
+    2530:	f3 0f 1e fa          	endbr64 
+    2534:	48 83 ec 08          	sub    $0x8,%rsp
+    2538:	48 8d 3d 81 7a 00 00 	lea    0x7a81(%rip),%rdi        # 9fc0 <_ZL16g_ukey_spin_lock>
+    253f:	e8 1c 2a 00 00       	call   4f60 <se_mutex_init>
+    2544:	48 8d 3d 65 1f 00 00 	lea    0x1f65(%rip),%rdi        # 44b0 <_ZN5MutexD1Ev>
+    254b:	48 83 c4 08          	add    $0x8,%rsp
+    254f:	48 8d 15 b2 6a 00 00 	lea    0x6ab2(%rip),%rdx        # 9008 <__dso_handle>
+    2556:	48 8d 35 63 7a 00 00 	lea    0x7a63(%rip),%rsi        # 9fc0 <_ZL16g_ukey_spin_lock>
+    255d:	e9 6e fe ff ff       	jmp    23d0 <__cxa_atexit@plt>
+    2562:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+    2569:	00 00 00 
+    256c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000000002570 <_start>:
+    2570:	f3 0f 1e fa          	endbr64 
+    2574:	31 ed                	xor    %ebp,%ebp
+    2576:	49 89 d1             	mov    %rdx,%r9
+    2579:	5e                   	pop    %rsi
+    257a:	48 89 e2             	mov    %rsp,%rdx
+    257d:	48 83 e4 f0          	and    $0xfffffffffffffff0,%rsp
+    2581:	50                   	push   %rax
+    2582:	54                   	push   %rsp
+    2583:	4c 8d 05 76 2c 00 00 	lea    0x2c76(%rip),%r8        # 5200 <__libc_csu_fini>
+    258a:	48 8d 0d ff 2b 00 00 	lea    0x2bff(%rip),%rcx        # 5190 <__libc_csu_init>
+    2591:	48 8d 3d 42 09 00 00 	lea    0x942(%rip),%rdi        # 2eda <main>
+    2598:	ff 15 4a 6a 00 00    	call   *0x6a4a(%rip)        # 8fe8 <__libc_start_main@GLIBC_2.2.5>
+    259e:	f4                   	hlt    
+    259f:	90                   	nop
+
+00000000000025a0 <deregister_tm_clones>:
+    25a0:	48 8d 3d e1 79 00 00 	lea    0x79e1(%rip),%rdi        # 9f88 <__TMC_END__>
+    25a7:	48 8d 05 da 79 00 00 	lea    0x79da(%rip),%rax        # 9f88 <__TMC_END__>
+    25ae:	48 39 f8             	cmp    %rdi,%rax
+    25b1:	74 15                	je     25c8 <deregister_tm_clones+0x28>
+    25b3:	48 8b 05 26 6a 00 00 	mov    0x6a26(%rip),%rax        # 8fe0 <_ITM_deregisterTMCloneTable>
+    25ba:	48 85 c0             	test   %rax,%rax
+    25bd:	74 09                	je     25c8 <deregister_tm_clones+0x28>
+    25bf:	ff e0                	jmp    *%rax
+    25c1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+    25c8:	c3                   	ret    
+    25c9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+00000000000025d0 <register_tm_clones>:
+    25d0:	48 8d 3d b1 79 00 00 	lea    0x79b1(%rip),%rdi        # 9f88 <__TMC_END__>
+    25d7:	48 8d 35 aa 79 00 00 	lea    0x79aa(%rip),%rsi        # 9f88 <__TMC_END__>
+    25de:	48 29 fe             	sub    %rdi,%rsi
+    25e1:	48 89 f0             	mov    %rsi,%rax
+    25e4:	48 c1 ee 3f          	shr    $0x3f,%rsi
+    25e8:	48 c1 f8 03          	sar    $0x3,%rax
+    25ec:	48 01 c6             	add    %rax,%rsi
+    25ef:	48 d1 fe             	sar    %rsi
+    25f2:	74 14                	je     2608 <register_tm_clones+0x38>
+    25f4:	48 8b 05 fd 69 00 00 	mov    0x69fd(%rip),%rax        # 8ff8 <_ITM_registerTMCloneTable>
+    25fb:	48 85 c0             	test   %rax,%rax
+    25fe:	74 08                	je     2608 <register_tm_clones+0x38>
+    2600:	ff e0                	jmp    *%rax
+    2602:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+    2608:	c3                   	ret    
+    2609:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+0000000000002610 <__do_global_dtors_aux>:
+    2610:	f3 0f 1e fa          	endbr64 
+    2614:	80 3d 85 79 00 00 00 	cmpb   $0x0,0x7985(%rip)        # 9fa0 <completed.8061>
+    261b:	75 2b                	jne    2648 <__do_global_dtors_aux+0x38>
+    261d:	55                   	push   %rbp
+    261e:	48 83 3d b2 69 00 00 	cmpq   $0x0,0x69b2(%rip)        # 8fd8 <__cxa_finalize@GLIBC_2.2.5>
+    2625:	00 
+    2626:	48 89 e5             	mov    %rsp,%rbp
+    2629:	74 0c                	je     2637 <__do_global_dtors_aux+0x27>
+    262b:	48 8b 3d d6 69 00 00 	mov    0x69d6(%rip),%rdi        # 9008 <__dso_handle>
+    2632:	e8 69 fc ff ff       	call   22a0 <__cxa_finalize@plt>
+    2637:	e8 64 ff ff ff       	call   25a0 <deregister_tm_clones>
+    263c:	c6 05 5d 79 00 00 01 	movb   $0x1,0x795d(%rip)        # 9fa0 <completed.8061>
+    2643:	5d                   	pop    %rbp
+    2644:	c3                   	ret    
+    2645:	0f 1f 00             	nopl   (%rax)
+    2648:	c3                   	ret    
+    2649:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+0000000000002650 <frame_dummy>:
+    2650:	f3 0f 1e fa          	endbr64 
+    2654:	e9 77 ff ff ff       	jmp    25d0 <register_tm_clones>
+
+0000000000002659 <enclave_init_ra>:
+} ocall_table_isv_enclave = {
+	0,
+	{ NULL },
+};
+sgx_status_t enclave_init_ra(sgx_enclave_id_t eid, sgx_status_t* retval, int b_pse, sgx_ra_context_t* p_context)
+{
+    2659:	f3 0f 1e fa          	endbr64 
+    265d:	55                   	push   %rbp
+    265e:	48 89 e5             	mov    %rsp,%rbp
+    2661:	48 83 ec 50          	sub    $0x50,%rsp
+    2665:	48 89 7d c8          	mov    %rdi,-0x38(%rbp)
+    2669:	48 89 75 c0          	mov    %rsi,-0x40(%rbp)
+    266d:	89 55 bc             	mov    %edx,-0x44(%rbp)
+    2670:	48 89 4d b0          	mov    %rcx,-0x50(%rbp)
+    2674:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    267b:	00 00 
+    267d:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    2681:	31 c0                	xor    %eax,%eax
+	sgx_status_t status;
+	ms_enclave_init_ra_t ms;
+	ms.ms_b_pse = b_pse;
+    2683:	8b 45 bc             	mov    -0x44(%rbp),%eax
+    2686:	89 45 e4             	mov    %eax,-0x1c(%rbp)
+	ms.ms_p_context = p_context;
+    2689:	48 8b 45 b0          	mov    -0x50(%rbp),%rax
+    268d:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+	status = sgx_ecall(eid, 0, &ocall_table_isv_enclave, &ms);
+    2691:	48 8d 55 e0          	lea    -0x20(%rbp),%rdx
+    2695:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
+    2699:	48 89 d1             	mov    %rdx,%rcx
+    269c:	48 8d 15 6d 39 00 00 	lea    0x396d(%rip),%rdx        # 6010 <ocall_table_isv_enclave>
+    26a3:	be 00 00 00 00       	mov    $0x0,%esi
+    26a8:	48 89 c7             	mov    %rax,%rdi
+    26ab:	e8 a0 fc ff ff       	call   2350 <sgx_ecall@plt>
+    26b0:	89 45 dc             	mov    %eax,-0x24(%rbp)
+	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
+    26b3:	83 7d dc 00          	cmpl   $0x0,-0x24(%rbp)
+    26b7:	75 10                	jne    26c9 <enclave_init_ra+0x70>
+    26b9:	48 83 7d c0 00       	cmpq   $0x0,-0x40(%rbp)
+    26be:	74 09                	je     26c9 <enclave_init_ra+0x70>
+    26c0:	8b 55 e0             	mov    -0x20(%rbp),%edx
+    26c3:	48 8b 45 c0          	mov    -0x40(%rbp),%rax
+    26c7:	89 10                	mov    %edx,(%rax)
+	return status;
+    26c9:	8b 45 dc             	mov    -0x24(%rbp),%eax
+}
+    26cc:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
+    26d0:	64 48 33 0c 25 28 00 	xor    %fs:0x28,%rcx
+    26d7:	00 00 
+    26d9:	74 05                	je     26e0 <enclave_init_ra+0x87>
+    26db:	e8 20 fd ff ff       	call   2400 <__stack_chk_fail@plt>
+    26e0:	c9                   	leave  
+    26e1:	c3                   	ret    
+
+00000000000026e2 <enclave_ra_close>:
+
+sgx_status_t enclave_ra_close(sgx_enclave_id_t eid, sgx_status_t* retval, sgx_ra_context_t context)
+{
+    26e2:	f3 0f 1e fa          	endbr64 
+    26e6:	55                   	push   %rbp
+    26e7:	48 89 e5             	mov    %rsp,%rbp
+    26ea:	48 83 ec 40          	sub    $0x40,%rsp
+    26ee:	48 89 7d d8          	mov    %rdi,-0x28(%rbp)
+    26f2:	48 89 75 d0          	mov    %rsi,-0x30(%rbp)
+    26f6:	89 55 cc             	mov    %edx,-0x34(%rbp)
+    26f9:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    2700:	00 00 
+    2702:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    2706:	31 c0                	xor    %eax,%eax
+	sgx_status_t status;
+	ms_enclave_ra_close_t ms;
+	ms.ms_context = context;
+    2708:	8b 45 cc             	mov    -0x34(%rbp),%eax
+    270b:	89 45 f4             	mov    %eax,-0xc(%rbp)
+	status = sgx_ecall(eid, 1, &ocall_table_isv_enclave, &ms);
+    270e:	48 8d 55 f0          	lea    -0x10(%rbp),%rdx
+    2712:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+    2716:	48 89 d1             	mov    %rdx,%rcx
+    2719:	48 8d 15 f0 38 00 00 	lea    0x38f0(%rip),%rdx        # 6010 <ocall_table_isv_enclave>
+    2720:	be 01 00 00 00       	mov    $0x1,%esi
+    2725:	48 89 c7             	mov    %rax,%rdi
+    2728:	e8 23 fc ff ff       	call   2350 <sgx_ecall@plt>
+    272d:	89 45 ec             	mov    %eax,-0x14(%rbp)
+	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
+    2730:	83 7d ec 00          	cmpl   $0x0,-0x14(%rbp)
+    2734:	75 10                	jne    2746 <enclave_ra_close+0x64>
+    2736:	48 83 7d d0 00       	cmpq   $0x0,-0x30(%rbp)
+    273b:	74 09                	je     2746 <enclave_ra_close+0x64>
+    273d:	8b 55 f0             	mov    -0x10(%rbp),%edx
+    2740:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+    2744:	89 10                	mov    %edx,(%rax)
+	return status;
+    2746:	8b 45 ec             	mov    -0x14(%rbp),%eax
+}
+    2749:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
+    274d:	64 48 33 0c 25 28 00 	xor    %fs:0x28,%rcx
+    2754:	00 00 
+    2756:	74 05                	je     275d <enclave_ra_close+0x7b>
+    2758:	e8 a3 fc ff ff       	call   2400 <__stack_chk_fail@plt>
+    275d:	c9                   	leave  
+    275e:	c3                   	ret    
+
+000000000000275f <verify_att_result_mac>:
+
+sgx_status_t verify_att_result_mac(sgx_enclave_id_t eid, sgx_status_t* retval, sgx_ra_context_t context, uint8_t* message, size_t message_size, uint8_t* mac, size_t mac_size)
+{
+    275f:	f3 0f 1e fa          	endbr64 
+    2763:	55                   	push   %rbp
+    2764:	48 89 e5             	mov    %rsp,%rbp
+    2767:	48 83 ec 70          	sub    $0x70,%rsp
+    276b:	48 89 7d b8          	mov    %rdi,-0x48(%rbp)
+    276f:	48 89 75 b0          	mov    %rsi,-0x50(%rbp)
+    2773:	89 55 ac             	mov    %edx,-0x54(%rbp)
+    2776:	48 89 4d a0          	mov    %rcx,-0x60(%rbp)
+    277a:	4c 89 45 98          	mov    %r8,-0x68(%rbp)
+    277e:	4c 89 4d 90          	mov    %r9,-0x70(%rbp)
+    2782:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    2789:	00 00 
+    278b:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    278f:	31 c0                	xor    %eax,%eax
+	sgx_status_t status;
+	ms_verify_att_result_mac_t ms;
+	ms.ms_context = context;
+    2791:	8b 45 ac             	mov    -0x54(%rbp),%eax
+    2794:	89 45 d4             	mov    %eax,-0x2c(%rbp)
+	ms.ms_message = message;
+    2797:	48 8b 45 a0          	mov    -0x60(%rbp),%rax
+    279b:	48 89 45 d8          	mov    %rax,-0x28(%rbp)
+	ms.ms_message_size = message_size;
+    279f:	48 8b 45 98          	mov    -0x68(%rbp),%rax
+    27a3:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
+	ms.ms_mac = mac;
+    27a7:	48 8b 45 90          	mov    -0x70(%rbp),%rax
+    27ab:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+	ms.ms_mac_size = mac_size;
+    27af:	48 8b 45 10          	mov    0x10(%rbp),%rax
+    27b3:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
+	status = sgx_ecall(eid, 2, &ocall_table_isv_enclave, &ms);
+    27b7:	48 8d 55 d0          	lea    -0x30(%rbp),%rdx
+    27bb:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+    27bf:	48 89 d1             	mov    %rdx,%rcx
+    27c2:	48 8d 15 47 38 00 00 	lea    0x3847(%rip),%rdx        # 6010 <ocall_table_isv_enclave>
+    27c9:	be 02 00 00 00       	mov    $0x2,%esi
+    27ce:	48 89 c7             	mov    %rax,%rdi
+    27d1:	e8 7a fb ff ff       	call   2350 <sgx_ecall@plt>
+    27d6:	89 45 cc             	mov    %eax,-0x34(%rbp)
+	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
+    27d9:	83 7d cc 00          	cmpl   $0x0,-0x34(%rbp)
+    27dd:	75 10                	jne    27ef <verify_att_result_mac+0x90>
+    27df:	48 83 7d b0 00       	cmpq   $0x0,-0x50(%rbp)
+    27e4:	74 09                	je     27ef <verify_att_result_mac+0x90>
+    27e6:	8b 55 d0             	mov    -0x30(%rbp),%edx
+    27e9:	48 8b 45 b0          	mov    -0x50(%rbp),%rax
+    27ed:	89 10                	mov    %edx,(%rax)
+	return status;
+    27ef:	8b 45 cc             	mov    -0x34(%rbp),%eax
+}
+    27f2:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
+    27f6:	64 48 33 0c 25 28 00 	xor    %fs:0x28,%rcx
+    27fd:	00 00 
+    27ff:	74 05                	je     2806 <verify_att_result_mac+0xa7>
+    2801:	e8 fa fb ff ff       	call   2400 <__stack_chk_fail@plt>
+    2806:	c9                   	leave  
+    2807:	c3                   	ret    
+
+0000000000002808 <put_secret_data>:
+
+sgx_status_t put_secret_data(sgx_enclave_id_t eid, sgx_status_t* retval, sgx_ra_context_t context, uint8_t* p_secret, uint32_t secret_size, uint8_t* gcm_mac)
+{
+    2808:	f3 0f 1e fa          	endbr64 
+    280c:	55                   	push   %rbp
+    280d:	48 89 e5             	mov    %rsp,%rbp
+    2810:	48 83 ec 70          	sub    $0x70,%rsp
+    2814:	48 89 7d b8          	mov    %rdi,-0x48(%rbp)
+    2818:	48 89 75 b0          	mov    %rsi,-0x50(%rbp)
+    281c:	89 55 ac             	mov    %edx,-0x54(%rbp)
+    281f:	48 89 4d a0          	mov    %rcx,-0x60(%rbp)
+    2823:	44 89 45 a8          	mov    %r8d,-0x58(%rbp)
+    2827:	4c 89 4d 98          	mov    %r9,-0x68(%rbp)
+    282b:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    2832:	00 00 
+    2834:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    2838:	31 c0                	xor    %eax,%eax
+	sgx_status_t status;
+	ms_put_secret_data_t ms;
+	ms.ms_context = context;
+    283a:	8b 45 ac             	mov    -0x54(%rbp),%eax
+    283d:	89 45 d4             	mov    %eax,-0x2c(%rbp)
+	ms.ms_p_secret = p_secret;
+    2840:	48 8b 45 a0          	mov    -0x60(%rbp),%rax
+    2844:	48 89 45 d8          	mov    %rax,-0x28(%rbp)
+	ms.ms_secret_size = secret_size;
+    2848:	8b 45 a8             	mov    -0x58(%rbp),%eax
+    284b:	89 45 e0             	mov    %eax,-0x20(%rbp)
+	ms.ms_gcm_mac = gcm_mac;
+    284e:	48 8b 45 98          	mov    -0x68(%rbp),%rax
+    2852:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+	status = sgx_ecall(eid, 3, &ocall_table_isv_enclave, &ms);
+    2856:	48 8d 55 d0          	lea    -0x30(%rbp),%rdx
+    285a:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+    285e:	48 89 d1             	mov    %rdx,%rcx
+    2861:	48 8d 15 a8 37 00 00 	lea    0x37a8(%rip),%rdx        # 6010 <ocall_table_isv_enclave>
+    2868:	be 03 00 00 00       	mov    $0x3,%esi
+    286d:	48 89 c7             	mov    %rax,%rdi
+    2870:	e8 db fa ff ff       	call   2350 <sgx_ecall@plt>
+    2875:	89 45 cc             	mov    %eax,-0x34(%rbp)
+	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
+    2878:	83 7d cc 00          	cmpl   $0x0,-0x34(%rbp)
+    287c:	75 10                	jne    288e <put_secret_data+0x86>
+    287e:	48 83 7d b0 00       	cmpq   $0x0,-0x50(%rbp)
+    2883:	74 09                	je     288e <put_secret_data+0x86>
+    2885:	8b 55 d0             	mov    -0x30(%rbp),%edx
+    2888:	48 8b 45 b0          	mov    -0x50(%rbp),%rax
+    288c:	89 10                	mov    %edx,(%rax)
+	return status;
+    288e:	8b 45 cc             	mov    -0x34(%rbp),%eax
+}
+    2891:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
+    2895:	64 48 33 0c 25 28 00 	xor    %fs:0x28,%rcx
+    289c:	00 00 
+    289e:	74 05                	je     28a5 <put_secret_data+0x9d>
+    28a0:	e8 5b fb ff ff       	call   2400 <__stack_chk_fail@plt>
+    28a5:	c9                   	leave  
+    28a6:	c3                   	ret    
+
+00000000000028a7 <sgx_ra_get_ga>:
+
+sgx_status_t sgx_ra_get_ga(sgx_enclave_id_t eid, sgx_status_t* retval, sgx_ra_context_t context, sgx_ec256_public_t* g_a)
+{
+    28a7:	f3 0f 1e fa          	endbr64 
+    28ab:	55                   	push   %rbp
+    28ac:	48 89 e5             	mov    %rsp,%rbp
+    28af:	48 83 ec 50          	sub    $0x50,%rsp
+    28b3:	48 89 7d c8          	mov    %rdi,-0x38(%rbp)
+    28b7:	48 89 75 c0          	mov    %rsi,-0x40(%rbp)
+    28bb:	89 55 bc             	mov    %edx,-0x44(%rbp)
+    28be:	48 89 4d b0          	mov    %rcx,-0x50(%rbp)
+    28c2:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    28c9:	00 00 
+    28cb:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    28cf:	31 c0                	xor    %eax,%eax
+	sgx_status_t status;
+	ms_sgx_ra_get_ga_t ms;
+	ms.ms_context = context;
+    28d1:	8b 45 bc             	mov    -0x44(%rbp),%eax
+    28d4:	89 45 e4             	mov    %eax,-0x1c(%rbp)
+	ms.ms_g_a = g_a;
+    28d7:	48 8b 45 b0          	mov    -0x50(%rbp),%rax
+    28db:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+	status = sgx_ecall(eid, 4, &ocall_table_isv_enclave, &ms);
+    28df:	48 8d 55 e0          	lea    -0x20(%rbp),%rdx
+    28e3:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
+    28e7:	48 89 d1             	mov    %rdx,%rcx
+    28ea:	48 8d 15 1f 37 00 00 	lea    0x371f(%rip),%rdx        # 6010 <ocall_table_isv_enclave>
+    28f1:	be 04 00 00 00       	mov    $0x4,%esi
+    28f6:	48 89 c7             	mov    %rax,%rdi
+    28f9:	e8 52 fa ff ff       	call   2350 <sgx_ecall@plt>
+    28fe:	89 45 dc             	mov    %eax,-0x24(%rbp)
+	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
+    2901:	83 7d dc 00          	cmpl   $0x0,-0x24(%rbp)
+    2905:	75 10                	jne    2917 <sgx_ra_get_ga+0x70>
+    2907:	48 83 7d c0 00       	cmpq   $0x0,-0x40(%rbp)
+    290c:	74 09                	je     2917 <sgx_ra_get_ga+0x70>
+    290e:	8b 55 e0             	mov    -0x20(%rbp),%edx
+    2911:	48 8b 45 c0          	mov    -0x40(%rbp),%rax
+    2915:	89 10                	mov    %edx,(%rax)
+	return status;
+    2917:	8b 45 dc             	mov    -0x24(%rbp),%eax
+}
+    291a:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
+    291e:	64 48 33 0c 25 28 00 	xor    %fs:0x28,%rcx
+    2925:	00 00 
+    2927:	74 05                	je     292e <sgx_ra_get_ga+0x87>
+    2929:	e8 d2 fa ff ff       	call   2400 <__stack_chk_fail@plt>
+    292e:	c9                   	leave  
+    292f:	c3                   	ret    
+
+0000000000002930 <sgx_ra_proc_msg2_trusted>:
+
+sgx_status_t sgx_ra_proc_msg2_trusted(sgx_enclave_id_t eid, sgx_status_t* retval, sgx_ra_context_t context, const sgx_ra_msg2_t* p_msg2, const sgx_target_info_t* p_qe_target, sgx_report_t* p_report, sgx_quote_nonce_t* p_nonce)
+{
+    2930:	f3 0f 1e fa          	endbr64 
+    2934:	55                   	push   %rbp
+    2935:	48 89 e5             	mov    %rsp,%rbp
+    2938:	48 83 c4 80          	add    $0xffffffffffffff80,%rsp
+    293c:	48 89 7d b8          	mov    %rdi,-0x48(%rbp)
+    2940:	48 89 75 b0          	mov    %rsi,-0x50(%rbp)
+    2944:	89 55 ac             	mov    %edx,-0x54(%rbp)
+    2947:	48 89 4d a0          	mov    %rcx,-0x60(%rbp)
+    294b:	4c 89 45 98          	mov    %r8,-0x68(%rbp)
+    294f:	4c 89 4d 90          	mov    %r9,-0x70(%rbp)
+    2953:	48 8b 45 10          	mov    0x10(%rbp),%rax
+    2957:	48 89 45 88          	mov    %rax,-0x78(%rbp)
+    295b:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    2962:	00 00 
+    2964:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    2968:	31 c0                	xor    %eax,%eax
+	sgx_status_t status;
+	ms_sgx_ra_proc_msg2_trusted_t ms;
+	ms.ms_context = context;
+    296a:	8b 45 ac             	mov    -0x54(%rbp),%eax
+    296d:	89 45 d4             	mov    %eax,-0x2c(%rbp)
+	ms.ms_p_msg2 = p_msg2;
+    2970:	48 8b 45 a0          	mov    -0x60(%rbp),%rax
+    2974:	48 89 45 d8          	mov    %rax,-0x28(%rbp)
+	ms.ms_p_qe_target = p_qe_target;
+    2978:	48 8b 45 98          	mov    -0x68(%rbp),%rax
+    297c:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
+	ms.ms_p_report = p_report;
+    2980:	48 8b 45 90          	mov    -0x70(%rbp),%rax
+    2984:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+	ms.ms_p_nonce = p_nonce;
+    2988:	48 8b 45 88          	mov    -0x78(%rbp),%rax
+    298c:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
+	status = sgx_ecall(eid, 5, &ocall_table_isv_enclave, &ms);
+    2990:	48 8d 55 d0          	lea    -0x30(%rbp),%rdx
+    2994:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+    2998:	48 89 d1             	mov    %rdx,%rcx
+    299b:	48 8d 15 6e 36 00 00 	lea    0x366e(%rip),%rdx        # 6010 <ocall_table_isv_enclave>
+    29a2:	be 05 00 00 00       	mov    $0x5,%esi
+    29a7:	48 89 c7             	mov    %rax,%rdi
+    29aa:	e8 a1 f9 ff ff       	call   2350 <sgx_ecall@plt>
+    29af:	89 45 cc             	mov    %eax,-0x34(%rbp)
+	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
+    29b2:	83 7d cc 00          	cmpl   $0x0,-0x34(%rbp)
+    29b6:	75 10                	jne    29c8 <sgx_ra_proc_msg2_trusted+0x98>
+    29b8:	48 83 7d b0 00       	cmpq   $0x0,-0x50(%rbp)
+    29bd:	74 09                	je     29c8 <sgx_ra_proc_msg2_trusted+0x98>
+    29bf:	8b 55 d0             	mov    -0x30(%rbp),%edx
+    29c2:	48 8b 45 b0          	mov    -0x50(%rbp),%rax
+    29c6:	89 10                	mov    %edx,(%rax)
+	return status;
+    29c8:	8b 45 cc             	mov    -0x34(%rbp),%eax
+}
+    29cb:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
+    29cf:	64 48 33 0c 25 28 00 	xor    %fs:0x28,%rcx
+    29d6:	00 00 
+    29d8:	74 05                	je     29df <sgx_ra_proc_msg2_trusted+0xaf>
+    29da:	e8 21 fa ff ff       	call   2400 <__stack_chk_fail@plt>
+    29df:	c9                   	leave  
+    29e0:	c3                   	ret    
+
+00000000000029e1 <sgx_ra_get_msg3_trusted>:
+
+sgx_status_t sgx_ra_get_msg3_trusted(sgx_enclave_id_t eid, sgx_status_t* retval, sgx_ra_context_t context, uint32_t quote_size, sgx_report_t* qe_report, sgx_ra_msg3_t* p_msg3, uint32_t msg3_size)
+{
+    29e1:	f3 0f 1e fa          	endbr64 
+    29e5:	55                   	push   %rbp
+    29e6:	48 89 e5             	mov    %rsp,%rbp
+    29e9:	48 83 ec 70          	sub    $0x70,%rsp
+    29ed:	48 89 7d b8          	mov    %rdi,-0x48(%rbp)
+    29f1:	48 89 75 b0          	mov    %rsi,-0x50(%rbp)
+    29f5:	89 55 ac             	mov    %edx,-0x54(%rbp)
+    29f8:	89 4d a8             	mov    %ecx,-0x58(%rbp)
+    29fb:	4c 89 45 a0          	mov    %r8,-0x60(%rbp)
+    29ff:	4c 89 4d 98          	mov    %r9,-0x68(%rbp)
+    2a03:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    2a0a:	00 00 
+    2a0c:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    2a10:	31 c0                	xor    %eax,%eax
+	sgx_status_t status;
+	ms_sgx_ra_get_msg3_trusted_t ms;
+	ms.ms_context = context;
+    2a12:	8b 45 ac             	mov    -0x54(%rbp),%eax
+    2a15:	89 45 d4             	mov    %eax,-0x2c(%rbp)
+	ms.ms_quote_size = quote_size;
+    2a18:	8b 45 a8             	mov    -0x58(%rbp),%eax
+    2a1b:	89 45 d8             	mov    %eax,-0x28(%rbp)
+	ms.ms_qe_report = qe_report;
+    2a1e:	48 8b 45 a0          	mov    -0x60(%rbp),%rax
+    2a22:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
+	ms.ms_p_msg3 = p_msg3;
+    2a26:	48 8b 45 98          	mov    -0x68(%rbp),%rax
+    2a2a:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+	ms.ms_msg3_size = msg3_size;
+    2a2e:	8b 45 10             	mov    0x10(%rbp),%eax
+    2a31:	89 45 f0             	mov    %eax,-0x10(%rbp)
+	status = sgx_ecall(eid, 6, &ocall_table_isv_enclave, &ms);
+    2a34:	48 8d 55 d0          	lea    -0x30(%rbp),%rdx
+    2a38:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+    2a3c:	48 89 d1             	mov    %rdx,%rcx
+    2a3f:	48 8d 15 ca 35 00 00 	lea    0x35ca(%rip),%rdx        # 6010 <ocall_table_isv_enclave>
+    2a46:	be 06 00 00 00       	mov    $0x6,%esi
+    2a4b:	48 89 c7             	mov    %rax,%rdi
+    2a4e:	e8 fd f8 ff ff       	call   2350 <sgx_ecall@plt>
+    2a53:	89 45 cc             	mov    %eax,-0x34(%rbp)
+	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
+    2a56:	83 7d cc 00          	cmpl   $0x0,-0x34(%rbp)
+    2a5a:	75 10                	jne    2a6c <sgx_ra_get_msg3_trusted+0x8b>
+    2a5c:	48 83 7d b0 00       	cmpq   $0x0,-0x50(%rbp)
+    2a61:	74 09                	je     2a6c <sgx_ra_get_msg3_trusted+0x8b>
+    2a63:	8b 55 d0             	mov    -0x30(%rbp),%edx
+    2a66:	48 8b 45 b0          	mov    -0x50(%rbp),%rax
+    2a6a:	89 10                	mov    %edx,(%rax)
+	return status;
+    2a6c:	8b 45 cc             	mov    -0x34(%rbp),%eax
+}
+    2a6f:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
+    2a73:	64 48 33 0c 25 28 00 	xor    %fs:0x28,%rcx
+    2a7a:	00 00 
+    2a7c:	74 05                	je     2a83 <sgx_ra_get_msg3_trusted+0xa2>
+    2a7e:	e8 7d f9 ff ff       	call   2400 <__stack_chk_fail@plt>
+    2a83:	c9                   	leave  
+    2a84:	c3                   	ret    
+
+0000000000002a85 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj>:
+
+// Some utility functions to output some of the data structures passed between
+// the ISV app and the remote attestation service provider.
+void PRINT_BYTE_ARRAY(
+    FILE *file, void *mem, uint32_t len)
+{
+    2a85:	f3 0f 1e fa          	endbr64 
+    2a89:	55                   	push   %rbp
+    2a8a:	48 89 e5             	mov    %rsp,%rbp
+    2a8d:	48 83 ec 30          	sub    $0x30,%rsp
+    2a91:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+    2a95:	48 89 75 e0          	mov    %rsi,-0x20(%rbp)
+    2a99:	89 55 dc             	mov    %edx,-0x24(%rbp)
+    if(!mem || !len)
+    2a9c:	48 83 7d e0 00       	cmpq   $0x0,-0x20(%rbp)
+    2aa1:	74 06                	je     2aa9 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj+0x24>
+    2aa3:	83 7d dc 00          	cmpl   $0x0,-0x24(%rbp)
+    2aa7:	75 22                	jne    2acb <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj+0x46>
+    {
+        fprintf(file, "\n( null )\n");
+    2aa9:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2aad:	48 89 c1             	mov    %rax,%rcx
+    2ab0:	ba 0a 00 00 00       	mov    $0xa,%edx
+    2ab5:	be 01 00 00 00       	mov    $0x1,%esi
+    2aba:	48 8d 3d 61 35 00 00 	lea    0x3561(%rip),%rdi        # 6022 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x2>
+    2ac1:	e8 4a fa ff ff       	call   2510 <fwrite@plt>
+        return;
+    2ac6:	e9 cb 00 00 00       	jmp    2b96 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj+0x111>
+    }
+    uint8_t *array = (uint8_t *)mem;
+    2acb:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    2acf:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    fprintf(file, "%u bytes:\n{\n", len);
+    2ad3:	8b 55 dc             	mov    -0x24(%rbp),%edx
+    2ad6:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2ada:	48 8d 35 4c 35 00 00 	lea    0x354c(%rip),%rsi        # 602d <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xd>
+    2ae1:	48 89 c7             	mov    %rax,%rdi
+    2ae4:	b8 00 00 00 00       	mov    $0x0,%eax
+    2ae9:	e8 92 f9 ff ff       	call   2480 <fprintf@plt>
+    uint32_t i = 0;
+    2aee:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
+    for(i = 0; i < len - 1; i++)
+    2af5:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
+    2afc:	8b 45 dc             	mov    -0x24(%rbp),%eax
+    2aff:	83 e8 01             	sub    $0x1,%eax
+    2b02:	39 45 f4             	cmp    %eax,-0xc(%rbp)
+    2b05:	73 4a                	jae    2b51 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj+0xcc>
+    {
+        fprintf(file, "0x%x, ", array[i]);
+    2b07:	8b 55 f4             	mov    -0xc(%rbp),%edx
+    2b0a:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2b0e:	48 01 d0             	add    %rdx,%rax
+    2b11:	0f b6 00             	movzbl (%rax),%eax
+    2b14:	0f b6 d0             	movzbl %al,%edx
+    2b17:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2b1b:	48 8d 35 18 35 00 00 	lea    0x3518(%rip),%rsi        # 603a <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x1a>
+    2b22:	48 89 c7             	mov    %rax,%rdi
+    2b25:	b8 00 00 00 00       	mov    $0x0,%eax
+    2b2a:	e8 51 f9 ff ff       	call   2480 <fprintf@plt>
+        if(i % 8 == 7) fprintf(file, "\n");
+    2b2f:	8b 45 f4             	mov    -0xc(%rbp),%eax
+    2b32:	83 e0 07             	and    $0x7,%eax
+    2b35:	83 f8 07             	cmp    $0x7,%eax
+    2b38:	75 11                	jne    2b4b <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj+0xc6>
+    2b3a:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2b3e:	48 89 c6             	mov    %rax,%rsi
+    2b41:	bf 0a 00 00 00       	mov    $0xa,%edi
+    2b46:	e8 e5 f8 ff ff       	call   2430 <fputc@plt>
+    for(i = 0; i < len - 1; i++)
+    2b4b:	83 45 f4 01          	addl   $0x1,-0xc(%rbp)
+    2b4f:	eb ab                	jmp    2afc <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj+0x77>
+    }
+    fprintf(file, "0x%x ", array[i]);
+    2b51:	8b 55 f4             	mov    -0xc(%rbp),%edx
+    2b54:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2b58:	48 01 d0             	add    %rdx,%rax
+    2b5b:	0f b6 00             	movzbl (%rax),%eax
+    2b5e:	0f b6 d0             	movzbl %al,%edx
+    2b61:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2b65:	48 8d 35 d5 34 00 00 	lea    0x34d5(%rip),%rsi        # 6041 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x21>
+    2b6c:	48 89 c7             	mov    %rax,%rdi
+    2b6f:	b8 00 00 00 00       	mov    $0x0,%eax
+    2b74:	e8 07 f9 ff ff       	call   2480 <fprintf@plt>
+    fprintf(file, "\n}\n");
+    2b79:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2b7d:	48 89 c1             	mov    %rax,%rcx
+    2b80:	ba 03 00 00 00       	mov    $0x3,%edx
+    2b85:	be 01 00 00 00       	mov    $0x1,%esi
+    2b8a:	48 8d 3d b6 34 00 00 	lea    0x34b6(%rip),%rdi        # 6047 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x27>
+    2b91:	e8 7a f9 ff ff       	call   2510 <fwrite@plt>
+}
+    2b96:	c9                   	leave  
+    2b97:	c3                   	ret    
+
+0000000000002b98 <_Z34PRINT_ATTESTATION_SERVICE_RESPONSEP8_IO_FILEP26_ra_samp_response_header_t>:
+
+
+void PRINT_ATTESTATION_SERVICE_RESPONSE(
+    FILE *file,
+    ra_samp_response_header_t *response)
+{
+    2b98:	f3 0f 1e fa          	endbr64 
+    2b9c:	55                   	push   %rbp
+    2b9d:	48 89 e5             	mov    %rsp,%rbp
+    2ba0:	48 83 ec 20          	sub    $0x20,%rsp
+    2ba4:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+    2ba8:	48 89 75 e0          	mov    %rsi,-0x20(%rbp)
+    if(!response)
+    2bac:	48 83 7d e0 00       	cmpq   $0x0,-0x20(%rbp)
+    2bb1:	75 22                	jne    2bd5 <_Z34PRINT_ATTESTATION_SERVICE_RESPONSEP8_IO_FILEP26_ra_samp_response_header_t+0x3d>
+    {
+        fprintf(file, "\t\n( null )\n");
+    2bb3:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2bb7:	48 89 c1             	mov    %rax,%rcx
+    2bba:	ba 0b 00 00 00       	mov    $0xb,%edx
+    2bbf:	be 01 00 00 00       	mov    $0x1,%esi
+    2bc4:	48 8d 3d 80 34 00 00 	lea    0x3480(%rip),%rdi        # 604b <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x2b>
+    2bcb:	e8 40 f9 ff ff       	call   2510 <fwrite@plt>
+        return;
+    2bd0:	e9 03 03 00 00       	jmp    2ed8 <_Z34PRINT_ATTESTATION_SERVICE_RESPONSEP8_IO_FILEP26_ra_samp_response_header_t+0x340>
+    }
+
+    fprintf(file, "RESPONSE TYPE:   0x%x\n", response->type);
+    2bd5:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    2bd9:	0f b6 00             	movzbl (%rax),%eax
+    2bdc:	0f b6 d0             	movzbl %al,%edx
+    2bdf:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2be3:	48 8d 35 6d 34 00 00 	lea    0x346d(%rip),%rsi        # 6057 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x37>
+    2bea:	48 89 c7             	mov    %rax,%rdi
+    2bed:	b8 00 00 00 00       	mov    $0x0,%eax
+    2bf2:	e8 89 f8 ff ff       	call   2480 <fprintf@plt>
+    fprintf(file, "RESPONSE STATUS: 0x%x 0x%x\n", response->status[0],
+            response->status[1]);
+    2bf7:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    2bfb:	0f b6 40 02          	movzbl 0x2(%rax),%eax
+    fprintf(file, "RESPONSE STATUS: 0x%x 0x%x\n", response->status[0],
+    2bff:	0f b6 c8             	movzbl %al,%ecx
+    2c02:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    2c06:	0f b6 40 01          	movzbl 0x1(%rax),%eax
+    2c0a:	0f b6 d0             	movzbl %al,%edx
+    2c0d:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2c11:	48 8d 35 56 34 00 00 	lea    0x3456(%rip),%rsi        # 606e <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x4e>
+    2c18:	48 89 c7             	mov    %rax,%rdi
+    2c1b:	b8 00 00 00 00       	mov    $0x0,%eax
+    2c20:	e8 5b f8 ff ff       	call   2480 <fprintf@plt>
+    fprintf(file, "RESPONSE BODY SIZE: %u\n", response->size);
+    2c25:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    2c29:	8b 50 03             	mov    0x3(%rax),%edx
+    2c2c:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2c30:	48 8d 35 53 34 00 00 	lea    0x3453(%rip),%rsi        # 608a <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x6a>
+    2c37:	48 89 c7             	mov    %rax,%rdi
+    2c3a:	b8 00 00 00 00       	mov    $0x0,%eax
+    2c3f:	e8 3c f8 ff ff       	call   2480 <fprintf@plt>
+
+    if(response->type == TYPE_RA_MSG2)
+    2c44:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    2c48:	0f b6 00             	movzbl (%rax),%eax
+    2c4b:	3c 02                	cmp    $0x2,%al
+    2c4d:	0f 85 7b 01 00 00    	jne    2dce <_Z34PRINT_ATTESTATION_SERVICE_RESPONSEP8_IO_FILEP26_ra_samp_response_header_t+0x236>
+    {
+        sgx_ra_msg2_t* p_msg2_body = (sgx_ra_msg2_t*)(response->body);
+    2c53:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    2c57:	48 83 c0 08          	add    $0x8,%rax
+    2c5b:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+
+        fprintf(file, "MSG2 gb - ");
+    2c5f:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2c63:	48 89 c1             	mov    %rax,%rcx
+    2c66:	ba 0a 00 00 00       	mov    $0xa,%edx
+    2c6b:	be 01 00 00 00       	mov    $0x1,%esi
+    2c70:	48 8d 3d 2b 34 00 00 	lea    0x342b(%rip),%rdi        # 60a2 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x82>
+    2c77:	e8 94 f8 ff ff       	call   2510 <fwrite@plt>
+        PRINT_BYTE_ARRAY(file, &(p_msg2_body->g_b), sizeof(p_msg2_body->g_b));
+    2c7c:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
+    2c80:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2c84:	ba 40 00 00 00       	mov    $0x40,%edx
+    2c89:	48 89 ce             	mov    %rcx,%rsi
+    2c8c:	48 89 c7             	mov    %rax,%rdi
+    2c8f:	e8 f1 fd ff ff       	call   2a85 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj>
+
+        fprintf(file, "MSG2 spid - ");
+    2c94:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2c98:	48 89 c1             	mov    %rax,%rcx
+    2c9b:	ba 0c 00 00 00       	mov    $0xc,%edx
+    2ca0:	be 01 00 00 00       	mov    $0x1,%esi
+    2ca5:	48 8d 3d 01 34 00 00 	lea    0x3401(%rip),%rdi        # 60ad <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x8d>
+    2cac:	e8 5f f8 ff ff       	call   2510 <fwrite@plt>
+        PRINT_BYTE_ARRAY(file, &(p_msg2_body->spid), sizeof(p_msg2_body->spid));
+    2cb1:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2cb5:	48 8d 48 40          	lea    0x40(%rax),%rcx
+    2cb9:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2cbd:	ba 10 00 00 00       	mov    $0x10,%edx
+    2cc2:	48 89 ce             	mov    %rcx,%rsi
+    2cc5:	48 89 c7             	mov    %rax,%rdi
+    2cc8:	e8 b8 fd ff ff       	call   2a85 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj>
+
+        fprintf(file, "MSG2 quote_type : %hx\n", p_msg2_body->quote_type);
+    2ccd:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2cd1:	0f b7 40 50          	movzwl 0x50(%rax),%eax
+    2cd5:	0f b7 d0             	movzwl %ax,%edx
+    2cd8:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2cdc:	48 8d 35 d7 33 00 00 	lea    0x33d7(%rip),%rsi        # 60ba <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x9a>
+    2ce3:	48 89 c7             	mov    %rax,%rdi
+    2ce6:	b8 00 00 00 00       	mov    $0x0,%eax
+    2ceb:	e8 90 f7 ff ff       	call   2480 <fprintf@plt>
+
+        fprintf(file, "MSG2 kdf_id : %hx\n", p_msg2_body->kdf_id);
+    2cf0:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2cf4:	0f b7 40 52          	movzwl 0x52(%rax),%eax
+    2cf8:	0f b7 d0             	movzwl %ax,%edx
+    2cfb:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2cff:	48 8d 35 cb 33 00 00 	lea    0x33cb(%rip),%rsi        # 60d1 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xb1>
+    2d06:	48 89 c7             	mov    %rax,%rdi
+    2d09:	b8 00 00 00 00       	mov    $0x0,%eax
+    2d0e:	e8 6d f7 ff ff       	call   2480 <fprintf@plt>
+
+        fprintf(file, "MSG2 sign_gb_ga - ");
+    2d13:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2d17:	48 89 c1             	mov    %rax,%rcx
+    2d1a:	ba 12 00 00 00       	mov    $0x12,%edx
+    2d1f:	be 01 00 00 00       	mov    $0x1,%esi
+    2d24:	48 8d 3d b9 33 00 00 	lea    0x33b9(%rip),%rdi        # 60e4 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xc4>
+    2d2b:	e8 e0 f7 ff ff       	call   2510 <fwrite@plt>
+        PRINT_BYTE_ARRAY(file, &(p_msg2_body->sign_gb_ga),
+    2d30:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2d34:	48 8d 48 54          	lea    0x54(%rax),%rcx
+    2d38:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2d3c:	ba 40 00 00 00       	mov    $0x40,%edx
+    2d41:	48 89 ce             	mov    %rcx,%rsi
+    2d44:	48 89 c7             	mov    %rax,%rdi
+    2d47:	e8 39 fd ff ff       	call   2a85 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj>
+                         sizeof(p_msg2_body->sign_gb_ga));
+
+        fprintf(file, "MSG2 mac - ");
+    2d4c:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2d50:	48 89 c1             	mov    %rax,%rcx
+    2d53:	ba 0b 00 00 00       	mov    $0xb,%edx
+    2d58:	be 01 00 00 00       	mov    $0x1,%esi
+    2d5d:	48 8d 3d 93 33 00 00 	lea    0x3393(%rip),%rdi        # 60f7 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xd7>
+    2d64:	e8 a7 f7 ff ff       	call   2510 <fwrite@plt>
+        PRINT_BYTE_ARRAY(file, &(p_msg2_body->mac), sizeof(p_msg2_body->mac));
+    2d69:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2d6d:	48 8d 88 94 00 00 00 	lea    0x94(%rax),%rcx
+    2d74:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2d78:	ba 10 00 00 00       	mov    $0x10,%edx
+    2d7d:	48 89 ce             	mov    %rcx,%rsi
+    2d80:	48 89 c7             	mov    %rax,%rdi
+    2d83:	e8 fd fc ff ff       	call   2a85 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj>
+
+        fprintf(file, "MSG2 sig_rl - ");
+    2d88:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2d8c:	48 89 c1             	mov    %rax,%rcx
+    2d8f:	ba 0e 00 00 00       	mov    $0xe,%edx
+    2d94:	be 01 00 00 00       	mov    $0x1,%esi
+    2d99:	48 8d 3d 63 33 00 00 	lea    0x3363(%rip),%rdi        # 6103 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xe3>
+    2da0:	e8 6b f7 ff ff       	call   2510 <fwrite@plt>
+        PRINT_BYTE_ARRAY(file, &(p_msg2_body->sig_rl),
+    2da5:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2da9:	8b 90 a4 00 00 00    	mov    0xa4(%rax),%edx
+    2daf:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    2db3:	48 8d 88 a8 00 00 00 	lea    0xa8(%rax),%rcx
+    2dba:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2dbe:	48 89 ce             	mov    %rcx,%rsi
+    2dc1:	48 89 c7             	mov    %rax,%rdi
+    2dc4:	e8 bc fc ff ff       	call   2a85 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj>
+    2dc9:	e9 0a 01 00 00       	jmp    2ed8 <_Z34PRINT_ATTESTATION_SERVICE_RESPONSEP8_IO_FILEP26_ra_samp_response_header_t+0x340>
+                         p_msg2_body->sig_rl_size);
+    }
+    else if(response->type == TYPE_RA_ATT_RESULT)
+    2dce:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    2dd2:	0f b6 00             	movzbl (%rax),%eax
+    2dd5:	3c 04                	cmp    $0x4,%al
+    2dd7:	0f 85 d9 00 00 00    	jne    2eb6 <_Z34PRINT_ATTESTATION_SERVICE_RESPONSEP8_IO_FILEP26_ra_samp_response_header_t+0x31e>
+    {
+        sample_ra_att_result_msg_t *p_att_result =
+    2ddd:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    2de1:	48 83 c0 08          	add    $0x8,%rax
+    2de5:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
+            (sample_ra_att_result_msg_t *)(response->body);
+        fprintf(file, "ATTESTATION RESULT MSG platform_info_blob - ");
+    2de9:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2ded:	48 89 c1             	mov    %rax,%rcx
+    2df0:	ba 2c 00 00 00       	mov    $0x2c,%edx
+    2df5:	be 01 00 00 00       	mov    $0x1,%esi
+    2dfa:	48 8d 3d 17 33 00 00 	lea    0x3317(%rip),%rdi        # 6118 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xf8>
+    2e01:	e8 0a f7 ff ff       	call   2510 <fwrite@plt>
+        PRINT_BYTE_ARRAY(file, &(p_att_result->platform_info_blob),
+    2e06:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
+    2e0a:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2e0e:	ba 61 00 00 00       	mov    $0x61,%edx
+    2e13:	48 89 ce             	mov    %rcx,%rsi
+    2e16:	48 89 c7             	mov    %rax,%rdi
+    2e19:	e8 67 fc ff ff       	call   2a85 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj>
+                         sizeof(p_att_result->platform_info_blob));
+
+        fprintf(file, "ATTESTATION RESULT MSG mac - ");
+    2e1e:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2e22:	48 89 c1             	mov    %rax,%rcx
+    2e25:	ba 1d 00 00 00       	mov    $0x1d,%edx
+    2e2a:	be 01 00 00 00       	mov    $0x1,%esi
+    2e2f:	48 8d 3d 0f 33 00 00 	lea    0x330f(%rip),%rdi        # 6145 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x125>
+    2e36:	e8 d5 f6 ff ff       	call   2510 <fwrite@plt>
+        PRINT_BYTE_ARRAY(file, &(p_att_result->mac), sizeof(p_att_result->mac));
+    2e3b:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+    2e3f:	48 8d 48 61          	lea    0x61(%rax),%rcx
+    2e43:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2e47:	ba 10 00 00 00       	mov    $0x10,%edx
+    2e4c:	48 89 ce             	mov    %rcx,%rsi
+    2e4f:	48 89 c7             	mov    %rax,%rdi
+    2e52:	e8 2e fc ff ff       	call   2a85 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj>
+
+        fprintf(file, "ATTESTATION RESULT MSG secret.payload_tag - %u bytes\n",
+    2e57:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+    2e5b:	8b 50 71             	mov    0x71(%rax),%edx
+    2e5e:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2e62:	48 8d 35 ff 32 00 00 	lea    0x32ff(%rip),%rsi        # 6168 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x148>
+    2e69:	48 89 c7             	mov    %rax,%rdi
+    2e6c:	b8 00 00 00 00       	mov    $0x0,%eax
+    2e71:	e8 0a f6 ff ff       	call   2480 <fprintf@plt>
+                p_att_result->secret.payload_size);
+
+        fprintf(file, "ATTESTATION RESULT MSG secret.payload - ");
+    2e76:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2e7a:	48 89 c1             	mov    %rax,%rcx
+    2e7d:	ba 28 00 00 00       	mov    $0x28,%edx
+    2e82:	be 01 00 00 00       	mov    $0x1,%esi
+    2e87:	48 8d 3d 12 33 00 00 	lea    0x3312(%rip),%rdi        # 61a0 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x180>
+    2e8e:	e8 7d f6 ff ff       	call   2510 <fwrite@plt>
+        PRINT_BYTE_ARRAY(file, p_att_result->secret.payload,
+    2e93:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+    2e97:	8b 50 71             	mov    0x71(%rax),%edx
+    2e9a:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+    2e9e:	48 8d 88 91 00 00 00 	lea    0x91(%rax),%rcx
+    2ea5:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2ea9:	48 89 ce             	mov    %rcx,%rsi
+    2eac:	48 89 c7             	mov    %rax,%rdi
+    2eaf:	e8 d1 fb ff ff       	call   2a85 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj>
+    2eb4:	eb 22                	jmp    2ed8 <_Z34PRINT_ATTESTATION_SERVICE_RESPONSEP8_IO_FILEP26_ra_samp_response_header_t+0x340>
+                p_att_result->secret.payload_size);
+    }
+    else
+    {
+        fprintf(file, "\nERROR in printing out the response. "
+                       "Response of type not supported %d\n", response->type);
+    2eb6:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+    2eba:	0f b6 00             	movzbl (%rax),%eax
+        fprintf(file, "\nERROR in printing out the response. "
+    2ebd:	0f b6 d0             	movzbl %al,%edx
+    2ec0:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    2ec4:	48 8d 35 05 33 00 00 	lea    0x3305(%rip),%rsi        # 61d0 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x1b0>
+    2ecb:	48 89 c7             	mov    %rax,%rdi
+    2ece:	b8 00 00 00 00       	mov    $0x0,%eax
+    2ed3:	e8 a8 f5 ff ff       	call   2480 <fprintf@plt>
+    }
+}
+    2ed8:	c9                   	leave  
+    2ed9:	c3                   	ret    
+
+0000000000002eda <main>:
+// attestation. Since the enclave can be lost due S3 transitions, apps
+// susceptible to S3 transitions should have logic to restart attestation in
+// these scenarios.
+#define _T(x) x
+int main(int argc, char* argv[])
+{
+    2eda:	f3 0f 1e fa          	endbr64 
+    2ede:	55                   	push   %rbp
+    2edf:	48 89 e5             	mov    %rsp,%rbp
+    2ee2:	48 81 ec c0 01 00 00 	sub    $0x1c0,%rsp
+    2ee9:	89 bd 4c fe ff ff    	mov    %edi,-0x1b4(%rbp)
+    2eef:	48 89 b5 40 fe ff ff 	mov    %rsi,-0x1c0(%rbp)
+    2ef6:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    2efd:	00 00 
+    2eff:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    2f03:	31 c0                	xor    %eax,%eax
+    int ret = 0;
+    2f05:	c7 85 64 fe ff ff 00 	movl   $0x0,-0x19c(%rbp)
+    2f0c:	00 00 00 
+    ra_samp_request_header_t *p_msg0_full = NULL;
+    2f0f:	48 c7 85 b8 fe ff ff 	movq   $0x0,-0x148(%rbp)
+    2f16:	00 00 00 00 
+    ra_samp_response_header_t *p_msg0_resp_full = NULL;
+    2f1a:	48 c7 85 80 fe ff ff 	movq   $0x0,-0x180(%rbp)
+    2f21:	00 00 00 00 
+    ra_samp_request_header_t *p_msg1_full = NULL;
+    2f25:	48 c7 85 a8 fe ff ff 	movq   $0x0,-0x158(%rbp)
+    2f2c:	00 00 00 00 
+    ra_samp_response_header_t *p_msg2_full = NULL;
+    2f30:	48 c7 85 88 fe ff ff 	movq   $0x0,-0x178(%rbp)
+    2f37:	00 00 00 00 
+    sgx_ra_msg3_t *p_msg3 = NULL;
+    2f3b:	48 c7 85 90 fe ff ff 	movq   $0x0,-0x170(%rbp)
+    2f42:	00 00 00 00 
+    ra_samp_response_header_t* p_att_result_msg_full = NULL;
+    2f46:	48 c7 85 98 fe ff ff 	movq   $0x0,-0x168(%rbp)
+    2f4d:	00 00 00 00 
+    sgx_enclave_id_t enclave_id = 0;
+    2f51:	48 c7 85 a0 fe ff ff 	movq   $0x0,-0x160(%rbp)
+    2f58:	00 00 00 00 
+    int enclave_lost_retry_time = 1;
+    2f5c:	c7 85 68 fe ff ff 01 	movl   $0x1,-0x198(%rbp)
+    2f63:	00 00 00 
+    int busy_retry_time = 4;
+    2f66:	c7 85 6c fe ff ff 04 	movl   $0x4,-0x194(%rbp)
+    2f6d:	00 00 00 
+    sgx_ra_context_t context = INT_MAX;
+    2f70:	c7 85 58 fe ff ff ff 	movl   $0x7fffffff,-0x1a8(%rbp)
+    2f77:	ff ff 7f 
+    sgx_status_t status = SGX_SUCCESS;
+    2f7a:	c7 85 5c fe ff ff 00 	movl   $0x0,-0x1a4(%rbp)
+    2f81:	00 00 00 
+    ra_samp_request_header_t* p_msg3_full = NULL;
+    2f84:	48 c7 85 b0 fe ff ff 	movq   $0x0,-0x150(%rbp)
+    2f8b:	00 00 00 00 
+    sgx_att_key_id_t selected_key_id = {0};
+    2f8f:	48 c7 85 f0 fe ff ff 	movq   $0x0,-0x110(%rbp)
+    2f96:	00 00 00 00 
+    2f9a:	48 c7 85 f8 fe ff ff 	movq   $0x0,-0x108(%rbp)
+    2fa1:	00 00 00 00 
+    2fa5:	48 c7 85 00 ff ff ff 	movq   $0x0,-0x100(%rbp)
+    2fac:	00 00 00 00 
+    2fb0:	48 c7 85 08 ff ff ff 	movq   $0x0,-0xf8(%rbp)
+    2fb7:	00 00 00 00 
+    2fbb:	48 c7 85 10 ff ff ff 	movq   $0x0,-0xf0(%rbp)
+    2fc2:	00 00 00 00 
+    2fc6:	48 c7 85 18 ff ff ff 	movq   $0x0,-0xe8(%rbp)
+    2fcd:	00 00 00 00 
+    2fd1:	48 c7 85 20 ff ff ff 	movq   $0x0,-0xe0(%rbp)
+    2fd8:	00 00 00 00 
+    2fdc:	48 c7 85 28 ff ff ff 	movq   $0x0,-0xd8(%rbp)
+    2fe3:	00 00 00 00 
+    2fe7:	48 c7 85 30 ff ff ff 	movq   $0x0,-0xd0(%rbp)
+    2fee:	00 00 00 00 
+    2ff2:	48 c7 85 38 ff ff ff 	movq   $0x0,-0xc8(%rbp)
+    2ff9:	00 00 00 00 
+    2ffd:	48 c7 85 40 ff ff ff 	movq   $0x0,-0xc0(%rbp)
+    3004:	00 00 00 00 
+    3008:	48 c7 85 48 ff ff ff 	movq   $0x0,-0xb8(%rbp)
+    300f:	00 00 00 00 
+    3013:	48 c7 85 50 ff ff ff 	movq   $0x0,-0xb0(%rbp)
+    301a:	00 00 00 00 
+    301e:	48 c7 85 58 ff ff ff 	movq   $0x0,-0xa8(%rbp)
+    3025:	00 00 00 00 
+    3029:	48 c7 85 60 ff ff ff 	movq   $0x0,-0xa0(%rbp)
+    3030:	00 00 00 00 
+    3034:	48 c7 85 68 ff ff ff 	movq   $0x0,-0x98(%rbp)
+    303b:	00 00 00 00 
+    303f:	48 c7 85 70 ff ff ff 	movq   $0x0,-0x90(%rbp)
+    3046:	00 00 00 00 
+    304a:	48 c7 85 78 ff ff ff 	movq   $0x0,-0x88(%rbp)
+    3051:	00 00 00 00 
+    3055:	48 c7 45 80 00 00 00 	movq   $0x0,-0x80(%rbp)
+    305c:	00 
+    305d:	48 c7 45 88 00 00 00 	movq   $0x0,-0x78(%rbp)
+    3064:	00 
+    3065:	48 c7 45 90 00 00 00 	movq   $0x0,-0x70(%rbp)
+    306c:	00 
+    306d:	48 c7 45 98 00 00 00 	movq   $0x0,-0x68(%rbp)
+    3074:	00 
+    3075:	48 c7 45 a0 00 00 00 	movq   $0x0,-0x60(%rbp)
+    307c:	00 
+    307d:	48 c7 45 a8 00 00 00 	movq   $0x0,-0x58(%rbp)
+    3084:	00 
+    3085:	48 c7 45 b0 00 00 00 	movq   $0x0,-0x50(%rbp)
+    308c:	00 
+    308d:	48 c7 45 b8 00 00 00 	movq   $0x0,-0x48(%rbp)
+    3094:	00 
+    3095:	48 c7 45 c0 00 00 00 	movq   $0x0,-0x40(%rbp)
+    309c:	00 
+    309d:	48 c7 45 c8 00 00 00 	movq   $0x0,-0x38(%rbp)
+    30a4:	00 
+    30a5:	48 c7 45 d0 00 00 00 	movq   $0x0,-0x30(%rbp)
+    30ac:	00 
+    30ad:	48 c7 45 d8 00 00 00 	movq   $0x0,-0x28(%rbp)
+    30b4:	00 
+    30b5:	48 c7 45 e0 00 00 00 	movq   $0x0,-0x20(%rbp)
+    30bc:	00 
+    30bd:	48 c7 45 e8 00 00 00 	movq   $0x0,-0x18(%rbp)
+    30c4:	00 
+
+    int32_t verify_index = -1;
+    30c5:	c7 85 70 fe ff ff ff 	movl   $0xffffffff,-0x190(%rbp)
+    30cc:	ff ff ff 
+    int32_t verification_samples = sizeof(msg1_samples)/sizeof(msg1_samples[0]);
+    30cf:	c7 85 78 fe ff ff 02 	movl   $0x2,-0x188(%rbp)
+    30d6:	00 00 00 
+
+    FILE* OUTPUT = stdout;
+    30d9:	48 8b 05 f0 5e 00 00 	mov    0x5ef0(%rip),%rax        # 8fd0 <stdout@GLIBC_2.2.5>
+    30e0:	48 8b 00             	mov    (%rax),%rax
+    30e3:	48 89 85 c0 fe ff ff 	mov    %rax,-0x140(%rbp)
+
+#define VERIFICATION_INDEX_IS_VALID() (verify_index > 0 && \
+                                       verify_index <= verification_samples)
+#define GET_VERIFICATION_ARRAY_INDEX() (verify_index-1)
+
+    if(argc > 1)
+    30ea:	83 bd 4c fe ff ff 01 	cmpl   $0x1,-0x1b4(%rbp)
+    30f1:	0f 8e 04 01 00 00    	jle    31fb <main+0x321>
+    {
+
+        verify_index = atoi(argv[1]);
+    30f7:	48 8b 85 40 fe ff ff 	mov    -0x1c0(%rbp),%rax
+    30fe:	48 83 c0 08          	add    $0x8,%rax
+    3102:	48 8b 00             	mov    (%rax),%rax
+    3105:	48 89 c7             	mov    %rax,%rdi
+    3108:	e8 c3 f3 ff ff       	call   24d0 <atoi@plt>
+    310d:	89 85 70 fe ff ff    	mov    %eax,-0x190(%rbp)
+
+        if( VERIFICATION_INDEX_IS_VALID())
+    3113:	83 bd 70 fe ff ff 00 	cmpl   $0x0,-0x190(%rbp)
+    311a:	7e 34                	jle    3150 <main+0x276>
+    311c:	8b 85 70 fe ff ff    	mov    -0x190(%rbp),%eax
+    3122:	3b 85 78 fe ff ff    	cmp    -0x188(%rbp),%eax
+    3128:	7f 26                	jg     3150 <main+0x276>
+        {
+            fprintf(OUTPUT, "\nVerifying precomputed attestation messages "
+    312a:	8b 95 70 fe ff ff    	mov    -0x190(%rbp),%edx
+    3130:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3137:	48 8d 35 da 30 00 00 	lea    0x30da(%rip),%rsi        # 6218 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x1f8>
+    313e:	48 89 c7             	mov    %rax,%rdi
+    3141:	b8 00 00 00 00       	mov    $0x0,%eax
+    3146:	e8 35 f3 ff ff       	call   2480 <fprintf@plt>
+    314b:	e9 ab 00 00 00       	jmp    31fb <main+0x321>
+                            "using precomputed values# %d\n", verify_index);
+        }
+        else
+        {
+            fprintf(OUTPUT, "\nValid invocations are:\n");
+    3150:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3157:	48 89 c1             	mov    %rax,%rcx
+    315a:	ba 18 00 00 00       	mov    $0x18,%edx
+    315f:	be 01 00 00 00       	mov    $0x1,%esi
+    3164:	48 8d 3d f7 30 00 00 	lea    0x30f7(%rip),%rdi        # 6262 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x242>
+    316b:	e8 a0 f3 ff ff       	call   2510 <fwrite@plt>
+            fprintf(OUTPUT, "\n\tisv_app\n");
+    3170:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3177:	48 89 c1             	mov    %rax,%rcx
+    317a:	ba 0a 00 00 00       	mov    $0xa,%edx
+    317f:	be 01 00 00 00       	mov    $0x1,%esi
+    3184:	48 8d 3d f0 30 00 00 	lea    0x30f0(%rip),%rdi        # 627b <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x25b>
+    318b:	e8 80 f3 ff ff       	call   2510 <fwrite@plt>
+            fprintf(OUTPUT, "\n\tisv_app <verification index>\n");
+    3190:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3197:	48 89 c1             	mov    %rax,%rcx
+    319a:	ba 1f 00 00 00       	mov    $0x1f,%edx
+    319f:	be 01 00 00 00       	mov    $0x1,%esi
+    31a4:	48 8d 3d dd 30 00 00 	lea    0x30dd(%rip),%rdi        # 6288 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x268>
+    31ab:	e8 60 f3 ff ff       	call   2510 <fwrite@plt>
+            fprintf(OUTPUT, "\nValid indices are [1 - %d]\n",
+    31b0:	8b 95 78 fe ff ff    	mov    -0x188(%rbp),%edx
+    31b6:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    31bd:	48 8d 35 e4 30 00 00 	lea    0x30e4(%rip),%rsi        # 62a8 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x288>
+    31c4:	48 89 c7             	mov    %rax,%rdi
+    31c7:	b8 00 00 00 00       	mov    $0x0,%eax
+    31cc:	e8 af f2 ff ff       	call   2480 <fprintf@plt>
+                    verification_samples);
+            fprintf(OUTPUT, "\nUsing a verification index uses precomputed "
+    31d1:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    31d8:	48 89 c1             	mov    %rax,%rcx
+    31db:	ba 73 00 00 00       	mov    $0x73,%edx
+    31e0:	be 01 00 00 00       	mov    $0x1,%esi
+    31e5:	48 8d 3d dc 30 00 00 	lea    0x30dc(%rip),%rdi        # 62c8 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x2a8>
+    31ec:	e8 1f f3 ff ff       	call   2510 <fwrite@plt>
+                    "messages to assist debugging the remote attestation "
+                    "service provider.\n");
+            return -1;
+    31f1:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+    31f6:	e9 98 12 00 00       	jmp    4493 <main+0x15b9>
+        }
+    }
+
+    int i = 2; // We will do it twice, the first time is ECDSA quoting, the second one is EPID quoting
+    31fb:	c7 85 74 fe ff ff 02 	movl   $0x2,-0x18c(%rbp)
+    3202:	00 00 00 
+    do
+    {
+        if (i == 2)
+    3205:	83 bd 74 fe ff ff 02 	cmpl   $0x2,-0x18c(%rbp)
+    320c:	75 22                	jne    3230 <main+0x356>
+        {
+            fprintf(OUTPUT, "\nFirst round, we will try ECDSA algorithm.\n");
+    320e:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3215:	48 89 c1             	mov    %rax,%rcx
+    3218:	ba 2b 00 00 00       	mov    $0x2b,%edx
+    321d:	be 01 00 00 00       	mov    $0x1,%esi
+    3222:	48 8d 3d 17 31 00 00 	lea    0x3117(%rip),%rdi        # 6340 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x320>
+    3229:	e8 e2 f2 ff ff       	call   2510 <fwrite@plt>
+    322e:	eb 20                	jmp    3250 <main+0x376>
+        }
+        else
+        {
+            fprintf(OUTPUT, "\nSecond round, we will try EPID algorithm.\n");
+    3230:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3237:	48 89 c1             	mov    %rax,%rcx
+    323a:	ba 2b 00 00 00       	mov    $0x2b,%edx
+    323f:	be 01 00 00 00       	mov    $0x1,%esi
+    3244:	48 8d 3d 25 31 00 00 	lea    0x3125(%rip),%rdi        # 6370 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x350>
+    324b:	e8 c0 f2 ff ff       	call   2510 <fwrite@plt>
+        }
+        // Preparation for remote attestation by configuring extended epid group id.
+        {
+            uint32_t extended_epid_group_id = 0;
+    3250:	c7 85 60 fe ff ff 00 	movl   $0x0,-0x1a0(%rbp)
+    3257:	00 00 00 
+            ret = sgx_get_extended_epid_group_id(&extended_epid_group_id);
+    325a:	48 8d 85 60 fe ff ff 	lea    -0x1a0(%rbp),%rax
+    3261:	48 89 c7             	mov    %rax,%rdi
+    3264:	e8 97 f2 ff ff       	call   2500 <sgx_get_extended_epid_group_id@plt>
+    3269:	89 85 64 fe ff ff    	mov    %eax,-0x19c(%rbp)
+            if (SGX_SUCCESS != ret)
+    326f:	83 bd 64 fe ff ff 00 	cmpl   $0x0,-0x19c(%rbp)
+    3276:	74 37                	je     32af <main+0x3d5>
+            {
+                ret = -1;
+    3278:	c7 85 64 fe ff ff ff 	movl   $0xffffffff,-0x19c(%rbp)
+    327f:	ff ff ff 
+                fprintf(OUTPUT, "\nError, call sgx_get_extended_epid_group_id fail [%s].",
+    3282:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3289:	48 8d 15 0c 31 00 00 	lea    0x310c(%rip),%rdx        # 639c <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x37c>
+    3290:	48 8d 35 11 31 00 00 	lea    0x3111(%rip),%rsi        # 63a8 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x388>
+    3297:	48 89 c7             	mov    %rax,%rdi
+    329a:	b8 00 00 00 00       	mov    $0x0,%eax
+    329f:	e8 dc f1 ff ff       	call   2480 <fprintf@plt>
+                    __FUNCTION__);
+                return ret;
+    32a4:	8b 85 64 fe ff ff    	mov    -0x19c(%rbp),%eax
+    32aa:	e9 e4 11 00 00       	jmp    4493 <main+0x15b9>
+            }
+            fprintf(OUTPUT, "\nCall sgx_get_extended_epid_group_id success.");
+    32af:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    32b6:	48 89 c1             	mov    %rax,%rcx
+    32b9:	ba 2d 00 00 00       	mov    $0x2d,%edx
+    32be:	be 01 00 00 00       	mov    $0x1,%esi
+    32c3:	48 8d 3d 16 31 00 00 	lea    0x3116(%rip),%rdi        # 63e0 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x3c0>
+    32ca:	e8 41 f2 ff ff       	call   2510 <fwrite@plt>
+
+            p_msg0_full = (ra_samp_request_header_t*)
+                malloc(sizeof(ra_samp_request_header_t)
+    32cf:	bf 0c 00 00 00       	mov    $0xc,%edi
+    32d4:	e8 67 f1 ff ff       	call   2440 <malloc@plt>
+    32d9:	48 89 85 b8 fe ff ff 	mov    %rax,-0x148(%rbp)
+                +sizeof(uint32_t));
+            if (NULL == p_msg0_full)
+    32e0:	48 83 bd b8 fe ff ff 	cmpq   $0x0,-0x148(%rbp)
+    32e7:	00 
+    32e8:	75 0f                	jne    32f9 <main+0x41f>
+            {
+                ret = -1;
+    32ea:	c7 85 64 fe ff ff ff 	movl   $0xffffffff,-0x19c(%rbp)
+    32f1:	ff ff ff 
+                goto CLEANUP;
+    32f4:	e9 cb 0f 00 00       	jmp    42c4 <main+0x13ea>
+            }
+            p_msg0_full->type = TYPE_RA_MSG0;
+    32f9:	48 8b 85 b8 fe ff ff 	mov    -0x148(%rbp),%rax
+    3300:	c6 00 00             	movb   $0x0,(%rax)
+            p_msg0_full->size = sizeof(uint32_t);
+    3303:	48 8b 85 b8 fe ff ff 	mov    -0x148(%rbp),%rax
+    330a:	c7 40 01 04 00 00 00 	movl   $0x4,0x1(%rax)
+
+            *(uint32_t*)((uint8_t*)p_msg0_full + sizeof(ra_samp_request_header_t)) = extended_epid_group_id;
+    3311:	48 8b 85 b8 fe ff ff 	mov    -0x148(%rbp),%rax
+    3318:	48 8d 50 08          	lea    0x8(%rax),%rdx
+    331c:	8b 85 60 fe ff ff    	mov    -0x1a0(%rbp),%eax
+    3322:	89 02                	mov    %eax,(%rdx)
+            {
+
+                fprintf(OUTPUT, "\nMSG0 body generated -\n");
+    3324:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    332b:	48 89 c1             	mov    %rax,%rcx
+    332e:	ba 17 00 00 00       	mov    $0x17,%edx
+    3333:	be 01 00 00 00       	mov    $0x1,%esi
+    3338:	48 8d 3d cf 30 00 00 	lea    0x30cf(%rip),%rdi        # 640e <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x3ee>
+    333f:	e8 cc f1 ff ff       	call   2510 <fwrite@plt>
+
+                PRINT_BYTE_ARRAY(OUTPUT, p_msg0_full->body, p_msg0_full->size);
+    3344:	48 8b 85 b8 fe ff ff 	mov    -0x148(%rbp),%rax
+    334b:	8b 50 01             	mov    0x1(%rax),%edx
+    334e:	48 8b 85 b8 fe ff ff 	mov    -0x148(%rbp),%rax
+    3355:	48 8d 48 08          	lea    0x8(%rax),%rcx
+    3359:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3360:	48 89 ce             	mov    %rcx,%rsi
+    3363:	48 89 c7             	mov    %rax,%rdi
+    3366:	e8 1a f7 ff ff       	call   2a85 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj>
+
+            }
+            // The ISV application sends msg0 to the SP.
+            // The ISV decides whether to support this extended epid group id.
+            fprintf(OUTPUT, "\nSending msg0 to remote attestation service provider.\n");
+    336b:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3372:	48 89 c1             	mov    %rax,%rcx
+    3375:	ba 36 00 00 00       	mov    $0x36,%edx
+    337a:	be 01 00 00 00       	mov    $0x1,%esi
+    337f:	48 8d 3d a2 30 00 00 	lea    0x30a2(%rip),%rdi        # 6428 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x408>
+    3386:	e8 85 f1 ff ff       	call   2510 <fwrite@plt>
+
+            ret = ra_network_send_receive("http://SampleServiceProvider.intel.com/",
+    338b:	48 8d 95 80 fe ff ff 	lea    -0x180(%rbp),%rdx
+    3392:	48 8b 85 b8 fe ff ff 	mov    -0x148(%rbp),%rax
+    3399:	48 89 c6             	mov    %rax,%rsi
+    339c:	48 8d 3d bd 30 00 00 	lea    0x30bd(%rip),%rdi        # 6460 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x440>
+    33a3:	e8 28 ef ff ff       	call   22d0 <ra_network_send_receive@plt>
+    33a8:	89 85 64 fe ff ff    	mov    %eax,-0x19c(%rbp)
+                p_msg0_full,
+                &p_msg0_resp_full);
+            if (ret != 0)
+    33ae:	83 bd 64 fe ff ff 00 	cmpl   $0x0,-0x19c(%rbp)
+    33b5:	74 27                	je     33de <main+0x504>
+            {
+                fprintf(OUTPUT, "\nError, ra_network_send_receive for msg0 failed "
+    33b7:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    33be:	48 8d 15 d7 2f 00 00 	lea    0x2fd7(%rip),%rdx        # 639c <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x37c>
+    33c5:	48 8d 35 bc 30 00 00 	lea    0x30bc(%rip),%rsi        # 6488 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x468>
+    33cc:	48 89 c7             	mov    %rax,%rdi
+    33cf:	b8 00 00 00 00       	mov    $0x0,%eax
+    33d4:	e8 a7 f0 ff ff       	call   2480 <fprintf@plt>
+                    "[%s].", __FUNCTION__);
+                goto CLEANUP;
+    33d9:	e9 e6 0e 00 00       	jmp    42c4 <main+0x13ea>
+            }
+            fprintf(OUTPUT, "\nSent MSG0 to remote attestation service.\n");
+    33de:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    33e5:	48 89 c1             	mov    %rax,%rcx
+    33e8:	ba 2a 00 00 00       	mov    $0x2a,%edx
+    33ed:	be 01 00 00 00       	mov    $0x1,%esi
+    33f2:	48 8d 3d c7 30 00 00 	lea    0x30c7(%rip),%rdi        # 64c0 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x4a0>
+    33f9:	e8 12 f1 ff ff       	call   2510 <fwrite@plt>
+
+            ret = sgx_select_att_key_id(p_msg0_resp_full->body, p_msg0_resp_full->size, &selected_key_id);
+    33fe:	48 8b 85 80 fe ff ff 	mov    -0x180(%rbp),%rax
+    3405:	8b 40 03             	mov    0x3(%rax),%eax
+    3408:	48 8b 95 80 fe ff ff 	mov    -0x180(%rbp),%rdx
+    340f:	48 8d 4a 08          	lea    0x8(%rdx),%rcx
+    3413:	48 8d 95 f0 fe ff ff 	lea    -0x110(%rbp),%rdx
+    341a:	89 c6                	mov    %eax,%esi
+    341c:	48 89 cf             	mov    %rcx,%rdi
+    341f:	e8 cc ee ff ff       	call   22f0 <sgx_select_att_key_id@plt>
+    3424:	89 85 64 fe ff ff    	mov    %eax,-0x19c(%rbp)
+            if(SGX_SUCCESS != ret)
+    342a:	83 bd 64 fe ff ff 00 	cmpl   $0x0,-0x19c(%rbp)
+    3431:	74 31                	je     3464 <main+0x58a>
+            {
+                ret = -1;
+    3433:	c7 85 64 fe ff ff ff 	movl   $0xffffffff,-0x19c(%rbp)
+    343a:	ff ff ff 
+                fprintf(OUTPUT, "\nInfo, call sgx_select_att_key_id fail, current platform configuration doesn't support this attestation key ID. [%s]",
+    343d:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3444:	48 8d 15 51 2f 00 00 	lea    0x2f51(%rip),%rdx        # 639c <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x37c>
+    344b:	48 8d 35 9e 30 00 00 	lea    0x309e(%rip),%rsi        # 64f0 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x4d0>
+    3452:	48 89 c7             	mov    %rax,%rdi
+    3455:	b8 00 00 00 00       	mov    $0x0,%eax
+    345a:	e8 21 f0 ff ff       	call   2480 <fprintf@plt>
+                        __FUNCTION__);
+                goto CLEANUP;
+    345f:	e9 60 0e 00 00       	jmp    42c4 <main+0x13ea>
+            }
+            fprintf(OUTPUT, "\nCall sgx_select_att_key_id success.");
+    3464:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    346b:	48 89 c1             	mov    %rax,%rcx
+    346e:	ba 24 00 00 00       	mov    $0x24,%edx
+    3473:	be 01 00 00 00       	mov    $0x1,%esi
+    3478:	48 8d 3d e9 30 00 00 	lea    0x30e9(%rip),%rdi        # 6568 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x548>
+    347f:	e8 8c f0 ff ff       	call   2510 <fwrite@plt>
+        // communication with the server.
+        {
+            // ISV application creates the ISV enclave.
+            do
+            {
+                ret = sgx_create_enclave(_T(ENCLAVE_PATH),
+    3484:	48 8d 85 a0 fe ff ff 	lea    -0x160(%rbp),%rax
+    348b:	41 b9 00 00 00 00    	mov    $0x0,%r9d
+    3491:	49 89 c0             	mov    %rax,%r8
+    3494:	b9 00 00 00 00       	mov    $0x0,%ecx
+    3499:	ba 00 00 00 00       	mov    $0x0,%edx
+    349e:	be 01 00 00 00       	mov    $0x1,%esi
+    34a3:	48 8d 3d e3 30 00 00 	lea    0x30e3(%rip),%rdi        # 658d <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x56d>
+    34aa:	e8 e1 ee ff ff       	call   2390 <sgx_create_enclave@plt>
+    34af:	89 85 64 fe ff ff    	mov    %eax,-0x19c(%rbp)
+                                         SGX_DEBUG_FLAG,
+                                         NULL,
+                                         NULL,
+                                         &enclave_id, NULL);
+                if(SGX_SUCCESS != ret)
+    34b5:	83 bd 64 fe ff ff 00 	cmpl   $0x0,-0x19c(%rbp)
+    34bc:	74 31                	je     34ef <main+0x615>
+                {
+                    ret = -1;
+    34be:	c7 85 64 fe ff ff ff 	movl   $0xffffffff,-0x19c(%rbp)
+    34c5:	ff ff ff 
+                    fprintf(OUTPUT, "\nError, call sgx_create_enclave fail [%s].",
+    34c8:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    34cf:	48 8d 15 c6 2e 00 00 	lea    0x2ec6(%rip),%rdx        # 639c <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x37c>
+    34d6:	48 8d 35 cb 30 00 00 	lea    0x30cb(%rip),%rsi        # 65a8 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x588>
+    34dd:	48 89 c7             	mov    %rax,%rdi
+    34e0:	b8 00 00 00 00       	mov    $0x0,%eax
+    34e5:	e8 96 ef ff ff       	call   2480 <fprintf@plt>
+                            __FUNCTION__);
+                    goto CLEANUP;
+    34ea:	e9 d5 0d 00 00       	jmp    42c4 <main+0x13ea>
+                }
+                fprintf(OUTPUT, "\nCall sgx_create_enclave success.");
+    34ef:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    34f6:	48 89 c1             	mov    %rax,%rcx
+    34f9:	ba 21 00 00 00       	mov    $0x21,%edx
+    34fe:	be 01 00 00 00       	mov    $0x1,%esi
+    3503:	48 8d 3d ce 30 00 00 	lea    0x30ce(%rip),%rdi        # 65d8 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x5b8>
+    350a:	e8 01 f0 ff ff       	call   2510 <fwrite@plt>
+
+                ret = enclave_init_ra(enclave_id,
+    350f:	48 8b 85 a0 fe ff ff 	mov    -0x160(%rbp),%rax
+    3516:	48 8d 95 58 fe ff ff 	lea    -0x1a8(%rbp),%rdx
+    351d:	48 8d b5 5c fe ff ff 	lea    -0x1a4(%rbp),%rsi
+    3524:	48 89 d1             	mov    %rdx,%rcx
+    3527:	ba 00 00 00 00       	mov    $0x0,%edx
+    352c:	48 89 c7             	mov    %rax,%rdi
+    352f:	e8 25 f1 ff ff       	call   2659 <enclave_init_ra>
+    3534:	89 85 64 fe ff ff    	mov    %eax,-0x19c(%rbp)
+                                      &status,
+                                      false,
+                                      &context);
+            //Ideally, this check would be around the full attestation flow.
+            } while (SGX_ERROR_ENCLAVE_LOST == ret && enclave_lost_retry_time--);
+    353a:	83 bd 64 fe ff ff 04 	cmpl   $0x4,-0x19c(%rbp)
+    3541:	75 1a                	jne    355d <main+0x683>
+    3543:	8b 85 68 fe ff ff    	mov    -0x198(%rbp),%eax
+    3549:	8d 50 ff             	lea    -0x1(%rax),%edx
+    354c:	89 95 68 fe ff ff    	mov    %edx,-0x198(%rbp)
+    3552:	85 c0                	test   %eax,%eax
+    3554:	74 07                	je     355d <main+0x683>
+    3556:	b8 01 00 00 00       	mov    $0x1,%eax
+    355b:	eb 05                	jmp    3562 <main+0x688>
+    355d:	b8 00 00 00 00       	mov    $0x0,%eax
+    3562:	84 c0                	test   %al,%al
+    3564:	74 05                	je     356b <main+0x691>
+            do
+    3566:	e9 19 ff ff ff       	jmp    3484 <main+0x5aa>
+
+            if(SGX_SUCCESS != ret || status)
+    356b:	83 bd 64 fe ff ff 00 	cmpl   $0x0,-0x19c(%rbp)
+    3572:	75 0a                	jne    357e <main+0x6a4>
+    3574:	8b 85 5c fe ff ff    	mov    -0x1a4(%rbp),%eax
+    357a:	85 c0                	test   %eax,%eax
+    357c:	74 31                	je     35af <main+0x6d5>
+            {
+                ret = -1;
+    357e:	c7 85 64 fe ff ff ff 	movl   $0xffffffff,-0x19c(%rbp)
+    3585:	ff ff ff 
+                fprintf(OUTPUT, "\nError, call enclave_init_ra fail [%s].",
+    3588:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    358f:	48 8d 15 06 2e 00 00 	lea    0x2e06(%rip),%rdx        # 639c <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x37c>
+    3596:	48 8d 35 63 30 00 00 	lea    0x3063(%rip),%rsi        # 6600 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x5e0>
+    359d:	48 89 c7             	mov    %rax,%rdi
+    35a0:	b8 00 00 00 00       	mov    $0x0,%eax
+    35a5:	e8 d6 ee ff ff       	call   2480 <fprintf@plt>
+                        __FUNCTION__);
+                goto CLEANUP;
+    35aa:	e9 15 0d 00 00       	jmp    42c4 <main+0x13ea>
+            }
+            fprintf(OUTPUT, "\nCall enclave_init_ra success.");
+    35af:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    35b6:	48 89 c1             	mov    %rax,%rcx
+    35b9:	ba 1e 00 00 00       	mov    $0x1e,%edx
+    35be:	be 01 00 00 00       	mov    $0x1,%esi
+    35c3:	48 8d 3d 5e 30 00 00 	lea    0x305e(%rip),%rdi        # 6628 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x608>
+    35ca:	e8 41 ef ff ff       	call   2510 <fwrite@plt>
+
+            // isv application call uke sgx_ra_get_msg1
+            p_msg1_full = (ra_samp_request_header_t*)
+                          malloc(sizeof(ra_samp_request_header_t)
+    35cf:	bf 4c 00 00 00       	mov    $0x4c,%edi
+    35d4:	e8 67 ee ff ff       	call   2440 <malloc@plt>
+    35d9:	48 89 85 a8 fe ff ff 	mov    %rax,-0x158(%rbp)
+                                 + sizeof(sgx_ra_msg1_t));
+            if(NULL == p_msg1_full)
+    35e0:	48 83 bd a8 fe ff ff 	cmpq   $0x0,-0x158(%rbp)
+    35e7:	00 
+    35e8:	75 0f                	jne    35f9 <main+0x71f>
+            {
+                ret = -1;
+    35ea:	c7 85 64 fe ff ff ff 	movl   $0xffffffff,-0x19c(%rbp)
+    35f1:	ff ff ff 
+                goto CLEANUP;
+    35f4:	e9 cb 0c 00 00       	jmp    42c4 <main+0x13ea>
+            }
+            p_msg1_full->type = TYPE_RA_MSG1;
+    35f9:	48 8b 85 a8 fe ff ff 	mov    -0x158(%rbp),%rax
+    3600:	c6 00 01             	movb   $0x1,(%rax)
+            p_msg1_full->size = sizeof(sgx_ra_msg1_t);
+    3603:	48 8b 85 a8 fe ff ff 	mov    -0x158(%rbp),%rax
+    360a:	c7 40 01 44 00 00 00 	movl   $0x44,0x1(%rax)
+            do
+            {
+                ret = sgx_ra_get_msg1_ex(&selected_key_id, context, enclave_id, sgx_ra_get_ga,
+    3611:	48 8b 85 a8 fe ff ff 	mov    -0x158(%rbp),%rax
+    3618:	48 8d 48 08          	lea    0x8(%rax),%rcx
+    361c:	48 8b 95 a0 fe ff ff 	mov    -0x160(%rbp),%rdx
+    3623:	8b b5 58 fe ff ff    	mov    -0x1a8(%rbp),%esi
+    3629:	48 8d 85 f0 fe ff ff 	lea    -0x110(%rbp),%rax
+    3630:	49 89 c8             	mov    %rcx,%r8
+    3633:	48 8d 0d 6d f2 ff ff 	lea    -0xd93(%rip),%rcx        # 28a7 <sgx_ra_get_ga>
+    363a:	48 89 c7             	mov    %rax,%rdi
+    363d:	e8 2e 13 00 00       	call   4970 <sgx_ra_get_msg1_ex>
+    3642:	89 85 64 fe ff ff    	mov    %eax,-0x19c(%rbp)
+                                      (sgx_ra_msg1_t*)((uint8_t*)p_msg1_full
+                                      + sizeof(ra_samp_request_header_t)));
+                sleep(3); // Wait 3s between retries
+    3648:	bf 03 00 00 00       	mov    $0x3,%edi
+    364d:	e8 4e ed ff ff       	call   23a0 <sleep@plt>
+            } while (SGX_ERROR_BUSY == ret && busy_retry_time--);
+    3652:	81 bd 64 fe ff ff 0a 	cmpl   $0x400a,-0x19c(%rbp)
+    3659:	40 00 00 
+    365c:	75 1a                	jne    3678 <main+0x79e>
+    365e:	8b 85 6c fe ff ff    	mov    -0x194(%rbp),%eax
+    3664:	8d 50 ff             	lea    -0x1(%rax),%edx
+    3667:	89 95 6c fe ff ff    	mov    %edx,-0x194(%rbp)
+    366d:	85 c0                	test   %eax,%eax
+    366f:	74 07                	je     3678 <main+0x79e>
+    3671:	b8 01 00 00 00       	mov    $0x1,%eax
+    3676:	eb 05                	jmp    367d <main+0x7a3>
+    3678:	b8 00 00 00 00       	mov    $0x0,%eax
+    367d:	84 c0                	test   %al,%al
+    367f:	74 02                	je     3683 <main+0x7a9>
+            do
+    3681:	eb 8e                	jmp    3611 <main+0x737>
+            if(SGX_SUCCESS != ret)
+    3683:	83 bd 64 fe ff ff 00 	cmpl   $0x0,-0x19c(%rbp)
+    368a:	74 31                	je     36bd <main+0x7e3>
+            {
+                ret = -1;
+    368c:	c7 85 64 fe ff ff ff 	movl   $0xffffffff,-0x19c(%rbp)
+    3693:	ff ff ff 
+                fprintf(OUTPUT, "\nError, call sgx_ra_get_msg1_ex fail [%s].",
+    3696:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    369d:	48 8d 15 f8 2c 00 00 	lea    0x2cf8(%rip),%rdx        # 639c <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x37c>
+    36a4:	48 8d 35 9d 2f 00 00 	lea    0x2f9d(%rip),%rsi        # 6648 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x628>
+    36ab:	48 89 c7             	mov    %rax,%rdi
+    36ae:	b8 00 00 00 00       	mov    $0x0,%eax
+    36b3:	e8 c8 ed ff ff       	call   2480 <fprintf@plt>
+                        __FUNCTION__);
+                goto CLEANUP;
+    36b8:	e9 07 0c 00 00       	jmp    42c4 <main+0x13ea>
+            }
+            else
+            {
+                fprintf(OUTPUT, "\nCall sgx_ra_get_msg1_ex success.\n");
+    36bd:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    36c4:	48 89 c1             	mov    %rax,%rcx
+    36c7:	ba 22 00 00 00       	mov    $0x22,%edx
+    36cc:	be 01 00 00 00       	mov    $0x1,%esi
+    36d1:	48 8d 3d a0 2f 00 00 	lea    0x2fa0(%rip),%rdi        # 6678 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x658>
+    36d8:	e8 33 ee ff ff       	call   2510 <fwrite@plt>
+
+                fprintf(OUTPUT, "\nMSG1 body generated -\n");
+    36dd:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    36e4:	48 89 c1             	mov    %rax,%rcx
+    36e7:	ba 17 00 00 00       	mov    $0x17,%edx
+    36ec:	be 01 00 00 00       	mov    $0x1,%esi
+    36f1:	48 8d 3d a3 2f 00 00 	lea    0x2fa3(%rip),%rdi        # 669b <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x67b>
+    36f8:	e8 13 ee ff ff       	call   2510 <fwrite@plt>
+
+                PRINT_BYTE_ARRAY(OUTPUT, p_msg1_full->body, p_msg1_full->size);
+    36fd:	48 8b 85 a8 fe ff ff 	mov    -0x158(%rbp),%rax
+    3704:	8b 50 01             	mov    0x1(%rax),%edx
+    3707:	48 8b 85 a8 fe ff ff 	mov    -0x158(%rbp),%rax
+    370e:	48 8d 48 08          	lea    0x8(%rax),%rcx
+    3712:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3719:	48 89 ce             	mov    %rcx,%rsi
+    371c:	48 89 c7             	mov    %rax,%rdi
+    371f:	e8 61 f3 ff ff       	call   2a85 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj>
+
+            }
+
+            if(VERIFICATION_INDEX_IS_VALID())
+    3724:	83 bd 70 fe ff ff 00 	cmpl   $0x0,-0x190(%rbp)
+    372b:	0f 8e 9b 00 00 00    	jle    37cc <main+0x8f2>
+    3731:	8b 85 70 fe ff ff    	mov    -0x190(%rbp),%eax
+    3737:	3b 85 78 fe ff ff    	cmp    -0x188(%rbp),%eax
+    373d:	0f 8f 89 00 00 00    	jg     37cc <main+0x8f2>
+            {
+
+                memcpy_s(p_msg1_full->body, p_msg1_full->size,
+                         msg1_samples[GET_VERIFICATION_ARRAY_INDEX()],
+                         p_msg1_full->size);
+    3743:	48 8b 85 a8 fe ff ff 	mov    -0x158(%rbp),%rax
+    374a:	8b 40 01             	mov    0x1(%rax),%eax
+                memcpy_s(p_msg1_full->body, p_msg1_full->size,
+    374d:	89 c1                	mov    %eax,%ecx
+                         msg1_samples[GET_VERIFICATION_ARRAY_INDEX()],
+    374f:	8b 85 70 fe ff ff    	mov    -0x190(%rbp),%eax
+    3755:	8d 50 ff             	lea    -0x1(%rax),%edx
+    3758:	48 8d 05 c1 67 00 00 	lea    0x67c1(%rip),%rax        # 9f20 <msg1_samples>
+    375f:	48 63 d2             	movslq %edx,%rdx
+    3762:	48 8b 04 d0          	mov    (%rax,%rdx,8),%rax
+                memcpy_s(p_msg1_full->body, p_msg1_full->size,
+    3766:	48 8b 95 a8 fe ff ff 	mov    -0x158(%rbp),%rdx
+    376d:	8b 52 01             	mov    0x1(%rdx),%edx
+    3770:	89 d6                	mov    %edx,%esi
+    3772:	48 8b 95 a8 fe ff ff 	mov    -0x158(%rbp),%rdx
+    3779:	48 8d 7a 08          	lea    0x8(%rdx),%rdi
+    377d:	48 89 c2             	mov    %rax,%rdx
+    3780:	e8 5b ec ff ff       	call   23e0 <memcpy_s@plt>
+
+                fprintf(OUTPUT, "\nInstead of using the recently generated MSG1, "
+    3785:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    378c:	48 89 c1             	mov    %rax,%rcx
+    378f:	ba 5c 00 00 00       	mov    $0x5c,%edx
+    3794:	be 01 00 00 00       	mov    $0x1,%esi
+    3799:	48 8d 3d 18 2f 00 00 	lea    0x2f18(%rip),%rdi        # 66b8 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x698>
+    37a0:	e8 6b ed ff ff       	call   2510 <fwrite@plt>
+                                "we will use the following precomputed MSG1 -\n");
+
+                PRINT_BYTE_ARRAY(OUTPUT, p_msg1_full->body, p_msg1_full->size);
+    37a5:	48 8b 85 a8 fe ff ff 	mov    -0x158(%rbp),%rax
+    37ac:	8b 50 01             	mov    0x1(%rax),%edx
+    37af:	48 8b 85 a8 fe ff ff 	mov    -0x158(%rbp),%rax
+    37b6:	48 8d 48 08          	lea    0x8(%rax),%rcx
+    37ba:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    37c1:	48 89 ce             	mov    %rcx,%rsi
+    37c4:	48 89 c7             	mov    %rax,%rdi
+    37c7:	e8 b9 f2 ff ff       	call   2a85 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj>
+
+
+            // The ISV application sends msg1 to the SP to get msg2,
+            // msg2 needs to be freed when no longer needed.
+            // The ISV decides whether to use linkable or unlinkable signatures.
+            fprintf(OUTPUT, "\nSending msg1 to remote attestation service provider."
+    37cc:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    37d3:	48 89 c1             	mov    %rax,%rcx
+    37d6:	ba 4a 00 00 00       	mov    $0x4a,%edx
+    37db:	be 01 00 00 00       	mov    $0x1,%esi
+    37e0:	48 8d 3d 31 2f 00 00 	lea    0x2f31(%rip),%rdi        # 6718 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x6f8>
+    37e7:	e8 24 ed ff ff       	call   2510 <fwrite@plt>
+                            "Expecting msg2 back.\n");
+
+
+            ret = ra_network_send_receive("http://SampleServiceProvider.intel.com/",
+    37ec:	48 8d 95 88 fe ff ff 	lea    -0x178(%rbp),%rdx
+    37f3:	48 8b 85 a8 fe ff ff 	mov    -0x158(%rbp),%rax
+    37fa:	48 89 c6             	mov    %rax,%rsi
+    37fd:	48 8d 3d 5c 2c 00 00 	lea    0x2c5c(%rip),%rdi        # 6460 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x440>
+    3804:	e8 c7 ea ff ff       	call   22d0 <ra_network_send_receive@plt>
+    3809:	89 85 64 fe ff ff    	mov    %eax,-0x19c(%rbp)
+                                          p_msg1_full,
+                                          &p_msg2_full);
+
+            if(ret != 0 || !p_msg2_full)
+    380f:	83 bd 64 fe ff ff 00 	cmpl   $0x0,-0x19c(%rbp)
+    3816:	75 10                	jne    3828 <main+0x94e>
+    3818:	48 8b 85 88 fe ff ff 	mov    -0x178(%rbp),%rax
+    381f:	48 85 c0             	test   %rax,%rax
+    3822:	0f 85 5d 01 00 00    	jne    3985 <main+0xaab>
+            {
+                fprintf(OUTPUT, "\nError, ra_network_send_receive for msg1 failed "
+    3828:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    382f:	48 8d 15 66 2b 00 00 	lea    0x2b66(%rip),%rdx        # 639c <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x37c>
+    3836:	48 8d 35 2b 2f 00 00 	lea    0x2f2b(%rip),%rsi        # 6768 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x748>
+    383d:	48 89 c7             	mov    %rax,%rdi
+    3840:	b8 00 00 00 00       	mov    $0x0,%eax
+    3845:	e8 36 ec ff ff       	call   2480 <fprintf@plt>
+                                "[%s].", __FUNCTION__);
+                if(VERIFICATION_INDEX_IS_VALID())
+    384a:	83 bd 70 fe ff ff 00 	cmpl   $0x0,-0x190(%rbp)
+    3851:	0f 8e 69 0a 00 00    	jle    42c0 <main+0x13e6>
+    3857:	8b 85 70 fe ff ff    	mov    -0x190(%rbp),%eax
+    385d:	3b 85 78 fe ff ff    	cmp    -0x188(%rbp),%eax
+    3863:	0f 8f 57 0a 00 00    	jg     42c0 <main+0x13e6>
+                {
+                    fprintf(OUTPUT, "\nBecause we are in verification mode we will "
+    3869:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3870:	48 89 c1             	mov    %rax,%rcx
+    3873:	ba 40 00 00 00       	mov    $0x40,%edx
+    3878:	be 01 00 00 00       	mov    $0x1,%esi
+    387d:	48 8d 3d 1c 2f 00 00 	lea    0x2f1c(%rip),%rdi        # 67a0 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x780>
+    3884:	e8 87 ec ff ff       	call   2510 <fwrite@plt>
+                                    "ignore this error.\n");
+                    fprintf(OUTPUT, "\nInstead, we will pretend we received the "
+    3889:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3890:	48 89 c1             	mov    %rax,%rcx
+    3893:	ba 3c 00 00 00       	mov    $0x3c,%edx
+    3898:	be 01 00 00 00       	mov    $0x1,%esi
+    389d:	48 8d 3d 44 2f 00 00 	lea    0x2f44(%rip),%rdi        # 67e8 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x7c8>
+    38a4:	e8 67 ec ff ff       	call   2510 <fwrite@plt>
+                                    "following MSG2 - \n");
+
+                    SAFE_FREE(p_msg2_full);
+    38a9:	48 8b 85 88 fe ff ff 	mov    -0x178(%rbp),%rax
+    38b0:	48 85 c0             	test   %rax,%rax
+    38b3:	74 1a                	je     38cf <main+0x9f5>
+    38b5:	48 8b 85 88 fe ff ff 	mov    -0x178(%rbp),%rax
+    38bc:	48 89 c7             	mov    %rax,%rdi
+    38bf:	e8 5c eb ff ff       	call   2420 <free@plt>
+    38c4:	48 c7 85 88 fe ff ff 	movq   $0x0,-0x178(%rbp)
+    38cb:	00 00 00 00 
+                    ra_samp_response_header_t* precomputed_msg2 =
+                        (ra_samp_response_header_t*)msg2_samples[
+                            GET_VERIFICATION_ARRAY_INDEX()];
+    38cf:	8b 85 70 fe ff ff    	mov    -0x190(%rbp),%eax
+    38d5:	8d 50 ff             	lea    -0x1(%rax),%edx
+                    ra_samp_response_header_t* precomputed_msg2 =
+    38d8:	48 8d 05 51 66 00 00 	lea    0x6651(%rip),%rax        # 9f30 <msg2_samples>
+    38df:	48 63 d2             	movslq %edx,%rdx
+    38e2:	48 8b 04 d0          	mov    (%rax,%rdx,8),%rax
+    38e6:	48 89 85 d0 fe ff ff 	mov    %rax,-0x130(%rbp)
+                    const size_t msg2_full_size = sizeof(ra_samp_response_header_t)
+                                                  +  precomputed_msg2->size;
+    38ed:	48 8b 85 d0 fe ff ff 	mov    -0x130(%rbp),%rax
+    38f4:	8b 40 03             	mov    0x3(%rax),%eax
+    38f7:	89 c0                	mov    %eax,%eax
+                    const size_t msg2_full_size = sizeof(ra_samp_response_header_t)
+    38f9:	48 83 c0 08          	add    $0x8,%rax
+    38fd:	48 89 85 d8 fe ff ff 	mov    %rax,-0x128(%rbp)
+                    p_msg2_full =
+                        (ra_samp_response_header_t*)malloc(msg2_full_size);
+    3904:	48 8b 85 d8 fe ff ff 	mov    -0x128(%rbp),%rax
+    390b:	48 89 c7             	mov    %rax,%rdi
+    390e:	e8 2d eb ff ff       	call   2440 <malloc@plt>
+                    p_msg2_full =
+    3913:	48 89 85 88 fe ff ff 	mov    %rax,-0x178(%rbp)
+                    if(NULL == p_msg2_full)
+    391a:	48 8b 85 88 fe ff ff 	mov    -0x178(%rbp),%rax
+    3921:	48 85 c0             	test   %rax,%rax
+    3924:	75 0f                	jne    3935 <main+0xa5b>
+                    {
+                        ret = -1;
+    3926:	c7 85 64 fe ff ff ff 	movl   $0xffffffff,-0x19c(%rbp)
+    392d:	ff ff ff 
+                        goto CLEANUP;
+    3930:	e9 8f 09 00 00       	jmp    42c4 <main+0x13ea>
+                    }
+                    memcpy_s(p_msg2_full, msg2_full_size, precomputed_msg2,
+    3935:	48 8b 85 88 fe ff ff 	mov    -0x178(%rbp),%rax
+    393c:	48 8b 8d d8 fe ff ff 	mov    -0x128(%rbp),%rcx
+    3943:	48 8b 95 d0 fe ff ff 	mov    -0x130(%rbp),%rdx
+    394a:	48 8b b5 d8 fe ff ff 	mov    -0x128(%rbp),%rsi
+    3951:	48 89 c7             	mov    %rax,%rdi
+    3954:	e8 87 ea ff ff       	call   23e0 <memcpy_s@plt>
+                             msg2_full_size);
+
+                    PRINT_BYTE_ARRAY(OUTPUT, p_msg2_full,
+                                     (uint32_t)sizeof(ra_samp_response_header_t)
+                                     + p_msg2_full->size);
+    3959:	48 8b 85 88 fe ff ff 	mov    -0x178(%rbp),%rax
+    3960:	8b 40 03             	mov    0x3(%rax),%eax
+                    PRINT_BYTE_ARRAY(OUTPUT, p_msg2_full,
+    3963:	8d 50 08             	lea    0x8(%rax),%edx
+    3966:	48 8b 8d 88 fe ff ff 	mov    -0x178(%rbp),%rcx
+    396d:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3974:	48 89 ce             	mov    %rcx,%rsi
+    3977:	48 89 c7             	mov    %rax,%rdi
+    397a:	e8 06 f1 ff ff       	call   2a85 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj>
+                                     + p_msg2_full->size);
+    397f:	90                   	nop
+                }
+                else
+                {
+                    goto CLEANUP;
+                }
+    3980:	e9 2e 02 00 00       	jmp    3bb3 <main+0xcd9>
+            }
+            else
+            {
+                // Successfully sent msg1 and received a msg2 back.
+                // Time now to check msg2.
+                if(TYPE_RA_MSG2 != p_msg2_full->type)
+    3985:	48 8b 85 88 fe ff ff 	mov    -0x178(%rbp),%rax
+    398c:	0f b6 00             	movzbl (%rax),%eax
+    398f:	3c 02                	cmp    $0x2,%al
+    3991:	74 61                	je     39f4 <main+0xb1a>
+                {
+
+                    fprintf(OUTPUT, "\nError, didn't get MSG2 in response to MSG1. "
+    3993:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    399a:	48 8d 15 fb 29 00 00 	lea    0x29fb(%rip),%rdx        # 639c <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x37c>
+    39a1:	48 8d 35 80 2e 00 00 	lea    0x2e80(%rip),%rsi        # 6828 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x808>
+    39a8:	48 89 c7             	mov    %rax,%rdi
+    39ab:	b8 00 00 00 00       	mov    $0x0,%eax
+    39b0:	e8 cb ea ff ff       	call   2480 <fprintf@plt>
+                                    "[%s].", __FUNCTION__);
+
+                    if(VERIFICATION_INDEX_IS_VALID())
+    39b5:	83 bd 70 fe ff ff 00 	cmpl   $0x0,-0x190(%rbp)
+    39bc:	0f 8e 01 09 00 00    	jle    42c3 <main+0x13e9>
+    39c2:	8b 85 70 fe ff ff    	mov    -0x190(%rbp),%eax
+    39c8:	3b 85 78 fe ff ff    	cmp    -0x188(%rbp),%eax
+    39ce:	0f 8f ef 08 00 00    	jg     42c3 <main+0x13e9>
+                    {
+                        fprintf(OUTPUT, "\nBecause we are in verification mode we "
+    39d4:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    39db:	48 89 c1             	mov    %rax,%rcx
+    39de:	ba 3f 00 00 00       	mov    $0x3f,%edx
+    39e3:	be 01 00 00 00       	mov    $0x1,%esi
+    39e8:	48 8d 3d 71 2e 00 00 	lea    0x2e71(%rip),%rdi        # 6860 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x840>
+    39ef:	e8 1c eb ff ff       	call   2510 <fwrite@plt>
+                    {
+                        goto CLEANUP;
+                    }
+                }
+
+                fprintf(OUTPUT, "\nSent MSG1 to remote attestation service "
+    39f4:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    39fb:	48 89 c1             	mov    %rax,%rcx
+    39fe:	ba 50 00 00 00       	mov    $0x50,%edx
+    3a03:	be 01 00 00 00       	mov    $0x1,%esi
+    3a08:	48 8d 3d 91 2e 00 00 	lea    0x2e91(%rip),%rdi        # 68a0 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x880>
+    3a0f:	e8 fc ea ff ff       	call   2510 <fwrite@plt>
+                                "provider. Received the following MSG2:\n");
+                PRINT_BYTE_ARRAY(OUTPUT, p_msg2_full,
+                                 (uint32_t)sizeof(ra_samp_response_header_t)
+                                 + p_msg2_full->size);
+    3a14:	48 8b 85 88 fe ff ff 	mov    -0x178(%rbp),%rax
+    3a1b:	8b 40 03             	mov    0x3(%rax),%eax
+                PRINT_BYTE_ARRAY(OUTPUT, p_msg2_full,
+    3a1e:	8d 50 08             	lea    0x8(%rax),%edx
+    3a21:	48 8b 8d 88 fe ff ff 	mov    -0x178(%rbp),%rcx
+    3a28:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3a2f:	48 89 ce             	mov    %rcx,%rsi
+    3a32:	48 89 c7             	mov    %rax,%rdi
+    3a35:	e8 4b f0 ff ff       	call   2a85 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj>
+
+                fprintf(OUTPUT, "\nA more descriptive representation of MSG2:\n");
+    3a3a:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3a41:	48 89 c1             	mov    %rax,%rcx
+    3a44:	ba 2c 00 00 00       	mov    $0x2c,%edx
+    3a49:	be 01 00 00 00       	mov    $0x1,%esi
+    3a4e:	48 8d 3d a3 2e 00 00 	lea    0x2ea3(%rip),%rdi        # 68f8 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x8d8>
+    3a55:	e8 b6 ea ff ff       	call   2510 <fwrite@plt>
+                PRINT_ATTESTATION_SERVICE_RESPONSE(OUTPUT, p_msg2_full);
+    3a5a:	48 8b 95 88 fe ff ff 	mov    -0x178(%rbp),%rdx
+    3a61:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3a68:	48 89 d6             	mov    %rdx,%rsi
+    3a6b:	48 89 c7             	mov    %rax,%rdi
+    3a6e:	e8 25 f1 ff ff       	call   2b98 <_Z34PRINT_ATTESTATION_SERVICE_RESPONSEP8_IO_FILEP26_ra_samp_response_header_t>
+
+                if( VERIFICATION_INDEX_IS_VALID() )
+    3a73:	83 bd 70 fe ff ff 00 	cmpl   $0x0,-0x190(%rbp)
+    3a7a:	0f 8e 33 01 00 00    	jle    3bb3 <main+0xcd9>
+    3a80:	8b 85 70 fe ff ff    	mov    -0x190(%rbp),%eax
+    3a86:	3b 85 78 fe ff ff    	cmp    -0x188(%rbp),%eax
+    3a8c:	0f 8f 21 01 00 00    	jg     3bb3 <main+0xcd9>
+                {
+                    // The response should match the precomputed MSG2:
+                    ra_samp_response_header_t* precomputed_msg2 =
+                        (ra_samp_response_header_t *)
+                        msg2_samples[GET_VERIFICATION_ARRAY_INDEX()];
+    3a92:	8b 85 70 fe ff ff    	mov    -0x190(%rbp),%eax
+    3a98:	8d 50 ff             	lea    -0x1(%rax),%edx
+                    ra_samp_response_header_t* precomputed_msg2 =
+    3a9b:	48 8d 05 8e 64 00 00 	lea    0x648e(%rip),%rax        # 9f30 <msg2_samples>
+    3aa2:	48 63 d2             	movslq %edx,%rdx
+    3aa5:	48 8b 04 d0          	mov    (%rax,%rdx,8),%rax
+    3aa9:	48 89 85 c8 fe ff ff 	mov    %rax,-0x138(%rbp)
+                    if(MSG2_BODY_SIZE !=
+                        sizeof(ra_samp_response_header_t) + p_msg2_full->size ||
+    3ab0:	48 8b 85 88 fe ff ff 	mov    -0x178(%rbp),%rax
+    3ab7:	8b 40 03             	mov    0x3(%rax),%eax
+                    if(MSG2_BODY_SIZE !=
+    3aba:	3d a8 00 00 00       	cmp    $0xa8,%eax
+    3abf:	75 31                	jne    3af2 <main+0xc18>
+                        memcmp( precomputed_msg2, p_msg2_full,
+                            sizeof(ra_samp_response_header_t) + p_msg2_full->size))
+    3ac1:	48 8b 85 88 fe ff ff 	mov    -0x178(%rbp),%rax
+    3ac8:	8b 40 03             	mov    0x3(%rax),%eax
+    3acb:	89 c0                	mov    %eax,%eax
+                        memcmp( precomputed_msg2, p_msg2_full,
+    3acd:	48 8d 50 08          	lea    0x8(%rax),%rdx
+    3ad1:	48 8b 8d 88 fe ff ff 	mov    -0x178(%rbp),%rcx
+    3ad8:	48 8b 85 c8 fe ff ff 	mov    -0x138(%rbp),%rax
+    3adf:	48 89 ce             	mov    %rcx,%rsi
+    3ae2:	48 89 c7             	mov    %rax,%rdi
+    3ae5:	e8 16 e8 ff ff       	call   2300 <memcmp@plt>
+                        sizeof(ra_samp_response_header_t) + p_msg2_full->size ||
+    3aea:	85 c0                	test   %eax,%eax
+    3aec:	0f 84 a1 00 00 00    	je     3b93 <main+0xcb9>
+                    {
+                        fprintf(OUTPUT, "\nVerification ERROR. Our precomputed "
+    3af2:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3af9:	48 89 c1             	mov    %rax,%rcx
+    3afc:	ba 44 00 00 00       	mov    $0x44,%edx
+    3b01:	be 01 00 00 00       	mov    $0x1,%esi
+    3b06:	48 8d 3d 1b 2e 00 00 	lea    0x2e1b(%rip),%rdi        # 6928 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x908>
+    3b0d:	e8 fe e9 ff ff       	call   2510 <fwrite@plt>
+                                        "value for MSG2 does NOT match.\n");
+                        fprintf(OUTPUT, "\nPrecomputed value for MSG2:\n");
+    3b12:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3b19:	48 89 c1             	mov    %rax,%rcx
+    3b1c:	ba 1d 00 00 00       	mov    $0x1d,%edx
+    3b21:	be 01 00 00 00       	mov    $0x1,%esi
+    3b26:	48 8d 3d 40 2e 00 00 	lea    0x2e40(%rip),%rdi        # 696d <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x94d>
+    3b2d:	e8 de e9 ff ff       	call   2510 <fwrite@plt>
+                        PRINT_BYTE_ARRAY(OUTPUT, precomputed_msg2,
+                                         (uint32_t)sizeof(ra_samp_response_header_t)
+                                         + precomputed_msg2->size);
+    3b32:	48 8b 85 c8 fe ff ff 	mov    -0x138(%rbp),%rax
+    3b39:	8b 40 03             	mov    0x3(%rax),%eax
+                        PRINT_BYTE_ARRAY(OUTPUT, precomputed_msg2,
+    3b3c:	8d 50 08             	lea    0x8(%rax),%edx
+    3b3f:	48 8b 8d c8 fe ff ff 	mov    -0x138(%rbp),%rcx
+    3b46:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3b4d:	48 89 ce             	mov    %rcx,%rsi
+    3b50:	48 89 c7             	mov    %rax,%rdi
+    3b53:	e8 2d ef ff ff       	call   2a85 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj>
+                        fprintf(OUTPUT, "\nA more descriptive representation "
+    3b58:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3b5f:	48 89 c1             	mov    %rax,%rcx
+    3b62:	ba 42 00 00 00       	mov    $0x42,%edx
+    3b67:	be 01 00 00 00       	mov    $0x1,%esi
+    3b6c:	48 8d 3d 1d 2e 00 00 	lea    0x2e1d(%rip),%rdi        # 6990 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x970>
+    3b73:	e8 98 e9 ff ff       	call   2510 <fwrite@plt>
+                                        "of precomputed value for MSG2:\n");
+                        PRINT_ATTESTATION_SERVICE_RESPONSE(OUTPUT,
+    3b78:	48 8b 95 c8 fe ff ff 	mov    -0x138(%rbp),%rdx
+    3b7f:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3b86:	48 89 d6             	mov    %rdx,%rsi
+    3b89:	48 89 c7             	mov    %rax,%rdi
+    3b8c:	e8 07 f0 ff ff       	call   2b98 <_Z34PRINT_ATTESTATION_SERVICE_RESPONSEP8_IO_FILEP26_ra_samp_response_header_t>
+    3b91:	eb 20                	jmp    3bb3 <main+0xcd9>
+                                                           precomputed_msg2);
+                    }
+                    else
+                    {
+                        fprintf(OUTPUT, "\nVerification COMPLETE. Remote "
+    3b93:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3b9a:	48 89 c1             	mov    %rax,%rcx
+    3b9d:	ba 57 00 00 00       	mov    $0x57,%edx
+    3ba2:	be 01 00 00 00       	mov    $0x1,%esi
+    3ba7:	48 8d 3d 2a 2e 00 00 	lea    0x2e2a(%rip),%rdi        # 69d8 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x9b8>
+    3bae:	e8 5d e9 ff ff       	call   2510 <fwrite@plt>
+                    }
+                }
+
+            }
+
+            sgx_ra_msg2_t* p_msg2_body = (sgx_ra_msg2_t*)((uint8_t*)p_msg2_full
+    3bb3:	48 8b 85 88 fe ff ff 	mov    -0x178(%rbp),%rax
+    3bba:	48 83 c0 08          	add    $0x8,%rax
+    3bbe:	48 89 85 e0 fe ff ff 	mov    %rax,-0x120(%rbp)
+                                          + sizeof(ra_samp_response_header_t));
+
+
+            uint32_t msg3_size = 0;
+    3bc5:	c7 85 60 fe ff ff 00 	movl   $0x0,-0x1a0(%rbp)
+    3bcc:	00 00 00 
+            if( VERIFICATION_INDEX_IS_VALID())
+    3bcf:	83 bd 70 fe ff ff 00 	cmpl   $0x0,-0x190(%rbp)
+    3bd6:	0f 8e a9 00 00 00    	jle    3c85 <main+0xdab>
+    3bdc:	8b 85 70 fe ff ff    	mov    -0x190(%rbp),%eax
+    3be2:	3b 85 78 fe ff ff    	cmp    -0x188(%rbp),%eax
+    3be8:	0f 8f 97 00 00 00    	jg     3c85 <main+0xdab>
+            {
+                // We cannot generate a valid MSG3 using the precomputed messages
+                // we have been using. We will use the precomputed msg3 instead.
+                msg3_size = MSG3_BODY_SIZE;
+    3bee:	c7 85 60 fe ff ff ac 	movl   $0x5ac,-0x1a0(%rbp)
+    3bf5:	05 00 00 
+                p_msg3 = (sgx_ra_msg3_t*)malloc(msg3_size);
+    3bf8:	8b 85 60 fe ff ff    	mov    -0x1a0(%rbp),%eax
+    3bfe:	89 c0                	mov    %eax,%eax
+    3c00:	48 89 c7             	mov    %rax,%rdi
+    3c03:	e8 38 e8 ff ff       	call   2440 <malloc@plt>
+    3c08:	48 89 85 90 fe ff ff 	mov    %rax,-0x170(%rbp)
+                if(NULL == p_msg3)
+    3c0f:	48 8b 85 90 fe ff ff 	mov    -0x170(%rbp),%rax
+    3c16:	48 85 c0             	test   %rax,%rax
+    3c19:	75 0f                	jne    3c2a <main+0xd50>
+                {
+                    ret = -1;
+    3c1b:	c7 85 64 fe ff ff ff 	movl   $0xffffffff,-0x19c(%rbp)
+    3c22:	ff ff ff 
+                    goto CLEANUP;
+    3c25:	e9 9a 06 00 00       	jmp    42c4 <main+0x13ea>
+                }
+                memcpy_s(p_msg3, msg3_size,
+    3c2a:	8b 85 60 fe ff ff    	mov    -0x1a0(%rbp),%eax
+    3c30:	89 c1                	mov    %eax,%ecx
+                         msg3_samples[GET_VERIFICATION_ARRAY_INDEX()], msg3_size);
+    3c32:	8b 85 70 fe ff ff    	mov    -0x190(%rbp),%eax
+    3c38:	8d 50 ff             	lea    -0x1(%rax),%edx
+    3c3b:	48 8d 05 fe 62 00 00 	lea    0x62fe(%rip),%rax        # 9f40 <msg3_samples>
+    3c42:	48 63 d2             	movslq %edx,%rdx
+    3c45:	48 8b 14 d0          	mov    (%rax,%rdx,8),%rdx
+                memcpy_s(p_msg3, msg3_size,
+    3c49:	8b 85 60 fe ff ff    	mov    -0x1a0(%rbp),%eax
+    3c4f:	89 c6                	mov    %eax,%esi
+    3c51:	48 8b 85 90 fe ff ff 	mov    -0x170(%rbp),%rax
+    3c58:	48 89 c7             	mov    %rax,%rdi
+    3c5b:	e8 80 e7 ff ff       	call   23e0 <memcpy_s@plt>
+                fprintf(OUTPUT, "\nBecause MSG1 was a precomputed value, the MSG3 "
+    3c60:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3c67:	48 89 c1             	mov    %rax,%rcx
+    3c6a:	ba 59 00 00 00       	mov    $0x59,%edx
+    3c6f:	be 01 00 00 00       	mov    $0x1,%esi
+    3c74:	48 8d 3d b5 2d 00 00 	lea    0x2db5(%rip),%rdi        # 6a30 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xa10>
+    3c7b:	e8 90 e8 ff ff       	call   2510 <fwrite@plt>
+    3c80:	e9 62 01 00 00       	jmp    3de7 <main+0xf0d>
+                                "we use will also be. PRECOMPUTED MSG3 - \n");
+            }
+            else
+            {
+                busy_retry_time = 2;
+    3c85:	c7 85 6c fe ff ff 02 	movl   $0x2,-0x194(%rbp)
+    3c8c:	00 00 00 
+                // The ISV app now calls uKE sgx_ra_proc_msg2,
+                // The ISV app is responsible for freeing the returned p_msg3!!
+                do
+                {
+                    ret = sgx_ra_proc_msg2_ex(&selected_key_id,
+    3c8f:	48 8b 85 88 fe ff ff 	mov    -0x178(%rbp),%rax
+    3c96:	8b 48 03             	mov    0x3(%rax),%ecx
+    3c99:	48 8b 95 a0 fe ff ff 	mov    -0x160(%rbp),%rdx
+    3ca0:	8b b5 58 fe ff ff    	mov    -0x1a8(%rbp),%esi
+    3ca6:	4c 8b 85 e0 fe ff ff 	mov    -0x120(%rbp),%r8
+    3cad:	48 8d 85 f0 fe ff ff 	lea    -0x110(%rbp),%rax
+    3cb4:	48 83 ec 08          	sub    $0x8,%rsp
+    3cb8:	48 8d bd 60 fe ff ff 	lea    -0x1a0(%rbp),%rdi
+    3cbf:	57                   	push   %rdi
+    3cc0:	48 8d bd 90 fe ff ff 	lea    -0x170(%rbp),%rdi
+    3cc7:	57                   	push   %rdi
+    3cc8:	51                   	push   %rcx
+    3cc9:	4d 89 c1             	mov    %r8,%r9
+    3ccc:	48 8d 0d 0e ed ff ff 	lea    -0x12f2(%rip),%rcx        # 29e1 <sgx_ra_get_msg3_trusted>
+    3cd3:	49 89 c8             	mov    %rcx,%r8
+    3cd6:	48 8d 0d 53 ec ff ff 	lea    -0x13ad(%rip),%rcx        # 2930 <sgx_ra_proc_msg2_trusted>
+    3cdd:	48 89 c7             	mov    %rax,%rdi
+    3ce0:	e8 3b 0f 00 00       	call   4c20 <sgx_ra_proc_msg2_ex>
+    3ce5:	48 83 c4 20          	add    $0x20,%rsp
+    3ce9:	89 85 64 fe ff ff    	mov    %eax,-0x19c(%rbp)
+                                       sgx_ra_get_msg3_trusted,
+                                       p_msg2_body,
+                                       p_msg2_full->size,
+                                       &p_msg3,
+                                       &msg3_size);
+                } while (SGX_ERROR_BUSY == ret && busy_retry_time--);
+    3cef:	81 bd 64 fe ff ff 0a 	cmpl   $0x400a,-0x19c(%rbp)
+    3cf6:	40 00 00 
+    3cf9:	75 1a                	jne    3d15 <main+0xe3b>
+    3cfb:	8b 85 6c fe ff ff    	mov    -0x194(%rbp),%eax
+    3d01:	8d 50 ff             	lea    -0x1(%rax),%edx
+    3d04:	89 95 6c fe ff ff    	mov    %edx,-0x194(%rbp)
+    3d0a:	85 c0                	test   %eax,%eax
+    3d0c:	74 07                	je     3d15 <main+0xe3b>
+    3d0e:	b8 01 00 00 00       	mov    $0x1,%eax
+    3d13:	eb 05                	jmp    3d1a <main+0xe40>
+    3d15:	b8 00 00 00 00       	mov    $0x0,%eax
+    3d1a:	84 c0                	test   %al,%al
+    3d1c:	74 05                	je     3d23 <main+0xe49>
+                do
+    3d1e:	e9 6c ff ff ff       	jmp    3c8f <main+0xdb5>
+                if(!p_msg3)
+    3d23:	48 8b 85 90 fe ff ff 	mov    -0x170(%rbp),%rax
+    3d2a:	48 85 c0             	test   %rax,%rax
+    3d2d:	75 38                	jne    3d67 <main+0xe8d>
+                {
+                    fprintf(OUTPUT, "\nError, call sgx_ra_proc_msg2_ex fail. "
+    3d2f:	48 8b 95 90 fe ff ff 	mov    -0x170(%rbp),%rdx
+    3d36:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3d3d:	48 8d 0d 58 26 00 00 	lea    0x2658(%rip),%rcx        # 639c <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x37c>
+    3d44:	48 8d 35 45 2d 00 00 	lea    0x2d45(%rip),%rsi        # 6a90 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xa70>
+    3d4b:	48 89 c7             	mov    %rax,%rdi
+    3d4e:	b8 00 00 00 00       	mov    $0x0,%eax
+    3d53:	e8 28 e7 ff ff       	call   2480 <fprintf@plt>
+                                    "p_msg3 = 0x%p [%s].", p_msg3, __FUNCTION__);
+                    ret = -1;
+    3d58:	c7 85 64 fe ff ff ff 	movl   $0xffffffff,-0x19c(%rbp)
+    3d5f:	ff ff ff 
+                    goto CLEANUP;
+    3d62:	e9 5d 05 00 00       	jmp    42c4 <main+0x13ea>
+                }
+                if(SGX_SUCCESS != (sgx_status_t)ret)
+    3d67:	83 bd 64 fe ff ff 00 	cmpl   $0x0,-0x19c(%rbp)
+    3d6e:	74 37                	je     3da7 <main+0xecd>
+                {
+                    fprintf(OUTPUT, "\nError, call sgx_ra_proc_msg2_ex fail. "
+    3d70:	8b 95 64 fe ff ff    	mov    -0x19c(%rbp),%edx
+    3d76:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3d7d:	48 8d 0d 18 26 00 00 	lea    0x2618(%rip),%rcx        # 639c <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x37c>
+    3d84:	48 8d 35 45 2d 00 00 	lea    0x2d45(%rip),%rsi        # 6ad0 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xab0>
+    3d8b:	48 89 c7             	mov    %rax,%rdi
+    3d8e:	b8 00 00 00 00       	mov    $0x0,%eax
+    3d93:	e8 e8 e6 ff ff       	call   2480 <fprintf@plt>
+                                    "ret = 0x%08x [%s].", ret, __FUNCTION__);
+                    ret = -1;
+    3d98:	c7 85 64 fe ff ff ff 	movl   $0xffffffff,-0x19c(%rbp)
+    3d9f:	ff ff ff 
+                    goto CLEANUP;
+    3da2:	e9 1d 05 00 00       	jmp    42c4 <main+0x13ea>
+                }
+                else
+                {
+                    fprintf(OUTPUT, "\nCall sgx_ra_proc_msg2_ex success.\n");
+    3da7:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3dae:	48 89 c1             	mov    %rax,%rcx
+    3db1:	ba 23 00 00 00       	mov    $0x23,%edx
+    3db6:	be 01 00 00 00       	mov    $0x1,%esi
+    3dbb:	48 8d 3d 4e 2d 00 00 	lea    0x2d4e(%rip),%rdi        # 6b10 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xaf0>
+    3dc2:	e8 49 e7 ff ff       	call   2510 <fwrite@plt>
+                    fprintf(OUTPUT, "\nMSG3 - \n");
+    3dc7:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3dce:	48 89 c1             	mov    %rax,%rcx
+    3dd1:	ba 09 00 00 00       	mov    $0x9,%edx
+    3dd6:	be 01 00 00 00       	mov    $0x1,%esi
+    3ddb:	48 8d 3d 52 2d 00 00 	lea    0x2d52(%rip),%rdi        # 6b34 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xb14>
+    3de2:	e8 29 e7 ff ff       	call   2510 <fwrite@plt>
+                }
+            }
+
+            PRINT_BYTE_ARRAY(OUTPUT, p_msg3, msg3_size);
+    3de7:	8b 95 60 fe ff ff    	mov    -0x1a0(%rbp),%edx
+    3ded:	48 8b 8d 90 fe ff ff 	mov    -0x170(%rbp),%rcx
+    3df4:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3dfb:	48 89 ce             	mov    %rcx,%rsi
+    3dfe:	48 89 c7             	mov    %rax,%rdi
+    3e01:	e8 7f ec ff ff       	call   2a85 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj>
+
+            p_msg3_full = (ra_samp_request_header_t*)malloc(
+                           sizeof(ra_samp_request_header_t) + msg3_size);
+    3e06:	8b 85 60 fe ff ff    	mov    -0x1a0(%rbp),%eax
+    3e0c:	89 c0                	mov    %eax,%eax
+            p_msg3_full = (ra_samp_request_header_t*)malloc(
+    3e0e:	48 83 c0 08          	add    $0x8,%rax
+    3e12:	48 89 c7             	mov    %rax,%rdi
+    3e15:	e8 26 e6 ff ff       	call   2440 <malloc@plt>
+    3e1a:	48 89 85 b0 fe ff ff 	mov    %rax,-0x150(%rbp)
+            if(NULL == p_msg3_full)
+    3e21:	48 83 bd b0 fe ff ff 	cmpq   $0x0,-0x150(%rbp)
+    3e28:	00 
+    3e29:	75 0f                	jne    3e3a <main+0xf60>
+            {
+                ret = -1;
+    3e2b:	c7 85 64 fe ff ff ff 	movl   $0xffffffff,-0x19c(%rbp)
+    3e32:	ff ff ff 
+                goto CLEANUP;
+    3e35:	e9 8a 04 00 00       	jmp    42c4 <main+0x13ea>
+            }
+            p_msg3_full->type = TYPE_RA_MSG3;
+    3e3a:	48 8b 85 b0 fe ff ff 	mov    -0x150(%rbp),%rax
+    3e41:	c6 00 03             	movb   $0x3,(%rax)
+            p_msg3_full->size = msg3_size;
+    3e44:	8b 95 60 fe ff ff    	mov    -0x1a0(%rbp),%edx
+    3e4a:	48 8b 85 b0 fe ff ff 	mov    -0x150(%rbp),%rax
+    3e51:	89 50 01             	mov    %edx,0x1(%rax)
+            if(memcpy_s(p_msg3_full->body, msg3_size, p_msg3, msg3_size))
+    3e54:	8b 85 60 fe ff ff    	mov    -0x1a0(%rbp),%eax
+    3e5a:	89 c1                	mov    %eax,%ecx
+    3e5c:	48 8b 85 90 fe ff ff 	mov    -0x170(%rbp),%rax
+    3e63:	8b 95 60 fe ff ff    	mov    -0x1a0(%rbp),%edx
+    3e69:	89 d6                	mov    %edx,%esi
+    3e6b:	48 8b 95 b0 fe ff ff 	mov    -0x150(%rbp),%rdx
+    3e72:	48 8d 7a 08          	lea    0x8(%rdx),%rdi
+    3e76:	48 89 c2             	mov    %rax,%rdx
+    3e79:	e8 62 e5 ff ff       	call   23e0 <memcpy_s@plt>
+    3e7e:	85 c0                	test   %eax,%eax
+    3e80:	0f 95 c0             	setne  %al
+    3e83:	84 c0                	test   %al,%al
+    3e85:	74 31                	je     3eb8 <main+0xfde>
+            {
+                fprintf(OUTPUT,"\nError: INTERNAL ERROR - memcpy failed in [%s].",
+    3e87:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3e8e:	48 8d 15 07 25 00 00 	lea    0x2507(%rip),%rdx        # 639c <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x37c>
+    3e95:	48 8d 35 a4 2c 00 00 	lea    0x2ca4(%rip),%rsi        # 6b40 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xb20>
+    3e9c:	48 89 c7             	mov    %rax,%rdi
+    3e9f:	b8 00 00 00 00       	mov    $0x0,%eax
+    3ea4:	e8 d7 e5 ff ff       	call   2480 <fprintf@plt>
+                        __FUNCTION__);
+                ret = -1;
+    3ea9:	c7 85 64 fe ff ff ff 	movl   $0xffffffff,-0x19c(%rbp)
+    3eb0:	ff ff ff 
+                goto CLEANUP;
+    3eb3:	e9 0c 04 00 00       	jmp    42c4 <main+0x13ea>
+            // linkable or unlinkable signatures. The format of the attestation
+            // result is up to the service provider. This format is used for
+            // demonstration.  Note that the attestation result message makes use
+            // of both the MK for the MAC and the SK for the secret. These keys are
+            // established from the SIGMA secure channel binding.
+            ret = ra_network_send_receive("http://SampleServiceProvider.intel.com/",
+    3eb8:	48 8d 95 98 fe ff ff 	lea    -0x168(%rbp),%rdx
+    3ebf:	48 8b 85 b0 fe ff ff 	mov    -0x150(%rbp),%rax
+    3ec6:	48 89 c6             	mov    %rax,%rsi
+    3ec9:	48 8d 3d 90 25 00 00 	lea    0x2590(%rip),%rdi        # 6460 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x440>
+    3ed0:	e8 fb e3 ff ff       	call   22d0 <ra_network_send_receive@plt>
+    3ed5:	89 85 64 fe ff ff    	mov    %eax,-0x19c(%rbp)
+                                          p_msg3_full,
+                                          &p_att_result_msg_full);
+            if(ret || !p_att_result_msg_full)
+    3edb:	83 bd 64 fe ff ff 00 	cmpl   $0x0,-0x19c(%rbp)
+    3ee2:	75 0c                	jne    3ef0 <main+0x1016>
+    3ee4:	48 8b 85 98 fe ff ff 	mov    -0x168(%rbp),%rax
+    3eeb:	48 85 c0             	test   %rax,%rax
+    3eee:	75 31                	jne    3f21 <main+0x1047>
+            {
+                ret = -1;
+    3ef0:	c7 85 64 fe ff ff ff 	movl   $0xffffffff,-0x19c(%rbp)
+    3ef7:	ff ff ff 
+                fprintf(OUTPUT, "\nError, sending msg3 failed [%s].", __FUNCTION__);
+    3efa:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3f01:	48 8d 15 94 24 00 00 	lea    0x2494(%rip),%rdx        # 639c <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x37c>
+    3f08:	48 8d 35 61 2c 00 00 	lea    0x2c61(%rip),%rsi        # 6b70 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xb50>
+    3f0f:	48 89 c7             	mov    %rax,%rdi
+    3f12:	b8 00 00 00 00       	mov    $0x0,%eax
+    3f17:	e8 64 e5 ff ff       	call   2480 <fprintf@plt>
+                goto CLEANUP;
+    3f1c:	e9 a3 03 00 00       	jmp    42c4 <main+0x13ea>
+            }
+
+
+            sample_ra_att_result_msg_t * p_att_result_msg_body =
+                (sample_ra_att_result_msg_t *)((uint8_t*)p_att_result_msg_full
+    3f21:	48 8b 85 98 fe ff ff 	mov    -0x168(%rbp),%rax
+            sample_ra_att_result_msg_t * p_att_result_msg_body =
+    3f28:	48 83 c0 08          	add    $0x8,%rax
+    3f2c:	48 89 85 e8 fe ff ff 	mov    %rax,-0x118(%rbp)
+                                               + sizeof(ra_samp_response_header_t));
+            if(TYPE_RA_ATT_RESULT != p_att_result_msg_full->type)
+    3f33:	48 8b 85 98 fe ff ff 	mov    -0x168(%rbp),%rax
+    3f3a:	0f b6 00             	movzbl (%rax),%eax
+    3f3d:	3c 04                	cmp    $0x4,%al
+    3f3f:	74 3e                	je     3f7f <main+0x10a5>
+            {
+                ret = -1;
+    3f41:	c7 85 64 fe ff ff ff 	movl   $0xffffffff,-0x19c(%rbp)
+    3f48:	ff ff ff 
+                fprintf(OUTPUT, "\nError. Sent MSG3 successfully, but the message "
+                                "received was NOT of type att_msg_result. Type = "
+                                "%d. [%s].", p_att_result_msg_full->type,
+    3f4b:	48 8b 85 98 fe ff ff 	mov    -0x168(%rbp),%rax
+    3f52:	0f b6 00             	movzbl (%rax),%eax
+                fprintf(OUTPUT, "\nError. Sent MSG3 successfully, but the message "
+    3f55:	0f b6 d0             	movzbl %al,%edx
+    3f58:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3f5f:	48 8d 0d 36 24 00 00 	lea    0x2436(%rip),%rcx        # 639c <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x37c>
+    3f66:	48 8d 35 2b 2c 00 00 	lea    0x2c2b(%rip),%rsi        # 6b98 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xb78>
+    3f6d:	48 89 c7             	mov    %rax,%rdi
+    3f70:	b8 00 00 00 00       	mov    $0x0,%eax
+    3f75:	e8 06 e5 ff ff       	call   2480 <fprintf@plt>
+                                 __FUNCTION__);
+                goto CLEANUP;
+    3f7a:	e9 45 03 00 00       	jmp    42c4 <main+0x13ea>
+            }
+            else
+            {
+                fprintf(OUTPUT, "\nSent MSG3 successfully. Received an attestation "
+    3f7f:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    3f86:	48 89 c1             	mov    %rax,%rcx
+    3f89:	ba 46 00 00 00       	mov    $0x46,%edx
+    3f8e:	be 01 00 00 00       	mov    $0x1,%esi
+    3f93:	48 8d 3d 6e 2c 00 00 	lea    0x2c6e(%rip),%rdi        # 6c08 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xbe8>
+    3f9a:	e8 71 e5 ff ff       	call   2510 <fwrite@plt>
+                                "result message back\n.");
+                if( VERIFICATION_INDEX_IS_VALID() )
+    3f9f:	83 bd 70 fe ff ff 00 	cmpl   $0x0,-0x190(%rbp)
+    3fa6:	0f 8e d1 00 00 00    	jle    407d <main+0x11a3>
+    3fac:	8b 85 70 fe ff ff    	mov    -0x190(%rbp),%eax
+    3fb2:	3b 85 78 fe ff ff    	cmp    -0x188(%rbp),%eax
+    3fb8:	0f 8f bf 00 00 00    	jg     407d <main+0x11a3>
+                {
+                    if(ATTESTATION_MSG_BODY_SIZE != p_att_result_msg_full->size ||
+    3fbe:	48 8b 85 98 fe ff ff 	mov    -0x168(%rbp),%rax
+    3fc5:	8b 40 03             	mov    0x3(%rax),%eax
+    3fc8:	3d 91 00 00 00       	cmp    $0x91,%eax
+    3fcd:	75 40                	jne    400f <main+0x1135>
+                        memcmp(p_att_result_msg_full->body,
+                            attestation_msg_samples[GET_VERIFICATION_ARRAY_INDEX()],
+                            p_att_result_msg_full->size) )
+    3fcf:	48 8b 85 98 fe ff ff 	mov    -0x168(%rbp),%rax
+    3fd6:	8b 40 03             	mov    0x3(%rax),%eax
+                        memcmp(p_att_result_msg_full->body,
+    3fd9:	89 c6                	mov    %eax,%esi
+                            attestation_msg_samples[GET_VERIFICATION_ARRAY_INDEX()],
+    3fdb:	8b 85 70 fe ff ff    	mov    -0x190(%rbp),%eax
+    3fe1:	8d 50 ff             	lea    -0x1(%rax),%edx
+    3fe4:	48 8d 05 65 5f 00 00 	lea    0x5f65(%rip),%rax        # 9f50 <attestation_msg_samples>
+    3feb:	48 63 d2             	movslq %edx,%rdx
+    3fee:	48 8b 04 d0          	mov    (%rax,%rdx,8),%rax
+                        memcmp(p_att_result_msg_full->body,
+    3ff2:	48 8b 95 98 fe ff ff 	mov    -0x168(%rbp),%rdx
+    3ff9:	48 8d 4a 08          	lea    0x8(%rdx),%rcx
+    3ffd:	48 89 f2             	mov    %rsi,%rdx
+    4000:	48 89 c6             	mov    %rax,%rsi
+    4003:	48 89 cf             	mov    %rcx,%rdi
+    4006:	e8 f5 e2 ff ff       	call   2300 <memcmp@plt>
+                    if(ATTESTATION_MSG_BODY_SIZE != p_att_result_msg_full->size ||
+    400b:	85 c0                	test   %eax,%eax
+    400d:	74 6e                	je     407d <main+0x11a3>
+                    {
+                        fprintf(OUTPUT, "\nSent MSG3 successfully. Received an "
+    400f:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    4016:	48 89 c1             	mov    %rax,%rcx
+    4019:	ba 6c 00 00 00       	mov    $0x6c,%edx
+    401e:	be 01 00 00 00       	mov    $0x1,%esi
+    4023:	48 8d 3d 26 2c 00 00 	lea    0x2c26(%rip),%rdi        # 6c50 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xc30>
+    402a:	e8 e1 e4 ff ff       	call   2510 <fwrite@plt>
+                                        "attestation result message back that did "
+                                        "NOT match the expected value.\n");
+                        fprintf(OUTPUT, "\nEXPECTED ATTESTATION RESULT -");
+    402f:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    4036:	48 89 c1             	mov    %rax,%rcx
+    4039:	ba 1e 00 00 00       	mov    $0x1e,%edx
+    403e:	be 01 00 00 00       	mov    $0x1,%esi
+    4043:	48 8d 3d 76 2c 00 00 	lea    0x2c76(%rip),%rdi        # 6cc0 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xca0>
+    404a:	e8 c1 e4 ff ff       	call   2510 <fwrite@plt>
+                        PRINT_BYTE_ARRAY(OUTPUT,
+                            attestation_msg_samples[GET_VERIFICATION_ARRAY_INDEX()],
+    404f:	8b 85 70 fe ff ff    	mov    -0x190(%rbp),%eax
+    4055:	8d 50 ff             	lea    -0x1(%rax),%edx
+    4058:	48 8d 05 f1 5e 00 00 	lea    0x5ef1(%rip),%rax        # 9f50 <attestation_msg_samples>
+    405f:	48 63 d2             	movslq %edx,%rdx
+    4062:	48 8b 0c d0          	mov    (%rax,%rdx,8),%rcx
+                        PRINT_BYTE_ARRAY(OUTPUT,
+    4066:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    406d:	ba 91 00 00 00       	mov    $0x91,%edx
+    4072:	48 89 ce             	mov    %rcx,%rsi
+    4075:	48 89 c7             	mov    %rax,%rdi
+    4078:	e8 08 ea ff ff       	call   2a85 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj>
+                            ATTESTATION_MSG_BODY_SIZE);
+                    }
+                }
+            }
+
+            fprintf(OUTPUT, "\nATTESTATION RESULT RECEIVED - ");
+    407d:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    4084:	48 89 c1             	mov    %rax,%rcx
+    4087:	ba 1f 00 00 00       	mov    $0x1f,%edx
+    408c:	be 01 00 00 00       	mov    $0x1,%esi
+    4091:	48 8d 3d 48 2c 00 00 	lea    0x2c48(%rip),%rdi        # 6ce0 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xcc0>
+    4098:	e8 73 e4 ff ff       	call   2510 <fwrite@plt>
+            PRINT_BYTE_ARRAY(OUTPUT, p_att_result_msg_full->body,
+    409d:	48 8b 85 98 fe ff ff 	mov    -0x168(%rbp),%rax
+    40a4:	8b 50 03             	mov    0x3(%rax),%edx
+    40a7:	48 8b 85 98 fe ff ff 	mov    -0x168(%rbp),%rax
+    40ae:	48 8d 48 08          	lea    0x8(%rax),%rcx
+    40b2:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    40b9:	48 89 ce             	mov    %rcx,%rsi
+    40bc:	48 89 c7             	mov    %rax,%rdi
+    40bf:	e8 c1 e9 ff ff       	call   2a85 <_Z16PRINT_BYTE_ARRAYP8_IO_FILEPvj>
+                             p_att_result_msg_full->size);
+
+
+            if( VERIFICATION_INDEX_IS_VALID() )
+    40c4:	83 bd 70 fe ff ff 00 	cmpl   $0x0,-0x190(%rbp)
+    40cb:	7e 33                	jle    4100 <main+0x1226>
+    40cd:	8b 85 70 fe ff ff    	mov    -0x190(%rbp),%eax
+    40d3:	3b 85 78 fe ff ff    	cmp    -0x188(%rbp),%eax
+    40d9:	7f 25                	jg     4100 <main+0x1226>
+            {
+                fprintf(OUTPUT, "\nBecause we used precomputed values for the "
+    40db:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    40e2:	48 89 c1             	mov    %rax,%rcx
+    40e5:	ba 95 00 00 00       	mov    $0x95,%edx
+    40ea:	be 01 00 00 00       	mov    $0x1,%esi
+    40ef:	48 8d 3d 0a 2c 00 00 	lea    0x2c0a(%rip),%rdi        # 6d00 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xce0>
+    40f6:	e8 15 e4 ff ff       	call   2510 <fwrite@plt>
+                                "messages, the attestation result message will "
+                                "not pass further verification tests, so we will "
+                                "skip them.\n");
+                goto CLEANUP;
+    40fb:	e9 c4 01 00 00       	jmp    42c4 <main+0x13ea>
+            ret = verify_att_result_mac(enclave_id,
+                    &status,
+                    context,
+                    (uint8_t*)&p_att_result_msg_body->platform_info_blob,
+                    sizeof(ias_platform_info_blob_t),
+                    (uint8_t*)&p_att_result_msg_body->mac,
+    4100:	48 8b 85 e8 fe ff ff 	mov    -0x118(%rbp),%rax
+    4107:	48 8d 78 61          	lea    0x61(%rax),%rdi
+                    (uint8_t*)&p_att_result_msg_body->platform_info_blob,
+    410b:	48 8b 8d e8 fe ff ff 	mov    -0x118(%rbp),%rcx
+            ret = verify_att_result_mac(enclave_id,
+    4112:	8b 95 58 fe ff ff    	mov    -0x1a8(%rbp),%edx
+    4118:	48 8b 85 a0 fe ff ff 	mov    -0x160(%rbp),%rax
+    411f:	48 8d b5 5c fe ff ff 	lea    -0x1a4(%rbp),%rsi
+    4126:	48 83 ec 08          	sub    $0x8,%rsp
+    412a:	6a 10                	push   $0x10
+    412c:	49 89 f9             	mov    %rdi,%r9
+    412f:	41 b8 61 00 00 00    	mov    $0x61,%r8d
+    4135:	48 89 c7             	mov    %rax,%rdi
+    4138:	e8 22 e6 ff ff       	call   275f <verify_att_result_mac>
+    413d:	48 83 c4 10          	add    $0x10,%rsp
+    4141:	89 85 64 fe ff ff    	mov    %eax,-0x19c(%rbp)
+                    sizeof(sgx_mac_t));
+            if((SGX_SUCCESS != ret) ||
+    4147:	83 bd 64 fe ff ff 00 	cmpl   $0x0,-0x19c(%rbp)
+    414e:	75 0a                	jne    415a <main+0x1280>
+               (SGX_SUCCESS != status))
+    4150:	8b 85 5c fe ff ff    	mov    -0x1a4(%rbp),%eax
+            if((SGX_SUCCESS != ret) ||
+    4156:	85 c0                	test   %eax,%eax
+    4158:	74 31                	je     418b <main+0x12b1>
+            {
+                ret = -1;
+    415a:	c7 85 64 fe ff ff ff 	movl   $0xffffffff,-0x19c(%rbp)
+    4161:	ff ff ff 
+                fprintf(OUTPUT, "\nError: INTEGRITY FAILED - attestation result "
+    4164:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    416b:	48 8d 15 2a 22 00 00 	lea    0x222a(%rip),%rdx        # 639c <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x37c>
+    4172:	48 8d 35 1f 2c 00 00 	lea    0x2c1f(%rip),%rsi        # 6d98 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xd78>
+    4179:	48 89 c7             	mov    %rax,%rdi
+    417c:	b8 00 00 00 00       	mov    $0x0,%eax
+    4181:	e8 fa e2 ff ff       	call   2480 <fprintf@plt>
+                                "message MK based cmac failed in [%s].",
+                                __FUNCTION__);
+                goto CLEANUP;
+    4186:	e9 39 01 00 00       	jmp    42c4 <main+0x13ea>
+            }
+
+            bool attestation_passed = true;
+    418b:	c6 85 57 fe ff ff 01 	movb   $0x1,-0x1a9(%rbp)
+            // Check the attestation result for pass or fail.
+            // Whether attestation passes or fails is a decision made by the ISV Server.
+            // When the ISV server decides to trust the enclave, then it will return success.
+            // When the ISV server decided to not trust the enclave, then it will return failure.
+            if(0 != p_att_result_msg_full->status[0]
+    4192:	48 8b 85 98 fe ff ff 	mov    -0x168(%rbp),%rax
+    4199:	0f b6 40 01          	movzbl 0x1(%rax),%eax
+    419d:	84 c0                	test   %al,%al
+    419f:	75 0f                	jne    41b0 <main+0x12d6>
+               || 0 != p_att_result_msg_full->status[1])
+    41a1:	48 8b 85 98 fe ff ff 	mov    -0x168(%rbp),%rax
+    41a8:	0f b6 40 02          	movzbl 0x2(%rax),%eax
+    41ac:	84 c0                	test   %al,%al
+    41ae:	74 29                	je     41d9 <main+0x12ff>
+            {
+                fprintf(OUTPUT, "\nError, attestation result message MK based cmac "
+    41b0:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    41b7:	48 8d 15 de 21 00 00 	lea    0x21de(%rip),%rdx        # 639c <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x37c>
+    41be:	48 8d 35 2b 2c 00 00 	lea    0x2c2b(%rip),%rsi        # 6df0 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xdd0>
+    41c5:	48 89 c7             	mov    %rax,%rdi
+    41c8:	b8 00 00 00 00       	mov    $0x0,%eax
+    41cd:	e8 ae e2 ff ff       	call   2480 <fprintf@plt>
+                                "failed in [%s].", __FUNCTION__);
+                attestation_passed = false;
+    41d2:	c6 85 57 fe ff ff 00 	movb   $0x0,-0x1a9(%rbp)
+            //     &p_att_result_msg_body->platform_info_blob,
+            //     attestation_passed ? 0 : 1, &update_info);
+
+            // Get the shared secret sent by the server using SK (if attestation
+            // passed)
+            if(attestation_passed)
+    41d9:	80 bd 57 fe ff ff 00 	cmpb   $0x0,-0x1a9(%rbp)
+    41e0:	0f 84 98 00 00 00    	je     427e <main+0x13a4>
+                ret = put_secret_data(enclave_id,
+                                      &status,
+                                      context,
+                                      p_att_result_msg_body->secret.payload,
+                                      p_att_result_msg_body->secret.payload_size,
+                                      p_att_result_msg_body->secret.payload_tag);
+    41e6:	48 8b 85 e8 fe ff ff 	mov    -0x118(%rbp),%rax
+    41ed:	4c 8d 80 81 00 00 00 	lea    0x81(%rax),%r8
+                ret = put_secret_data(enclave_id,
+    41f4:	48 8b 85 e8 fe ff ff 	mov    -0x118(%rbp),%rax
+    41fb:	8b 78 71             	mov    0x71(%rax),%edi
+                                      p_att_result_msg_body->secret.payload,
+    41fe:	48 8b 85 e8 fe ff ff 	mov    -0x118(%rbp),%rax
+    4205:	48 8d 88 91 00 00 00 	lea    0x91(%rax),%rcx
+                ret = put_secret_data(enclave_id,
+    420c:	8b 95 58 fe ff ff    	mov    -0x1a8(%rbp),%edx
+    4212:	48 8b 85 a0 fe ff ff 	mov    -0x160(%rbp),%rax
+    4219:	48 8d b5 5c fe ff ff 	lea    -0x1a4(%rbp),%rsi
+    4220:	4d 89 c1             	mov    %r8,%r9
+    4223:	41 89 f8             	mov    %edi,%r8d
+    4226:	48 89 c7             	mov    %rax,%rdi
+    4229:	e8 da e5 ff ff       	call   2808 <put_secret_data>
+    422e:	89 85 64 fe ff ff    	mov    %eax,-0x19c(%rbp)
+                if((SGX_SUCCESS != ret)  || (SGX_SUCCESS != status))
+    4234:	83 bd 64 fe ff ff 00 	cmpl   $0x0,-0x19c(%rbp)
+    423b:	75 0a                	jne    4247 <main+0x136d>
+    423d:	8b 85 5c fe ff ff    	mov    -0x1a4(%rbp),%eax
+    4243:	85 c0                	test   %eax,%eax
+    4245:	74 37                	je     427e <main+0x13a4>
+                {
+                    fprintf(OUTPUT, "\nError, attestation result message secret "
+    4247:	8b 85 5c fe ff ff    	mov    -0x1a4(%rbp),%eax
+    424d:	89 c1                	mov    %eax,%ecx
+    424f:	8b 95 64 fe ff ff    	mov    -0x19c(%rbp),%edx
+    4255:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    425c:	41 89 c8             	mov    %ecx,%r8d
+    425f:	89 d1                	mov    %edx,%ecx
+    4261:	48 8d 15 34 21 00 00 	lea    0x2134(%rip),%rdx        # 639c <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x37c>
+    4268:	48 8d 35 c9 2b 00 00 	lea    0x2bc9(%rip),%rsi        # 6e38 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xe18>
+    426f:	48 89 c7             	mov    %rax,%rdi
+    4272:	b8 00 00 00 00       	mov    $0x0,%eax
+    4277:	e8 04 e2 ff ff       	call   2480 <fprintf@plt>
+                                    "using SK based AESGCM failed in [%s]. ret = "
+                                    "0x%0x. status = 0x%0x", __FUNCTION__, ret,
+                                     status);
+                    goto CLEANUP;
+    427c:	eb 46                	jmp    42c4 <main+0x13ea>
+                }
+            }
+            fprintf(OUTPUT, "\nSecret successfully received from server.");
+    427e:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    4285:	48 89 c1             	mov    %rax,%rcx
+    4288:	ba 2a 00 00 00       	mov    $0x2a,%edx
+    428d:	be 01 00 00 00       	mov    $0x1,%esi
+    4292:	48 8d 3d 0f 2c 00 00 	lea    0x2c0f(%rip),%rdi        # 6ea8 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xe88>
+    4299:	e8 72 e2 ff ff       	call   2510 <fwrite@plt>
+            fprintf(OUTPUT, "\nRemote attestation success!");
+    429e:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    42a5:	48 89 c1             	mov    %rax,%rcx
+    42a8:	ba 1c 00 00 00       	mov    $0x1c,%edx
+    42ad:	be 01 00 00 00       	mov    $0x1,%esi
+    42b2:	48 8d 3d 1a 2c 00 00 	lea    0x2c1a(%rip),%rdi        # 6ed3 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xeb3>
+    42b9:	e8 52 e2 ff ff       	call   2510 <fwrite@plt>
+    42be:	eb 04                	jmp    42c4 <main+0x13ea>
+                    goto CLEANUP;
+    42c0:	90                   	nop
+    42c1:	eb 01                	jmp    42c4 <main+0x13ea>
+                        goto CLEANUP;
+    42c3:	90                   	nop
+        }
+
+    CLEANUP:
+        // Clean-up
+        // Need to close the RA key state.
+        if(INT_MAX != context)
+    42c4:	8b 85 58 fe ff ff    	mov    -0x1a8(%rbp),%eax
+    42ca:	3d ff ff ff 7f       	cmp    $0x7fffffff,%eax
+    42cf:	0f 84 9e 00 00 00    	je     4373 <main+0x1499>
+        {
+            int ret_save = ret;
+    42d5:	8b 85 64 fe ff ff    	mov    -0x19c(%rbp),%eax
+    42db:	89 85 7c fe ff ff    	mov    %eax,-0x184(%rbp)
+            ret = enclave_ra_close(enclave_id, &status, context);
+    42e1:	8b 95 58 fe ff ff    	mov    -0x1a8(%rbp),%edx
+    42e7:	48 8b 85 a0 fe ff ff 	mov    -0x160(%rbp),%rax
+    42ee:	48 8d 8d 5c fe ff ff 	lea    -0x1a4(%rbp),%rcx
+    42f5:	48 89 ce             	mov    %rcx,%rsi
+    42f8:	48 89 c7             	mov    %rax,%rdi
+    42fb:	e8 e2 e3 ff ff       	call   26e2 <enclave_ra_close>
+    4300:	89 85 64 fe ff ff    	mov    %eax,-0x19c(%rbp)
+            if(SGX_SUCCESS != ret || status)
+    4306:	83 bd 64 fe ff ff 00 	cmpl   $0x0,-0x19c(%rbp)
+    430d:	75 0a                	jne    4319 <main+0x143f>
+    430f:	8b 85 5c fe ff ff    	mov    -0x1a4(%rbp),%eax
+    4315:	85 c0                	test   %eax,%eax
+    4317:	74 2e                	je     4347 <main+0x146d>
+            {
+                ret = -1;
+    4319:	c7 85 64 fe ff ff ff 	movl   $0xffffffff,-0x19c(%rbp)
+    4320:	ff ff ff 
+                fprintf(OUTPUT, "\nError, call enclave_ra_close fail [%s].",
+    4323:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    432a:	48 8d 15 6b 20 00 00 	lea    0x206b(%rip),%rdx        # 639c <_ZL22SAMPLE_AES_CMAC_KDF_ID+0x37c>
+    4331:	48 8d 35 b8 2b 00 00 	lea    0x2bb8(%rip),%rsi        # 6ef0 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xed0>
+    4338:	48 89 c7             	mov    %rax,%rdi
+    433b:	b8 00 00 00 00       	mov    $0x0,%eax
+    4340:	e8 3b e1 ff ff       	call   2480 <fprintf@plt>
+    4345:	eb 0c                	jmp    4353 <main+0x1479>
+            }
+            else
+            {
+                // enclave_ra_close was successful, let's restore the value that
+                // led us to this point in the code.
+                ret = ret_save;
+    4347:	8b 85 7c fe ff ff    	mov    -0x184(%rbp),%eax
+    434d:	89 85 64 fe ff ff    	mov    %eax,-0x19c(%rbp)
+            }
+            fprintf(OUTPUT, "\nCall enclave_ra_close success.");
+    4353:	48 8b 85 c0 fe ff ff 	mov    -0x140(%rbp),%rax
+    435a:	48 89 c1             	mov    %rax,%rcx
+    435d:	ba 1f 00 00 00       	mov    $0x1f,%edx
+    4362:	be 01 00 00 00       	mov    $0x1,%esi
+    4367:	48 8d 3d b2 2b 00 00 	lea    0x2bb2(%rip),%rdi        # 6f20 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xf00>
+    436e:	e8 9d e1 ff ff       	call   2510 <fwrite@plt>
+        }
+
+        sgx_destroy_enclave(enclave_id);
+    4373:	48 8b 85 a0 fe ff ff 	mov    -0x160(%rbp),%rax
+    437a:	48 89 c7             	mov    %rax,%rdi
+    437d:	e8 be df ff ff       	call   2340 <sgx_destroy_enclave@plt>
+
+
+        ra_free_network_response_buffer(p_msg0_resp_full);
+    4382:	48 8b 85 80 fe ff ff 	mov    -0x180(%rbp),%rax
+    4389:	48 89 c7             	mov    %rax,%rdi
+    438c:	e8 8f df ff ff       	call   2320 <ra_free_network_response_buffer@plt>
+        p_msg0_resp_full = NULL;
+    4391:	48 c7 85 80 fe ff ff 	movq   $0x0,-0x180(%rbp)
+    4398:	00 00 00 00 
+        ra_free_network_response_buffer(p_msg2_full);
+    439c:	48 8b 85 88 fe ff ff 	mov    -0x178(%rbp),%rax
+    43a3:	48 89 c7             	mov    %rax,%rdi
+    43a6:	e8 75 df ff ff       	call   2320 <ra_free_network_response_buffer@plt>
+        p_msg2_full = NULL;
+    43ab:	48 c7 85 88 fe ff ff 	movq   $0x0,-0x178(%rbp)
+    43b2:	00 00 00 00 
+        ra_free_network_response_buffer(p_att_result_msg_full);
+    43b6:	48 8b 85 98 fe ff ff 	mov    -0x168(%rbp),%rax
+    43bd:	48 89 c7             	mov    %rax,%rdi
+    43c0:	e8 5b df ff ff       	call   2320 <ra_free_network_response_buffer@plt>
+        p_att_result_msg_full = NULL;
+    43c5:	48 c7 85 98 fe ff ff 	movq   $0x0,-0x168(%rbp)
+    43cc:	00 00 00 00 
+
+        // p_msg3 is malloc'd by the untrusted KE library. App needs to free.
+        SAFE_FREE(p_msg3);
+    43d0:	48 8b 85 90 fe ff ff 	mov    -0x170(%rbp),%rax
+    43d7:	48 85 c0             	test   %rax,%rax
+    43da:	74 1a                	je     43f6 <main+0x151c>
+    43dc:	48 8b 85 90 fe ff ff 	mov    -0x170(%rbp),%rax
+    43e3:	48 89 c7             	mov    %rax,%rdi
+    43e6:	e8 35 e0 ff ff       	call   2420 <free@plt>
+    43eb:	48 c7 85 90 fe ff ff 	movq   $0x0,-0x170(%rbp)
+    43f2:	00 00 00 00 
+        SAFE_FREE(p_msg3_full);
+    43f6:	48 83 bd b0 fe ff ff 	cmpq   $0x0,-0x150(%rbp)
+    43fd:	00 
+    43fe:	74 1a                	je     441a <main+0x1540>
+    4400:	48 8b 85 b0 fe ff ff 	mov    -0x150(%rbp),%rax
+    4407:	48 89 c7             	mov    %rax,%rdi
+    440a:	e8 11 e0 ff ff       	call   2420 <free@plt>
+    440f:	48 c7 85 b0 fe ff ff 	movq   $0x0,-0x150(%rbp)
+    4416:	00 00 00 00 
+        SAFE_FREE(p_msg1_full);
+    441a:	48 83 bd a8 fe ff ff 	cmpq   $0x0,-0x158(%rbp)
+    4421:	00 
+    4422:	74 1a                	je     443e <main+0x1564>
+    4424:	48 8b 85 a8 fe ff ff 	mov    -0x158(%rbp),%rax
+    442b:	48 89 c7             	mov    %rax,%rdi
+    442e:	e8 ed df ff ff       	call   2420 <free@plt>
+    4433:	48 c7 85 a8 fe ff ff 	movq   $0x0,-0x158(%rbp)
+    443a:	00 00 00 00 
+        SAFE_FREE(p_msg0_full);
+    443e:	48 83 bd b8 fe ff ff 	cmpq   $0x0,-0x148(%rbp)
+    4445:	00 
+    4446:	74 1a                	je     4462 <main+0x1588>
+    4448:	48 8b 85 b8 fe ff ff 	mov    -0x148(%rbp),%rax
+    444f:	48 89 c7             	mov    %rax,%rdi
+    4452:	e8 c9 df ff ff       	call   2420 <free@plt>
+    4457:	48 c7 85 b8 fe ff ff 	movq   $0x0,-0x148(%rbp)
+    445e:	00 00 00 00 
+    }while(--i);
+    4462:	83 ad 74 fe ff ff 01 	subl   $0x1,-0x18c(%rbp)
+    4469:	83 bd 74 fe ff ff 00 	cmpl   $0x0,-0x18c(%rbp)
+    4470:	0f 95 c0             	setne  %al
+    4473:	84 c0                	test   %al,%al
+    4475:	74 05                	je     447c <main+0x15a2>
+    do
+    4477:	e9 89 ed ff ff       	jmp    3205 <main+0x32b>
+    printf("\nEnter a character before exit ...\n");
+    447c:	48 8d 3d bd 2a 00 00 	lea    0x2abd(%rip),%rdi        # 6f40 <_ZL22SAMPLE_AES_CMAC_KDF_ID+0xf20>
+    4483:	e8 38 e0 ff ff       	call   24c0 <puts@plt>
+    getchar();
+    4488:	e8 d3 df ff ff       	call   2460 <getchar@plt>
+    return ret;
+    448d:	8b 85 64 fe ff ff    	mov    -0x19c(%rbp),%eax
+}
+    4493:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
+    4497:	64 48 33 0c 25 28 00 	xor    %fs:0x28,%rcx
+    449e:	00 00 
+    44a0:	74 05                	je     44a7 <main+0x15cd>
+    44a2:	e8 59 df ff ff       	call   2400 <__stack_chk_fail@plt>
+    44a7:	c9                   	leave  
+    44a8:	c3                   	ret    
+    44a9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+00000000000044b0 <_ZN5MutexD1Ev>:
+    44b0:	f3 0f 1e fa          	endbr64 
+    44b4:	e9 57 0b 00 00       	jmp    5010 <se_mutex_destroy>
+    44b9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+00000000000044c0 <sgx_ra_get_msg1>:
+    44c0:	f3 0f 1e fa          	endbr64 
+    44c4:	41 57                	push   %r15
+    44c6:	41 56                	push   %r14
+    44c8:	41 55                	push   %r13
+    44ca:	41 54                	push   %r12
+    44cc:	55                   	push   %rbp
+    44cd:	53                   	push   %rbx
+    44ce:	48 81 ec 68 02 00 00 	sub    $0x268,%rsp
+    44d5:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    44dc:	00 00 
+    44de:	48 89 84 24 58 02 00 	mov    %rax,0x258(%rsp)
+    44e5:	00 
+    44e6:	31 c0                	xor    %eax,%eax
+    44e8:	48 85 c9             	test   %rcx,%rcx
+    44eb:	0f 84 37 01 00 00    	je     4628 <sgx_ra_get_msg1+0x168>
+    44f1:	49 89 d6             	mov    %rdx,%r14
+    44f4:	48 85 d2             	test   %rdx,%rdx
+    44f7:	0f 84 2b 01 00 00    	je     4628 <sgx_ra_get_msg1+0x168>
+    44fd:	4c 8d 7c 24 50       	lea    0x50(%rsp),%r15
+    4502:	41 89 fc             	mov    %edi,%r12d
+    4505:	48 89 cb             	mov    %rcx,%rbx
+    4508:	b9 40 00 00 00       	mov    $0x40,%ecx
+    450d:	4c 89 ff             	mov    %r15,%rdi
+    4510:	48 89 f5             	mov    %rsi,%rbp
+    4513:	48 8d b4 24 54 02 00 	lea    0x254(%rsp),%rsi
+    451a:	00 
+    451b:	45 31 ed             	xor    %r13d,%r13d
+    451e:	f3 48 ab             	rep stos %rax,%es:(%rdi)
+    4521:	4c 89 ff             	mov    %r15,%rdi
+    4524:	c7 84 24 54 02 00 00 	movl   $0x0,0x254(%rsp)
+    452b:	00 00 00 00 
+    452f:	e8 fc dd ff ff       	call   2330 <sgx_init_quote@plt>
+    4534:	85 c0                	test   %eax,%eax
+    4536:	74 30                	je     4568 <sgx_ra_get_msg1+0xa8>
+    4538:	48 8b 9c 24 58 02 00 	mov    0x258(%rsp),%rbx
+    453f:	00 
+    4540:	64 48 33 1c 25 28 00 	xor    %fs:0x28,%rbx
+    4547:	00 00 
+    4549:	0f 85 e3 00 00 00    	jne    4632 <sgx_ra_get_msg1+0x172>
+    454f:	48 81 c4 68 02 00 00 	add    $0x268,%rsp
+    4556:	5b                   	pop    %rbx
+    4557:	5d                   	pop    %rbp
+    4558:	41 5c                	pop    %r12
+    455a:	41 5d                	pop    %r13
+    455c:	41 5e                	pop    %r14
+    455e:	41 5f                	pop    %r15
+    4560:	c3                   	ret    
+    4561:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+    4568:	48 8d 3d 51 5a 00 00 	lea    0x5a51(%rip),%rdi        # 9fc0 <_ZL16g_ukey_spin_lock>
+    456f:	e8 5c 0a 00 00       	call   4fd0 <se_mutex_lock>
+    4574:	4c 89 e8             	mov    %r13,%rax
+    4577:	b9 20 00 00 00       	mov    $0x20,%ecx
+    457c:	4c 89 fe             	mov    %r15,%rsi
+    457f:	48 8d 15 7a 5c 00 00 	lea    0x5c7a(%rip),%rdx        # a200 <_ZL12g_att_key_id>
+    4586:	48 89 d7             	mov    %rdx,%rdi
+    4589:	f3 48 ab             	rep stos %rax,%es:(%rdi)
+    458c:	48 8d 3d 6d 5a 00 00 	lea    0x5a6d(%rip),%rdi        # a000 <_ZL16g_qe_target_info>
+    4593:	b9 40 00 00 00       	mov    $0x40,%ecx
+    4598:	f3 48 a5             	rep movsq %ds:(%rsi),%es:(%rdi)
+    459b:	48 8d 3d 1e 5a 00 00 	lea    0x5a1e(%rip),%rdi        # 9fc0 <_ZL16g_ukey_spin_lock>
+    45a2:	e8 49 0a 00 00       	call   4ff0 <se_mutex_unlock>
+    45a7:	66 0f ef c0          	pxor   %xmm0,%xmm0
+    45ab:	44 89 e2             	mov    %r12d,%edx
+    45ae:	48 89 ef             	mov    %rbp,%rdi
+    45b1:	48 8d 4c 24 10       	lea    0x10(%rsp),%rcx
+    45b6:	0f 29 44 24 10       	movaps %xmm0,0x10(%rsp)
+    45bb:	48 8d 74 24 0c       	lea    0xc(%rsp),%rsi
+    45c0:	8b 84 24 54 02 00 00 	mov    0x254(%rsp),%eax
+    45c7:	c7 44 24 0c 01 00 00 	movl   $0x1,0xc(%rsp)
+    45ce:	00 
+    45cf:	89 43 40             	mov    %eax,0x40(%rbx)
+    45d2:	0f 29 44 24 20       	movaps %xmm0,0x20(%rsp)
+    45d7:	0f 29 44 24 30       	movaps %xmm0,0x30(%rsp)
+    45dc:	0f 29 44 24 40       	movaps %xmm0,0x40(%rsp)
+    45e1:	41 ff d6             	call   *%r14
+    45e4:	85 c0                	test   %eax,%eax
+    45e6:	0f 85 4c ff ff ff    	jne    4538 <sgx_ra_get_msg1+0x78>
+    45ec:	8b 44 24 0c          	mov    0xc(%rsp),%eax
+    45f0:	85 c0                	test   %eax,%eax
+    45f2:	0f 85 40 ff ff ff    	jne    4538 <sgx_ra_get_msg1+0x78>
+    45f8:	66 0f 6f 4c 24 10    	movdqa 0x10(%rsp),%xmm1
+    45fe:	66 0f 6f 54 24 20    	movdqa 0x20(%rsp),%xmm2
+    4604:	66 0f 6f 5c 24 30    	movdqa 0x30(%rsp),%xmm3
+    460a:	66 0f 6f 64 24 40    	movdqa 0x40(%rsp),%xmm4
+    4610:	0f 11 0b             	movups %xmm1,(%rbx)
+    4613:	0f 11 53 10          	movups %xmm2,0x10(%rbx)
+    4617:	0f 11 5b 20          	movups %xmm3,0x20(%rbx)
+    461b:	0f 11 63 30          	movups %xmm4,0x30(%rbx)
+    461f:	e9 14 ff ff ff       	jmp    4538 <sgx_ra_get_msg1+0x78>
+    4624:	0f 1f 40 00          	nopl   0x0(%rax)
+    4628:	b8 02 00 00 00       	mov    $0x2,%eax
+    462d:	e9 06 ff ff ff       	jmp    4538 <sgx_ra_get_msg1+0x78>
+    4632:	e8 c9 dd ff ff       	call   2400 <__stack_chk_fail@plt>
+    4637:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+    463e:	00 00 
+
+0000000000004640 <sgx_ra_proc_msg2>:
+    4640:	f3 0f 1e fa          	endbr64 
+    4644:	41 57                	push   %r15
+    4646:	41 56                	push   %r14
+    4648:	41 55                	push   %r13
+    464a:	41 54                	push   %r12
+    464c:	55                   	push   %rbp
+    464d:	53                   	push   %rbx
+    464e:	48 81 ec d8 06 00 00 	sub    $0x6d8,%rsp
+    4655:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    465c:	00 00 
+    465e:	48 89 84 24 c8 06 00 	mov    %rax,0x6c8(%rsp)
+    4665:	00 
+    4666:	31 c0                	xor    %eax,%eax
+    4668:	4c 8b 9c 24 10 07 00 	mov    0x710(%rsp),%r11
+    466f:	00 
+    4670:	4c 8b bc 24 18 07 00 	mov    0x718(%rsp),%r15
+    4677:	00 
+    4678:	4d 85 c0             	test   %r8,%r8
+    467b:	0f 84 8f 02 00 00    	je     4910 <sgx_ra_proc_msg2+0x2d0>
+    4681:	48 89 d5             	mov    %rdx,%rbp
+    4684:	48 85 d2             	test   %rdx,%rdx
+    4687:	0f 84 83 02 00 00    	je     4910 <sgx_ra_proc_msg2+0x2d0>
+    468d:	48 85 c9             	test   %rcx,%rcx
+    4690:	49 89 cc             	mov    %rcx,%r12
+    4693:	0f 94 c2             	sete   %dl
+    4696:	4d 85 ff             	test   %r15,%r15
+    4699:	0f 94 c0             	sete   %al
+    469c:	08 c2                	or     %al,%dl
+    469e:	0f 85 6c 02 00 00    	jne    4910 <sgx_ra_proc_msg2+0x2d0>
+    46a4:	4d 85 db             	test   %r11,%r11
+    46a7:	4c 89 5c 24 08       	mov    %r11,0x8(%rsp)
+    46ac:	0f 84 5e 02 00 00    	je     4910 <sgx_ra_proc_msg2+0x2d0>
+    46b2:	41 8b 90 a4 00 00 00 	mov    0xa4(%r8),%edx
+    46b9:	45 89 c9             	mov    %r9d,%r9d
+    46bc:	4c 89 c3             	mov    %r8,%rbx
+    46bf:	b8 02 00 00 00       	mov    $0x2,%eax
+    46c4:	48 81 c2 a8 00 00 00 	add    $0xa8,%rdx
+    46cb:	49 39 d1             	cmp    %rdx,%r9
+    46ce:	74 30                	je     4700 <sgx_ra_proc_msg2+0xc0>
+    46d0:	48 8b 9c 24 c8 06 00 	mov    0x6c8(%rsp),%rbx
+    46d7:	00 
+    46d8:	64 48 33 1c 25 28 00 	xor    %fs:0x28,%rbx
+    46df:	00 00 
+    46e1:	0f 85 6e 02 00 00    	jne    4955 <sgx_ra_proc_msg2+0x315>
+    46e7:	48 81 c4 d8 06 00 00 	add    $0x6d8,%rsp
+    46ee:	5b                   	pop    %rbx
+    46ef:	5d                   	pop    %rbp
+    46f0:	41 5c                	pop    %r12
+    46f2:	41 5d                	pop    %r13
+    46f4:	41 5e                	pop    %r14
+    46f6:	41 5f                	pop    %r15
+    46f8:	c3                   	ret    
+    46f9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+    4700:	31 c0                	xor    %eax,%eax
+    4702:	41 89 fe             	mov    %edi,%r14d
+    4705:	49 89 f5             	mov    %rsi,%r13
+    4708:	b9 36 00 00 00       	mov    $0x36,%ecx
+    470d:	48 8d 74 24 60       	lea    0x60(%rsp),%rsi
+    4712:	48 8d bc 24 60 01 00 	lea    0x160(%rsp),%rdi
+    4719:	00 
+    471a:	66 0f ef c0          	pxor   %xmm0,%xmm0
+    471e:	48 89 7c 24 20       	mov    %rdi,0x20(%rsp)
+    4723:	f3 48 ab             	rep stos %rax,%es:(%rdi)
+    4726:	48 89 f7             	mov    %rsi,%rdi
+    4729:	b9 20 00 00 00       	mov    $0x20,%ecx
+    472e:	48 89 74 24 10       	mov    %rsi,0x10(%rsp)
+    4733:	f3 48 ab             	rep stos %rax,%es:(%rdi)
+    4736:	48 8d 4c 24 50       	lea    0x50(%rsp),%rcx
+    473b:	48 8d bc 24 10 03 00 	lea    0x310(%rsp),%rdi
+    4742:	00 
+    4743:	0f 29 44 24 50       	movaps %xmm0,0x50(%rsp)
+    4748:	48 89 4c 24 18       	mov    %rcx,0x18(%rsp)
+    474d:	b9 36 00 00 00       	mov    $0x36,%ecx
+    4752:	48 89 7c 24 28       	mov    %rdi,0x28(%rsp)
+    4757:	f3 48 ab             	rep stos %rax,%es:(%rdi)
+    475a:	48 8d 3d 5f 58 00 00 	lea    0x585f(%rip),%rdi        # 9fc0 <_ZL16g_ukey_spin_lock>
+    4761:	e8 6a 08 00 00       	call   4fd0 <se_mutex_lock>
+    4766:	48 8b 74 24 10       	mov    0x10(%rsp),%rsi
+    476b:	ba 00 01 00 00       	mov    $0x100,%edx
+    4770:	48 8d 3d 89 5a 00 00 	lea    0x5a89(%rip),%rdi        # a200 <_ZL12g_att_key_id>
+    4777:	e8 84 db ff ff       	call   2300 <memcmp@plt>
+    477c:	4c 8b 5c 24 08       	mov    0x8(%rsp),%r11
+    4781:	85 c0                	test   %eax,%eax
+    4783:	0f 85 97 01 00 00    	jne    4920 <sgx_ra_proc_msg2+0x2e0>
+    4789:	48 8d bc 24 c0 04 00 	lea    0x4c0(%rsp),%rdi
+    4790:	00 
+    4791:	b9 40 00 00 00       	mov    $0x40,%ecx
+    4796:	4c 89 5c 24 08       	mov    %r11,0x8(%rsp)
+    479b:	48 8d 35 5e 58 00 00 	lea    0x585e(%rip),%rsi        # a000 <_ZL16g_qe_target_info>
+    47a2:	f3 48 a5             	rep movsq %ds:(%rsi),%es:(%rdi)
+    47a5:	48 8d 3d 14 58 00 00 	lea    0x5814(%rip),%rdi        # 9fc0 <_ZL16g_ukey_spin_lock>
+    47ac:	e8 3f 08 00 00       	call   4ff0 <se_mutex_unlock>
+    47b1:	48 8d 44 24 48       	lea    0x48(%rsp),%rax
+    47b6:	4c 89 ef             	mov    %r13,%rdi
+    47b9:	48 89 d9             	mov    %rbx,%rcx
+    47bc:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+    47c1:	48 83 ec 08          	sub    $0x8,%rsp
+    47c5:	48 89 c6             	mov    %rax,%rsi
+    47c8:	44 89 f2             	mov    %r14d,%edx
+    47cb:	ff 74 24 20          	push   0x20(%rsp)
+    47cf:	4c 8b 4c 24 30       	mov    0x30(%rsp),%r9
+    47d4:	4c 8d 84 24 d0 04 00 	lea    0x4d0(%rsp),%r8
+    47db:	00 
+    47dc:	ff d5                	call   *%rbp
+    47de:	5e                   	pop    %rsi
+    47df:	5f                   	pop    %rdi
+    47e0:	85 c0                	test   %eax,%eax
+    47e2:	0f 85 e8 fe ff ff    	jne    46d0 <sgx_ra_proc_msg2+0x90>
+    47e8:	8b 44 24 48          	mov    0x48(%rsp),%eax
+    47ec:	85 c0                	test   %eax,%eax
+    47ee:	0f 85 dc fe ff ff    	jne    46d0 <sgx_ra_proc_msg2+0x90>
+    47f4:	8b b3 a4 00 00 00    	mov    0xa4(%rbx),%esi
+    47fa:	b8 00 00 00 00       	mov    $0x0,%eax
+    47ff:	48 8d bb a8 00 00 00 	lea    0xa8(%rbx),%rdi
+    4806:	48 8d 54 24 4c       	lea    0x4c(%rsp),%rdx
+    480b:	c7 44 24 4c 00 00 00 	movl   $0x0,0x4c(%rsp)
+    4812:	00 
+    4813:	85 f6                	test   %esi,%esi
+    4815:	48 0f 44 f8          	cmove  %rax,%rdi
+    4819:	e8 82 dc ff ff       	call   24a0 <sgx_calc_quote_size@plt>
+    481e:	85 c0                	test   %eax,%eax
+    4820:	0f 85 aa fe ff ff    	jne    46d0 <sgx_ra_proc_msg2+0x90>
+    4826:	8b 54 24 4c          	mov    0x4c(%rsp),%edx
+    482a:	4c 8b 5c 24 08       	mov    0x8(%rsp),%r11
+    482f:	b8 01 00 00 00       	mov    $0x1,%eax
+    4834:	81 fa af fe ff ff    	cmp    $0xfffffeaf,%edx
+    483a:	0f 87 90 fe ff ff    	ja     46d0 <sgx_ra_proc_msg2+0x90>
+    4840:	8d ba 50 01 00 00    	lea    0x150(%rdx),%edi
+    4846:	be 01 00 00 00       	mov    $0x1,%esi
+    484b:	4c 89 5c 24 30       	mov    %r11,0x30(%rsp)
+    4850:	89 54 24 08          	mov    %edx,0x8(%rsp)
+    4854:	89 7c 24 3c          	mov    %edi,0x3c(%rsp)
+    4858:	e8 13 db ff ff       	call   2370 <calloc@plt>
+    485d:	8b 54 24 08          	mov    0x8(%rsp),%edx
+    4861:	4c 8b 5c 24 30       	mov    0x30(%rsp),%r11
+    4866:	48 85 c0             	test   %rax,%rax
+    4869:	48 89 c5             	mov    %rax,%rbp
+    486c:	0f 84 e8 00 00 00    	je     495a <sgx_ra_proc_msg2+0x31a>
+    4872:	44 8b 8b a4 00 00 00 	mov    0xa4(%rbx),%r9d
+    4879:	48 8d 88 50 01 00 00 	lea    0x150(%rax),%rcx
+    4880:	4c 8d 83 a8 00 00 00 	lea    0xa8(%rbx),%r8
+    4887:	b8 00 00 00 00       	mov    $0x0,%eax
+    488c:	4c 89 5c 24 08       	mov    %r11,0x8(%rsp)
+    4891:	4c 8d 53 40          	lea    0x40(%rbx),%r10
+    4895:	45 85 c9             	test   %r9d,%r9d
+    4898:	4c 0f 44 c0          	cmove  %rax,%r8
+    489c:	31 f6                	xor    %esi,%esi
+    489e:	66 83 7b 50 00       	cmpw   $0x0,0x50(%rbx)
+    48a3:	40 0f 95 c6          	setne  %sil
+    48a7:	48 83 ec 08          	sub    $0x8,%rsp
+    48ab:	52                   	push   %rdx
+    48ac:	4c 89 d2             	mov    %r10,%rdx
+    48af:	51                   	push   %rcx
+    48b0:	48 8b 5c 24 40       	mov    0x40(%rsp),%rbx
+    48b5:	53                   	push   %rbx
+    48b6:	48 8b 4c 24 38       	mov    0x38(%rsp),%rcx
+    48bb:	48 8b 7c 24 40       	mov    0x40(%rsp),%rdi
+    48c0:	e8 2b db ff ff       	call   23f0 <sgx_get_quote@plt>
+    48c5:	48 83 c4 20          	add    $0x20,%rsp
+    48c9:	85 c0                	test   %eax,%eax
+    48cb:	75 73                	jne    4940 <sgx_ra_proc_msg2+0x300>
+    48cd:	48 83 ec 08          	sub    $0x8,%rsp
+    48d1:	44 89 f2             	mov    %r14d,%edx
+    48d4:	49 89 e9             	mov    %rbp,%r9
+    48d7:	49 89 d8             	mov    %rbx,%r8
+    48da:	8b 44 24 44          	mov    0x44(%rsp),%eax
+    48de:	4c 89 ef             	mov    %r13,%rdi
+    48e1:	50                   	push   %rax
+    48e2:	8b 4c 24 5c          	mov    0x5c(%rsp),%ecx
+    48e6:	48 8b 74 24 20       	mov    0x20(%rsp),%rsi
+    48eb:	41 ff d4             	call   *%r12
+    48ee:	5a                   	pop    %rdx
+    48ef:	59                   	pop    %rcx
+    48f0:	85 c0                	test   %eax,%eax
+    48f2:	75 4c                	jne    4940 <sgx_ra_proc_msg2+0x300>
+    48f4:	8b 44 24 48          	mov    0x48(%rsp),%eax
+    48f8:	85 c0                	test   %eax,%eax
+    48fa:	75 44                	jne    4940 <sgx_ra_proc_msg2+0x300>
+    48fc:	4c 8b 5c 24 08       	mov    0x8(%rsp),%r11
+    4901:	8b 5c 24 3c          	mov    0x3c(%rsp),%ebx
+    4905:	49 89 2b             	mov    %rbp,(%r11)
+    4908:	41 89 1f             	mov    %ebx,(%r15)
+    490b:	e9 c0 fd ff ff       	jmp    46d0 <sgx_ra_proc_msg2+0x90>
+    4910:	b8 02 00 00 00       	mov    $0x2,%eax
+    4915:	e9 b6 fd ff ff       	jmp    46d0 <sgx_ra_proc_msg2+0x90>
+    491a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+    4920:	48 8d 3d 99 56 00 00 	lea    0x5699(%rip),%rdi        # 9fc0 <_ZL16g_ukey_spin_lock>
+    4927:	e8 c4 06 00 00       	call   4ff0 <se_mutex_unlock>
+    492c:	b8 05 00 00 00       	mov    $0x5,%eax
+    4931:	e9 9a fd ff ff       	jmp    46d0 <sgx_ra_proc_msg2+0x90>
+    4936:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+    493d:	00 00 00 
+    4940:	48 89 ef             	mov    %rbp,%rdi
+    4943:	89 44 24 08          	mov    %eax,0x8(%rsp)
+    4947:	e8 d4 da ff ff       	call   2420 <free@plt>
+    494c:	8b 44 24 08          	mov    0x8(%rsp),%eax
+    4950:	e9 7b fd ff ff       	jmp    46d0 <sgx_ra_proc_msg2+0x90>
+    4955:	e8 a6 da ff ff       	call   2400 <__stack_chk_fail@plt>
+    495a:	b8 03 00 00 00       	mov    $0x3,%eax
+    495f:	e9 6c fd ff ff       	jmp    46d0 <sgx_ra_proc_msg2+0x90>
+    4964:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+    496b:	00 00 00 
+    496e:	66 90                	xchg   %ax,%ax
+
+0000000000004970 <sgx_ra_get_msg1_ex>:
+    4970:	f3 0f 1e fa          	endbr64 
+    4974:	41 57                	push   %r15
+    4976:	41 56                	push   %r14
+    4978:	41 55                	push   %r13
+    497a:	41 54                	push   %r12
+    497c:	55                   	push   %rbp
+    497d:	53                   	push   %rbx
+    497e:	48 81 ec 78 02 00 00 	sub    $0x278,%rsp
+    4985:	48 89 14 24          	mov    %rdx,(%rsp)
+    4989:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    4990:	00 00 
+    4992:	48 89 84 24 68 02 00 	mov    %rax,0x268(%rsp)
+    4999:	00 
+    499a:	31 c0                	xor    %eax,%eax
+    499c:	48 85 c9             	test   %rcx,%rcx
+    499f:	0f 94 c2             	sete   %dl
+    49a2:	48 85 ff             	test   %rdi,%rdi
+    49a5:	0f 94 c0             	sete   %al
+    49a8:	08 c2                	or     %al,%dl
+    49aa:	0f 85 30 02 00 00    	jne    4be0 <sgx_ra_get_msg1_ex+0x270>
+    49b0:	4c 89 c5             	mov    %r8,%rbp
+    49b3:	4d 85 c0             	test   %r8,%r8
+    49b6:	0f 84 24 02 00 00    	je     4be0 <sgx_ra_get_msg1_ex+0x270>
+    49bc:	4c 8d 6c 24 60       	lea    0x60(%rsp),%r13
+    49c1:	48 89 fb             	mov    %rdi,%rbx
+    49c4:	31 c0                	xor    %eax,%eax
+    49c6:	49 89 cc             	mov    %rcx,%r12
+    49c9:	4c 89 ef             	mov    %r13,%rdi
+    49cc:	b9 40 00 00 00       	mov    $0x40,%ecx
+    49d1:	4c 8d 74 24 18       	lea    0x18(%rsp),%r14
+    49d6:	41 89 f7             	mov    %esi,%r15d
+    49d9:	f3 48 ab             	rep stos %rax,%es:(%rdi)
+    49dc:	4c 89 f2             	mov    %r14,%rdx
+    49df:	4c 89 ee             	mov    %r13,%rsi
+    49e2:	48 89 df             	mov    %rbx,%rdi
+    49e5:	48 c7 44 24 18 00 00 	movq   $0x0,0x18(%rsp)
+    49ec:	00 00 
+    49ee:	e8 cd d9 ff ff       	call   23c0 <sgx_init_quote_ex@plt>
+    49f3:	85 c0                	test   %eax,%eax
+    49f5:	74 29                	je     4a20 <sgx_ra_get_msg1_ex+0xb0>
+    49f7:	48 8b b4 24 68 02 00 	mov    0x268(%rsp),%rsi
+    49fe:	00 
+    49ff:	64 48 33 34 25 28 00 	xor    %fs:0x28,%rsi
+    4a06:	00 00 
+    4a08:	0f 85 f5 01 00 00    	jne    4c03 <sgx_ra_get_msg1_ex+0x293>
+    4a0e:	48 81 c4 78 02 00 00 	add    $0x278,%rsp
+    4a15:	5b                   	pop    %rbx
+    4a16:	5d                   	pop    %rbp
+    4a17:	41 5c                	pop    %r12
+    4a19:	41 5d                	pop    %r13
+    4a1b:	41 5e                	pop    %r14
+    4a1d:	41 5f                	pop    %r15
+    4a1f:	c3                   	ret    
+    4a20:	48 8b 7c 24 18       	mov    0x18(%rsp),%rdi
+    4a25:	e8 16 da ff ff       	call   2440 <malloc@plt>
+    4a2a:	48 85 c0             	test   %rax,%rax
+    4a2d:	0f 84 d5 01 00 00    	je     4c08 <sgx_ra_get_msg1_ex+0x298>
+    4a33:	48 89 c1             	mov    %rax,%rcx
+    4a36:	4c 89 f2             	mov    %r14,%rdx
+    4a39:	4c 89 ee             	mov    %r13,%rsi
+    4a3c:	48 89 df             	mov    %rbx,%rdi
+    4a3f:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+    4a44:	e8 77 d9 ff ff       	call   23c0 <sgx_init_quote_ex@plt>
+    4a49:	4c 8b 44 24 08       	mov    0x8(%rsp),%r8
+    4a4e:	85 c0                	test   %eax,%eax
+    4a50:	0f 85 9a 01 00 00    	jne    4bf0 <sgx_ra_get_msg1_ex+0x280>
+    4a56:	4c 89 c7             	mov    %r8,%rdi
+    4a59:	e8 c2 d9 ff ff       	call   2420 <free@plt>
+    4a5e:	48 8d 3d 5b 55 00 00 	lea    0x555b(%rip),%rdi        # 9fc0 <_ZL16g_ukey_spin_lock>
+    4a65:	e8 66 05 00 00       	call   4fd0 <se_mutex_lock>
+    4a6a:	f3 0f 6f 0b          	movdqu (%rbx),%xmm1
+    4a6e:	b9 40 00 00 00       	mov    $0x40,%ecx
+    4a73:	4c 89 ee             	mov    %r13,%rsi
+    4a76:	48 8d 3d 83 55 00 00 	lea    0x5583(%rip),%rdi        # a000 <_ZL16g_qe_target_info>
+    4a7d:	0f 29 0d 7c 57 00 00 	movaps %xmm1,0x577c(%rip)        # a200 <_ZL12g_att_key_id>
+    4a84:	f3 0f 6f 53 10       	movdqu 0x10(%rbx),%xmm2
+    4a89:	0f 29 15 80 57 00 00 	movaps %xmm2,0x5780(%rip)        # a210 <_ZL12g_att_key_id+0x10>
+    4a90:	f3 0f 6f 5b 20       	movdqu 0x20(%rbx),%xmm3
+    4a95:	0f 29 1d 84 57 00 00 	movaps %xmm3,0x5784(%rip)        # a220 <_ZL12g_att_key_id+0x20>
+    4a9c:	f3 0f 6f 63 30       	movdqu 0x30(%rbx),%xmm4
+    4aa1:	0f 29 25 88 57 00 00 	movaps %xmm4,0x5788(%rip)        # a230 <_ZL12g_att_key_id+0x30>
+    4aa8:	f3 0f 6f 6b 40       	movdqu 0x40(%rbx),%xmm5
+    4aad:	0f 29 2d 8c 57 00 00 	movaps %xmm5,0x578c(%rip)        # a240 <_ZL12g_att_key_id+0x40>
+    4ab4:	f3 0f 6f 73 50       	movdqu 0x50(%rbx),%xmm6
+    4ab9:	0f 29 35 90 57 00 00 	movaps %xmm6,0x5790(%rip)        # a250 <_ZL12g_att_key_id+0x50>
+    4ac0:	f3 0f 6f 7b 60       	movdqu 0x60(%rbx),%xmm7
+    4ac5:	0f 29 3d 94 57 00 00 	movaps %xmm7,0x5794(%rip)        # a260 <_ZL12g_att_key_id+0x60>
+    4acc:	f3 0f 6f 4b 70       	movdqu 0x70(%rbx),%xmm1
+    4ad1:	0f 29 0d 98 57 00 00 	movaps %xmm1,0x5798(%rip)        # a270 <_ZL12g_att_key_id+0x70>
+    4ad8:	f3 0f 6f 93 80 00 00 	movdqu 0x80(%rbx),%xmm2
+    4adf:	00 
+    4ae0:	0f 29 15 99 57 00 00 	movaps %xmm2,0x5799(%rip)        # a280 <_ZL12g_att_key_id+0x80>
+    4ae7:	f3 0f 6f 9b 90 00 00 	movdqu 0x90(%rbx),%xmm3
+    4aee:	00 
+    4aef:	0f 29 1d 9a 57 00 00 	movaps %xmm3,0x579a(%rip)        # a290 <_ZL12g_att_key_id+0x90>
+    4af6:	f3 0f 6f a3 a0 00 00 	movdqu 0xa0(%rbx),%xmm4
+    4afd:	00 
+    4afe:	0f 29 25 9b 57 00 00 	movaps %xmm4,0x579b(%rip)        # a2a0 <_ZL12g_att_key_id+0xa0>
+    4b05:	f3 0f 6f ab b0 00 00 	movdqu 0xb0(%rbx),%xmm5
+    4b0c:	00 
+    4b0d:	0f 29 2d 9c 57 00 00 	movaps %xmm5,0x579c(%rip)        # a2b0 <_ZL12g_att_key_id+0xb0>
+    4b14:	f3 0f 6f b3 c0 00 00 	movdqu 0xc0(%rbx),%xmm6
+    4b1b:	00 
+    4b1c:	0f 29 35 9d 57 00 00 	movaps %xmm6,0x579d(%rip)        # a2c0 <_ZL12g_att_key_id+0xc0>
+    4b23:	f3 0f 6f bb d0 00 00 	movdqu 0xd0(%rbx),%xmm7
+    4b2a:	00 
+    4b2b:	0f 29 3d 9e 57 00 00 	movaps %xmm7,0x579e(%rip)        # a2d0 <_ZL12g_att_key_id+0xd0>
+    4b32:	f3 0f 6f 8b e0 00 00 	movdqu 0xe0(%rbx),%xmm1
+    4b39:	00 
+    4b3a:	0f 29 0d 9f 57 00 00 	movaps %xmm1,0x579f(%rip)        # a2e0 <_ZL12g_att_key_id+0xe0>
+    4b41:	f3 0f 6f 93 f0 00 00 	movdqu 0xf0(%rbx),%xmm2
+    4b48:	00 
+    4b49:	0f 29 15 a0 57 00 00 	movaps %xmm2,0x57a0(%rip)        # a2f0 <_ZL12g_att_key_id+0xf0>
+    4b50:	f3 48 a5             	rep movsq %ds:(%rsi),%es:(%rdi)
+    4b53:	48 8d 3d 66 54 00 00 	lea    0x5466(%rip),%rdi        # 9fc0 <_ZL16g_ukey_spin_lock>
+    4b5a:	e8 91 04 00 00       	call   4ff0 <se_mutex_unlock>
+    4b5f:	66 0f ef c0          	pxor   %xmm0,%xmm0
+    4b63:	48 8b 3c 24          	mov    (%rsp),%rdi
+    4b67:	44 89 fa             	mov    %r15d,%edx
+    4b6a:	48 8d 4c 24 20       	lea    0x20(%rsp),%rcx
+    4b6f:	0f 29 44 24 20       	movaps %xmm0,0x20(%rsp)
+    4b74:	48 8d 74 24 14       	lea    0x14(%rsp),%rsi
+    4b79:	c7 45 40 00 00 00 00 	movl   $0x0,0x40(%rbp)
+    4b80:	c7 44 24 14 01 00 00 	movl   $0x1,0x14(%rsp)
+    4b87:	00 
+    4b88:	0f 29 44 24 30       	movaps %xmm0,0x30(%rsp)
+    4b8d:	0f 29 44 24 40       	movaps %xmm0,0x40(%rsp)
+    4b92:	0f 29 44 24 50       	movaps %xmm0,0x50(%rsp)
+    4b97:	41 ff d4             	call   *%r12
+    4b9a:	85 c0                	test   %eax,%eax
+    4b9c:	0f 85 55 fe ff ff    	jne    49f7 <sgx_ra_get_msg1_ex+0x87>
+    4ba2:	8b 44 24 14          	mov    0x14(%rsp),%eax
+    4ba6:	85 c0                	test   %eax,%eax
+    4ba8:	0f 85 49 fe ff ff    	jne    49f7 <sgx_ra_get_msg1_ex+0x87>
+    4bae:	66 0f 6f 5c 24 20    	movdqa 0x20(%rsp),%xmm3
+    4bb4:	66 0f 6f 64 24 30    	movdqa 0x30(%rsp),%xmm4
+    4bba:	66 0f 6f 6c 24 40    	movdqa 0x40(%rsp),%xmm5
+    4bc0:	66 0f 6f 74 24 50    	movdqa 0x50(%rsp),%xmm6
+    4bc6:	0f 11 5d 00          	movups %xmm3,0x0(%rbp)
+    4bca:	0f 11 65 10          	movups %xmm4,0x10(%rbp)
+    4bce:	0f 11 6d 20          	movups %xmm5,0x20(%rbp)
+    4bd2:	0f 11 75 30          	movups %xmm6,0x30(%rbp)
+    4bd6:	e9 1c fe ff ff       	jmp    49f7 <sgx_ra_get_msg1_ex+0x87>
+    4bdb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+    4be0:	b8 02 00 00 00       	mov    $0x2,%eax
+    4be5:	e9 0d fe ff ff       	jmp    49f7 <sgx_ra_get_msg1_ex+0x87>
+    4bea:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+    4bf0:	4c 89 c7             	mov    %r8,%rdi
+    4bf3:	89 04 24             	mov    %eax,(%rsp)
+    4bf6:	e8 25 d8 ff ff       	call   2420 <free@plt>
+    4bfb:	8b 04 24             	mov    (%rsp),%eax
+    4bfe:	e9 f4 fd ff ff       	jmp    49f7 <sgx_ra_get_msg1_ex+0x87>
+    4c03:	e8 f8 d7 ff ff       	call   2400 <__stack_chk_fail@plt>
+    4c08:	b8 03 00 00 00       	mov    $0x3,%eax
+    4c0d:	e9 e5 fd ff ff       	jmp    49f7 <sgx_ra_get_msg1_ex+0x87>
+    4c12:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+    4c19:	00 00 00 
+    4c1c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000000004c20 <sgx_ra_proc_msg2_ex>:
+    4c20:	f3 0f 1e fa          	endbr64 
+    4c24:	41 57                	push   %r15
+    4c26:	41 56                	push   %r14
+    4c28:	41 55                	push   %r13
+    4c2a:	41 54                	push   %r12
+    4c2c:	55                   	push   %rbp
+    4c2d:	53                   	push   %rbx
+    4c2e:	48 81 ec d8 07 00 00 	sub    $0x7d8,%rsp
+    4c35:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    4c3c:	00 00 
+    4c3e:	48 89 84 24 c8 07 00 	mov    %rax,0x7c8(%rsp)
+    4c45:	00 
+    4c46:	31 c0                	xor    %eax,%eax
+    4c48:	4c 8b 9c 24 18 08 00 	mov    0x818(%rsp),%r11
+    4c4f:	00 
+    4c50:	4c 8b 94 24 20 08 00 	mov    0x820(%rsp),%r10
+    4c57:	00 
+    4c58:	4d 85 c9             	test   %r9,%r9
+    4c5b:	0f 84 8f 02 00 00    	je     4ef0 <sgx_ra_proc_msg2_ex+0x2d0>
+    4c61:	48 89 cb             	mov    %rcx,%rbx
+    4c64:	48 85 c9             	test   %rcx,%rcx
+    4c67:	0f 84 83 02 00 00    	je     4ef0 <sgx_ra_proc_msg2_ex+0x2d0>
+    4c6d:	4c 89 c5             	mov    %r8,%rbp
+    4c70:	4d 85 c0             	test   %r8,%r8
+    4c73:	0f 84 77 02 00 00    	je     4ef0 <sgx_ra_proc_msg2_ex+0x2d0>
+    4c79:	4d 85 d2             	test   %r10,%r10
+    4c7c:	4c 89 54 24 08       	mov    %r10,0x8(%rsp)
+    4c81:	0f 84 69 02 00 00    	je     4ef0 <sgx_ra_proc_msg2_ex+0x2d0>
+    4c87:	4d 85 db             	test   %r11,%r11
+    4c8a:	4c 89 5c 24 10       	mov    %r11,0x10(%rsp)
+    4c8f:	0f 84 5b 02 00 00    	je     4ef0 <sgx_ra_proc_msg2_ex+0x2d0>
+    4c95:	49 89 fd             	mov    %rdi,%r13
+    4c98:	48 85 ff             	test   %rdi,%rdi
+    4c9b:	0f 84 4f 02 00 00    	je     4ef0 <sgx_ra_proc_msg2_ex+0x2d0>
+    4ca1:	45 8b 81 a4 00 00 00 	mov    0xa4(%r9),%r8d
+    4ca8:	4d 89 cc             	mov    %r9,%r12
+    4cab:	b8 01 00 00 00       	mov    $0x1,%eax
+    4cb0:	45 85 c0             	test   %r8d,%r8d
+    4cb3:	0f 85 3c 02 00 00    	jne    4ef5 <sgx_ra_proc_msg2_ex+0x2d5>
+    4cb9:	81 bc 24 10 08 00 00 	cmpl   $0xa8,0x810(%rsp)
+    4cc0:	a8 00 00 00 
+    4cc4:	b8 02 00 00 00       	mov    $0x2,%eax
+    4cc9:	0f 85 26 02 00 00    	jne    4ef5 <sgx_ra_proc_msg2_ex+0x2d5>
+    4ccf:	31 c0                	xor    %eax,%eax
+    4cd1:	48 8d 7c 24 50       	lea    0x50(%rsp),%rdi
+    4cd6:	b9 36 00 00 00       	mov    $0x36,%ecx
+    4cdb:	41 89 f7             	mov    %esi,%r15d
+    4cde:	48 89 7c 24 18       	mov    %rdi,0x18(%rsp)
+    4ce3:	66 0f ef c0          	pxor   %xmm0,%xmm0
+    4ce7:	49 89 d6             	mov    %rdx,%r14
+    4cea:	f3 48 ab             	rep stos %rax,%es:(%rdi)
+    4ced:	48 8d 44 24 40       	lea    0x40(%rsp),%rax
+    4cf2:	48 8d 3d c7 52 00 00 	lea    0x52c7(%rip),%rdi        # 9fc0 <_ZL16g_ukey_spin_lock>
+    4cf9:	0f 29 44 24 40       	movaps %xmm0,0x40(%rsp)
+    4cfe:	48 89 44 24 20       	mov    %rax,0x20(%rsp)
+    4d03:	e8 c8 02 00 00       	call   4fd0 <se_mutex_lock>
+    4d08:	ba 00 01 00 00       	mov    $0x100,%edx
+    4d0d:	4c 89 ee             	mov    %r13,%rsi
+    4d10:	48 8d 3d e9 54 00 00 	lea    0x54e9(%rip),%rdi        # a200 <_ZL12g_att_key_id>
+    4d17:	e8 e4 d5 ff ff       	call   2300 <memcmp@plt>
+    4d1c:	4c 8b 5c 24 10       	mov    0x10(%rsp),%r11
+    4d21:	4c 8b 54 24 08       	mov    0x8(%rsp),%r10
+    4d26:	85 c0                	test   %eax,%eax
+    4d28:	0f 85 f2 01 00 00    	jne    4f20 <sgx_ra_proc_msg2_ex+0x300>
+    4d2e:	48 8d bc 24 00 02 00 	lea    0x200(%rsp),%rdi
+    4d35:	00 
+    4d36:	b9 40 00 00 00       	mov    $0x40,%ecx
+    4d3b:	4c 89 54 24 10       	mov    %r10,0x10(%rsp)
+    4d40:	48 8d 35 b9 52 00 00 	lea    0x52b9(%rip),%rsi        # a000 <_ZL16g_qe_target_info>
+    4d47:	f3 48 a5             	rep movsq %ds:(%rsi),%es:(%rdi)
+    4d4a:	48 8d 3d 6f 52 00 00 	lea    0x526f(%rip),%rdi        # 9fc0 <_ZL16g_ukey_spin_lock>
+    4d51:	4c 89 5c 24 08       	mov    %r11,0x8(%rsp)
+    4d56:	e8 95 02 00 00       	call   4ff0 <se_mutex_unlock>
+    4d5b:	48 8d 44 24 38       	lea    0x38(%rsp),%rax
+    4d60:	4c 89 f7             	mov    %r14,%rdi
+    4d63:	4c 89 e1             	mov    %r12,%rcx
+    4d66:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+    4d6b:	48 83 ec 08          	sub    $0x8,%rsp
+    4d6f:	48 89 c6             	mov    %rax,%rsi
+    4d72:	44 89 fa             	mov    %r15d,%edx
+    4d75:	ff 74 24 28          	push   0x28(%rsp)
+    4d79:	4c 8b 4c 24 28       	mov    0x28(%rsp),%r9
+    4d7e:	4c 8d 84 24 10 02 00 	lea    0x210(%rsp),%r8
+    4d85:	00 
+    4d86:	ff d3                	call   *%rbx
+    4d88:	5e                   	pop    %rsi
+    4d89:	5f                   	pop    %rdi
+    4d8a:	85 c0                	test   %eax,%eax
+    4d8c:	0f 85 63 01 00 00    	jne    4ef5 <sgx_ra_proc_msg2_ex+0x2d5>
+    4d92:	8b 44 24 38          	mov    0x38(%rsp),%eax
+    4d96:	85 c0                	test   %eax,%eax
+    4d98:	0f 85 57 01 00 00    	jne    4ef5 <sgx_ra_proc_msg2_ex+0x2d5>
+    4d9e:	48 8d 74 24 3c       	lea    0x3c(%rsp),%rsi
+    4da3:	4c 89 ef             	mov    %r13,%rdi
+    4da6:	c7 44 24 3c 00 00 00 	movl   $0x0,0x3c(%rsp)
+    4dad:	00 
+    4dae:	e8 5d d5 ff ff       	call   2310 <sgx_get_quote_size_ex@plt>
+    4db3:	85 c0                	test   %eax,%eax
+    4db5:	0f 85 3a 01 00 00    	jne    4ef5 <sgx_ra_proc_msg2_ex+0x2d5>
+    4dbb:	8b 5c 24 3c          	mov    0x3c(%rsp),%ebx
+    4dbf:	4c 8b 5c 24 08       	mov    0x8(%rsp),%r11
+    4dc4:	b8 01 00 00 00       	mov    $0x1,%eax
+    4dc9:	4c 8b 54 24 10       	mov    0x10(%rsp),%r10
+    4dce:	81 fb af fe ff ff    	cmp    $0xfffffeaf,%ebx
+    4dd4:	0f 87 1b 01 00 00    	ja     4ef5 <sgx_ra_proc_msg2_ex+0x2d5>
+    4dda:	8d bb 50 01 00 00    	lea    0x150(%rbx),%edi
+    4de0:	be 01 00 00 00       	mov    $0x1,%esi
+    4de5:	4c 89 54 24 10       	mov    %r10,0x10(%rsp)
+    4dea:	4c 89 5c 24 08       	mov    %r11,0x8(%rsp)
+    4def:	89 7c 24 20          	mov    %edi,0x20(%rsp)
+    4df3:	e8 78 d5 ff ff       	call   2370 <calloc@plt>
+    4df8:	4c 8b 5c 24 08       	mov    0x8(%rsp),%r11
+    4dfd:	4c 8b 54 24 10       	mov    0x10(%rsp),%r10
+    4e02:	48 85 c0             	test   %rax,%rax
+    4e05:	49 89 c4             	mov    %rax,%r12
+    4e08:	0f 84 3c 01 00 00    	je     4f4a <sgx_ra_proc_msg2_ex+0x32a>
+    4e0e:	48 8d 94 24 10 04 00 	lea    0x410(%rsp),%rdx
+    4e15:	00 
+    4e16:	31 c0                	xor    %eax,%eax
+    4e18:	41 89 d8             	mov    %ebx,%r8d
+    4e1b:	4c 89 ee             	mov    %r13,%rsi
+    4e1e:	48 89 d7             	mov    %rdx,%rdi
+    4e21:	b9 40 00 00 00       	mov    $0x40,%ecx
+    4e26:	66 0f 6f 8c 24 80 00 	movdqa 0x80(%rsp),%xmm1
+    4e2d:	00 00 
+    4e2f:	66 0f 6f 94 24 90 00 	movdqa 0x90(%rsp),%xmm2
+    4e36:	00 00 
+    4e38:	f3 48 ab             	rep stos %rax,%es:(%rdi)
+    4e3b:	66 0f 6f 64 24 40    	movdqa 0x40(%rsp),%xmm4
+    4e41:	66 0f 6f 9c 24 a0 00 	movdqa 0xa0(%rsp),%xmm3
+    4e48:	00 00 
+    4e4a:	4c 8d 8c 24 00 04 00 	lea    0x400(%rsp),%r9
+    4e51:	00 
+    4e52:	8b 44 24 60          	mov    0x60(%rsp),%eax
+    4e56:	48 8b 7c 24 18       	mov    0x18(%rsp),%rdi
+    4e5b:	4c 89 ca             	mov    %r9,%rdx
+    4e5e:	4c 89 54 24 10       	mov    %r10,0x10(%rsp)
+    4e63:	49 8d 8c 24 50 01 00 	lea    0x150(%r12),%rcx
+    4e6a:	00 
+    4e6b:	4c 89 5c 24 08       	mov    %r11,0x8(%rsp)
+    4e70:	89 84 24 44 04 00 00 	mov    %eax,0x444(%rsp)
+    4e77:	0f 29 8c 24 30 04 00 	movaps %xmm1,0x430(%rsp)
+    4e7e:	00 
+    4e7f:	0f 29 94 24 10 04 00 	movaps %xmm2,0x410(%rsp)
+    4e86:	00 
+    4e87:	0f 29 9c 24 20 04 00 	movaps %xmm3,0x420(%rsp)
+    4e8e:	00 
+    4e8f:	0f 29 a4 24 00 04 00 	movaps %xmm4,0x400(%rsp)
+    4e96:	00 
+    4e97:	e8 e4 d4 ff ff       	call   2380 <sgx_get_quote_ex@plt>
+    4e9c:	85 c0                	test   %eax,%eax
+    4e9e:	0f 85 8f 00 00 00    	jne    4f33 <sgx_ra_proc_msg2_ex+0x313>
+    4ea4:	48 83 ec 08          	sub    $0x8,%rsp
+    4ea8:	44 89 fa             	mov    %r15d,%edx
+    4eab:	4d 89 e1             	mov    %r12,%r9
+    4eae:	4c 89 f7             	mov    %r14,%rdi
+    4eb1:	8b 5c 24 28          	mov    0x28(%rsp),%ebx
+    4eb5:	53                   	push   %rbx
+    4eb6:	8b 4c 24 4c          	mov    0x4c(%rsp),%ecx
+    4eba:	48 8b 74 24 38       	mov    0x38(%rsp),%rsi
+    4ebf:	4c 8d 84 24 20 06 00 	lea    0x620(%rsp),%r8
+    4ec6:	00 
+    4ec7:	ff d5                	call   *%rbp
+    4ec9:	5a                   	pop    %rdx
+    4eca:	59                   	pop    %rcx
+    4ecb:	85 c0                	test   %eax,%eax
+    4ecd:	75 64                	jne    4f33 <sgx_ra_proc_msg2_ex+0x313>
+    4ecf:	8b 44 24 38          	mov    0x38(%rsp),%eax
+    4ed3:	85 c0                	test   %eax,%eax
+    4ed5:	75 5c                	jne    4f33 <sgx_ra_proc_msg2_ex+0x313>
+    4ed7:	4c 8b 5c 24 08       	mov    0x8(%rsp),%r11
+    4edc:	4c 8b 54 24 10       	mov    0x10(%rsp),%r10
+    4ee1:	4d 89 23             	mov    %r12,(%r11)
+    4ee4:	41 89 1a             	mov    %ebx,(%r10)
+    4ee7:	eb 0c                	jmp    4ef5 <sgx_ra_proc_msg2_ex+0x2d5>
+    4ee9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+    4ef0:	b8 02 00 00 00       	mov    $0x2,%eax
+    4ef5:	48 8b 9c 24 c8 07 00 	mov    0x7c8(%rsp),%rbx
+    4efc:	00 
+    4efd:	64 48 33 1c 25 28 00 	xor    %fs:0x28,%rbx
+    4f04:	00 00 
+    4f06:	75 3d                	jne    4f45 <sgx_ra_proc_msg2_ex+0x325>
+    4f08:	48 81 c4 d8 07 00 00 	add    $0x7d8,%rsp
+    4f0f:	5b                   	pop    %rbx
+    4f10:	5d                   	pop    %rbp
+    4f11:	41 5c                	pop    %r12
+    4f13:	41 5d                	pop    %r13
+    4f15:	41 5e                	pop    %r14
+    4f17:	41 5f                	pop    %r15
+    4f19:	c3                   	ret    
+    4f1a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+    4f20:	48 8d 3d 99 50 00 00 	lea    0x5099(%rip),%rdi        # 9fc0 <_ZL16g_ukey_spin_lock>
+    4f27:	e8 c4 00 00 00       	call   4ff0 <se_mutex_unlock>
+    4f2c:	b8 05 00 00 00       	mov    $0x5,%eax
+    4f31:	eb c2                	jmp    4ef5 <sgx_ra_proc_msg2_ex+0x2d5>
+    4f33:	4c 89 e7             	mov    %r12,%rdi
+    4f36:	89 44 24 08          	mov    %eax,0x8(%rsp)
+    4f3a:	e8 e1 d4 ff ff       	call   2420 <free@plt>
+    4f3f:	8b 44 24 08          	mov    0x8(%rsp),%eax
+    4f43:	eb b0                	jmp    4ef5 <sgx_ra_proc_msg2_ex+0x2d5>
+    4f45:	e8 b6 d4 ff ff       	call   2400 <__stack_chk_fail@plt>
+    4f4a:	b8 03 00 00 00       	mov    $0x3,%eax
+    4f4f:	eb a4                	jmp    4ef5 <sgx_ra_proc_msg2_ex+0x2d5>
+    4f51:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+    4f58:	00 00 00 
+    4f5b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000004f60 <se_mutex_init>:
+    4f60:	f3 0f 1e fa          	endbr64 
+    4f64:	48 83 ec 38          	sub    $0x38,%rsp
+    4f68:	66 0f ef c0          	pxor   %xmm0,%xmm0
+    4f6c:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    4f73:	00 00 
+    4f75:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+    4f7a:	31 c0                	xor    %eax,%eax
+    4f7c:	0f 29 44 24 10       	movaps %xmm0,0x10(%rsp)
+    4f81:	48 c7 44 24 20 00 00 	movq   $0x0,0x20(%rsp)
+    4f88:	00 00 
+    4f8a:	c7 44 24 10 01 00 00 	movl   $0x1,0x10(%rsp)
+    4f91:	00 
+    4f92:	66 0f 6f 4c 24 10    	movdqa 0x10(%rsp),%xmm1
+    4f98:	48 c7 47 20 00 00 00 	movq   $0x0,0x20(%rdi)
+    4f9f:	00 
+    4fa0:	0f 29 04 24          	movaps %xmm0,(%rsp)
+    4fa4:	0f 11 07             	movups %xmm0,(%rdi)
+    4fa7:	0f 11 4f 10          	movups %xmm1,0x10(%rdi)
+    4fab:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+    4fb0:	64 48 33 04 25 28 00 	xor    %fs:0x28,%rax
+    4fb7:	00 00 
+    4fb9:	75 05                	jne    4fc0 <se_mutex_init+0x60>
+    4fbb:	48 83 c4 38          	add    $0x38,%rsp
+    4fbf:	c3                   	ret    
+    4fc0:	e8 3b d4 ff ff       	call   2400 <__stack_chk_fail@plt>
+    4fc5:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+    4fcc:	00 00 00 
+    4fcf:	90                   	nop
+
+0000000000004fd0 <se_mutex_lock>:
+    4fd0:	f3 0f 1e fa          	endbr64 
+    4fd4:	48 83 ec 08          	sub    $0x8,%rsp
+    4fd8:	e8 b3 d4 ff ff       	call   2490 <pthread_mutex_lock@plt>
+    4fdd:	85 c0                	test   %eax,%eax
+    4fdf:	0f 94 c0             	sete   %al
+    4fe2:	48 83 c4 08          	add    $0x8,%rsp
+    4fe6:	0f b6 c0             	movzbl %al,%eax
+    4fe9:	c3                   	ret    
+    4fea:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+0000000000004ff0 <se_mutex_unlock>:
+    4ff0:	f3 0f 1e fa          	endbr64 
+    4ff4:	48 83 ec 08          	sub    $0x8,%rsp
+    4ff8:	e8 b3 d3 ff ff       	call   23b0 <pthread_mutex_unlock@plt>
+    4ffd:	85 c0                	test   %eax,%eax
+    4fff:	0f 94 c0             	sete   %al
+    5002:	48 83 c4 08          	add    $0x8,%rsp
+    5006:	0f b6 c0             	movzbl %al,%eax
+    5009:	c3                   	ret    
+    500a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+0000000000005010 <se_mutex_destroy>:
+    5010:	f3 0f 1e fa          	endbr64 
+    5014:	48 83 ec 08          	sub    $0x8,%rsp
+    5018:	e8 f3 d3 ff ff       	call   2410 <pthread_mutex_destroy@plt>
+    501d:	85 c0                	test   %eax,%eax
+    501f:	0f 94 c0             	sete   %al
+    5022:	48 83 c4 08          	add    $0x8,%rsp
+    5026:	0f b6 c0             	movzbl %al,%eax
+    5029:	c3                   	ret    
+    502a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+0000000000005030 <se_thread_cond_init>:
+    5030:	f3 0f 1e fa          	endbr64 
+    5034:	48 83 ec 48          	sub    $0x48,%rsp
+    5038:	66 0f ef c0          	pxor   %xmm0,%xmm0
+    503c:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    5043:	00 00 
+    5045:	48 89 44 24 38       	mov    %rax,0x38(%rsp)
+    504a:	31 c0                	xor    %eax,%eax
+    504c:	0f 29 04 24          	movaps %xmm0,(%rsp)
+    5050:	0f 29 44 24 10       	movaps %xmm0,0x10(%rsp)
+    5055:	0f 29 44 24 20       	movaps %xmm0,0x20(%rsp)
+    505a:	0f 11 07             	movups %xmm0,(%rdi)
+    505d:	0f 11 47 10          	movups %xmm0,0x10(%rdi)
+    5061:	0f 11 47 20          	movups %xmm0,0x20(%rdi)
+    5065:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+    506a:	64 48 33 04 25 28 00 	xor    %fs:0x28,%rax
+    5071:	00 00 
+    5073:	75 05                	jne    507a <se_thread_cond_init+0x4a>
+    5075:	48 83 c4 48          	add    $0x48,%rsp
+    5079:	c3                   	ret    
+    507a:	e8 81 d3 ff ff       	call   2400 <__stack_chk_fail@plt>
+    507f:	90                   	nop
+
+0000000000005080 <se_thread_cond_wait>:
+    5080:	f3 0f 1e fa          	endbr64 
+    5084:	48 83 ec 08          	sub    $0x8,%rsp
+    5088:	e8 23 d4 ff ff       	call   24b0 <pthread_cond_wait@plt>
+    508d:	85 c0                	test   %eax,%eax
+    508f:	0f 94 c0             	sete   %al
+    5092:	48 83 c4 08          	add    $0x8,%rsp
+    5096:	0f b6 c0             	movzbl %al,%eax
+    5099:	c3                   	ret    
+    509a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+00000000000050a0 <se_thread_cond_signal>:
+    50a0:	f3 0f 1e fa          	endbr64 
+    50a4:	48 83 ec 08          	sub    $0x8,%rsp
+    50a8:	e8 03 d2 ff ff       	call   22b0 <pthread_cond_signal@plt>
+    50ad:	85 c0                	test   %eax,%eax
+    50af:	0f 94 c0             	sete   %al
+    50b2:	48 83 c4 08          	add    $0x8,%rsp
+    50b6:	0f b6 c0             	movzbl %al,%eax
+    50b9:	c3                   	ret    
+    50ba:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+00000000000050c0 <se_thread_cond_broadcast>:
+    50c0:	f3 0f 1e fa          	endbr64 
+    50c4:	48 83 ec 08          	sub    $0x8,%rsp
+    50c8:	e8 13 d2 ff ff       	call   22e0 <pthread_cond_broadcast@plt>
+    50cd:	85 c0                	test   %eax,%eax
+    50cf:	0f 94 c0             	sete   %al
+    50d2:	48 83 c4 08          	add    $0x8,%rsp
+    50d6:	0f b6 c0             	movzbl %al,%eax
+    50d9:	c3                   	ret    
+    50da:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+00000000000050e0 <se_thread_cond_destroy>:
+    50e0:	f3 0f 1e fa          	endbr64 
+    50e4:	48 83 ec 08          	sub    $0x8,%rsp
+    50e8:	e8 03 d4 ff ff       	call   24f0 <pthread_cond_destroy@plt>
+    50ed:	85 c0                	test   %eax,%eax
+    50ef:	0f 94 c0             	sete   %al
+    50f2:	48 83 c4 08          	add    $0x8,%rsp
+    50f6:	0f b6 c0             	movzbl %al,%eax
+    50f9:	c3                   	ret    
+    50fa:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+0000000000005100 <se_get_threadid>:
+    5100:	f3 0f 1e fa          	endbr64 
+    5104:	48 83 ec 08          	sub    $0x8,%rsp
+    5108:	bf ba 00 00 00       	mov    $0xba,%edi
+    510d:	31 c0                	xor    %eax,%eax
+    510f:	e8 ac d1 ff ff       	call   22c0 <syscall@plt>
+    5114:	48 83 c4 08          	add    $0x8,%rsp
+    5118:	c3                   	ret    
+    5119:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+0000000000005120 <se_tls_alloc>:
+    5120:	f3 0f 1e fa          	endbr64 
+    5124:	48 83 ec 08          	sub    $0x8,%rsp
+    5128:	31 f6                	xor    %esi,%esi
+    512a:	e8 31 d2 ff ff       	call   2360 <pthread_key_create@plt>
+    512f:	85 c0                	test   %eax,%eax
+    5131:	0f 94 c0             	sete   %al
+    5134:	48 83 c4 08          	add    $0x8,%rsp
+    5138:	0f b6 c0             	movzbl %al,%eax
+    513b:	c3                   	ret    
+    513c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000000005140 <se_tls_free>:
+    5140:	f3 0f 1e fa          	endbr64 
+    5144:	48 83 ec 08          	sub    $0x8,%rsp
+    5148:	e8 03 d3 ff ff       	call   2450 <pthread_key_delete@plt>
+    514d:	85 c0                	test   %eax,%eax
+    514f:	0f 94 c0             	sete   %al
+    5152:	48 83 c4 08          	add    $0x8,%rsp
+    5156:	0f b6 c0             	movzbl %al,%eax
+    5159:	c3                   	ret    
+    515a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+0000000000005160 <se_tls_get_value>:
+    5160:	f3 0f 1e fa          	endbr64 
+    5164:	e9 07 d3 ff ff       	jmp    2470 <pthread_getspecific@plt>
+    5169:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+0000000000005170 <se_tls_set_value>:
+    5170:	f3 0f 1e fa          	endbr64 
+    5174:	48 83 ec 08          	sub    $0x8,%rsp
+    5178:	e8 63 d3 ff ff       	call   24e0 <pthread_setspecific@plt>
+    517d:	85 c0                	test   %eax,%eax
+    517f:	0f 94 c0             	sete   %al
+    5182:	48 83 c4 08          	add    $0x8,%rsp
+    5186:	0f b6 c0             	movzbl %al,%eax
+    5189:	c3                   	ret    
+    518a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+0000000000005190 <__libc_csu_init>:
+    5190:	f3 0f 1e fa          	endbr64 
+    5194:	41 57                	push   %r15
+    5196:	4c 8d 3d 73 3a 00 00 	lea    0x3a73(%rip),%r15        # 8c10 <__frame_dummy_init_array_entry>
+    519d:	41 56                	push   %r14
+    519f:	49 89 d6             	mov    %rdx,%r14
+    51a2:	41 55                	push   %r13
+    51a4:	49 89 f5             	mov    %rsi,%r13
+    51a7:	41 54                	push   %r12
+    51a9:	41 89 fc             	mov    %edi,%r12d
+    51ac:	55                   	push   %rbp
+    51ad:	48 8d 2d 6c 3a 00 00 	lea    0x3a6c(%rip),%rbp        # 8c20 <__do_global_dtors_aux_fini_array_entry>
+    51b4:	53                   	push   %rbx
+    51b5:	4c 29 fd             	sub    %r15,%rbp
+    51b8:	48 83 ec 08          	sub    $0x8,%rsp
+    51bc:	e8 3f ce ff ff       	call   2000 <_init>
+    51c1:	48 c1 fd 03          	sar    $0x3,%rbp
+    51c5:	74 1f                	je     51e6 <__libc_csu_init+0x56>
+    51c7:	31 db                	xor    %ebx,%ebx
+    51c9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+    51d0:	4c 89 f2             	mov    %r14,%rdx
+    51d3:	4c 89 ee             	mov    %r13,%rsi
+    51d6:	44 89 e7             	mov    %r12d,%edi
+    51d9:	41 ff 14 df          	call   *(%r15,%rbx,8)
+    51dd:	48 83 c3 01          	add    $0x1,%rbx
+    51e1:	48 39 dd             	cmp    %rbx,%rbp
+    51e4:	75 ea                	jne    51d0 <__libc_csu_init+0x40>
+    51e6:	48 83 c4 08          	add    $0x8,%rsp
+    51ea:	5b                   	pop    %rbx
+    51eb:	5d                   	pop    %rbp
+    51ec:	41 5c                	pop    %r12
+    51ee:	41 5d                	pop    %r13
+    51f0:	41 5e                	pop    %r14
+    51f2:	41 5f                	pop    %r15
+    51f4:	c3                   	ret    
+    51f5:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+    51fc:	00 00 00 00 
+
+0000000000005200 <__libc_csu_fini>:
+    5200:	f3 0f 1e fa          	endbr64 
+    5204:	c3                   	ret    
+
+Disassembly of section .fini:
+
+0000000000005208 <_fini>:
+    5208:	f3 0f 1e fa          	endbr64 
+    520c:	48 83 ec 08          	sub    $0x8,%rsp
+    5210:	48 83 c4 08          	add    $0x8,%rsp
+    5214:	c3                   	ret    

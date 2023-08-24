@@ -21,7 +21,7 @@
 
 #define log_info(args...)
 
-#define FILEENCRYPT 1
+#define REMOTE_ATTEST 1
 
 // Helloworld main function address
 #ifdef HELLOWORLD
@@ -45,7 +45,9 @@
 #elif VIRTUAL_ASSISTANT
 #define MAIN 0x1d595
 #elif TRUST_FL
-#deinf MAIN 0x27b0
+#define MAIN 0x27b0
+#elif REMOTE_ATTEST
+#define MAIN 0x2eda
 #endif
 
 
@@ -365,6 +367,9 @@ int register_uffd(popsgx_child *child, address_spaces *spaces){
 #elif VIRTUAL_ASSISTANT
 		if(spaces->space[i].address != 0x7ffff7a9d000 &&                                \
 		   spaces->space[i].type != FILE_BACKED){
+#elif REMOTE_ATTEST
+		if(spaces->space[i].address != 0x7ffff7a9d000 &&                                \
+		   spaces->space[i].type != FILE_BACKED){
 #endif
 			// for(unsigned long j = 0; j < child->spaces.space[i].size; j++){
 				child->uffd[i].address = spaces->space[i].address;
@@ -418,6 +423,9 @@ int deregister_uffd(popsgx_child *child, address_spaces *spaces){
 		if(spaces->space[i].address != 0x7ffff7a9d000 &&                                \
 		   spaces->space[i].type != FILE_BACKED){
 #elif VIRTUAL_ASSISTANT
+		if(spaces->space[i].address != 0x7ffff7a9d000 &&                                \
+		   spaces->space[i].type != FILE_BACKED){
+#elif REMOTE_ATTEST
 		if(spaces->space[i].address != 0x7ffff7a9d000 &&                                \
 		   spaces->space[i].type != FILE_BACKED){
 #endif

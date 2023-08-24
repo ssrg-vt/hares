@@ -28,7 +28,7 @@ extern char* __progname;
 // Starting address for the buffer 
 #define BUFFER_ADDRESS 0x10000
 
-#define SQLITEB 1
+#define REMOTE_ATTEST 1
 
 // Helloworld main function address 
 #ifdef HELLOWORLD
@@ -72,6 +72,9 @@ extern char* __progname;
 #elif PLINIUS
 #define CODE_OFFSET 0x555555554000
 #define MAIN CODE_OFFSET + 0x4b4a
+#elif REMOTE_ATTEST
+#define CODE_OFFSET 0x555555554000
+#define MAIN CODE_OFFSET + 0x2eda
 #endif
 
 address_spaces uffd_stat_snapshot;
@@ -85,7 +88,7 @@ popsgx_app monitor_app;
 static void usage(void)
 {
     log_info("\n"
-             "usage: %s [-m mode | -v victim | -r remote-node-ip | -p remote-node-port | -t host-port              \
+             "usage: %s [-m mode | -v victim | -r remote-node-ip | -p remote-node-port | -t host-port \
                         | -s shared_mem | -n no_pages]"
              "\n"
              "options:\n"
@@ -223,6 +226,9 @@ static int execute_tracee_app(popsgx_child *tracee){
 
 #elif PLINIUS
         char *user_args[] = {"./plinius", NULL};
+
+#elif REMOTE_ATTEST
+	char *user_args[] = {"./app", NULL};
 
 #endif
 
@@ -803,6 +809,50 @@ int main(int argc, char *argv[]){
     monitor_app.dsm.child.trpoints.breakpoints[17] = CODE_OFFSET + 0x5d3b;
 
     #define LIMIT 19
+
+#elif REMOTE_ATTEST
+    //sgx_create_enclave
+    monitor_app.dsm.child.trpoints.breakpoints[0] = CODE_OFFSET + 0x34aa;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = CODE_OFFSET + 0x34af;
+
+    //enclave_init_ra
+    monitor_app.dsm.child.trpoints.breakpoints[2] = CODE_OFFSET + 0x352f;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = CODE_OFFSET + 0x3534;
+
+    //enclave_close_ra
+    monitor_app.dsm.child.trpoints.breakpoints[4] = CODE_OFFSET + 0x42fb;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = CODE_OFFSET + 0x4300;
+
+    //verify_att_result_mac
+    monitor_app.dsm.child.trpoints.breakpoints[6] = CODE_OFFSET + 0x4138;
+    monitor_app.dsm.child.trpoints.breakpoints[7] = CODE_OFFSET + 0x413d;
+
+    //put secret data
+    monitor_app.dsm.child.trpoints.breakpoints[8] = CODE_OFFSET + 0x4229;
+    monitor_app.dsm.child.trpoints.breakpoints[9] = CODE_OFFSET + 0x422e;
+
+    //destroy enclave 
+    monitor_app.dsm.child.trpoints.breakpoints[10] = CODE_OFFSET + 0x437d;
+    monitor_app.dsm.child.trpoints.breakpoints[11] = CODE_OFFSET + 0x4382;
+
+    //sgx_get_extended_epid_group_id
+    monitor_app.dsm.child.trpoints.breakpoints[12] = CODE_OFFSET + 0x3264;
+    monitor_app.dsm.child.trpoints.breakpoints[13] = CODE_OFFSET + 0x3269;
+    
+    //sgx_select_att_key_id
+    monitor_app.dsm.child.trpoints.breakpoints[14] = CODE_OFFSET + 0x341f;
+    monitor_app.dsm.child.trpoints.breakpoints[15] = CODE_OFFSET + 0x3424;
+    
+    //sgx_ra_get_msg1_ex
+    monitor_app.dsm.child.trpoints.breakpoints[16] = CODE_OFFSET + 0x363d;
+    monitor_app.dsm.child.trpoints.breakpoints[17] = CODE_OFFSET + 0x3642;
+    
+    //sgx_ra_proc_msg2_ex
+    monitor_app.dsm.child.trpoints.breakpoints[18] = CODE_OFFSET + 0x3ce0;
+    monitor_app.dsm.child.trpoints.breakpoints[19] = CODE_OFFSET + 0x3ce5;
+
+    #define LIMIT 19
+
 #endif
 
     if(monitor_app.mode == CLIENT){
