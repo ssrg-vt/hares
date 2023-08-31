@@ -1,3 +1,8 @@
+#define _GNU_SOURCE
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/uio.h>
+
 #include "ptrace.h"
 #include "log.h"
 
@@ -99,22 +104,44 @@ uint64_t get_pc(pid_t pid)
  * */
 int update_child_data(pid_t pid, long long dst, char *src, size_t len)
 {
-	long ret;
-	size_t cnt = len / sizeof(long long);
-	size_t i;
+	// long ret;
+	// size_t cnt = len / sizeof(long long);
+	// size_t i;
 
-	memset(&input, 0, sizeof(input));
-	if (cnt*sizeof(long long) < len) cnt++;	// verify whether need cnt+1
-	for (i = 0; i < cnt; i++) {
-		memcpy(input.str, src+i*8, 8);
-		ret = ptrace(PTRACE_POKEDATA, pid, dst+i*8, input.val);
-		if (ret){ 
-			log_error("%s error %d", __func__, errno);
-			while(1);
-		}
+	// memset(&input, 0, sizeof(input));
+	// if (cnt*sizeof(long long) < len) cnt++;	// verify whether need cnt+1
+	// for (i = 0; i < cnt; i++) {
+	// 	memcpy(input.str, src+i*8, 8);
+	// 	ret = ptrace(PTRACE_POKEDATA, pid, dst+i*8, input.val);
+	// 	if (ret){ 
+	// 		log_error("%s error %d", __func__, errno);
+	// 		while(1);
+	// 	}
+	// }
+
+	// return 0;
+
+	struct iovec local_iov;
+	struct iovec remote_iov;
+	ssize_t      nwrite;
+
+	local_iov.iov_base = src;
+	local_iov.iov_len = len;
+	
+        remote_iov.iov_base = (void *)dst;
+	remote_iov.iov_len = len;
+
+	nwrite = process_vm_writev(pid, &local_iov, 1, &remote_iov, 1, 0);
+    if (nwrite < 0) {
+        fprintf(stderr,"process_vm_writev");
+        return -1;
+    }
+
+	if(nwrite != len){
+		fprintf(stderr, "Failed to read the required memory length");
 	}
 
-	return 0;
+	return len;
 }
 
 /**
@@ -128,17 +155,51 @@ int update_child_data(pid_t pid, long long dst, char *src, size_t len)
  * */
 int get_child_data(pid_t pid, char *dst, long long src, size_t len)
 {
-	size_t cnt = len / sizeof(long long);
-	size_t i;
-	memset(&input, 0, sizeof(input));
+	// size_t cnt = len / sizeof(long long);
+	// size_t i;
+	// memset(&input, 0, sizeof(input));
 
-	if (cnt*8 < len) cnt++;	// if cnt%8 != 0, we need cnt++
-	for (i = 0; i < cnt; i++) {
-		input.val = ptrace(PTRACE_PEEKDATA, pid, src+8*i, 0);
-		memcpy(dst+8*i, input.str, 8);
+	// if (cnt*8 < len) cnt++;	// if cnt%8 != 0, we need cnt++
+	// for (i = 0; i < cnt; i++) {
+	// 	input.val = ptrace(PTRACE_PEEKDATA, pid, src+8*i, 0);
+	// 	memcpy(dst+8*i, input.str, 8);
+	// }
+	// dst[len] = 0;
+	// return 0;
+
+	char *buffer = NULL;
+	struct iovec local_iov;
+	struct iovec remote_iov;
+	ssize_t       nread;
+
+	buffer = (char*)malloc(len * sizeof(char));
+
+	if (buffer == NULL) {
+        	fprintf(stderr, "Memory allocation failed.\n");
+        	return -1; // Return an error code
+        }
+
+	local_iov.iov_base = buffer;
+	local_iov.iov_len = len;
+	
+    	remote_iov.iov_base = (void *)src;
+	remote_iov.iov_len = len;
+
+	nread = process_vm_readv(pid, &local_iov, 1, &remote_iov, 1, 0);
+    	if (nread < 0) {
+        	fprintf(stderr,"process_vm_readv");
+        	return -1;
+    	}
+
+	if(nread == len){
+		memcpy(dst, buffer, len);
+	}else{
+		fprintf(stderr, "Failed to read the required memory length");
 	}
-	dst[len] = 0;
-	return 0;
+	
+	free(buffer);
+
+	return len;
 }
 
 /**

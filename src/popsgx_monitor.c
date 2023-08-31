@@ -812,44 +812,44 @@ int main(int argc, char *argv[]){
 
 #elif REMOTE_ATTEST
     //sgx_create_enclave
-    monitor_app.dsm.child.trpoints.breakpoints[0] = CODE_OFFSET + 0x34aa;
-    monitor_app.dsm.child.trpoints.breakpoints[1] = CODE_OFFSET + 0x34af;
+    monitor_app.dsm.child.trpoints.breakpoints[0] = CODE_OFFSET + 0x338c;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = CODE_OFFSET + 0x3391;
 
     //enclave_init_ra
-    monitor_app.dsm.child.trpoints.breakpoints[2] = CODE_OFFSET + 0x352f;
-    monitor_app.dsm.child.trpoints.breakpoints[3] = CODE_OFFSET + 0x3534;
+    monitor_app.dsm.child.trpoints.breakpoints[2] = CODE_OFFSET + 0x3411;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = CODE_OFFSET + 0x3416;
 
     //enclave_close_ra
-    monitor_app.dsm.child.trpoints.breakpoints[4] = CODE_OFFSET + 0x42fb;
-    monitor_app.dsm.child.trpoints.breakpoints[5] = CODE_OFFSET + 0x4300;
+    monitor_app.dsm.child.trpoints.breakpoints[4] = CODE_OFFSET + 0x41dd;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = CODE_OFFSET + 0x41e2;
 
     //verify_att_result_mac
-    monitor_app.dsm.child.trpoints.breakpoints[6] = CODE_OFFSET + 0x4138;
-    monitor_app.dsm.child.trpoints.breakpoints[7] = CODE_OFFSET + 0x413d;
+    monitor_app.dsm.child.trpoints.breakpoints[6] = CODE_OFFSET + 0x401a;
+    monitor_app.dsm.child.trpoints.breakpoints[7] = CODE_OFFSET + 0x401f;
 
     //put secret data
-    monitor_app.dsm.child.trpoints.breakpoints[8] = CODE_OFFSET + 0x4229;
-    monitor_app.dsm.child.trpoints.breakpoints[9] = CODE_OFFSET + 0x422e;
+    monitor_app.dsm.child.trpoints.breakpoints[8] = CODE_OFFSET + 0x410b;
+    monitor_app.dsm.child.trpoints.breakpoints[9] = CODE_OFFSET + 0x4110;
 
     //destroy enclave 
-    monitor_app.dsm.child.trpoints.breakpoints[10] = CODE_OFFSET + 0x437d;
-    monitor_app.dsm.child.trpoints.breakpoints[11] = CODE_OFFSET + 0x4382;
+    monitor_app.dsm.child.trpoints.breakpoints[10] = CODE_OFFSET + 0x425f;
+    monitor_app.dsm.child.trpoints.breakpoints[11] = CODE_OFFSET + 0x4264;
 
     //sgx_get_extended_epid_group_id
-    monitor_app.dsm.child.trpoints.breakpoints[12] = CODE_OFFSET + 0x3264;
-    monitor_app.dsm.child.trpoints.breakpoints[13] = CODE_OFFSET + 0x3269;
+    monitor_app.dsm.child.trpoints.breakpoints[12] = CODE_OFFSET + 0x3145;
+    monitor_app.dsm.child.trpoints.breakpoints[13] = CODE_OFFSET + 0x314a;
     
     //sgx_select_att_key_id
-    monitor_app.dsm.child.trpoints.breakpoints[14] = CODE_OFFSET + 0x341f;
-    monitor_app.dsm.child.trpoints.breakpoints[15] = CODE_OFFSET + 0x3424;
+    monitor_app.dsm.child.trpoints.breakpoints[14] = CODE_OFFSET + 0x3300;
+    monitor_app.dsm.child.trpoints.breakpoints[15] = CODE_OFFSET + 0x3305;
     
     //sgx_ra_get_msg1_ex
-    monitor_app.dsm.child.trpoints.breakpoints[16] = CODE_OFFSET + 0x363d;
-    monitor_app.dsm.child.trpoints.breakpoints[17] = CODE_OFFSET + 0x3642;
+    monitor_app.dsm.child.trpoints.breakpoints[16] = CODE_OFFSET + 0x351f;
+    monitor_app.dsm.child.trpoints.breakpoints[17] = CODE_OFFSET + 0x352a;
     
     //sgx_ra_proc_msg2_ex
-    monitor_app.dsm.child.trpoints.breakpoints[18] = CODE_OFFSET + 0x3ce0;
-    monitor_app.dsm.child.trpoints.breakpoints[19] = CODE_OFFSET + 0x3ce5;
+    monitor_app.dsm.child.trpoints.breakpoints[18] = CODE_OFFSET + 0x3bc2;
+    monitor_app.dsm.child.trpoints.breakpoints[19] = CODE_OFFSET + 0x3bc7;
 
     #define LIMIT 19
 
