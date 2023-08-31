@@ -132,10 +132,10 @@ int update_child_data(pid_t pid, long long dst, char *src, size_t len)
 	remote_iov.iov_len = len;
 
 	nwrite = process_vm_writev(pid, &local_iov, 1, &remote_iov, 1, 0);
-    if (nwrite < 0) {
-        fprintf(stderr,"process_vm_writev");
-        return -1;
-    }
+	if (nwrite < 0) {
+        	fprintf(stderr,"process_vm_writev");
+        	return -1;
+    	}
 
 	if(nwrite != len){
 		fprintf(stderr, "Failed to read the required memory length");
