@@ -1,0 +1,6 @@
+{
+  "main_address":"0x407b80",
+  "user_args": ["host/host", "./enclave_a_v1/enclave.signed", "enclave_a_v2/enclave.signed", "enclave_b/enclave.signed", null],
+  "breakpoints":["0x40632b","0x406330","0x406ecd","0x406ed2","0x406614","0x406619","0x40854b","0x408550","0x4085c4","0x4085c9","0x40863d","0x408642"]
+}
+

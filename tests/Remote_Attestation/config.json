@@ -1,0 +1,29 @@
+{
+  "main_address":"0x555555556eda",
+  "user_args": ["./app", null],
+  "breakpoints":["0x55555555738c","0x555555557391","0x555555557411","0x555555557416","0x5555555581dd","0x5555555581e2","0x55555555801a","0x55555555801f","0x55555555810b","0x555555558110","0x55555555825f","0x555555558264","0x555555557145","0x55555555714a","0x555555557300","0x555555557305","0x55555555751f","0x55555555752a","0x555555557bc2","0x555555557bc7"],
+  "comments" :{
+  	"0x55555555738c":"sgx_create_enclave",
+        "0x555555557391":"sgx_create_enclave_end",
+	"0x555555557411":"enclave_init_ra",
+	"0x555555557416":"enclave_init_ra_end",
+	"0x5555555581dd":"enclave_close_ra",
+	"0x5555555581e2":"enclave_close_ra_end",
+	"0x55555555801a":"verify_att_result_mac",
+	"0x55555555801f":"verify_att_result_mac_end",
+	"0x55555555810b":"put secret data",
+	"0x555555558110":"put secret data end",
+	"0x55555555825f":"destroy enclave",
+	"0x555555558264":"destroy enclave end",
+	"0x555555557145":"sgx_get_extended_epid_group_id",
+	"0x55555555714a":"sgx_get_extended_epid_group_id_end",
+	"0x555555557300":"sgx_select_att_key_id",
+	"0x555555557305":"sgx_select_att_key_id end",
+	"0x55555555751f":"sgx_ra_get_msg1_ex",
+	"0x55555555752a":"sgx_ra_get_msg1_ex end",
+	"0x555555557bc2":"sgx_ra_proc_msg2_ex",
+	"0x555555557bc7":"sgx_ra_proc_msg2_ex end"
+  }
+}
+
+

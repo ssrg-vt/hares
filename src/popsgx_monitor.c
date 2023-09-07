@@ -18,23 +18,21 @@
 #include "../inc/msi_handler.h"
 #include "../inc/vmscan_util.h"
 
+#include <cjson/cJSON.h>
+
 #define log_info(args...) 
 
 extern char* __progname;
 
 // Required number of arguments for the application
-#define OPT_MANDATORY_COUNT 3
+#define OPT_MANDATORY_COUNT 4
 
 // Starting address for the buffer 
 #define BUFFER_ADDRESS 0x10000
 
-#define REMOTE_ATTEST 1
-
 // Helloworld main function address 
 #ifdef HELLOWORLD
 #define MAIN 0x43ed80
-#elif FILEENCRYPT
-#define MAIN 0x40a7b0
 #elif SWITCHLESS
 #define MAIN 0x443d00
 #elif DEBUGMALLOC
@@ -88,17 +86,14 @@ popsgx_app monitor_app;
 static void usage(void)
 {
     log_info("\n"
-             "usage: %s [-m mode | -v victim | -r remote-node-ip | -p remote-node-port | -t host-port \
-                        | -s shared_mem | -n no_pages]"
+             "usage: %s [-m mode | -c confi_file | -r remote-node-ip | -p remote-node-port | -t host-port ]"
              "\n"
              "options:\n"
-             "\t-m mode of the popsgx_monitor application either server or client\n"
-             "\t-v victim process to serve page-faults & ditributed-memory-sharing\n"
+             "\t-m mode of the popsgx_monitor application [server|cient]\n"
              "\t-r remote node's ip-address for dsm\n"
              "\t-p remote node's port-number for dsm\n"
              "\t-t host's port-number\n"
-             "\t-s address of the memory region to be shared\n"
-             "\t-n number of pages to be shared\n"
+             "\t-c configuration file\n"
              "\t-h help"
              "\n",
              __progname);
@@ -160,7 +155,7 @@ static void wait_child_main(pid_t cpid, unsigned long addr)
  * @param tracee 
  * @return int 
  */
-static int execute_tracee_app(popsgx_child *tracee){
+static int execute_tracee_app(popsgx_child *tracee, char **user_args){
     int ret = 0;
     pid_t tracee_pid;
 
@@ -282,10 +277,134 @@ int initialize_msi_page(msi_handler *msi, uint64_t buffer_addr, int no_pages){
     return ret;
 }
 
+
+/**
+ * @brief Parse the configuration file in Json Format
+ * 
+ * @param json_file_path configuration file
+ * @param args argument for the client application
+*/
+static int parse_json_config(const char *json_file_path, client_args *args, tracepoints *trc_points, uintptr_t *main_address){
+    // Open the JSON file for reading
+    FILE *file = fopen(json_file_path, "r");
+    if (!file) {
+        perror("Error opening JSON file");
+        return 1;
+    }
+
+    // Read the JSON data from the file
+    fseek(file, 0, SEEK_END);
+    long file_size = ftell(file);
+    fseek(file, 0, SEEK_SET);
+
+    char *json_data = (char *)malloc(file_size + 1);
+    if (!json_data) {
+        perror("Memory allocation error");
+        fclose(file);
+        return 1;
+    }
+
+    fread(json_data, 1, file_size, file);
+    json_data[file_size] = '\0';
+    fclose(file);
+
+    // Parse the JSON data
+    cJSON *root = cJSON_Parse(json_data);
+
+    if (root == NULL) {
+        perror("Error parsing JSON data.\n");
+        free(json_data);
+        return 1;
+    }
+
+    // Access the user_args and breakpoints arrays
+    cJSON *userArgsArray = cJSON_GetObjectItem(root, "user_args");
+    cJSON *breakpointsArray = cJSON_GetObjectItem(root, "breakpoints");
+    cJSON *mainAddressItem = cJSON_GetObjectItem(root, "main_address");
+
+    if(userArgsArray != NULL && args != NULL){
+        args->num_args = cJSON_GetArraySize(userArgsArray);
+        args->user_args = (char**)malloc(sizeof(char*) * args->num_args);
+        if (args->user_args == NULL) {
+                perror("Memory allocation error");
+                return 1;
+        }
+    }else{
+        perror("user_args not given!!");
+        return 1;
+    }
+
+    if (mainAddressItem != NULL && cJSON_IsString(mainAddressItem)) {
+       *main_address = (uintptr_t)strtoull(mainAddressItem->valuestring, NULL, 16);
+    }else{
+       perror("main_address not given!!");
+       return 1;
+    }
+
+    if(breakpointsArray != NULL && trc_points != NULL){
+        trc_points->size = cJSON_GetArraySize(breakpointsArray);
+        trc_points->breakpoints = malloc(sizeof(unsigned long int) *                                                      \
+                                                        cJSON_GetArraySize(breakpointsArray));
+        if(trc_points->breakpoints == NULL){
+            perror("Memory allocation error");
+            return 1;
+        }
+        trc_points->old_instructions = malloc(sizeof(unsigned long int) *                                                 \
+                                                        cJSON_GetArraySize(breakpointsArray));
+        if(trc_points->old_instructions == NULL){
+            perror("Memory allocation error");
+            return 1;
+        }
+    }else{
+        perror("breakpointsArray not given!!");
+        return 1;
+    }
+
+    if (userArgsArray != NULL && breakpointsArray != NULL) {
+        // Iterate through the user_args array
+        for (int i = 0; i < cJSON_GetArraySize(userArgsArray); i++) {
+            cJSON *item = cJSON_GetArrayItem(userArgsArray, i);
+            if (cJSON_IsString(item)) {
+                args->user_args[i] = strdup(item->valuestring);
+                if (args->user_args[i] == NULL) {
+                        perror("Memory allocation error");
+                        return 1;
+                }
+            }
+        }
+
+        // Iterate through the breakpoints array
+        for (int i = 0; i < cJSON_GetArraySize(breakpointsArray); i++) {
+            cJSON *item = cJSON_GetArrayItem(breakpointsArray, i);
+            if (cJSON_IsString(item)) {
+	        char *endptr;
+                trc_points->breakpoints[i] = strtol(item->valuestring, &endptr, 16);
+                trc_points->old_instructions[i] = strtol(item->valuestring, &endptr, 16);
+		if (*endptr != '\0') {
+        		perror("Conversion error: Invalid characters found.\n");
+    		} else {
+        		log_info("Integer value: %lx\n", trc_points->breakpoints[i]);
+    		}
+            }
+        }
+    } else {
+        perror("Error accessing JSON arrays.\n");
+    }
+
+    // Free memory
+    free(json_data);
+    cJSON_Delete(root);
+
+    return 0;
+}
+
 int main(int argc, char *argv[]){
     int ret = 0;
     int opt, opt_counter = 0;
     char *mode = NULL;
+    const char* config_file_path = NULL;
+    client_args uargs;
+    uintptr_t main_address;
 
     memset(&monitor_app, 0, sizeof(popsgx_app));
     monitor_app.buffer = BUFFER_ADDRESS;
@@ -299,10 +418,11 @@ int main(int argc, char *argv[]){
         {  "remote_ip", required_argument, NULL, 'r'},
         {"remote_port", required_argument, NULL, 'p'},
         {  "host_port", required_argument, NULL, 't'},
+        {"config_file", required_argument, NULL, 'c'},
         {         NULL,                 0, NULL,  0 }
     };
     
-    while((opt = getopt_long(argc, argv, "hr:p:t:m:", long_opt, NULL)) != -1){
+    while((opt = getopt_long(argc, argv, "hr:p:t:m:c:", long_opt, NULL)) != -1){
         switch (opt)
         {
         case 'r':
@@ -328,6 +448,10 @@ int main(int argc, char *argv[]){
                 usage();
             }
             break;
+        
+        case 'c':
+            config_file_path = optarg;
+            break;
 
         case 'h':
         default:
@@ -339,18 +463,25 @@ int main(int argc, char *argv[]){
 
     log_info("opt_counter %d", opt_counter);
     if (optind < argc || opt_counter < OPT_MANDATORY_COUNT)
-	{
-		usage();
-	}
+    {
+	usage();
+    }
+
+    //Parse the Json config file
+    ret = parse_json_config(config_file_path, &uargs, &monitor_app.dsm.child.trpoints, &main_address);
+    if(ret){
+        log_error("failed to parse the config file");
+        return EXIT_FAILURE;
+    }
 
     //Execute and Wait for the child at main instruction
-    ret = execute_tracee_app(&monitor_app.dsm.child);
+    ret = execute_tracee_app(&monitor_app.dsm.child, uargs.user_args);
     if(ret){
         log_error("failed to execute the tracee app");
         goto out_fail; 
     }
 
-    wait_child_main(monitor_app.dsm.child.c_pid, MAIN);
+    wait_child_main(monitor_app.dsm.child.c_pid, main_address);
 
     //This gets resumed when we steal uffd
     ret =  compel_stop_task(monitor_app.dsm.child.c_pid);
@@ -382,14 +513,6 @@ int main(int argc, char *argv[]){
     //Grabbing the heap address
     get_virtual_address_frame_by_name(monitor_app.dsm.child.c_pid, &monitor_app.dsm.child.heap_start_address, &monitor_app.dsm.child.heap_end_address, "[heap]");
 
-    //setting up the breakpoints
-    monitor_app.dsm.child.trpoints.size = 200;
-    monitor_app.dsm.child.trpoints.breakpoints = malloc(sizeof(unsigned long int) *                                  \
-                                                        monitor_app.dsm.child.trpoints.size);
-    monitor_app.dsm.child.trpoints.old_instructions = malloc(sizeof(unsigned long int) *                             \
-                                                             monitor_app.dsm.child.trpoints.size);
-    
-    
 
 #ifdef HELLOWORLD
     //Hello world
@@ -400,22 +523,6 @@ int main(int argc, char *argv[]){
     monitor_app.dsm.child.trpoints.breakpoints[4] = 0x43f10d;
     monitor_app.dsm.child.trpoints.breakpoints[5] = 0x43f112;
     #define LIMIT 5
-
-#elif FILEENCRYPT
-    //file encryption
-    monitor_app.dsm.child.trpoints.breakpoints[0]  = 0x40ab0f;
-    monitor_app.dsm.child.trpoints.breakpoints[1]  = 0x40ab14;
-    monitor_app.dsm.child.trpoints.breakpoints[2]  = 0x40911f;
-    monitor_app.dsm.child.trpoints.breakpoints[3]  = 0x409124;
-    monitor_app.dsm.child.trpoints.breakpoints[4]  = 0x409827;
-    monitor_app.dsm.child.trpoints.breakpoints[5]  = 0x40982c;
-    monitor_app.dsm.child.trpoints.breakpoints[6]  = 0x40a1ca;
-    monitor_app.dsm.child.trpoints.breakpoints[7]  = 0x40a1cf;
-    monitor_app.dsm.child.trpoints.breakpoints[8]  = 0x40a67f;
-    monitor_app.dsm.child.trpoints.breakpoints[9]  = 0x40a684;
-    monitor_app.dsm.child.trpoints.breakpoints[10] = 0x40b9a2;
-    monitor_app.dsm.child.trpoints.breakpoints[11] = 0x40b9a7;
-    #define LIMIT 11
 
 #elif SWITCHLESS
     monitor_app.dsm.child.trpoints.breakpoints[0]  = 0x443f6c;
@@ -812,51 +919,51 @@ int main(int argc, char *argv[]){
 
 #elif REMOTE_ATTEST
     //sgx_create_enclave
-    monitor_app.dsm.child.trpoints.breakpoints[0] = CODE_OFFSET + 0x338c;
-    monitor_app.dsm.child.trpoints.breakpoints[1] = CODE_OFFSET + 0x3391;
+    monitor_app.dsm.child.trpoints.breakpoints[0] = CODE_OFFSET + 0x34aa;
+    monitor_app.dsm.child.trpoints.breakpoints[1] = CODE_OFFSET + 0x34af;
 
     //enclave_init_ra
-    monitor_app.dsm.child.trpoints.breakpoints[2] = CODE_OFFSET + 0x3411;
-    monitor_app.dsm.child.trpoints.breakpoints[3] = CODE_OFFSET + 0x3416;
+    monitor_app.dsm.child.trpoints.breakpoints[2] = CODE_OFFSET + 0x352f;
+    monitor_app.dsm.child.trpoints.breakpoints[3] = CODE_OFFSET + 0x3534;
 
     //enclave_close_ra
-    monitor_app.dsm.child.trpoints.breakpoints[4] = CODE_OFFSET + 0x41dd;
-    monitor_app.dsm.child.trpoints.breakpoints[5] = CODE_OFFSET + 0x41e2;
+    monitor_app.dsm.child.trpoints.breakpoints[4] = CODE_OFFSET + 0x42fb;
+    monitor_app.dsm.child.trpoints.breakpoints[5] = CODE_OFFSET + 0x4300;
 
     //verify_att_result_mac
-    monitor_app.dsm.child.trpoints.breakpoints[6] = CODE_OFFSET + 0x401a;
-    monitor_app.dsm.child.trpoints.breakpoints[7] = CODE_OFFSET + 0x401f;
+    monitor_app.dsm.child.trpoints.breakpoints[6] = CODE_OFFSET + 0x4138;
+    monitor_app.dsm.child.trpoints.breakpoints[7] = CODE_OFFSET + 0x413d;
 
     //put secret data
-    monitor_app.dsm.child.trpoints.breakpoints[8] = CODE_OFFSET + 0x410b;
-    monitor_app.dsm.child.trpoints.breakpoints[9] = CODE_OFFSET + 0x4110;
+    monitor_app.dsm.child.trpoints.breakpoints[8] = CODE_OFFSET + 0x4299;
+    monitor_app.dsm.child.trpoints.breakpoints[9] = CODE_OFFSET + 0x422e;
 
     //destroy enclave 
-    monitor_app.dsm.child.trpoints.breakpoints[10] = CODE_OFFSET + 0x425f;
-    monitor_app.dsm.child.trpoints.breakpoints[11] = CODE_OFFSET + 0x4264;
+    monitor_app.dsm.child.trpoints.breakpoints[10] = CODE_OFFSET + 0x437d;
+    monitor_app.dsm.child.trpoints.breakpoints[11] = CODE_OFFSET + 0x4382;
 
     //sgx_get_extended_epid_group_id
-    monitor_app.dsm.child.trpoints.breakpoints[12] = CODE_OFFSET + 0x3145;
-    monitor_app.dsm.child.trpoints.breakpoints[13] = CODE_OFFSET + 0x314a;
+    monitor_app.dsm.child.trpoints.breakpoints[12] = CODE_OFFSET + 0x3264;
+    monitor_app.dsm.child.trpoints.breakpoints[13] = CODE_OFFSET + 0x3269;
     
     //sgx_select_att_key_id
-    monitor_app.dsm.child.trpoints.breakpoints[14] = CODE_OFFSET + 0x3300;
-    monitor_app.dsm.child.trpoints.breakpoints[15] = CODE_OFFSET + 0x3305;
+    monitor_app.dsm.child.trpoints.breakpoints[14] = CODE_OFFSET + 0x341f;
+    monitor_app.dsm.child.trpoints.breakpoints[15] = CODE_OFFSET + 0x3424;
     
     //sgx_ra_get_msg1_ex
-    monitor_app.dsm.child.trpoints.breakpoints[16] = CODE_OFFSET + 0x351f;
-    monitor_app.dsm.child.trpoints.breakpoints[17] = CODE_OFFSET + 0x352a;
+    monitor_app.dsm.child.trpoints.breakpoints[16] = CODE_OFFSET + 0x363d;
+    monitor_app.dsm.child.trpoints.breakpoints[17] = CODE_OFFSET + 0x3642;
     
     //sgx_ra_proc_msg2_ex
-    monitor_app.dsm.child.trpoints.breakpoints[18] = CODE_OFFSET + 0x3bc2;
-    monitor_app.dsm.child.trpoints.breakpoints[19] = CODE_OFFSET + 0x3bc7;
+    monitor_app.dsm.child.trpoints.breakpoints[18] = CODE_OFFSET + 0x3ce0;
+    monitor_app.dsm.child.trpoints.breakpoints[19] = CODE_OFFSET + 0x3ce5;
 
     #define LIMIT 19
 
 #endif
-
     if(monitor_app.mode == CLIENT){
-        for(int i = 0; i <= LIMIT ; i = i + 2){
+        for(int i = 0; i < monitor_app.dsm.child.trpoints.size; i = i + 2){
+            log_info("The values of breakpoints: %lx\n", monitor_app.dsm.child.trpoints.breakpoints[i]);
             monitor_app.dsm.child.trpoints.old_instructions[i] = set_breakpoint(monitor_app.dsm.child.c_pid,    \
                                                                       monitor_app.dsm.child.trpoints.breakpoints[i]);
         }
@@ -960,7 +1067,7 @@ int main(int argc, char *argv[]){
             get_regs_args(monitor_app.dsm.child.c_pid, &regs, &as);
             log_info("stopping at the instruction pointer 0x%lx", regs.rip);
 
-            for(int i = 0; i <= LIMIT; i++){
+            for(int i = 0; i < monitor_app.dsm.child.trpoints.size; i++){
                 if((regs.rip - 1) ==  monitor_app.dsm.child.trpoints.breakpoints[i]){
                     index = i;
                     log_info("Found the address %p at index %d\n", regs.rip, index);
@@ -1236,11 +1343,6 @@ int main(int argc, char *argv[]){
                 if(new_spaces.space[i].address >= 0x7ffff7949000 && new_spaces.space[i].address < 0x7ffff7a0f000)
                     log_info("The address is %lx with a size %d", new_spaces.space[i].address, new_spaces.space[i].size);
             }
-
-            // log_info("child space:");
-            // for(int i = 0; i < monitor_app.dsm.child.spaces.size; i++){
-            //     log_info("The address is %lx with a size %d", monitor_app.dsm.child.spaces.space[i].address, monitor_app.dsm.child.spaces.space[i].size);
-            // }
 
             //Grabbing and sending the child process vma to remote
             msi_handle_send_vma(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, new_spaces, 0);

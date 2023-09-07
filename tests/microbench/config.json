@@ -1,0 +1,6 @@
+{
+  "main_address":"0x441060",
+  "user_args": ["./host/microbenchhost", "./enclave/microbenchenc.signed", "10000", "0", null],
+  "breakpoints":["0x4411e1","0x4411e6","0x4413b2","0x4413b7","0x441969","0x44196e"]
+}
+

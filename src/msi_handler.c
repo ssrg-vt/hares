@@ -14,7 +14,7 @@
 #include "../inc/dsm_handler.h"
 #include "../inc/compel_handler.h"
 
-//#define log_info(args...) 
+#define log_info(args...) 
 
 static int iter = 0;
 

@@ -1350,8 +1350,8 @@ void load_weights_upto(network *net, char *filename, int start, int cutoff)
     int transpose = (major > 1000) || (minor > 1000);
 
     int i;
-    printf("---cutoff %d net->n %d\n", cutoff, net->n);
-    printf("---cutoff %p net->n %p\n", &cutoff, &net->n);
+    //printf("---cutoff %d net->n %d\n", cutoff, net->n);
+    //printf("---cutoff %p net->n %p\n", &cutoff, &net->n);
     //for (i = start; i < net->n && i < cutoff; ++i)
     for (i = start; i < 10; ++i)
     {

@@ -1,0 +1,6 @@
+{
+  "main_address":"0x445510",
+  "user_args": ["host/log_callbackhost", "./enclave/log_callbackenc.signed", null],
+  "breakpoints": ["0x44573f", "0x445744", "0x44585a", "0x44585f", "0x44582c", "0x445831", "0x4459ee", "0x4459f3"]
+}
+

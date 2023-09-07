@@ -925,7 +925,7 @@ Disassembly of section .text:
     3c92:	54                   	push   %rsp
     3c93:	4c 8d 05 76 b8 03 00 	lea    0x3b876(%rip),%r8        # 3f510 <__libc_csu_fini>
     3c9a:	48 8d 0d ff b7 03 00 	lea    0x3b7ff(%rip),%rcx        # 3f4a0 <__libc_csu_init>
-    3ca1:	48 8d 3d a2 0e 00 00 	lea    0xea2(%rip),%rdi        # 4b4a <main>
+    3ca1:	48 8d 3d 3f 12 00 00 	lea    0x123f(%rip),%rdi        # 4ee7 <main>
     3ca8:	ff 15 2a 83 04 00    	call   *0x4832a(%rip)        # 4bfd8 <__libc_start_main@GLIBC_2.2.5>
     3cae:	f4                   	hlt    
     3caf:	90                   	nop
@@ -1109,7 +1109,7 @@ static sgx_status_t SGX_CDECL Enclave_my_ocall_close(void* pms)
     3e63:	b8 02 00 00 00       	mov    $0x2,%eax
     3e68:	eb 0a                	jmp    3e74 <Enclave_my_ocall_close+0x28>
 	my_ocall_close();
-    3e6a:	e8 6c 0c 00 00       	call   4adb <my_ocall_close>
+    3e6a:	e8 09 10 00 00       	call   4e78 <my_ocall_close>
 	return SGX_SUCCESS;
     3e6f:	b8 00 00 00 00       	mov    $0x0,%eax
 }
@@ -1131,7 +1131,7 @@ static sgx_status_t SGX_CDECL Enclave_ocall_read_disk_chunk(void* pms)
     3e8d:	b8 02 00 00 00       	mov    $0x2,%eax
     3e92:	eb 0a                	jmp    3e9e <Enclave_ocall_read_disk_chunk+0x28>
 	ocall_read_disk_chunk();
-    3e94:	e8 9e 06 00 00       	call   4537 <ocall_read_disk_chunk>
+    3e94:	e8 3b 0a 00 00       	call   48d4 <ocall_read_disk_chunk>
 	return SGX_SUCCESS;
     3e99:	b8 00 00 00 00       	mov    $0x0,%eax
 }
@@ -1177,7 +1177,7 @@ static sgx_status_t SGX_CDECL Enclave_ocall_start_clock(void* pms)
     3ee5:	b8 02 00 00 00       	mov    $0x2,%eax
     3eea:	eb 0a                	jmp    3ef6 <Enclave_ocall_start_clock+0x28>
 	ocall_start_clock();
-    3eec:	e8 ee 05 00 00       	call   44df <ocall_start_clock>
+    3eec:	e8 8b 09 00 00       	call   487c <ocall_start_clock>
 	return SGX_SUCCESS;
     3ef1:	b8 00 00 00 00       	mov    $0x0,%eax
 }
@@ -1199,7 +1199,7 @@ static sgx_status_t SGX_CDECL Enclave_ocall_stop_clock(void* pms)
     3f0f:	b8 02 00 00 00       	mov    $0x2,%eax
     3f14:	eb 0a                	jmp    3f20 <Enclave_ocall_stop_clock+0x28>
 	ocall_stop_clock();
-    3f16:	e8 e3 05 00 00       	call   44fe <ocall_stop_clock>
+    3f16:	e8 80 09 00 00       	call   489b <ocall_stop_clock>
 	return SGX_SUCCESS;
     3f1b:	b8 00 00 00 00       	mov    $0x0,%eax
 }
@@ -1221,7 +1221,7 @@ static sgx_status_t SGX_CDECL Enclave_ocall_add_loss(void* pms)
     3f39:	b8 02 00 00 00       	mov    $0x2,%eax
     3f3e:	eb 0a                	jmp    3f4a <Enclave_ocall_add_loss+0x28>
 	ocall_add_loss();
-    3f40:	e8 d8 05 00 00       	call   451d <ocall_add_loss>
+    3f40:	e8 75 09 00 00       	call   48ba <ocall_add_loss>
 	return SGX_SUCCESS;
     3f45:	b8 00 00 00 00       	mov    $0x0,%eax
 }
@@ -1810,1024 +1810,1024 @@ void print_error_message(sgx_status_t ret)
     44dd:	c9                   	leave  
     44de:	c3                   	ret    
 
-00000000000044df <ocall_start_clock>:
- * We can't measure time in the enclave runtime so we measure it with an ocall.
- * The transition time is very small(~5ns) compared to the times we measure (ms,s,mins etc),
- * so the values are accurate enough for our use cases
- */
-void ocall_start_clock()
-{
-    44df:	f3 0f 1e fa          	endbr64 
-    44e3:	55                   	push   %rbp
-    44e4:	48 89 e5             	mov    %rsp,%rbp
-    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
-    44e7:	48 8d 05 e2 83 04 00 	lea    0x483e2(%rip),%rax        # 4c8d0 <start>
-    44ee:	48 89 c6             	mov    %rax,%rsi
-    44f1:	bf 04 00 00 00       	mov    $0x4,%edi
-    44f6:	e8 05 f4 ff ff       	call   3900 <clock_gettime@plt>
-}
-    44fb:	90                   	nop
-    44fc:	5d                   	pop    %rbp
-    44fd:	c3                   	ret    
-
-00000000000044fe <ocall_stop_clock>:
-void ocall_stop_clock()
-{
-    44fe:	f3 0f 1e fa          	endbr64 
-    4502:	55                   	push   %rbp
-    4503:	48 89 e5             	mov    %rsp,%rbp
-    clock_gettime(CLOCK_MONOTONIC_RAW, &stop);
-    4506:	48 8d 05 d3 83 04 00 	lea    0x483d3(%rip),%rax        # 4c8e0 <stop>
-    450d:	48 89 c6             	mov    %rax,%rsi
-    4510:	bf 04 00 00 00       	mov    $0x4,%edi
-    4515:	e8 e6 f3 ff ff       	call   3900 <clock_gettime@plt>
-}
-    451a:	90                   	nop
-    451b:	5d                   	pop    %rbp
-    451c:	c3                   	ret    
-
-000000000000451d <ocall_add_loss>:
-
-void ocall_add_loss()
-{
-    451d:	f3 0f 1e fa          	endbr64 
-    4521:	55                   	push   %rbp
-    4522:	48 89 e5             	mov    %rsp,%rbp
-    //you can use this routine to register the loss and iteration during training in a file
-    //update the loss in the enclave in comm_in->loss and the iteration in comm_in->epoch
-}
-    4525:	90                   	nop
-    4526:	5d                   	pop    %rbp
-    4527:	c3                   	ret    
-
-0000000000004528 <_Z11data_mallocm>:
-
-//alloc space for mnist training data variable
-void data_malloc(size_t chunk)
-{
-    4528:	f3 0f 1e fa          	endbr64 
-    452c:	55                   	push   %rbp
-    452d:	48 89 e5             	mov    %rsp,%rbp
-    4530:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
-    //removed
-}
-    4534:	90                   	nop
-    4535:	5d                   	pop    %rbp
-    4536:	c3                   	ret    
-
-0000000000004537 <ocall_read_disk_chunk>:
-
-//This ocall reads encrypted mnist data from disk to DRAM
-void ocall_read_disk_chunk()
-{
-    4537:	f3 0f 1e fa          	endbr64 
-    453b:	55                   	push   %rbp
-    453c:	48 89 e5             	mov    %rsp,%rbp
-    453f:	53                   	push   %rbx
-    4540:	48 81 ec c8 00 00 00 	sub    $0xc8,%rsp
-    4547:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
-    454e:	00 00 
-    4550:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
-    4554:	31 c0                	xor    %eax,%eax
-
-    printf("Reading initial training data from disk\n");
-    4556:	48 8d 3d 03 bd 03 00 	lea    0x3bd03(%rip),%rdi        # 40260 <_ZStL6ignore+0x7>
-    455d:	e8 5e f5 ff ff       	call   3ac0 <puts@plt>
-    if (&training_data != NULL)
-    {
-        free_data(training_data);
-    4562:	48 8d 05 d7 82 04 00 	lea    0x482d7(%rip),%rax        # 4c840 <training_data>
-    4569:	ff 70 38             	push   0x38(%rax)
-    456c:	ff 70 30             	push   0x30(%rax)
-    456f:	ff 70 28             	push   0x28(%rax)
-    4572:	ff 70 20             	push   0x20(%rax)
-    4575:	ff 70 18             	push   0x18(%rax)
-    4578:	ff 70 10             	push   0x10(%rax)
-    457b:	ff 70 08             	push   0x8(%rax)
-    457e:	ff 30                	push   (%rax)
-    4580:	e8 11 8e 00 00       	call   d396 <free_data>
-    4585:	48 83 c4 40          	add    $0x40,%rsp
-    }
-    std::string img_path = MNIST_TRAIN_IMAGES;
-    4589:	48 8d 85 7f ff ff ff 	lea    -0x81(%rbp),%rax
-    4590:	48 89 c7             	mov    %rax,%rdi
-    4593:	e8 f8 f5 ff ff       	call   3b90 <_ZNSaIcEC1Ev@plt>
-    4598:	48 8d 95 7f ff ff ff 	lea    -0x81(%rbp),%rdx
-    459f:	48 8d 45 80          	lea    -0x80(%rbp),%rax
-    45a3:	48 8d 35 de bc 03 00 	lea    0x3bcde(%rip),%rsi        # 40288 <_ZStL6ignore+0x2f>
-    45aa:	48 89 c7             	mov    %rax,%rdi
-    45ad:	e8 5e f4 ff ff       	call   3a10 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1EPKcRKS3_@plt>
-    45b2:	48 8d 85 7f ff ff ff 	lea    -0x81(%rbp),%rax
-    45b9:	48 89 c7             	mov    %rax,%rdi
-    45bc:	e8 9f f3 ff ff       	call   3960 <_ZNSaIcED1Ev@plt>
-    std::string label_path = MNIST_TRAIN_LABELS;
-    45c1:	48 8d 85 7f ff ff ff 	lea    -0x81(%rbp),%rax
-    45c8:	48 89 c7             	mov    %rax,%rdi
-    45cb:	e8 c0 f5 ff ff       	call   3b90 <_ZNSaIcEC1Ev@plt>
-    45d0:	48 8d 95 7f ff ff ff 	lea    -0x81(%rbp),%rdx
-    45d7:	48 8d 45 a0          	lea    -0x60(%rbp),%rax
-    45db:	48 8d 35 d6 bc 03 00 	lea    0x3bcd6(%rip),%rsi        # 402b8 <_ZStL6ignore+0x5f>
-    45e2:	48 89 c7             	mov    %rax,%rdi
-    45e5:	e8 26 f4 ff ff       	call   3a10 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1EPKcRKS3_@plt>
-    45ea:	48 8d 85 7f ff ff ff 	lea    -0x81(%rbp),%rax
-    45f1:	48 89 c7             	mov    %rax,%rdi
-    45f4:	e8 67 f3 ff ff       	call   3960 <_ZNSaIcED1Ev@plt>
-    //load encrypted data into volatile matrix
-    training_data = load_enc_mnist_images(img_path, NUM_IMGS_MNIST);
-    45f9:	48 8d 55 80          	lea    -0x80(%rbp),%rdx
-    45fd:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
-    4601:	48 89 d6             	mov    %rdx,%rsi
-    4604:	48 89 c7             	mov    %rax,%rdi
-    4607:	e8 34 f1 ff ff       	call   3740 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1ERKS4_@plt>
-    460c:	48 8d 1d 2d 82 04 00 	lea    0x4822d(%rip),%rbx        # 4c840 <training_data>
-    4613:	48 8d 85 30 ff ff ff 	lea    -0xd0(%rbp),%rax
-    461a:	48 8d 4d c0          	lea    -0x40(%rbp),%rcx
-    461e:	ba 60 ea 00 00       	mov    $0xea60,%edx
-    4623:	48 89 ce             	mov    %rcx,%rsi
-    4626:	48 89 c7             	mov    %rax,%rdi
-    4629:	e8 59 a9 03 00       	call   3ef87 <_Z21load_enc_mnist_imagesNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEm>
-    462e:	48 8b 85 30 ff ff ff 	mov    -0xd0(%rbp),%rax
-    4635:	48 8b 95 38 ff ff ff 	mov    -0xc8(%rbp),%rdx
-    463c:	48 89 03             	mov    %rax,(%rbx)
-    463f:	48 89 53 08          	mov    %rdx,0x8(%rbx)
-    4643:	48 8b 85 40 ff ff ff 	mov    -0xc0(%rbp),%rax
-    464a:	48 8b 95 48 ff ff ff 	mov    -0xb8(%rbp),%rdx
-    4651:	48 89 43 10          	mov    %rax,0x10(%rbx)
-    4655:	48 89 53 18          	mov    %rdx,0x18(%rbx)
-    4659:	48 8b 85 50 ff ff ff 	mov    -0xb0(%rbp),%rax
-    4660:	48 8b 95 58 ff ff ff 	mov    -0xa8(%rbp),%rdx
-    4667:	48 89 43 20          	mov    %rax,0x20(%rbx)
-    466b:	48 89 53 28          	mov    %rdx,0x28(%rbx)
-    466f:	48 8b 85 60 ff ff ff 	mov    -0xa0(%rbp),%rax
-    4676:	48 8b 95 68 ff ff ff 	mov    -0x98(%rbp),%rdx
-    467d:	48 89 43 30          	mov    %rax,0x30(%rbx)
-    4681:	48 89 53 38          	mov    %rdx,0x38(%rbx)
-    4685:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
-    4689:	48 89 c7             	mov    %rax,%rdi
-    468c:	e8 8f f1 ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
-    training_data.y = load_enc_mnist_labels(label_path, NUM_IMGS_MNIST);
-    4691:	48 8d 55 a0          	lea    -0x60(%rbp),%rdx
-    4695:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
-    4699:	48 89 d6             	mov    %rdx,%rsi
-    469c:	48 89 c7             	mov    %rax,%rdi
-    469f:	e8 9c f0 ff ff       	call   3740 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1ERKS4_@plt>
-    46a4:	48 8d 1d 95 81 04 00 	lea    0x48195(%rip),%rbx        # 4c840 <training_data>
-    46ab:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
-    46af:	be 60 ea 00 00       	mov    $0xea60,%esi
-    46b4:	48 89 c7             	mov    %rax,%rdi
-    46b7:	e8 a0 ab 03 00       	call   3f25c <_Z21load_enc_mnist_labelsNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEm>
-    46bc:	48 89 43 18          	mov    %rax,0x18(%rbx)
-    46c0:	48 89 53 20          	mov    %rdx,0x20(%rbx)
-    46c4:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
-    46c8:	48 89 c7             	mov    %rax,%rdi
-    46cb:	e8 50 f1 ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
-    comm_out->data_chunk = &training_data;
-    46d0:	48 8d 05 21 82 04 00 	lea    0x48221(%rip),%rax        # 4c8f8 <comm_out>
-    46d7:	48 8b 00             	mov    (%rax),%rax
-    46da:	48 8d 15 5f 81 04 00 	lea    0x4815f(%rip),%rdx        # 4c840 <training_data>
-    46e1:	48 89 50 18          	mov    %rdx,0x18(%rax)
-    printf("Done reading disk data\n");
-    46e5:	48 8d 3d fc bb 03 00 	lea    0x3bbfc(%rip),%rdi        # 402e8 <_ZStL6ignore+0x8f>
-    46ec:	e8 cf f3 ff ff       	call   3ac0 <puts@plt>
-    std::string label_path = MNIST_TRAIN_LABELS;
-    46f1:	48 8d 45 a0          	lea    -0x60(%rbp),%rax
-    46f5:	48 89 c7             	mov    %rax,%rdi
-    46f8:	e8 23 f1 ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
-    std::string img_path = MNIST_TRAIN_IMAGES;
-    46fd:	48 8d 45 80          	lea    -0x80(%rbp),%rax
-    4701:	48 89 c7             	mov    %rax,%rdi
-    4704:	e8 17 f1 ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
-    //ecall_set_data(global_eid, &training_data);
-}
-    4709:	90                   	nop
-    470a:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    470e:	64 48 33 04 25 28 00 	xor    %fs:0x28,%rax
-    4715:	00 00 
-    4717:	0f 84 97 00 00 00    	je     47b4 <ocall_read_disk_chunk+0x27d>
-    471d:	e9 8d 00 00 00       	jmp    47af <ocall_read_disk_chunk+0x278>
-    4722:	f3 0f 1e fa          	endbr64 
-    4726:	48 89 c3             	mov    %rax,%rbx
-    4729:	48 8d 85 7f ff ff ff 	lea    -0x81(%rbp),%rax
-    4730:	48 89 c7             	mov    %rax,%rdi
-    4733:	e8 28 f2 ff ff       	call   3960 <_ZNSaIcED1Ev@plt>
-    4738:	48 89 d8             	mov    %rbx,%rax
-    473b:	48 89 c7             	mov    %rax,%rdi
-    473e:	e8 3d f4 ff ff       	call   3b80 <_Unwind_Resume@plt>
-    4743:	f3 0f 1e fa          	endbr64 
-    4747:	48 89 c3             	mov    %rax,%rbx
-    474a:	48 8d 85 7f ff ff ff 	lea    -0x81(%rbp),%rax
-    4751:	48 89 c7             	mov    %rax,%rdi
-    4754:	e8 07 f2 ff ff       	call   3960 <_ZNSaIcED1Ev@plt>
-    4759:	eb 3d                	jmp    4798 <ocall_read_disk_chunk+0x261>
-    475b:	f3 0f 1e fa          	endbr64 
-    475f:	48 89 c3             	mov    %rax,%rbx
-    training_data = load_enc_mnist_images(img_path, NUM_IMGS_MNIST);
-    4762:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
-    4766:	48 89 c7             	mov    %rax,%rdi
-    4769:	e8 b2 f0 ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
-    476e:	eb 1c                	jmp    478c <ocall_read_disk_chunk+0x255>
-    4770:	f3 0f 1e fa          	endbr64 
-    4774:	48 89 c3             	mov    %rax,%rbx
-    training_data.y = load_enc_mnist_labels(label_path, NUM_IMGS_MNIST);
-    4777:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
-    477b:	48 89 c7             	mov    %rax,%rdi
-    477e:	e8 9d f0 ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
-    4783:	eb 07                	jmp    478c <ocall_read_disk_chunk+0x255>
-    4785:	f3 0f 1e fa          	endbr64 
-    4789:	48 89 c3             	mov    %rax,%rbx
-    std::string label_path = MNIST_TRAIN_LABELS;
-    478c:	48 8d 45 a0          	lea    -0x60(%rbp),%rax
-    4790:	48 89 c7             	mov    %rax,%rdi
-    4793:	e8 88 f0 ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
-    std::string img_path = MNIST_TRAIN_IMAGES;
-    4798:	48 8d 45 80          	lea    -0x80(%rbp),%rax
-    479c:	48 89 c7             	mov    %rax,%rdi
-    479f:	e8 7c f0 ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
-    47a4:	48 89 d8             	mov    %rbx,%rax
-    47a7:	48 89 c7             	mov    %rax,%rdi
-    47aa:	e8 d1 f3 ff ff       	call   3b80 <_Unwind_Resume@plt>
-}
-    47af:	e8 dc f1 ff ff       	call   3990 <__stack_chk_fail@plt>
-    47b4:	48 8b 5d f8          	mov    -0x8(%rbp),%rbx
-    47b8:	c9                   	leave  
-    47b9:	c3                   	ret    
-
-00000000000047ba <train_mnist>:
-
-void train_mnist(char *cfgfile)
-{
-    47ba:	f3 0f 1e fa          	endbr64 
-    47be:	55                   	push   %rbp
-    47bf:	48 89 e5             	mov    %rsp,%rbp
-    47c2:	48 83 ec 20          	sub    $0x20,%rsp
-    47c6:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
-
-    list *config_sections = read_cfg(cfgfile);
-    47ca:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    47ce:	48 89 c7             	mov    %rax,%rdi
-    47d1:	e8 71 74 03 00       	call   3bc47 <read_cfg>
-    47d6:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
-    comm_out = (comm_info *)malloc(sizeof(comm_info));
-    47da:	bf 28 00 00 00       	mov    $0x28,%edi
-    47df:	e8 1c f2 ff ff       	call   3a00 <malloc@plt>
-    47e4:	48 89 c2             	mov    %rax,%rdx
-    47e7:	48 8d 05 0a 81 04 00 	lea    0x4810a(%rip),%rax        # 4c8f8 <comm_out>
-    47ee:	48 89 10             	mov    %rdx,(%rax)
-    comm_out->config = config_sections;
-    47f1:	48 8d 05 00 81 04 00 	lea    0x48100(%rip),%rax        # 4c8f8 <comm_out>
-    47f8:	48 8b 00             	mov    (%rax),%rax
-    47fb:	48 8b 55 f8          	mov    -0x8(%rbp),%rdx
-    47ff:	48 89 50 20          	mov    %rdx,0x20(%rax)
-    ecall_trainer(global_eid,comm_out->config, &training_data, chunk_size, comm_out);
-    4803:	48 8d 05 ee 80 04 00 	lea    0x480ee(%rip),%rax        # 4c8f8 <comm_out>
-    480a:	48 8b 10             	mov    (%rax),%rdx
-    480d:	48 8d 05 ac 80 04 00 	lea    0x480ac(%rip),%rax        # 4c8c0 <chunk_size>
-    4814:	48 8b 00             	mov    (%rax),%rax
-    4817:	89 c1                	mov    %eax,%ecx
-    4819:	48 8d 05 d8 80 04 00 	lea    0x480d8(%rip),%rax        # 4c8f8 <comm_out>
-    4820:	48 8b 00             	mov    (%rax),%rax
-    4823:	48 8b 70 20          	mov    0x20(%rax),%rsi
-    4827:	48 8d 05 f2 7f 04 00 	lea    0x47ff2(%rip),%rax        # 4c820 <global_eid>
-    482e:	48 8b 00             	mov    (%rax),%rax
-    4831:	49 89 d0             	mov    %rdx,%r8
-    4834:	48 8d 15 05 80 04 00 	lea    0x48005(%rip),%rdx        # 4c840 <training_data>
-    483b:	48 89 c7             	mov    %rax,%rdi
-    483e:	e8 ab f9 ff ff       	call   41ee <ecall_trainer>
-    printf("Mnist training complete..\n");
-    4843:	48 8d 3d b5 ba 03 00 	lea    0x3bab5(%rip),%rdi        # 402ff <_ZStL6ignore+0xa6>
-    484a:	e8 71 f2 ff ff       	call   3ac0 <puts@plt>
-    free_data(training_data);
-    484f:	48 8d 05 ea 7f 04 00 	lea    0x47fea(%rip),%rax        # 4c840 <training_data>
-    4856:	ff 70 38             	push   0x38(%rax)
-    4859:	ff 70 30             	push   0x30(%rax)
-    485c:	ff 70 28             	push   0x28(%rax)
-    485f:	ff 70 20             	push   0x20(%rax)
-    4862:	ff 70 18             	push   0x18(%rax)
-    4865:	ff 70 10             	push   0x10(%rax)
-    4868:	ff 70 08             	push   0x8(%rax)
-    486b:	ff 30                	push   (%rax)
-    486d:	e8 24 8b 00 00       	call   d396 <free_data>
-    4872:	48 83 c4 40          	add    $0x40,%rsp
-}
-    4876:	90                   	nop
-    4877:	c9                   	leave  
-    4878:	c3                   	ret    
-
-0000000000004879 <_Z19read_all_mnist_datav>:
-
-void read_all_mnist_data()
-{
-    4879:	f3 0f 1e fa          	endbr64 
-    487d:	55                   	push   %rbp
-    487e:	48 89 e5             	mov    %rsp,%rbp
-}
-    4881:	90                   	nop
-    4882:	5d                   	pop    %rbp
-    4883:	c3                   	ret    
-
-0000000000004884 <test_mnist>:
-/**
- * Test a trained mnist model
- * 
- */
-void test_mnist(char *cfgfile)
-{
-    4884:	f3 0f 1e fa          	endbr64 
-    4888:	55                   	push   %rbp
-    4889:	48 89 e5             	mov    %rsp,%rbp
-    488c:	53                   	push   %rbx
-    488d:	48 81 ec d8 00 00 00 	sub    $0xd8,%rsp
-    4894:	48 89 bd 28 ff ff ff 	mov    %rdi,-0xd8(%rbp)
-    489b:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
-    48a2:	00 00 
-    48a4:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
-    48a8:	31 c0                	xor    %eax,%eax
-
-    std::string img_path = MNIST_TEST_IMAGES;
-    48aa:	48 8d 85 40 ff ff ff 	lea    -0xc0(%rbp),%rax
-    48b1:	48 89 c7             	mov    %rax,%rdi
-    48b4:	e8 d7 f2 ff ff       	call   3b90 <_ZNSaIcEC1Ev@plt>
-    48b9:	48 8d 95 40 ff ff ff 	lea    -0xc0(%rbp),%rdx
-    48c0:	48 8d 45 80          	lea    -0x80(%rbp),%rax
-    48c4:	48 8d 35 55 ba 03 00 	lea    0x3ba55(%rip),%rsi        # 40320 <_ZStL6ignore+0xc7>
-    48cb:	48 89 c7             	mov    %rax,%rdi
-    48ce:	e8 3d f1 ff ff       	call   3a10 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1EPKcRKS3_@plt>
-    48d3:	48 8d 85 40 ff ff ff 	lea    -0xc0(%rbp),%rax
-    48da:	48 89 c7             	mov    %rax,%rdi
-    48dd:	e8 7e f0 ff ff       	call   3960 <_ZNSaIcED1Ev@plt>
-    std::string label_path = MNIST_TEST_LABELS;
-    48e2:	48 8d 85 40 ff ff ff 	lea    -0xc0(%rbp),%rax
-    48e9:	48 89 c7             	mov    %rax,%rdi
-    48ec:	e8 9f f2 ff ff       	call   3b90 <_ZNSaIcEC1Ev@plt>
-    48f1:	48 8d 95 40 ff ff ff 	lea    -0xc0(%rbp),%rdx
-    48f8:	48 8d 45 a0          	lea    -0x60(%rbp),%rax
-    48fc:	48 8d 35 55 ba 03 00 	lea    0x3ba55(%rip),%rsi        # 40358 <_ZStL6ignore+0xff>
-    4903:	48 89 c7             	mov    %rax,%rdi
-    4906:	e8 05 f1 ff ff       	call   3a10 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1EPKcRKS3_@plt>
-    490b:	48 8d 85 40 ff ff ff 	lea    -0xc0(%rbp),%rax
-    4912:	48 89 c7             	mov    %rax,%rdi
-    4915:	e8 46 f0 ff ff       	call   3960 <_ZNSaIcED1Ev@plt>
-    data test = load_mnist_images(img_path, 10000);
-    491a:	48 8d 55 80          	lea    -0x80(%rbp),%rdx
-    491e:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
-    4922:	48 89 d6             	mov    %rdx,%rsi
-    4925:	48 89 c7             	mov    %rax,%rdi
-    4928:	e8 13 ee ff ff       	call   3740 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1ERKS4_@plt>
-    492d:	48 8d 85 40 ff ff ff 	lea    -0xc0(%rbp),%rax
-    4934:	48 8d 4d c0          	lea    -0x40(%rbp),%rcx
-    4938:	ba 10 27 00 00       	mov    $0x2710,%edx
-    493d:	48 89 ce             	mov    %rcx,%rsi
-    4940:	48 89 c7             	mov    %rax,%rdi
-    4943:	e8 db 9f 03 00       	call   3e923 <_Z17load_mnist_imagesNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEm>
-    4948:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
-    494c:	48 89 c7             	mov    %rax,%rdi
-    494f:	e8 cc ee ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
-    test.y = load_mnist_labels(label_path, 10000);
-    4954:	48 8d 55 a0          	lea    -0x60(%rbp),%rdx
-    4958:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
-    495c:	48 89 d6             	mov    %rdx,%rsi
-    495f:	48 89 c7             	mov    %rax,%rdi
-    4962:	e8 d9 ed ff ff       	call   3740 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1ERKS4_@plt>
-    4967:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
-    496b:	be 10 27 00 00       	mov    $0x2710,%esi
-    4970:	48 89 c7             	mov    %rax,%rdi
-    4973:	e8 a4 a3 03 00       	call   3ed1c <_Z17load_mnist_labelsNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEm>
-    4978:	48 89 85 58 ff ff ff 	mov    %rax,-0xa8(%rbp)
-    497f:	48 89 95 60 ff ff ff 	mov    %rdx,-0xa0(%rbp)
-    4986:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
-    498a:	48 89 c7             	mov    %rax,%rdi
-    498d:	e8 8e ee ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
-    list *config_sections = read_cfg(cfgfile);
-    4992:	48 8b 85 28 ff ff ff 	mov    -0xd8(%rbp),%rax
-    4999:	48 89 c7             	mov    %rax,%rdi
-    499c:	e8 a6 72 03 00       	call   3bc47 <read_cfg>
-    49a1:	48 89 85 38 ff ff ff 	mov    %rax,-0xc8(%rbp)
-
-    ecall_tester(global_eid, config_sections, &test, 0);
-    49a8:	48 8d 05 71 7e 04 00 	lea    0x47e71(%rip),%rax        # 4c820 <global_eid>
-    49af:	48 8b 00             	mov    (%rax),%rax
-    49b2:	48 8d 95 40 ff ff ff 	lea    -0xc0(%rbp),%rdx
-    49b9:	48 8b b5 38 ff ff ff 	mov    -0xc8(%rbp),%rsi
-    49c0:	b9 00 00 00 00       	mov    $0x0,%ecx
-    49c5:	48 89 c7             	mov    %rax,%rdi
-    49c8:	e8 a8 f8 ff ff       	call   4275 <ecall_tester>
-    printf("Mnist testing complete..\n");
-    49cd:	48 8d 3d b5 b9 03 00 	lea    0x3b9b5(%rip),%rdi        # 40389 <_ZStL6ignore+0x130>
-    49d4:	e8 e7 f0 ff ff       	call   3ac0 <puts@plt>
-    free_data(test);
-    49d9:	ff b5 78 ff ff ff    	push   -0x88(%rbp)
-    49df:	ff b5 70 ff ff ff    	push   -0x90(%rbp)
-    49e5:	ff b5 68 ff ff ff    	push   -0x98(%rbp)
-    49eb:	ff b5 60 ff ff ff    	push   -0xa0(%rbp)
-    49f1:	ff b5 58 ff ff ff    	push   -0xa8(%rbp)
-    49f7:	ff b5 50 ff ff ff    	push   -0xb0(%rbp)
-    49fd:	ff b5 48 ff ff ff    	push   -0xb8(%rbp)
-    4a03:	ff b5 40 ff ff ff    	push   -0xc0(%rbp)
-    4a09:	e8 88 89 00 00       	call   d396 <free_data>
-    4a0e:	48 83 c4 40          	add    $0x40,%rsp
-    std::string label_path = MNIST_TEST_LABELS;
-    4a12:	48 8d 45 a0          	lea    -0x60(%rbp),%rax
-    4a16:	48 89 c7             	mov    %rax,%rdi
-    4a19:	e8 02 ee ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
-    std::string img_path = MNIST_TEST_IMAGES;
-    4a1e:	48 8d 45 80          	lea    -0x80(%rbp),%rax
-    4a22:	48 89 c7             	mov    %rax,%rdi
-    4a25:	e8 f6 ed ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
-}
-    4a2a:	90                   	nop
-    4a2b:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-    4a2f:	64 48 33 04 25 28 00 	xor    %fs:0x28,%rax
-    4a36:	00 00 
-    4a38:	0f 84 97 00 00 00    	je     4ad5 <test_mnist+0x251>
-    4a3e:	e9 8d 00 00 00       	jmp    4ad0 <test_mnist+0x24c>
-    4a43:	f3 0f 1e fa          	endbr64 
-    4a47:	48 89 c3             	mov    %rax,%rbx
-    4a4a:	48 8d 85 40 ff ff ff 	lea    -0xc0(%rbp),%rax
-    4a51:	48 89 c7             	mov    %rax,%rdi
-    4a54:	e8 07 ef ff ff       	call   3960 <_ZNSaIcED1Ev@plt>
-    4a59:	48 89 d8             	mov    %rbx,%rax
-    4a5c:	48 89 c7             	mov    %rax,%rdi
-    4a5f:	e8 1c f1 ff ff       	call   3b80 <_Unwind_Resume@plt>
-    4a64:	f3 0f 1e fa          	endbr64 
-    4a68:	48 89 c3             	mov    %rax,%rbx
-    4a6b:	48 8d 85 40 ff ff ff 	lea    -0xc0(%rbp),%rax
-    4a72:	48 89 c7             	mov    %rax,%rdi
-    4a75:	e8 e6 ee ff ff       	call   3960 <_ZNSaIcED1Ev@plt>
-    4a7a:	eb 3d                	jmp    4ab9 <test_mnist+0x235>
-    4a7c:	f3 0f 1e fa          	endbr64 
-    4a80:	48 89 c3             	mov    %rax,%rbx
-    data test = load_mnist_images(img_path, 10000);
-    4a83:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
-    4a87:	48 89 c7             	mov    %rax,%rdi
-    4a8a:	e8 91 ed ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
-    4a8f:	eb 1c                	jmp    4aad <test_mnist+0x229>
-    4a91:	f3 0f 1e fa          	endbr64 
-    4a95:	48 89 c3             	mov    %rax,%rbx
-    test.y = load_mnist_labels(label_path, 10000);
-    4a98:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
-    4a9c:	48 89 c7             	mov    %rax,%rdi
-    4a9f:	e8 7c ed ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
-    4aa4:	eb 07                	jmp    4aad <test_mnist+0x229>
-    4aa6:	f3 0f 1e fa          	endbr64 
-    4aaa:	48 89 c3             	mov    %rax,%rbx
-    std::string label_path = MNIST_TEST_LABELS;
-    4aad:	48 8d 45 a0          	lea    -0x60(%rbp),%rax
-    4ab1:	48 89 c7             	mov    %rax,%rdi
-    4ab4:	e8 67 ed ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
-    std::string img_path = MNIST_TEST_IMAGES;
-    4ab9:	48 8d 45 80          	lea    -0x80(%rbp),%rax
-    4abd:	48 89 c7             	mov    %rax,%rdi
-    4ac0:	e8 5b ed ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
-    4ac5:	48 89 d8             	mov    %rbx,%rax
-    4ac8:	48 89 c7             	mov    %rax,%rdi
-    4acb:	e8 b0 f0 ff ff       	call   3b80 <_Unwind_Resume@plt>
-}
-    4ad0:	e8 bb ee ff ff       	call   3990 <__stack_chk_fail@plt>
-    4ad5:	48 8b 5d f8          	mov    -0x8(%rbp),%rbx
-    4ad9:	c9                   	leave  
-    4ada:	c3                   	ret    
-
-0000000000004adb <my_ocall_close>:
-
-//--------------------------------------------------------------------------------------------------------------
-
-/* Do munmap and close file */
-void my_ocall_close()
-{
-    4adb:	f3 0f 1e fa          	endbr64 
-    4adf:	55                   	push   %rbp
-    4ae0:	48 89 e5             	mov    %rsp,%rbp
-    close_file();
-    4ae3:	e8 a9 05 00 00       	call   5091 <close_file>
-}
-    4ae8:	90                   	nop
-    4ae9:	5d                   	pop    %rbp
-    4aea:	c3                   	ret    
-
-0000000000004aeb <_Z18initialize_enclavev>:
-
-/* Initialize the enclave:
- * Call sgx_create_enclave to initialize an enclave instance
- */
-int initialize_enclave(void)
-{
-    4aeb:	f3 0f 1e fa          	endbr64 
-    4aef:	55                   	push   %rbp
-    4af0:	48 89 e5             	mov    %rsp,%rbp
-    4af3:	48 83 ec 10          	sub    $0x10,%rsp
-    sgx_status_t ret = SGX_ERROR_UNEXPECTED;
-    4af7:	c7 45 fc 01 00 00 00 	movl   $0x1,-0x4(%rbp)
-
-    /* Call sgx_create_enclave to initialize an enclave instance */
-    /* Debug Support: set 2nd parameter to 1 */
-    ret = sgx_create_enclave(ENCLAVE_FILENAME, SGX_DEBUG_FLAG, NULL, NULL, &global_eid, NULL);
-    4afe:	41 b9 00 00 00 00    	mov    $0x0,%r9d
-    4b04:	48 8d 05 15 7d 04 00 	lea    0x47d15(%rip),%rax        # 4c820 <global_eid>
-    4b0b:	49 89 c0             	mov    %rax,%r8
-    4b0e:	b9 00 00 00 00       	mov    $0x0,%ecx
-    4b13:	ba 00 00 00 00       	mov    $0x0,%edx
-    4b18:	be 01 00 00 00       	mov    $0x1,%esi
-    4b1d:	48 8d 3d 7e b8 03 00 	lea    0x3b87e(%rip),%rdi        # 403a2 <_ZStL6ignore+0x149>
-    4b24:	e8 27 ed ff ff       	call   3850 <sgx_create_enclave@plt>
-    4b29:	89 45 fc             	mov    %eax,-0x4(%rbp)
-    if (ret != SGX_SUCCESS)
-    4b2c:	83 7d fc 00          	cmpl   $0x0,-0x4(%rbp)
-    4b30:	74 11                	je     4b43 <_Z18initialize_enclavev+0x58>
-    {
-        print_error_message(ret);
-    4b32:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    4b35:	89 c7                	mov    %eax,%edi
-    4b37:	e8 98 f8 ff ff       	call   43d4 <print_error_message>
-        return -1;
-    4b3c:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-    4b41:	eb 05                	jmp    4b48 <_Z18initialize_enclavev+0x5d>
-    }
-
-    return 0;
-    4b43:	b8 00 00 00 00       	mov    $0x0,%eax
-}
-    4b48:	c9                   	leave  
-    4b49:	c3                   	ret    
-
-0000000000004b4a <main>:
-
-/* Application entry */
-int SGX_CDECL main(int argc, char *argv[])
-{
-    4b4a:	f3 0f 1e fa          	endbr64 
-    4b4e:	55                   	push   %rbp
-    4b4f:	48 89 e5             	mov    %rsp,%rbp
-    4b52:	48 81 ec a0 00 00 00 	sub    $0xa0,%rsp
-    4b59:	89 bd 6c ff ff ff    	mov    %edi,-0x94(%rbp)
-    4b5f:	48 89 b5 60 ff ff ff 	mov    %rsi,-0xa0(%rbp)
-    4b66:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
-    4b6d:	00 00 
-    4b6f:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
-    4b73:	31 c0                	xor    %eax,%eax
-    (void)argv;
-
-    sgx_status_t ret;
-
-    /* Initialize the enclave */
-    if (initialize_enclave() < 0)
-    4b75:	e8 71 ff ff ff       	call   4aeb <_Z18initialize_enclavev>
-    4b7a:	c1 e8 1f             	shr    $0x1f,%eax
-    4b7d:	84 c0                	test   %al,%al
-    4b7f:	74 1b                	je     4b9c <main+0x52>
-    {
-        printf("Enter a character before exit ...\n");
-    4b81:	48 8d 3d 30 b8 03 00 	lea    0x3b830(%rip),%rdi        # 403b8 <_ZStL6ignore+0x15f>
-    4b88:	e8 33 ef ff ff       	call   3ac0 <puts@plt>
-        getchar();
-    4b8d:	e8 8e ee ff ff       	call   3a20 <getchar@plt>
-        return -1;
-    4b92:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-    4b97:	e9 a4 01 00 00       	jmp    4d40 <main+0x1f6>
-    }
-    //Initialize sgx-rom
-    rom_init();
-    4b9c:	e8 1b 02 00 00       	call   4dbc <rom_init>
-    printf("Base addr is : %p\n", base_addr);
-    4ba1:	48 8d 05 e8 75 04 00 	lea    0x475e8(%rip),%rax        # 4c190 <base_addr>
-    4ba8:	48 8b 00             	mov    (%rax),%rax
-    4bab:	48 89 c6             	mov    %rax,%rsi
-    4bae:	48 8d 3d 25 b8 03 00 	lea    0x3b825(%rip),%rdi        # 403da <_ZStL6ignore+0x181>
-    4bb5:	b8 00 00 00 00       	mov    $0x0,%eax
-    4bba:	e8 b1 ea ff ff       	call   3670 <printf@plt>
-    ecall_init(global_eid, (void *)per_out, base_addr);
-    4bbf:	48 8d 05 ca 75 04 00 	lea    0x475ca(%rip),%rax        # 4c190 <base_addr>
-    4bc6:	48 8b 10             	mov    (%rax),%rdx
-    4bc9:	48 8d 05 38 7d 04 00 	lea    0x47d38(%rip),%rax        # 4c908 <per_out>
-    4bd0:	48 8b 08             	mov    (%rax),%rcx
-    4bd3:	48 8d 05 46 7c 04 00 	lea    0x47c46(%rip),%rax        # 4c820 <global_eid>
-    4bda:	48 8b 00             	mov    (%rax),%rax
-    4bdd:	48 89 ce             	mov    %rcx,%rsi
-    4be0:	48 89 c7             	mov    %rax,%rdi
-    4be3:	e8 f0 f4 ff ff       	call   40d8 <ecall_init>
-
-    //mnist model config file
-    char cfg[128] = MNIST_CFG;
-    4be8:	48 b8 2e 2f 41 70 70 	movabs $0x6e642f7070412f2e,%rax
-    4bef:	2f 64 6e 
-    4bf2:	48 ba 65 74 2d 6f 75 	movabs $0x632f74756f2d7465,%rdx
-    4bf9:	74 2f 63 
-    4bfc:	48 89 85 70 ff ff ff 	mov    %rax,-0x90(%rbp)
-    4c03:	48 89 95 78 ff ff ff 	mov    %rdx,-0x88(%rbp)
-    4c0a:	48 b8 66 67 2f 6d 6e 	movabs $0x7473696e6d2f6766,%rax
-    4c11:	69 73 74 
-    4c14:	ba 2e 63 66 67       	mov    $0x6766632e,%edx
-    4c19:	48 89 45 80          	mov    %rax,-0x80(%rbp)
-    4c1d:	48 89 55 88          	mov    %rdx,-0x78(%rbp)
-    4c21:	48 8d 55 90          	lea    -0x70(%rbp),%rdx
-    4c25:	b8 00 00 00 00       	mov    $0x0,%eax
-    4c2a:	b9 0c 00 00 00       	mov    $0xc,%ecx
-    4c2f:	48 89 d7             	mov    %rdx,%rdi
-    4c32:	f3 48 ab             	rep stos %rax,%es:(%rdi)
-
-    //train a model on mnist via the Plinius workflow
-    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
-    4c35:	48 8d 05 94 7c 04 00 	lea    0x47c94(%rip),%rax        # 4c8d0 <start>
-    4c3c:	48 89 c6             	mov    %rax,%rsi
-    4c3f:	bf 04 00 00 00       	mov    $0x4,%edi
-    4c44:	e8 b7 ec ff ff       	call   3900 <clock_gettime@plt>
-    train_mnist(cfg);
-    4c49:	48 8d 85 70 ff ff ff 	lea    -0x90(%rbp),%rax
-    4c50:	48 89 c7             	mov    %rax,%rdi
-    4c53:	e8 62 fb ff ff       	call   47ba <train_mnist>
-    clock_gettime(CLOCK_MONOTONIC_RAW, &stop);
-    4c58:	48 8d 05 81 7c 04 00 	lea    0x47c81(%rip),%rax        # 4c8e0 <stop>
-    4c5f:	48 89 c6             	mov    %rax,%rsi
-    4c62:	bf 04 00 00 00       	mov    $0x4,%edi
-    4c67:	e8 94 ec ff ff       	call   3900 <clock_gettime@plt>
-    printf("Total training time: %f mins\n", time_diff(&start, &stop, SEC) / 60);
-    4c6c:	ba 03 00 00 00       	mov    $0x3,%edx
-    4c71:	48 8d 05 68 7c 04 00 	lea    0x47c68(%rip),%rax        # 4c8e0 <stop>
-    4c78:	48 89 c6             	mov    %rax,%rsi
-    4c7b:	48 8d 05 4e 7c 04 00 	lea    0x47c4e(%rip),%rax        # 4c8d0 <start>
-    4c82:	48 89 c7             	mov    %rax,%rdi
-    4c85:	e8 31 08 00 00       	call   54bb <_Z9time_diffP8timespecS0_11granularity>
-    4c8a:	66 0f 28 c8          	movapd %xmm0,%xmm1
-    4c8e:	f2 0f 10 05 9a b7 03 	movsd  0x3b79a(%rip),%xmm0        # 40430 <_ZStL6ignore+0x1d7>
-    4c95:	00 
-    4c96:	f2 0f 5e c8          	divsd  %xmm0,%xmm1
-    4c9a:	66 0f 28 c1          	movapd %xmm1,%xmm0
-    4c9e:	48 8d 3d 48 b7 03 00 	lea    0x3b748(%rip),%rdi        # 403ed <_ZStL6ignore+0x194>
-    4ca5:	b8 01 00 00 00       	mov    $0x1,%eax
-    4caa:	e8 c1 e9 ff ff       	call   3670 <printf@plt>
-
-    //test the accuracy of the trained model
-    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
-    4caf:	48 8d 05 1a 7c 04 00 	lea    0x47c1a(%rip),%rax        # 4c8d0 <start>
-    4cb6:	48 89 c6             	mov    %rax,%rsi
-    4cb9:	bf 04 00 00 00       	mov    $0x4,%edi
-    4cbe:	e8 3d ec ff ff       	call   3900 <clock_gettime@plt>
-    test_mnist(cfg);
-    4cc3:	48 8d 85 70 ff ff ff 	lea    -0x90(%rbp),%rax
-    4cca:	48 89 c7             	mov    %rax,%rdi
-    4ccd:	e8 b2 fb ff ff       	call   4884 <test_mnist>
-    clock_gettime(CLOCK_MONOTONIC_RAW, &stop);
-    4cd2:	48 8d 05 07 7c 04 00 	lea    0x47c07(%rip),%rax        # 4c8e0 <stop>
-    4cd9:	48 89 c6             	mov    %rax,%rsi
-    4cdc:	bf 04 00 00 00       	mov    $0x4,%edi
-    4ce1:	e8 1a ec ff ff       	call   3900 <clock_gettime@plt>
-    printf("Total inference time: %f mins\n", time_diff(&start, &stop, SEC) / 60);
-    4ce6:	ba 03 00 00 00       	mov    $0x3,%edx
-    4ceb:	48 8d 05 ee 7b 04 00 	lea    0x47bee(%rip),%rax        # 4c8e0 <stop>
-    4cf2:	48 89 c6             	mov    %rax,%rsi
-    4cf5:	48 8d 05 d4 7b 04 00 	lea    0x47bd4(%rip),%rax        # 4c8d0 <start>
-    4cfc:	48 89 c7             	mov    %rax,%rdi
-    4cff:	e8 b7 07 00 00       	call   54bb <_Z9time_diffP8timespecS0_11granularity>
-    4d04:	66 0f 28 c8          	movapd %xmm0,%xmm1
-    4d08:	f2 0f 10 05 20 b7 03 	movsd  0x3b720(%rip),%xmm0        # 40430 <_ZStL6ignore+0x1d7>
-    4d0f:	00 
-    4d10:	f2 0f 5e c8          	divsd  %xmm0,%xmm1
-    4d14:	66 0f 28 c1          	movapd %xmm1,%xmm0
-    4d18:	48 8d 3d f1 b6 03 00 	lea    0x3b6f1(%rip),%rdi        # 40410 <_ZStL6ignore+0x1b7>
-    4d1f:	b8 01 00 00 00       	mov    $0x1,%eax
-    4d24:	e8 47 e9 ff ff       	call   3670 <printf@plt>
-
-    //Destroy enclave
-    sgx_destroy_enclave(global_eid);
-    4d29:	48 8d 05 f0 7a 04 00 	lea    0x47af0(%rip),%rax        # 4c820 <global_eid>
-    4d30:	48 8b 00             	mov    (%rax),%rax
-    4d33:	48 89 c7             	mov    %rax,%rdi
-    4d36:	e8 75 ea ff ff       	call   37b0 <sgx_destroy_enclave@plt>
-    return 0;
-    4d3b:	b8 00 00 00 00       	mov    $0x0,%eax
-}
-    4d40:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
-    4d44:	64 48 33 0c 25 28 00 	xor    %fs:0x28,%rcx
-    4d4b:	00 00 
-    4d4d:	74 05                	je     4d54 <main+0x20a>
-    4d4f:	e8 3c ec ff ff       	call   3990 <__stack_chk_fail@plt>
-    4d54:	c9                   	leave  
-    4d55:	c3                   	ret    
-
-0000000000004d56 <_Z41__static_initialization_and_destruction_0ii>:
-    4d56:	f3 0f 1e fa          	endbr64 
-    4d5a:	55                   	push   %rbp
-    4d5b:	48 89 e5             	mov    %rsp,%rbp
-    4d5e:	48 83 ec 10          	sub    $0x10,%rsp
-    4d62:	89 7d fc             	mov    %edi,-0x4(%rbp)
-    4d65:	89 75 f8             	mov    %esi,-0x8(%rbp)
-    4d68:	83 7d fc 01          	cmpl   $0x1,-0x4(%rbp)
-    4d6c:	75 32                	jne    4da0 <_Z41__static_initialization_and_destruction_0ii+0x4a>
-    4d6e:	81 7d f8 ff ff 00 00 	cmpl   $0xffff,-0x8(%rbp)
-    4d75:	75 29                	jne    4da0 <_Z41__static_initialization_and_destruction_0ii+0x4a>
-  extern wostream wclog;	/// Linked to standard error (buffered)
-#endif
-  //@}
-
-  // For construction of filebuffers for cout, cin, cerr, clog et. al.
-  static ios_base::Init __ioinit;
-    4d77:	48 8d 3d 82 7b 04 00 	lea    0x47b82(%rip),%rdi        # 4c900 <_ZStL8__ioinit>
-    4d7e:	e8 2d ed ff ff       	call   3ab0 <_ZNSt8ios_base4InitC1Ev@plt>
-    4d83:	48 8d 15 7e 72 04 00 	lea    0x4727e(%rip),%rdx        # 4c008 <__dso_handle>
-    4d8a:	48 8d 35 6f 7b 04 00 	lea    0x47b6f(%rip),%rsi        # 4c900 <_ZStL8__ioinit>
-    4d91:	48 8b 05 60 72 04 00 	mov    0x47260(%rip),%rax        # 4bff8 <_ZNSt8ios_base4InitD1Ev@GLIBCXX_3.4>
-    4d98:	48 89 c7             	mov    %rax,%rdi
-    4d9b:	e8 50 eb ff ff       	call   38f0 <__cxa_atexit@plt>
-    4da0:	90                   	nop
-    4da1:	c9                   	leave  
-    4da2:	c3                   	ret    
-
-0000000000004da3 <_GLOBAL__sub_I_App.cpp>:
-    4da3:	f3 0f 1e fa          	endbr64 
-    4da7:	55                   	push   %rbp
-    4da8:	48 89 e5             	mov    %rsp,%rbp
-    4dab:	be ff ff 00 00       	mov    $0xffff,%esi
-    4db0:	bf 01 00 00 00       	mov    $0x1,%edi
-    4db5:	e8 9c ff ff ff       	call   4d56 <_Z41__static_initialization_and_destruction_0ii>
-    4dba:	5d                   	pop    %rbp
-    4dbb:	c3                   	ret    
-
-0000000000004dbc <rom_init>:
+00000000000044df <rom_init>:
 
 
 
 /* Create file and do mmap */
 void rom_init()
 {
-    4dbc:	f3 0f 1e fa          	endbr64 
-    4dc0:	55                   	push   %rbp
-    4dc1:	48 89 e5             	mov    %rsp,%rbp
-    4dc4:	48 81 ec b0 00 00 00 	sub    $0xb0,%rsp
-    4dcb:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
-    4dd2:	00 00 
-    4dd4:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
-    4dd8:	31 c0                	xor    %eax,%eax
+    44df:	f3 0f 1e fa          	endbr64 
+    44e3:	55                   	push   %rbp
+    44e4:	48 89 e5             	mov    %rsp,%rbp
+    44e7:	48 81 ec b0 00 00 00 	sub    $0xb0,%rsp
+    44ee:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    44f5:	00 00 
+    44f7:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    44fb:	31 c0                	xor    %eax,%eax
 
     struct stat buf;
     if (stat(MMAP_FILENAME, &buf) == 0)
-    4dda:	48 8d 85 60 ff ff ff 	lea    -0xa0(%rbp),%rax
-    4de1:	48 89 c6             	mov    %rax,%rsi
-    4de4:	48 8d 3d 55 b6 03 00 	lea    0x3b655(%rip),%rdi        # 40440 <_ZStL6ignore+0x1e7>
-    4deb:	e8 30 a7 03 00       	call   3f520 <__stat>
-    4df0:	85 c0                	test   %eax,%eax
-    4df2:	0f 94 c0             	sete   %al
-    4df5:	84 c0                	test   %al,%al
-    4df7:	0f 84 18 01 00 00    	je     4f15 <rom_init+0x159>
+    44fd:	48 8d 85 60 ff ff ff 	lea    -0xa0(%rbp),%rax
+    4504:	48 89 c6             	mov    %rax,%rsi
+    4507:	48 8d 3d 42 bd 03 00 	lea    0x3bd42(%rip),%rdi        # 40250 <_IO_stdin_used+0x250>
+    450e:	e8 0d b0 03 00       	call   3f520 <__stat>
+    4513:	85 c0                	test   %eax,%eax
+    4515:	0f 94 c0             	sete   %al
+    4518:	84 c0                	test   %al,%al
+    451a:	0f 84 18 01 00 00    	je     4638 <rom_init+0x159>
     {
         printf("File exists..doing mmap\n");
-    4dfd:	48 8d 3d 54 b6 03 00 	lea    0x3b654(%rip),%rdi        # 40458 <_ZStL6ignore+0x1ff>
-    4e04:	e8 b7 ec ff ff       	call   3ac0 <puts@plt>
+    4520:	48 8d 3d 41 bd 03 00 	lea    0x3bd41(%rip),%rdi        # 40268 <_IO_stdin_used+0x268>
+    4527:	e8 94 f5 ff ff       	call   3ac0 <puts@plt>
         // File exists
         //std::cout << "Re-using memory region\n";
         fd = open(MMAP_FILENAME, O_RDWR | O_CREAT, 0755);
-    4e09:	ba ed 01 00 00       	mov    $0x1ed,%edx
-    4e0e:	be 42 00 00 00       	mov    $0x42,%esi
-    4e13:	48 8d 3d 26 b6 03 00 	lea    0x3b626(%rip),%rdi        # 40440 <_ZStL6ignore+0x1e7>
-    4e1a:	b8 00 00 00 00       	mov    $0x0,%eax
-    4e1f:	e8 4c ea ff ff       	call   3870 <open@plt>
-    4e24:	89 05 6e 73 04 00    	mov    %eax,0x4736e(%rip)        # 4c198 <_ZL2fd>
+    452c:	ba ed 01 00 00       	mov    $0x1ed,%edx
+    4531:	be 42 00 00 00       	mov    $0x42,%esi
+    4536:	48 8d 3d 13 bd 03 00 	lea    0x3bd13(%rip),%rdi        # 40250 <_IO_stdin_used+0x250>
+    453d:	b8 00 00 00 00       	mov    $0x0,%eax
+    4542:	e8 29 f3 ff ff       	call   3870 <open@plt>
+    4547:	89 05 43 7c 04 00    	mov    %eax,0x47c43(%rip)        # 4c190 <_ZL2fd>
         assert(fd >= 0);
-    4e2a:	8b 05 68 73 04 00    	mov    0x47368(%rip),%eax        # 4c198 <_ZL2fd>
-    4e30:	85 c0                	test   %eax,%eax
-    4e32:	79 1f                	jns    4e53 <rom_init+0x97>
-    4e34:	48 8d 0d f5 b6 03 00 	lea    0x3b6f5(%rip),%rcx        # 40530 <_ZZ8rom_initE19__PRETTY_FUNCTION__>
-    4e3b:	ba 1c 00 00 00       	mov    $0x1c,%edx
-    4e40:	48 8d 35 29 b6 03 00 	lea    0x3b629(%rip),%rsi        # 40470 <_ZStL6ignore+0x217>
-    4e47:	48 8d 3d 39 b6 03 00 	lea    0x3b639(%rip),%rdi        # 40487 <_ZStL6ignore+0x22e>
-    4e4e:	e8 dd e9 ff ff       	call   3830 <__assert_fail@plt>
+    454d:	8b 05 3d 7c 04 00    	mov    0x47c3d(%rip),%eax        # 4c190 <_ZL2fd>
+    4553:	85 c0                	test   %eax,%eax
+    4555:	79 1f                	jns    4576 <rom_init+0x97>
+    4557:	48 8d 0d e2 bd 03 00 	lea    0x3bde2(%rip),%rcx        # 40340 <_ZZ8rom_initE19__PRETTY_FUNCTION__>
+    455e:	ba 1c 00 00 00       	mov    $0x1c,%edx
+    4563:	48 8d 35 16 bd 03 00 	lea    0x3bd16(%rip),%rsi        # 40280 <_IO_stdin_used+0x280>
+    456a:	48 8d 3d 26 bd 03 00 	lea    0x3bd26(%rip),%rdi        # 40297 <_IO_stdin_used+0x297>
+    4571:	e8 ba f2 ff ff       	call   3830 <__assert_fail@plt>
         // mmap() memory range
         uint8_t *got_addr = (uint8_t *)mmap(base_addr, MAX_SIZE, (PROT_READ | PROT_WRITE), MAP_SHARED, fd, 0);
-    4e53:	8b 15 3f 73 04 00    	mov    0x4733f(%rip),%edx        # 4c198 <_ZL2fd>
-    4e59:	48 8d 05 30 73 04 00 	lea    0x47330(%rip),%rax        # 4c190 <base_addr>
-    4e60:	48 8b 00             	mov    (%rax),%rax
-    4e63:	41 b9 00 00 00 00    	mov    $0x0,%r9d
-    4e69:	41 89 d0             	mov    %edx,%r8d
-    4e6c:	b9 01 00 00 00       	mov    $0x1,%ecx
-    4e71:	ba 03 00 00 00       	mov    $0x3,%edx
-    4e76:	be 00 00 00 19       	mov    $0x19000000,%esi
-    4e7b:	48 89 c7             	mov    %rax,%rdi
-    4e7e:	e8 2d ed ff ff       	call   3bb0 <mmap@plt>
-    4e83:	48 89 85 58 ff ff ff 	mov    %rax,-0xa8(%rbp)
+    4576:	8b 15 14 7c 04 00    	mov    0x47c14(%rip),%edx        # 4c190 <_ZL2fd>
+    457c:	48 8d 05 05 7c 04 00 	lea    0x47c05(%rip),%rax        # 4c188 <base_addr>
+    4583:	48 8b 00             	mov    (%rax),%rax
+    4586:	41 b9 00 00 00 00    	mov    $0x0,%r9d
+    458c:	41 89 d0             	mov    %edx,%r8d
+    458f:	b9 01 00 00 00       	mov    $0x1,%ecx
+    4594:	ba 03 00 00 00       	mov    $0x3,%edx
+    4599:	be 00 00 00 19       	mov    $0x19000000,%esi
+    459e:	48 89 c7             	mov    %rax,%rdi
+    45a1:	e8 0a f6 ff ff       	call   3bb0 <mmap@plt>
+    45a6:	48 89 85 58 ff ff ff 	mov    %rax,-0xa8(%rbp)
         if (got_addr == MAP_FAILED)
-    4e8a:	48 83 bd 58 ff ff ff 	cmpq   $0xffffffffffffffff,-0xa8(%rbp)
-    4e91:	ff 
-    4e92:	75 4d                	jne    4ee1 <rom_init+0x125>
+    45ad:	48 83 bd 58 ff ff ff 	cmpq   $0xffffffffffffffff,-0xa8(%rbp)
+    45b4:	ff 
+    45b5:	75 4d                	jne    4604 <rom_init+0x125>
         {
             printf("got_addr = %p  %p\n", got_addr, MAP_FAILED);
-    4e94:	48 8b 85 58 ff ff ff 	mov    -0xa8(%rbp),%rax
-    4e9b:	48 c7 c2 ff ff ff ff 	mov    $0xffffffffffffffff,%rdx
-    4ea2:	48 89 c6             	mov    %rax,%rsi
-    4ea5:	48 8d 3d e3 b5 03 00 	lea    0x3b5e3(%rip),%rdi        # 4048f <_ZStL6ignore+0x236>
-    4eac:	b8 00 00 00 00       	mov    $0x0,%eax
-    4eb1:	e8 ba e7 ff ff       	call   3670 <printf@plt>
+    45b7:	48 8b 85 58 ff ff ff 	mov    -0xa8(%rbp),%rax
+    45be:	48 c7 c2 ff ff ff ff 	mov    $0xffffffffffffffff,%rdx
+    45c5:	48 89 c6             	mov    %rax,%rsi
+    45c8:	48 8d 3d d0 bc 03 00 	lea    0x3bcd0(%rip),%rdi        # 4029f <_IO_stdin_used+0x29f>
+    45cf:	b8 00 00 00 00       	mov    $0x0,%eax
+    45d4:	e8 97 f0 ff ff       	call   3670 <printf@plt>
             perror("ERROR: mmap() is not working !!! ");
-    4eb6:	48 8d 3d eb b5 03 00 	lea    0x3b5eb(%rip),%rdi        # 404a8 <_ZStL6ignore+0x24f>
-    4ebd:	e8 0e ea ff ff       	call   38d0 <perror@plt>
+    45d9:	48 8d 3d d8 bc 03 00 	lea    0x3bcd8(%rip),%rdi        # 402b8 <_IO_stdin_used+0x2b8>
+    45e0:	e8 eb f2 ff ff       	call   38d0 <perror@plt>
             assert(false);
-    4ec2:	48 8d 0d 67 b6 03 00 	lea    0x3b667(%rip),%rcx        # 40530 <_ZZ8rom_initE19__PRETTY_FUNCTION__>
-    4ec9:	ba 23 00 00 00       	mov    $0x23,%edx
-    4ece:	48 8d 35 9b b5 03 00 	lea    0x3b59b(%rip),%rsi        # 40470 <_ZStL6ignore+0x217>
-    4ed5:	48 8d 3d ee b5 03 00 	lea    0x3b5ee(%rip),%rdi        # 404ca <_ZStL6ignore+0x271>
-    4edc:	e8 4f e9 ff ff       	call   3830 <__assert_fail@plt>
+    45e5:	48 8d 0d 54 bd 03 00 	lea    0x3bd54(%rip),%rcx        # 40340 <_ZZ8rom_initE19__PRETTY_FUNCTION__>
+    45ec:	ba 23 00 00 00       	mov    $0x23,%edx
+    45f1:	48 8d 35 88 bc 03 00 	lea    0x3bc88(%rip),%rsi        # 40280 <_IO_stdin_used+0x280>
+    45f8:	48 8d 3d db bc 03 00 	lea    0x3bcdb(%rip),%rdi        # 402da <_IO_stdin_used+0x2da>
+    45ff:	e8 2c f2 ff ff       	call   3830 <__assert_fail@plt>
         }
         per_out = reinterpret_cast<PersistentHeader *>(real_base_addr - sizeof(PersistentHeader));
-    4ee1:	48 8d 05 28 7a 04 00 	lea    0x47a28(%rip),%rax        # 4c910 <real_base_addr>
-    4ee8:	48 8b 00             	mov    (%rax),%rax
-    4eeb:	48 8d 50 d8          	lea    -0x28(%rax),%rdx
-    4eef:	48 8d 05 12 7a 04 00 	lea    0x47a12(%rip),%rax        # 4c908 <per_out>
-    4ef6:	48 89 10             	mov    %rdx,(%rax)
+    4604:	48 8d 05 05 82 04 00 	lea    0x48205(%rip),%rax        # 4c810 <real_base_addr>
+    460b:	48 8b 00             	mov    (%rax),%rax
+    460e:	48 8d 50 d8          	lea    -0x28(%rax),%rdx
+    4612:	48 8d 05 ef 81 04 00 	lea    0x481ef(%rip),%rax        # 4c808 <per_out>
+    4619:	48 89 10             	mov    %rdx,(%rax)
         if (per_out->id != MAGIC_ID){           
-    4ef9:	48 8d 05 08 7a 04 00 	lea    0x47a08(%rip),%rax        # 4c908 <per_out>
-    4f00:	48 8b 00             	mov    (%rax),%rax
-    4f03:	48 8b 00             	mov    (%rax),%rax
-    4f06:	48 3d b2 ba 37 13    	cmp    $0x1337bab2,%rax
-    4f0c:	74 0c                	je     4f1a <rom_init+0x15e>
+    461c:	48 8d 05 e5 81 04 00 	lea    0x481e5(%rip),%rax        # 4c808 <per_out>
+    4623:	48 8b 00             	mov    (%rax),%rax
+    4626:	48 8b 00             	mov    (%rax),%rax
+    4629:	48 3d b2 ba 37 13    	cmp    $0x1337bab2,%rax
+    462f:	74 0c                	je     463d <rom_init+0x15e>
             create_file();
-    4f0e:	e8 1e 00 00 00       	call   4f31 <create_file>
+    4631:	e8 1e 00 00 00       	call   4654 <create_file>
     else
     {
         create_file();
     }
     //printf("mmapped file created\n");
 }
-    4f13:	eb 05                	jmp    4f1a <rom_init+0x15e>
+    4636:	eb 05                	jmp    463d <rom_init+0x15e>
         create_file();
-    4f15:	e8 17 00 00 00       	call   4f31 <create_file>
+    4638:	e8 17 00 00 00       	call   4654 <create_file>
 }
-    4f1a:	90                   	nop
-    4f1b:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
-    4f1f:	64 48 33 04 25 28 00 	xor    %fs:0x28,%rax
-    4f26:	00 00 
-    4f28:	74 05                	je     4f2f <rom_init+0x173>
-    4f2a:	e8 61 ea ff ff       	call   3990 <__stack_chk_fail@plt>
-    4f2f:	c9                   	leave  
-    4f30:	c3                   	ret    
+    463d:	90                   	nop
+    463e:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    4642:	64 48 33 04 25 28 00 	xor    %fs:0x28,%rax
+    4649:	00 00 
+    464b:	74 05                	je     4652 <rom_init+0x173>
+    464d:	e8 3e f3 ff ff       	call   3990 <__stack_chk_fail@plt>
+    4652:	c9                   	leave  
+    4653:	c3                   	ret    
 
-0000000000004f31 <create_file>:
+0000000000004654 <create_file>:
 
 void create_file()
 {
-    4f31:	f3 0f 1e fa          	endbr64 
-    4f35:	55                   	push   %rbp
-    4f36:	48 89 e5             	mov    %rsp,%rbp
-    4f39:	48 83 ec 10          	sub    $0x10,%rsp
+    4654:	f3 0f 1e fa          	endbr64 
+    4658:	55                   	push   %rbp
+    4659:	48 89 e5             	mov    %rsp,%rbp
+    465c:	48 83 ec 10          	sub    $0x10,%rsp
     // File doesn't exist
     printf("File does not exist..create + mmap\n");
-    4f3d:	48 8d 3d 8c b5 03 00 	lea    0x3b58c(%rip),%rdi        # 404d0 <_ZStL6ignore+0x277>
-    4f44:	e8 77 eb ff ff       	call   3ac0 <puts@plt>
+    4660:	48 8d 3d 79 bc 03 00 	lea    0x3bc79(%rip),%rdi        # 402e0 <_IO_stdin_used+0x2e0>
+    4667:	e8 54 f4 ff ff       	call   3ac0 <puts@plt>
     fd = open(MMAP_FILENAME, O_RDWR | O_CREAT, 0755);
-    4f49:	ba ed 01 00 00       	mov    $0x1ed,%edx
-    4f4e:	be 42 00 00 00       	mov    $0x42,%esi
-    4f53:	48 8d 3d e6 b4 03 00 	lea    0x3b4e6(%rip),%rdi        # 40440 <_ZStL6ignore+0x1e7>
-    4f5a:	b8 00 00 00 00       	mov    $0x0,%eax
-    4f5f:	e8 0c e9 ff ff       	call   3870 <open@plt>
-    4f64:	89 05 2e 72 04 00    	mov    %eax,0x4722e(%rip)        # 4c198 <_ZL2fd>
+    466c:	ba ed 01 00 00       	mov    $0x1ed,%edx
+    4671:	be 42 00 00 00       	mov    $0x42,%esi
+    4676:	48 8d 3d d3 bb 03 00 	lea    0x3bbd3(%rip),%rdi        # 40250 <_IO_stdin_used+0x250>
+    467d:	b8 00 00 00 00       	mov    $0x0,%eax
+    4682:	e8 e9 f1 ff ff       	call   3870 <open@plt>
+    4687:	89 05 03 7b 04 00    	mov    %eax,0x47b03(%rip)        # 4c190 <_ZL2fd>
     assert(fd >= 0);
-    4f6a:	8b 05 28 72 04 00    	mov    0x47228(%rip),%eax        # 4c198 <_ZL2fd>
-    4f70:	85 c0                	test   %eax,%eax
-    4f72:	79 1f                	jns    4f93 <create_file+0x62>
-    4f74:	48 8d 0d c5 b5 03 00 	lea    0x3b5c5(%rip),%rcx        # 40540 <_ZZ11create_fileE19__PRETTY_FUNCTION__>
-    4f7b:	ba 36 00 00 00       	mov    $0x36,%edx
-    4f80:	48 8d 35 e9 b4 03 00 	lea    0x3b4e9(%rip),%rsi        # 40470 <_ZStL6ignore+0x217>
-    4f87:	48 8d 3d f9 b4 03 00 	lea    0x3b4f9(%rip),%rdi        # 40487 <_ZStL6ignore+0x22e>
-    4f8e:	e8 9d e8 ff ff       	call   3830 <__assert_fail@plt>
+    468d:	8b 05 fd 7a 04 00    	mov    0x47afd(%rip),%eax        # 4c190 <_ZL2fd>
+    4693:	85 c0                	test   %eax,%eax
+    4695:	79 1f                	jns    46b6 <create_file+0x62>
+    4697:	48 8d 0d b2 bc 03 00 	lea    0x3bcb2(%rip),%rcx        # 40350 <_ZZ11create_fileE19__PRETTY_FUNCTION__>
+    469e:	ba 36 00 00 00       	mov    $0x36,%edx
+    46a3:	48 8d 35 d6 bb 03 00 	lea    0x3bbd6(%rip),%rsi        # 40280 <_IO_stdin_used+0x280>
+    46aa:	48 8d 3d e6 bb 03 00 	lea    0x3bbe6(%rip),%rdi        # 40297 <_IO_stdin_used+0x297>
+    46b1:	e8 7a f1 ff ff       	call   3830 <__assert_fail@plt>
     if (lseek(fd, MAX_SIZE - 1, SEEK_SET) == -1)
-    4f93:	8b 05 ff 71 04 00    	mov    0x471ff(%rip),%eax        # 4c198 <_ZL2fd>
-    4f99:	ba 00 00 00 00       	mov    $0x0,%edx
-    4f9e:	be ff ff ff 18       	mov    $0x18ffffff,%esi
-    4fa3:	89 c7                	mov    %eax,%edi
-    4fa5:	e8 66 ec ff ff       	call   3c10 <lseek@plt>
-    4faa:	48 83 f8 ff          	cmp    $0xffffffffffffffff,%rax
-    4fae:	0f 94 c0             	sete   %al
-    4fb1:	84 c0                	test   %al,%al
-    4fb3:	74 0c                	je     4fc1 <create_file+0x90>
+    46b6:	8b 05 d4 7a 04 00    	mov    0x47ad4(%rip),%eax        # 4c190 <_ZL2fd>
+    46bc:	ba 00 00 00 00       	mov    $0x0,%edx
+    46c1:	be ff ff ff 18       	mov    $0x18ffffff,%esi
+    46c6:	89 c7                	mov    %eax,%edi
+    46c8:	e8 43 f5 ff ff       	call   3c10 <lseek@plt>
+    46cd:	48 83 f8 ff          	cmp    $0xffffffffffffffff,%rax
+    46d1:	0f 94 c0             	sete   %al
+    46d4:	84 c0                	test   %al,%al
+    46d6:	74 0c                	je     46e4 <create_file+0x90>
     {
         perror("lseek() error");
-    4fb5:	48 8d 3d 37 b5 03 00 	lea    0x3b537(%rip),%rdi        # 404f3 <_ZStL6ignore+0x29a>
-    4fbc:	e8 0f e9 ff ff       	call   38d0 <perror@plt>
+    46d8:	48 8d 3d 24 bc 03 00 	lea    0x3bc24(%rip),%rdi        # 40303 <_IO_stdin_used+0x303>
+    46df:	e8 ec f1 ff ff       	call   38d0 <perror@plt>
     }
     if (write(fd, "", 1) == -1)
-    4fc1:	8b 05 d1 71 04 00    	mov    0x471d1(%rip),%eax        # 4c198 <_ZL2fd>
-    4fc7:	ba 01 00 00 00       	mov    $0x1,%edx
-    4fcc:	48 8d 35 2e b5 03 00 	lea    0x3b52e(%rip),%rsi        # 40501 <_ZStL6ignore+0x2a8>
-    4fd3:	89 c7                	mov    %eax,%edi
-    4fd5:	e8 26 e7 ff ff       	call   3700 <write@plt>
-    4fda:	48 83 f8 ff          	cmp    $0xffffffffffffffff,%rax
-    4fde:	0f 94 c0             	sete   %al
-    4fe1:	84 c0                	test   %al,%al
-    4fe3:	74 0c                	je     4ff1 <create_file+0xc0>
+    46e4:	8b 05 a6 7a 04 00    	mov    0x47aa6(%rip),%eax        # 4c190 <_ZL2fd>
+    46ea:	ba 01 00 00 00       	mov    $0x1,%edx
+    46ef:	48 8d 35 1b bc 03 00 	lea    0x3bc1b(%rip),%rsi        # 40311 <_IO_stdin_used+0x311>
+    46f6:	89 c7                	mov    %eax,%edi
+    46f8:	e8 03 f0 ff ff       	call   3700 <write@plt>
+    46fd:	48 83 f8 ff          	cmp    $0xffffffffffffffff,%rax
+    4701:	0f 94 c0             	sete   %al
+    4704:	84 c0                	test   %al,%al
+    4706:	74 0c                	je     4714 <create_file+0xc0>
     {
         perror("write() error");
-    4fe5:	48 8d 3d 16 b5 03 00 	lea    0x3b516(%rip),%rdi        # 40502 <_ZStL6ignore+0x2a9>
-    4fec:	e8 df e8 ff ff       	call   38d0 <perror@plt>
+    4708:	48 8d 3d 03 bc 03 00 	lea    0x3bc03(%rip),%rdi        # 40312 <_IO_stdin_used+0x312>
+    470f:	e8 bc f1 ff ff       	call   38d0 <perror@plt>
     }
     // mmap() memory range
     uint8_t *got_addr = (uint8_t *)mmap(base_addr, MAX_SIZE, (PROT_READ | PROT_WRITE), MAP_SHARED, fd, 0);
-    4ff1:	8b 15 a1 71 04 00    	mov    0x471a1(%rip),%edx        # 4c198 <_ZL2fd>
-    4ff7:	48 8d 05 92 71 04 00 	lea    0x47192(%rip),%rax        # 4c190 <base_addr>
-    4ffe:	48 8b 00             	mov    (%rax),%rax
-    5001:	41 b9 00 00 00 00    	mov    $0x0,%r9d
-    5007:	41 89 d0             	mov    %edx,%r8d
-    500a:	b9 01 00 00 00       	mov    $0x1,%ecx
-    500f:	ba 03 00 00 00       	mov    $0x3,%edx
-    5014:	be 00 00 00 19       	mov    $0x19000000,%esi
-    5019:	48 89 c7             	mov    %rax,%rdi
-    501c:	e8 8f eb ff ff       	call   3bb0 <mmap@plt>
-    5021:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    4714:	8b 15 76 7a 04 00    	mov    0x47a76(%rip),%edx        # 4c190 <_ZL2fd>
+    471a:	48 8d 05 67 7a 04 00 	lea    0x47a67(%rip),%rax        # 4c188 <base_addr>
+    4721:	48 8b 00             	mov    (%rax),%rax
+    4724:	41 b9 00 00 00 00    	mov    $0x0,%r9d
+    472a:	41 89 d0             	mov    %edx,%r8d
+    472d:	b9 01 00 00 00       	mov    $0x1,%ecx
+    4732:	ba 03 00 00 00       	mov    $0x3,%edx
+    4737:	be 00 00 00 19       	mov    $0x19000000,%esi
+    473c:	48 89 c7             	mov    %rax,%rdi
+    473f:	e8 6c f4 ff ff       	call   3bb0 <mmap@plt>
+    4744:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
     if (got_addr == MAP_FAILED)
-    5025:	48 83 7d f8 ff       	cmpq   $0xffffffffffffffff,-0x8(%rbp)
-    502a:	75 4a                	jne    5076 <create_file+0x145>
+    4748:	48 83 7d f8 ff       	cmpq   $0xffffffffffffffff,-0x8(%rbp)
+    474d:	75 4a                	jne    4799 <create_file+0x145>
     {
         printf("got_addr = %p  %p\n", got_addr, MAP_FAILED);
-    502c:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
-    5030:	48 c7 c2 ff ff ff ff 	mov    $0xffffffffffffffff,%rdx
-    5037:	48 89 c6             	mov    %rax,%rsi
-    503a:	48 8d 3d 4e b4 03 00 	lea    0x3b44e(%rip),%rdi        # 4048f <_ZStL6ignore+0x236>
-    5041:	b8 00 00 00 00       	mov    $0x0,%eax
-    5046:	e8 25 e6 ff ff       	call   3670 <printf@plt>
+    474f:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+    4753:	48 c7 c2 ff ff ff ff 	mov    $0xffffffffffffffff,%rdx
+    475a:	48 89 c6             	mov    %rax,%rsi
+    475d:	48 8d 3d 3b bb 03 00 	lea    0x3bb3b(%rip),%rdi        # 4029f <_IO_stdin_used+0x29f>
+    4764:	b8 00 00 00 00       	mov    $0x0,%eax
+    4769:	e8 02 ef ff ff       	call   3670 <printf@plt>
         perror("ERROR: mmap() is not working !!! ");
-    504b:	48 8d 3d 56 b4 03 00 	lea    0x3b456(%rip),%rdi        # 404a8 <_ZStL6ignore+0x24f>
-    5052:	e8 79 e8 ff ff       	call   38d0 <perror@plt>
+    476e:	48 8d 3d 43 bb 03 00 	lea    0x3bb43(%rip),%rdi        # 402b8 <_IO_stdin_used+0x2b8>
+    4775:	e8 56 f1 ff ff       	call   38d0 <perror@plt>
         assert(false);
-    5057:	48 8d 0d e2 b4 03 00 	lea    0x3b4e2(%rip),%rcx        # 40540 <_ZZ11create_fileE19__PRETTY_FUNCTION__>
-    505e:	ba 45 00 00 00       	mov    $0x45,%edx
-    5063:	48 8d 35 06 b4 03 00 	lea    0x3b406(%rip),%rsi        # 40470 <_ZStL6ignore+0x217>
-    506a:	48 8d 3d 59 b4 03 00 	lea    0x3b459(%rip),%rdi        # 404ca <_ZStL6ignore+0x271>
-    5071:	e8 ba e7 ff ff       	call   3830 <__assert_fail@plt>
+    477a:	48 8d 0d cf bb 03 00 	lea    0x3bbcf(%rip),%rcx        # 40350 <_ZZ11create_fileE19__PRETTY_FUNCTION__>
+    4781:	ba 45 00 00 00       	mov    $0x45,%edx
+    4786:	48 8d 35 f3 ba 03 00 	lea    0x3baf3(%rip),%rsi        # 40280 <_IO_stdin_used+0x280>
+    478d:	48 8d 3d 46 bb 03 00 	lea    0x3bb46(%rip),%rdi        # 402da <_IO_stdin_used+0x2da>
+    4794:	e8 97 f0 ff ff       	call   3830 <__assert_fail@plt>
     }
     //per_out = new ((real_base_addr - sizeof(PersistentHeader))) PersistentHeader;
     per_out = (PersistentHeader*)(real_base_addr - sizeof(PersistentHeader));
-    5076:	48 8d 05 93 78 04 00 	lea    0x47893(%rip),%rax        # 4c910 <real_base_addr>
-    507d:	48 8b 00             	mov    (%rax),%rax
-    5080:	48 8d 50 d8          	lea    -0x28(%rax),%rdx
-    5084:	48 8d 05 7d 78 04 00 	lea    0x4787d(%rip),%rax        # 4c908 <per_out>
-    508b:	48 89 10             	mov    %rdx,(%rax)
+    4799:	48 8d 05 70 80 04 00 	lea    0x48070(%rip),%rax        # 4c810 <real_base_addr>
+    47a0:	48 8b 00             	mov    (%rax),%rax
+    47a3:	48 8d 50 d8          	lea    -0x28(%rax),%rdx
+    47a7:	48 8d 05 5a 80 04 00 	lea    0x4805a(%rip),%rax        # 4c808 <per_out>
+    47ae:	48 89 10             	mov    %rdx,(%rax)
 
     //the rest is done inside the enclave.
 }
-    508e:	90                   	nop
-    508f:	c9                   	leave  
-    5090:	c3                   	ret    
+    47b1:	90                   	nop
+    47b2:	c9                   	leave  
+    47b3:	c3                   	ret    
 
-0000000000005091 <close_file>:
+00000000000047b4 <close_file>:
 
 void close_file()
 {
-    5091:	f3 0f 1e fa          	endbr64 
-    5095:	55                   	push   %rbp
-    5096:	48 89 e5             	mov    %rsp,%rbp
+    47b4:	f3 0f 1e fa          	endbr64 
+    47b8:	55                   	push   %rbp
+    47b9:	48 89 e5             	mov    %rsp,%rbp
     printf("Closing mmapped file...\n");
-    5099:	48 8d 3d 70 b4 03 00 	lea    0x3b470(%rip),%rdi        # 40510 <_ZStL6ignore+0x2b7>
-    50a0:	e8 1b ea ff ff       	call   3ac0 <puts@plt>
+    47bc:	48 8d 3d 5d bb 03 00 	lea    0x3bb5d(%rip),%rdi        # 40320 <_IO_stdin_used+0x320>
+    47c3:	e8 f8 f2 ff ff       	call   3ac0 <puts@plt>
     assert(fd >= 0);
-    50a5:	8b 05 ed 70 04 00    	mov    0x470ed(%rip),%eax        # 4c198 <_ZL2fd>
-    50ab:	85 c0                	test   %eax,%eax
-    50ad:	79 1f                	jns    50ce <close_file+0x3d>
-    50af:	48 8d 0d aa b4 03 00 	lea    0x3b4aa(%rip),%rcx        # 40560 <_ZZ10close_fileE19__PRETTY_FUNCTION__>
-    50b6:	ba 50 00 00 00       	mov    $0x50,%edx
-    50bb:	48 8d 35 ae b3 03 00 	lea    0x3b3ae(%rip),%rsi        # 40470 <_ZStL6ignore+0x217>
-    50c2:	48 8d 3d be b3 03 00 	lea    0x3b3be(%rip),%rdi        # 40487 <_ZStL6ignore+0x22e>
-    50c9:	e8 62 e7 ff ff       	call   3830 <__assert_fail@plt>
+    47c8:	8b 05 c2 79 04 00    	mov    0x479c2(%rip),%eax        # 4c190 <_ZL2fd>
+    47ce:	85 c0                	test   %eax,%eax
+    47d0:	79 1f                	jns    47f1 <close_file+0x3d>
+    47d2:	48 8d 0d 97 bb 03 00 	lea    0x3bb97(%rip),%rcx        # 40370 <_ZZ10close_fileE19__PRETTY_FUNCTION__>
+    47d9:	ba 50 00 00 00       	mov    $0x50,%edx
+    47de:	48 8d 35 9b ba 03 00 	lea    0x3ba9b(%rip),%rsi        # 40280 <_IO_stdin_used+0x280>
+    47e5:	48 8d 3d ab ba 03 00 	lea    0x3baab(%rip),%rdi        # 40297 <_IO_stdin_used+0x297>
+    47ec:	e8 3f f0 ff ff       	call   3830 <__assert_fail@plt>
     munmap(base_addr, MAX_SIZE);
-    50ce:	48 8d 05 bb 70 04 00 	lea    0x470bb(%rip),%rax        # 4c190 <base_addr>
-    50d5:	48 8b 00             	mov    (%rax),%rax
-    50d8:	be 00 00 00 19       	mov    $0x19000000,%esi
-    50dd:	48 89 c7             	mov    %rax,%rdi
-    50e0:	e8 0b e7 ff ff       	call   37f0 <munmap@plt>
+    47f1:	48 8d 05 90 79 04 00 	lea    0x47990(%rip),%rax        # 4c188 <base_addr>
+    47f8:	48 8b 00             	mov    (%rax),%rax
+    47fb:	be 00 00 00 19       	mov    $0x19000000,%esi
+    4800:	48 89 c7             	mov    %rax,%rdi
+    4803:	e8 e8 ef ff ff       	call   37f0 <munmap@plt>
     close(fd);
-    50e5:	8b 05 ad 70 04 00    	mov    0x470ad(%rip),%eax        # 4c198 <_ZL2fd>
-    50eb:	89 c7                	mov    %eax,%edi
-    50ed:	e8 6e eb ff ff       	call   3c60 <close@plt>
-    50f2:	90                   	nop
-    50f3:	5d                   	pop    %rbp
-    50f4:	c3                   	ret    
+    4808:	8b 05 82 79 04 00    	mov    0x47982(%rip),%eax        # 4c190 <_ZL2fd>
+    480e:	89 c7                	mov    %eax,%edi
+    4810:	e8 4b f4 ff ff       	call   3c60 <close@plt>
+    4815:	90                   	nop
+    4816:	5d                   	pop    %rbp
+    4817:	c3                   	ret    
 
-00000000000050f5 <_Z41__static_initialization_and_destruction_0ii>:
-    50f5:	f3 0f 1e fa          	endbr64 
-    50f9:	55                   	push   %rbp
-    50fa:	48 89 e5             	mov    %rsp,%rbp
-    50fd:	89 7d fc             	mov    %edi,-0x4(%rbp)
-    5100:	89 75 f8             	mov    %esi,-0x8(%rbp)
-    5103:	83 7d fc 01          	cmpl   $0x1,-0x4(%rbp)
-    5107:	75 34                	jne    513d <_Z41__static_initialization_and_destruction_0ii+0x48>
-    5109:	81 7d f8 ff ff 00 00 	cmpl   $0xffff,-0x8(%rbp)
-    5110:	75 2b                	jne    513d <_Z41__static_initialization_and_destruction_0ii+0x48>
+0000000000004818 <_Z41__static_initialization_and_destruction_0ii>:
+    4818:	f3 0f 1e fa          	endbr64 
+    481c:	55                   	push   %rbp
+    481d:	48 89 e5             	mov    %rsp,%rbp
+    4820:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    4823:	89 75 f8             	mov    %esi,-0x8(%rbp)
+    4826:	83 7d fc 01          	cmpl   $0x1,-0x4(%rbp)
+    482a:	75 34                	jne    4860 <_Z41__static_initialization_and_destruction_0ii+0x48>
+    482c:	81 7d f8 ff ff 00 00 	cmpl   $0xffff,-0x8(%rbp)
+    4833:	75 2b                	jne    4860 <_Z41__static_initialization_and_destruction_0ii+0x48>
 uint8_t *real_base_addr = (uint8_t *)(((size_t)(base_addr + 128) << 6) >> 6);
-    5112:	48 8d 05 77 70 04 00 	lea    0x47077(%rip),%rax        # 4c190 <base_addr>
-    5119:	48 8b 00             	mov    (%rax),%rax
-    511c:	48 83 e8 80          	sub    $0xffffffffffffff80,%rax
-    5120:	48 89 c2             	mov    %rax,%rdx
-    5123:	48 b8 ff ff ff ff ff 	movabs $0x3ffffffffffffff,%rax
-    512a:	ff ff 03 
-    512d:	48 21 d0             	and    %rdx,%rax
-    5130:	48 89 c2             	mov    %rax,%rdx
-    5133:	48 8d 05 d6 77 04 00 	lea    0x477d6(%rip),%rax        # 4c910 <real_base_addr>
-    513a:	48 89 10             	mov    %rdx,(%rax)
+    4835:	48 8d 05 4c 79 04 00 	lea    0x4794c(%rip),%rax        # 4c188 <base_addr>
+    483c:	48 8b 00             	mov    (%rax),%rax
+    483f:	48 83 e8 80          	sub    $0xffffffffffffff80,%rax
+    4843:	48 89 c2             	mov    %rax,%rdx
+    4846:	48 b8 ff ff ff ff ff 	movabs $0x3ffffffffffffff,%rax
+    484d:	ff ff 03 
+    4850:	48 21 d0             	and    %rdx,%rax
+    4853:	48 89 c2             	mov    %rax,%rdx
+    4856:	48 8d 05 b3 7f 04 00 	lea    0x47fb3(%rip),%rax        # 4c810 <real_base_addr>
+    485d:	48 89 10             	mov    %rdx,(%rax)
+    4860:	90                   	nop
+    4861:	5d                   	pop    %rbp
+    4862:	c3                   	ret    
+
+0000000000004863 <_GLOBAL__sub_I_Romulus_helper.cpp>:
+    4863:	f3 0f 1e fa          	endbr64 
+    4867:	55                   	push   %rbp
+    4868:	48 89 e5             	mov    %rsp,%rbp
+    486b:	be ff ff 00 00       	mov    $0xffff,%esi
+    4870:	bf 01 00 00 00       	mov    $0x1,%edi
+    4875:	e8 9e ff ff ff       	call   4818 <_Z41__static_initialization_and_destruction_0ii>
+    487a:	5d                   	pop    %rbp
+    487b:	c3                   	ret    
+
+000000000000487c <ocall_start_clock>:
+ * We can't measure time in the enclave runtime so we measure it with an ocall.
+ * The transition time is very small(~5ns) compared to the times we measure (ms,s,mins etc),
+ * so the values are accurate enough for our use cases
+ */
+void ocall_start_clock()
+{
+    487c:	f3 0f 1e fa          	endbr64 
+    4880:	55                   	push   %rbp
+    4881:	48 89 e5             	mov    %rsp,%rbp
+    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
+    4884:	48 8d 05 45 80 04 00 	lea    0x48045(%rip),%rax        # 4c8d0 <start>
+    488b:	48 89 c6             	mov    %rax,%rsi
+    488e:	bf 04 00 00 00       	mov    $0x4,%edi
+    4893:	e8 68 f0 ff ff       	call   3900 <clock_gettime@plt>
+}
+    4898:	90                   	nop
+    4899:	5d                   	pop    %rbp
+    489a:	c3                   	ret    
+
+000000000000489b <ocall_stop_clock>:
+void ocall_stop_clock()
+{
+    489b:	f3 0f 1e fa          	endbr64 
+    489f:	55                   	push   %rbp
+    48a0:	48 89 e5             	mov    %rsp,%rbp
+    clock_gettime(CLOCK_MONOTONIC_RAW, &stop);
+    48a3:	48 8d 05 36 80 04 00 	lea    0x48036(%rip),%rax        # 4c8e0 <stop>
+    48aa:	48 89 c6             	mov    %rax,%rsi
+    48ad:	bf 04 00 00 00       	mov    $0x4,%edi
+    48b2:	e8 49 f0 ff ff       	call   3900 <clock_gettime@plt>
+}
+    48b7:	90                   	nop
+    48b8:	5d                   	pop    %rbp
+    48b9:	c3                   	ret    
+
+00000000000048ba <ocall_add_loss>:
+
+void ocall_add_loss()
+{
+    48ba:	f3 0f 1e fa          	endbr64 
+    48be:	55                   	push   %rbp
+    48bf:	48 89 e5             	mov    %rsp,%rbp
+    //you can use this routine to register the loss and iteration during training in a file
+    //update the loss in the enclave in comm_in->loss and the iteration in comm_in->epoch
+}
+    48c2:	90                   	nop
+    48c3:	5d                   	pop    %rbp
+    48c4:	c3                   	ret    
+
+00000000000048c5 <_Z11data_mallocm>:
+
+//alloc space for mnist training data variable
+void data_malloc(size_t chunk)
+{
+    48c5:	f3 0f 1e fa          	endbr64 
+    48c9:	55                   	push   %rbp
+    48ca:	48 89 e5             	mov    %rsp,%rbp
+    48cd:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+    //removed
+}
+    48d1:	90                   	nop
+    48d2:	5d                   	pop    %rbp
+    48d3:	c3                   	ret    
+
+00000000000048d4 <ocall_read_disk_chunk>:
+
+//This ocall reads encrypted mnist data from disk to DRAM
+void ocall_read_disk_chunk()
+{
+    48d4:	f3 0f 1e fa          	endbr64 
+    48d8:	55                   	push   %rbp
+    48d9:	48 89 e5             	mov    %rsp,%rbp
+    48dc:	53                   	push   %rbx
+    48dd:	48 81 ec c8 00 00 00 	sub    $0xc8,%rsp
+    48e4:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    48eb:	00 00 
+    48ed:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+    48f1:	31 c0                	xor    %eax,%eax
+
+    printf("Reading initial training data from disk\n");
+    48f3:	48 8d 3d 9e ba 03 00 	lea    0x3ba9e(%rip),%rdi        # 40398 <_ZStL6ignore+0x7>
+    48fa:	e8 c1 f1 ff ff       	call   3ac0 <puts@plt>
+    if (&training_data != NULL)
+    {
+        free_data(training_data);
+    48ff:	48 8d 05 3a 7f 04 00 	lea    0x47f3a(%rip),%rax        # 4c840 <training_data>
+    4906:	ff 70 38             	push   0x38(%rax)
+    4909:	ff 70 30             	push   0x30(%rax)
+    490c:	ff 70 28             	push   0x28(%rax)
+    490f:	ff 70 20             	push   0x20(%rax)
+    4912:	ff 70 18             	push   0x18(%rax)
+    4915:	ff 70 10             	push   0x10(%rax)
+    4918:	ff 70 08             	push   0x8(%rax)
+    491b:	ff 30                	push   (%rax)
+    491d:	e8 74 8a 00 00       	call   d396 <free_data>
+    4922:	48 83 c4 40          	add    $0x40,%rsp
+    }
+    std::string img_path = MNIST_TRAIN_IMAGES;
+    4926:	48 8d 85 7f ff ff ff 	lea    -0x81(%rbp),%rax
+    492d:	48 89 c7             	mov    %rax,%rdi
+    4930:	e8 5b f2 ff ff       	call   3b90 <_ZNSaIcEC1Ev@plt>
+    4935:	48 8d 95 7f ff ff ff 	lea    -0x81(%rbp),%rdx
+    493c:	48 8d 45 80          	lea    -0x80(%rbp),%rax
+    4940:	48 8d 35 79 ba 03 00 	lea    0x3ba79(%rip),%rsi        # 403c0 <_ZStL6ignore+0x2f>
+    4947:	48 89 c7             	mov    %rax,%rdi
+    494a:	e8 c1 f0 ff ff       	call   3a10 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1EPKcRKS3_@plt>
+    494f:	48 8d 85 7f ff ff ff 	lea    -0x81(%rbp),%rax
+    4956:	48 89 c7             	mov    %rax,%rdi
+    4959:	e8 02 f0 ff ff       	call   3960 <_ZNSaIcED1Ev@plt>
+    std::string label_path = MNIST_TRAIN_LABELS;
+    495e:	48 8d 85 7f ff ff ff 	lea    -0x81(%rbp),%rax
+    4965:	48 89 c7             	mov    %rax,%rdi
+    4968:	e8 23 f2 ff ff       	call   3b90 <_ZNSaIcEC1Ev@plt>
+    496d:	48 8d 95 7f ff ff ff 	lea    -0x81(%rbp),%rdx
+    4974:	48 8d 45 a0          	lea    -0x60(%rbp),%rax
+    4978:	48 8d 35 71 ba 03 00 	lea    0x3ba71(%rip),%rsi        # 403f0 <_ZStL6ignore+0x5f>
+    497f:	48 89 c7             	mov    %rax,%rdi
+    4982:	e8 89 f0 ff ff       	call   3a10 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1EPKcRKS3_@plt>
+    4987:	48 8d 85 7f ff ff ff 	lea    -0x81(%rbp),%rax
+    498e:	48 89 c7             	mov    %rax,%rdi
+    4991:	e8 ca ef ff ff       	call   3960 <_ZNSaIcED1Ev@plt>
+    //load encrypted data into volatile matrix
+    training_data = load_enc_mnist_images(img_path, NUM_IMGS_MNIST);
+    4996:	48 8d 55 80          	lea    -0x80(%rbp),%rdx
+    499a:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
+    499e:	48 89 d6             	mov    %rdx,%rsi
+    49a1:	48 89 c7             	mov    %rax,%rdi
+    49a4:	e8 97 ed ff ff       	call   3740 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1ERKS4_@plt>
+    49a9:	48 8d 1d 90 7e 04 00 	lea    0x47e90(%rip),%rbx        # 4c840 <training_data>
+    49b0:	48 8d 85 30 ff ff ff 	lea    -0xd0(%rbp),%rax
+    49b7:	48 8d 4d c0          	lea    -0x40(%rbp),%rcx
+    49bb:	ba 60 ea 00 00       	mov    $0xea60,%edx
+    49c0:	48 89 ce             	mov    %rcx,%rsi
+    49c3:	48 89 c7             	mov    %rax,%rdi
+    49c6:	e8 bc a5 03 00       	call   3ef87 <_Z21load_enc_mnist_imagesNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEm>
+    49cb:	48 8b 85 30 ff ff ff 	mov    -0xd0(%rbp),%rax
+    49d2:	48 8b 95 38 ff ff ff 	mov    -0xc8(%rbp),%rdx
+    49d9:	48 89 03             	mov    %rax,(%rbx)
+    49dc:	48 89 53 08          	mov    %rdx,0x8(%rbx)
+    49e0:	48 8b 85 40 ff ff ff 	mov    -0xc0(%rbp),%rax
+    49e7:	48 8b 95 48 ff ff ff 	mov    -0xb8(%rbp),%rdx
+    49ee:	48 89 43 10          	mov    %rax,0x10(%rbx)
+    49f2:	48 89 53 18          	mov    %rdx,0x18(%rbx)
+    49f6:	48 8b 85 50 ff ff ff 	mov    -0xb0(%rbp),%rax
+    49fd:	48 8b 95 58 ff ff ff 	mov    -0xa8(%rbp),%rdx
+    4a04:	48 89 43 20          	mov    %rax,0x20(%rbx)
+    4a08:	48 89 53 28          	mov    %rdx,0x28(%rbx)
+    4a0c:	48 8b 85 60 ff ff ff 	mov    -0xa0(%rbp),%rax
+    4a13:	48 8b 95 68 ff ff ff 	mov    -0x98(%rbp),%rdx
+    4a1a:	48 89 43 30          	mov    %rax,0x30(%rbx)
+    4a1e:	48 89 53 38          	mov    %rdx,0x38(%rbx)
+    4a22:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
+    4a26:	48 89 c7             	mov    %rax,%rdi
+    4a29:	e8 f2 ed ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
+    training_data.y = load_enc_mnist_labels(label_path, NUM_IMGS_MNIST);
+    4a2e:	48 8d 55 a0          	lea    -0x60(%rbp),%rdx
+    4a32:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
+    4a36:	48 89 d6             	mov    %rdx,%rsi
+    4a39:	48 89 c7             	mov    %rax,%rdi
+    4a3c:	e8 ff ec ff ff       	call   3740 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1ERKS4_@plt>
+    4a41:	48 8d 1d f8 7d 04 00 	lea    0x47df8(%rip),%rbx        # 4c840 <training_data>
+    4a48:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
+    4a4c:	be 60 ea 00 00       	mov    $0xea60,%esi
+    4a51:	48 89 c7             	mov    %rax,%rdi
+    4a54:	e8 03 a8 03 00       	call   3f25c <_Z21load_enc_mnist_labelsNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEm>
+    4a59:	48 89 43 18          	mov    %rax,0x18(%rbx)
+    4a5d:	48 89 53 20          	mov    %rdx,0x20(%rbx)
+    4a61:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
+    4a65:	48 89 c7             	mov    %rax,%rdi
+    4a68:	e8 b3 ed ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
+    comm_out->data_chunk = &training_data;
+    4a6d:	48 8d 05 84 7e 04 00 	lea    0x47e84(%rip),%rax        # 4c8f8 <comm_out>
+    4a74:	48 8b 00             	mov    (%rax),%rax
+    4a77:	48 8d 15 c2 7d 04 00 	lea    0x47dc2(%rip),%rdx        # 4c840 <training_data>
+    4a7e:	48 89 50 18          	mov    %rdx,0x18(%rax)
+    printf("Done reading disk data\n");
+    4a82:	48 8d 3d 97 b9 03 00 	lea    0x3b997(%rip),%rdi        # 40420 <_ZStL6ignore+0x8f>
+    4a89:	e8 32 f0 ff ff       	call   3ac0 <puts@plt>
+    std::string label_path = MNIST_TRAIN_LABELS;
+    4a8e:	48 8d 45 a0          	lea    -0x60(%rbp),%rax
+    4a92:	48 89 c7             	mov    %rax,%rdi
+    4a95:	e8 86 ed ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
+    std::string img_path = MNIST_TRAIN_IMAGES;
+    4a9a:	48 8d 45 80          	lea    -0x80(%rbp),%rax
+    4a9e:	48 89 c7             	mov    %rax,%rdi
+    4aa1:	e8 7a ed ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
+    //ecall_set_data(global_eid, &training_data);
+}
+    4aa6:	90                   	nop
+    4aa7:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    4aab:	64 48 33 04 25 28 00 	xor    %fs:0x28,%rax
+    4ab2:	00 00 
+    4ab4:	0f 84 97 00 00 00    	je     4b51 <ocall_read_disk_chunk+0x27d>
+    4aba:	e9 8d 00 00 00       	jmp    4b4c <ocall_read_disk_chunk+0x278>
+    4abf:	f3 0f 1e fa          	endbr64 
+    4ac3:	48 89 c3             	mov    %rax,%rbx
+    4ac6:	48 8d 85 7f ff ff ff 	lea    -0x81(%rbp),%rax
+    4acd:	48 89 c7             	mov    %rax,%rdi
+    4ad0:	e8 8b ee ff ff       	call   3960 <_ZNSaIcED1Ev@plt>
+    4ad5:	48 89 d8             	mov    %rbx,%rax
+    4ad8:	48 89 c7             	mov    %rax,%rdi
+    4adb:	e8 a0 f0 ff ff       	call   3b80 <_Unwind_Resume@plt>
+    4ae0:	f3 0f 1e fa          	endbr64 
+    4ae4:	48 89 c3             	mov    %rax,%rbx
+    4ae7:	48 8d 85 7f ff ff ff 	lea    -0x81(%rbp),%rax
+    4aee:	48 89 c7             	mov    %rax,%rdi
+    4af1:	e8 6a ee ff ff       	call   3960 <_ZNSaIcED1Ev@plt>
+    4af6:	eb 3d                	jmp    4b35 <ocall_read_disk_chunk+0x261>
+    4af8:	f3 0f 1e fa          	endbr64 
+    4afc:	48 89 c3             	mov    %rax,%rbx
+    training_data = load_enc_mnist_images(img_path, NUM_IMGS_MNIST);
+    4aff:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
+    4b03:	48 89 c7             	mov    %rax,%rdi
+    4b06:	e8 15 ed ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
+    4b0b:	eb 1c                	jmp    4b29 <ocall_read_disk_chunk+0x255>
+    4b0d:	f3 0f 1e fa          	endbr64 
+    4b11:	48 89 c3             	mov    %rax,%rbx
+    training_data.y = load_enc_mnist_labels(label_path, NUM_IMGS_MNIST);
+    4b14:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
+    4b18:	48 89 c7             	mov    %rax,%rdi
+    4b1b:	e8 00 ed ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
+    4b20:	eb 07                	jmp    4b29 <ocall_read_disk_chunk+0x255>
+    4b22:	f3 0f 1e fa          	endbr64 
+    4b26:	48 89 c3             	mov    %rax,%rbx
+    std::string label_path = MNIST_TRAIN_LABELS;
+    4b29:	48 8d 45 a0          	lea    -0x60(%rbp),%rax
+    4b2d:	48 89 c7             	mov    %rax,%rdi
+    4b30:	e8 eb ec ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
+    std::string img_path = MNIST_TRAIN_IMAGES;
+    4b35:	48 8d 45 80          	lea    -0x80(%rbp),%rax
+    4b39:	48 89 c7             	mov    %rax,%rdi
+    4b3c:	e8 df ec ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
+    4b41:	48 89 d8             	mov    %rbx,%rax
+    4b44:	48 89 c7             	mov    %rax,%rdi
+    4b47:	e8 34 f0 ff ff       	call   3b80 <_Unwind_Resume@plt>
+}
+    4b4c:	e8 3f ee ff ff       	call   3990 <__stack_chk_fail@plt>
+    4b51:	48 8b 5d f8          	mov    -0x8(%rbp),%rbx
+    4b55:	c9                   	leave  
+    4b56:	c3                   	ret    
+
+0000000000004b57 <train_mnist>:
+
+void train_mnist(char *cfgfile)
+{
+    4b57:	f3 0f 1e fa          	endbr64 
+    4b5b:	55                   	push   %rbp
+    4b5c:	48 89 e5             	mov    %rsp,%rbp
+    4b5f:	48 83 ec 20          	sub    $0x20,%rsp
+    4b63:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+
+    list *config_sections = read_cfg(cfgfile);
+    4b67:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    4b6b:	48 89 c7             	mov    %rax,%rdi
+    4b6e:	e8 d4 70 03 00       	call   3bc47 <read_cfg>
+    4b73:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    comm_out = (comm_info *)malloc(sizeof(comm_info));
+    4b77:	bf 28 00 00 00       	mov    $0x28,%edi
+    4b7c:	e8 7f ee ff ff       	call   3a00 <malloc@plt>
+    4b81:	48 89 c2             	mov    %rax,%rdx
+    4b84:	48 8d 05 6d 7d 04 00 	lea    0x47d6d(%rip),%rax        # 4c8f8 <comm_out>
+    4b8b:	48 89 10             	mov    %rdx,(%rax)
+    comm_out->config = config_sections;
+    4b8e:	48 8d 05 63 7d 04 00 	lea    0x47d63(%rip),%rax        # 4c8f8 <comm_out>
+    4b95:	48 8b 00             	mov    (%rax),%rax
+    4b98:	48 8b 55 f8          	mov    -0x8(%rbp),%rdx
+    4b9c:	48 89 50 20          	mov    %rdx,0x20(%rax)
+    ecall_trainer(global_eid,comm_out->config, &training_data, chunk_size, comm_out);
+    4ba0:	48 8d 05 51 7d 04 00 	lea    0x47d51(%rip),%rax        # 4c8f8 <comm_out>
+    4ba7:	48 8b 10             	mov    (%rax),%rdx
+    4baa:	48 8d 05 0f 7d 04 00 	lea    0x47d0f(%rip),%rax        # 4c8c0 <chunk_size>
+    4bb1:	48 8b 00             	mov    (%rax),%rax
+    4bb4:	89 c1                	mov    %eax,%ecx
+    4bb6:	48 8d 05 3b 7d 04 00 	lea    0x47d3b(%rip),%rax        # 4c8f8 <comm_out>
+    4bbd:	48 8b 00             	mov    (%rax),%rax
+    4bc0:	48 8b 70 20          	mov    0x20(%rax),%rsi
+    4bc4:	48 8d 05 55 7c 04 00 	lea    0x47c55(%rip),%rax        # 4c820 <global_eid>
+    4bcb:	48 8b 00             	mov    (%rax),%rax
+    4bce:	49 89 d0             	mov    %rdx,%r8
+    4bd1:	48 8d 15 68 7c 04 00 	lea    0x47c68(%rip),%rdx        # 4c840 <training_data>
+    4bd8:	48 89 c7             	mov    %rax,%rdi
+    4bdb:	e8 0e f6 ff ff       	call   41ee <ecall_trainer>
+    printf("Mnist training complete..\n");
+    4be0:	48 8d 3d 50 b8 03 00 	lea    0x3b850(%rip),%rdi        # 40437 <_ZStL6ignore+0xa6>
+    4be7:	e8 d4 ee ff ff       	call   3ac0 <puts@plt>
+    free_data(training_data);
+    4bec:	48 8d 05 4d 7c 04 00 	lea    0x47c4d(%rip),%rax        # 4c840 <training_data>
+    4bf3:	ff 70 38             	push   0x38(%rax)
+    4bf6:	ff 70 30             	push   0x30(%rax)
+    4bf9:	ff 70 28             	push   0x28(%rax)
+    4bfc:	ff 70 20             	push   0x20(%rax)
+    4bff:	ff 70 18             	push   0x18(%rax)
+    4c02:	ff 70 10             	push   0x10(%rax)
+    4c05:	ff 70 08             	push   0x8(%rax)
+    4c08:	ff 30                	push   (%rax)
+    4c0a:	e8 87 87 00 00       	call   d396 <free_data>
+    4c0f:	48 83 c4 40          	add    $0x40,%rsp
+}
+    4c13:	90                   	nop
+    4c14:	c9                   	leave  
+    4c15:	c3                   	ret    
+
+0000000000004c16 <_Z19read_all_mnist_datav>:
+
+void read_all_mnist_data()
+{
+    4c16:	f3 0f 1e fa          	endbr64 
+    4c1a:	55                   	push   %rbp
+    4c1b:	48 89 e5             	mov    %rsp,%rbp
+}
+    4c1e:	90                   	nop
+    4c1f:	5d                   	pop    %rbp
+    4c20:	c3                   	ret    
+
+0000000000004c21 <test_mnist>:
+/**
+ * Test a trained mnist model
+ * 
+ */
+void test_mnist(char *cfgfile)
+{
+    4c21:	f3 0f 1e fa          	endbr64 
+    4c25:	55                   	push   %rbp
+    4c26:	48 89 e5             	mov    %rsp,%rbp
+    4c29:	53                   	push   %rbx
+    4c2a:	48 81 ec d8 00 00 00 	sub    $0xd8,%rsp
+    4c31:	48 89 bd 28 ff ff ff 	mov    %rdi,-0xd8(%rbp)
+    4c38:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    4c3f:	00 00 
+    4c41:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+    4c45:	31 c0                	xor    %eax,%eax
+
+    std::string img_path = MNIST_TEST_IMAGES;
+    4c47:	48 8d 85 40 ff ff ff 	lea    -0xc0(%rbp),%rax
+    4c4e:	48 89 c7             	mov    %rax,%rdi
+    4c51:	e8 3a ef ff ff       	call   3b90 <_ZNSaIcEC1Ev@plt>
+    4c56:	48 8d 95 40 ff ff ff 	lea    -0xc0(%rbp),%rdx
+    4c5d:	48 8d 45 80          	lea    -0x80(%rbp),%rax
+    4c61:	48 8d 35 f0 b7 03 00 	lea    0x3b7f0(%rip),%rsi        # 40458 <_ZStL6ignore+0xc7>
+    4c68:	48 89 c7             	mov    %rax,%rdi
+    4c6b:	e8 a0 ed ff ff       	call   3a10 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1EPKcRKS3_@plt>
+    4c70:	48 8d 85 40 ff ff ff 	lea    -0xc0(%rbp),%rax
+    4c77:	48 89 c7             	mov    %rax,%rdi
+    4c7a:	e8 e1 ec ff ff       	call   3960 <_ZNSaIcED1Ev@plt>
+    std::string label_path = MNIST_TEST_LABELS;
+    4c7f:	48 8d 85 40 ff ff ff 	lea    -0xc0(%rbp),%rax
+    4c86:	48 89 c7             	mov    %rax,%rdi
+    4c89:	e8 02 ef ff ff       	call   3b90 <_ZNSaIcEC1Ev@plt>
+    4c8e:	48 8d 95 40 ff ff ff 	lea    -0xc0(%rbp),%rdx
+    4c95:	48 8d 45 a0          	lea    -0x60(%rbp),%rax
+    4c99:	48 8d 35 f0 b7 03 00 	lea    0x3b7f0(%rip),%rsi        # 40490 <_ZStL6ignore+0xff>
+    4ca0:	48 89 c7             	mov    %rax,%rdi
+    4ca3:	e8 68 ed ff ff       	call   3a10 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1EPKcRKS3_@plt>
+    4ca8:	48 8d 85 40 ff ff ff 	lea    -0xc0(%rbp),%rax
+    4caf:	48 89 c7             	mov    %rax,%rdi
+    4cb2:	e8 a9 ec ff ff       	call   3960 <_ZNSaIcED1Ev@plt>
+    data test = load_mnist_images(img_path, 10);
+    4cb7:	48 8d 55 80          	lea    -0x80(%rbp),%rdx
+    4cbb:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
+    4cbf:	48 89 d6             	mov    %rdx,%rsi
+    4cc2:	48 89 c7             	mov    %rax,%rdi
+    4cc5:	e8 76 ea ff ff       	call   3740 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1ERKS4_@plt>
+    4cca:	48 8d 85 40 ff ff ff 	lea    -0xc0(%rbp),%rax
+    4cd1:	48 8d 4d c0          	lea    -0x40(%rbp),%rcx
+    4cd5:	ba 0a 00 00 00       	mov    $0xa,%edx
+    4cda:	48 89 ce             	mov    %rcx,%rsi
+    4cdd:	48 89 c7             	mov    %rax,%rdi
+    4ce0:	e8 3e 9c 03 00       	call   3e923 <_Z17load_mnist_imagesNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEm>
+    4ce5:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
+    4ce9:	48 89 c7             	mov    %rax,%rdi
+    4cec:	e8 2f eb ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
+    test.y = load_mnist_labels(label_path, 10);
+    4cf1:	48 8d 55 a0          	lea    -0x60(%rbp),%rdx
+    4cf5:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
+    4cf9:	48 89 d6             	mov    %rdx,%rsi
+    4cfc:	48 89 c7             	mov    %rax,%rdi
+    4cff:	e8 3c ea ff ff       	call   3740 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1ERKS4_@plt>
+    4d04:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
+    4d08:	be 0a 00 00 00       	mov    $0xa,%esi
+    4d0d:	48 89 c7             	mov    %rax,%rdi
+    4d10:	e8 07 a0 03 00       	call   3ed1c <_Z17load_mnist_labelsNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEm>
+    4d15:	48 89 85 58 ff ff ff 	mov    %rax,-0xa8(%rbp)
+    4d1c:	48 89 95 60 ff ff ff 	mov    %rdx,-0xa0(%rbp)
+    4d23:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
+    4d27:	48 89 c7             	mov    %rax,%rdi
+    4d2a:	e8 f1 ea ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
+    list *config_sections = read_cfg(cfgfile);
+    4d2f:	48 8b 85 28 ff ff ff 	mov    -0xd8(%rbp),%rax
+    4d36:	48 89 c7             	mov    %rax,%rdi
+    4d39:	e8 09 6f 03 00       	call   3bc47 <read_cfg>
+    4d3e:	48 89 85 38 ff ff ff 	mov    %rax,-0xc8(%rbp)
+
+    ecall_tester(global_eid, config_sections, &test, 0);
+    4d45:	48 8d 05 d4 7a 04 00 	lea    0x47ad4(%rip),%rax        # 4c820 <global_eid>
+    4d4c:	48 8b 00             	mov    (%rax),%rax
+    4d4f:	48 8d 95 40 ff ff ff 	lea    -0xc0(%rbp),%rdx
+    4d56:	48 8b b5 38 ff ff ff 	mov    -0xc8(%rbp),%rsi
+    4d5d:	b9 00 00 00 00       	mov    $0x0,%ecx
+    4d62:	48 89 c7             	mov    %rax,%rdi
+    4d65:	e8 0b f5 ff ff       	call   4275 <ecall_tester>
+    printf("Mnist testing complete..\n");
+    4d6a:	48 8d 3d 50 b7 03 00 	lea    0x3b750(%rip),%rdi        # 404c1 <_ZStL6ignore+0x130>
+    4d71:	e8 4a ed ff ff       	call   3ac0 <puts@plt>
+    free_data(test);
+    4d76:	ff b5 78 ff ff ff    	push   -0x88(%rbp)
+    4d7c:	ff b5 70 ff ff ff    	push   -0x90(%rbp)
+    4d82:	ff b5 68 ff ff ff    	push   -0x98(%rbp)
+    4d88:	ff b5 60 ff ff ff    	push   -0xa0(%rbp)
+    4d8e:	ff b5 58 ff ff ff    	push   -0xa8(%rbp)
+    4d94:	ff b5 50 ff ff ff    	push   -0xb0(%rbp)
+    4d9a:	ff b5 48 ff ff ff    	push   -0xb8(%rbp)
+    4da0:	ff b5 40 ff ff ff    	push   -0xc0(%rbp)
+    4da6:	e8 eb 85 00 00       	call   d396 <free_data>
+    4dab:	48 83 c4 40          	add    $0x40,%rsp
+    std::string label_path = MNIST_TEST_LABELS;
+    4daf:	48 8d 45 a0          	lea    -0x60(%rbp),%rax
+    4db3:	48 89 c7             	mov    %rax,%rdi
+    4db6:	e8 65 ea ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
+    std::string img_path = MNIST_TEST_IMAGES;
+    4dbb:	48 8d 45 80          	lea    -0x80(%rbp),%rax
+    4dbf:	48 89 c7             	mov    %rax,%rdi
+    4dc2:	e8 59 ea ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
+}
+    4dc7:	90                   	nop
+    4dc8:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+    4dcc:	64 48 33 04 25 28 00 	xor    %fs:0x28,%rax
+    4dd3:	00 00 
+    4dd5:	0f 84 97 00 00 00    	je     4e72 <test_mnist+0x251>
+    4ddb:	e9 8d 00 00 00       	jmp    4e6d <test_mnist+0x24c>
+    4de0:	f3 0f 1e fa          	endbr64 
+    4de4:	48 89 c3             	mov    %rax,%rbx
+    4de7:	48 8d 85 40 ff ff ff 	lea    -0xc0(%rbp),%rax
+    4dee:	48 89 c7             	mov    %rax,%rdi
+    4df1:	e8 6a eb ff ff       	call   3960 <_ZNSaIcED1Ev@plt>
+    4df6:	48 89 d8             	mov    %rbx,%rax
+    4df9:	48 89 c7             	mov    %rax,%rdi
+    4dfc:	e8 7f ed ff ff       	call   3b80 <_Unwind_Resume@plt>
+    4e01:	f3 0f 1e fa          	endbr64 
+    4e05:	48 89 c3             	mov    %rax,%rbx
+    4e08:	48 8d 85 40 ff ff ff 	lea    -0xc0(%rbp),%rax
+    4e0f:	48 89 c7             	mov    %rax,%rdi
+    4e12:	e8 49 eb ff ff       	call   3960 <_ZNSaIcED1Ev@plt>
+    4e17:	eb 3d                	jmp    4e56 <test_mnist+0x235>
+    4e19:	f3 0f 1e fa          	endbr64 
+    4e1d:	48 89 c3             	mov    %rax,%rbx
+    data test = load_mnist_images(img_path, 10);
+    4e20:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
+    4e24:	48 89 c7             	mov    %rax,%rdi
+    4e27:	e8 f4 e9 ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
+    4e2c:	eb 1c                	jmp    4e4a <test_mnist+0x229>
+    4e2e:	f3 0f 1e fa          	endbr64 
+    4e32:	48 89 c3             	mov    %rax,%rbx
+    test.y = load_mnist_labels(label_path, 10);
+    4e35:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
+    4e39:	48 89 c7             	mov    %rax,%rdi
+    4e3c:	e8 df e9 ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
+    4e41:	eb 07                	jmp    4e4a <test_mnist+0x229>
+    4e43:	f3 0f 1e fa          	endbr64 
+    4e47:	48 89 c3             	mov    %rax,%rbx
+    std::string label_path = MNIST_TEST_LABELS;
+    4e4a:	48 8d 45 a0          	lea    -0x60(%rbp),%rax
+    4e4e:	48 89 c7             	mov    %rax,%rdi
+    4e51:	e8 ca e9 ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
+    std::string img_path = MNIST_TEST_IMAGES;
+    4e56:	48 8d 45 80          	lea    -0x80(%rbp),%rax
+    4e5a:	48 89 c7             	mov    %rax,%rdi
+    4e5d:	e8 be e9 ff ff       	call   3820 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
+    4e62:	48 89 d8             	mov    %rbx,%rax
+    4e65:	48 89 c7             	mov    %rax,%rdi
+    4e68:	e8 13 ed ff ff       	call   3b80 <_Unwind_Resume@plt>
+}
+    4e6d:	e8 1e eb ff ff       	call   3990 <__stack_chk_fail@plt>
+    4e72:	48 8b 5d f8          	mov    -0x8(%rbp),%rbx
+    4e76:	c9                   	leave  
+    4e77:	c3                   	ret    
+
+0000000000004e78 <my_ocall_close>:
+
+//--------------------------------------------------------------------------------------------------------------
+
+/* Do munmap and close file */
+void my_ocall_close()
+{
+    4e78:	f3 0f 1e fa          	endbr64 
+    4e7c:	55                   	push   %rbp
+    4e7d:	48 89 e5             	mov    %rsp,%rbp
+    close_file();
+    4e80:	e8 2f f9 ff ff       	call   47b4 <close_file>
+}
+    4e85:	90                   	nop
+    4e86:	5d                   	pop    %rbp
+    4e87:	c3                   	ret    
+
+0000000000004e88 <_Z18initialize_enclavev>:
+
+/* Initialize the enclave:
+ * Call sgx_create_enclave to initialize an enclave instance
+ */
+int initialize_enclave(void)
+{
+    4e88:	f3 0f 1e fa          	endbr64 
+    4e8c:	55                   	push   %rbp
+    4e8d:	48 89 e5             	mov    %rsp,%rbp
+    4e90:	48 83 ec 10          	sub    $0x10,%rsp
+    sgx_status_t ret = SGX_ERROR_UNEXPECTED;
+    4e94:	c7 45 fc 01 00 00 00 	movl   $0x1,-0x4(%rbp)
+
+    /* Call sgx_create_enclave to initialize an enclave instance */
+    /* Debug Support: set 2nd parameter to 1 */
+    ret = sgx_create_enclave(ENCLAVE_FILENAME, SGX_DEBUG_FLAG, NULL, NULL, &global_eid, NULL);
+    4e9b:	41 b9 00 00 00 00    	mov    $0x0,%r9d
+    4ea1:	48 8d 05 78 79 04 00 	lea    0x47978(%rip),%rax        # 4c820 <global_eid>
+    4ea8:	49 89 c0             	mov    %rax,%r8
+    4eab:	b9 00 00 00 00       	mov    $0x0,%ecx
+    4eb0:	ba 00 00 00 00       	mov    $0x0,%edx
+    4eb5:	be 01 00 00 00       	mov    $0x1,%esi
+    4eba:	48 8d 3d 19 b6 03 00 	lea    0x3b619(%rip),%rdi        # 404da <_ZStL6ignore+0x149>
+    4ec1:	e8 8a e9 ff ff       	call   3850 <sgx_create_enclave@plt>
+    4ec6:	89 45 fc             	mov    %eax,-0x4(%rbp)
+    if (ret != SGX_SUCCESS)
+    4ec9:	83 7d fc 00          	cmpl   $0x0,-0x4(%rbp)
+    4ecd:	74 11                	je     4ee0 <_Z18initialize_enclavev+0x58>
+    {
+        print_error_message(ret);
+    4ecf:	8b 45 fc             	mov    -0x4(%rbp),%eax
+    4ed2:	89 c7                	mov    %eax,%edi
+    4ed4:	e8 fb f4 ff ff       	call   43d4 <print_error_message>
+        return -1;
+    4ed9:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+    4ede:	eb 05                	jmp    4ee5 <_Z18initialize_enclavev+0x5d>
+    }
+
+    return 0;
+    4ee0:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    4ee5:	c9                   	leave  
+    4ee6:	c3                   	ret    
+
+0000000000004ee7 <main>:
+
+/* Application entry */
+int SGX_CDECL main(int argc, char *argv[])
+{
+    4ee7:	f3 0f 1e fa          	endbr64 
+    4eeb:	55                   	push   %rbp
+    4eec:	48 89 e5             	mov    %rsp,%rbp
+    4eef:	48 81 ec a0 00 00 00 	sub    $0xa0,%rsp
+    4ef6:	89 bd 6c ff ff ff    	mov    %edi,-0x94(%rbp)
+    4efc:	48 89 b5 60 ff ff ff 	mov    %rsi,-0xa0(%rbp)
+    4f03:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+    4f0a:	00 00 
+    4f0c:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+    4f10:	31 c0                	xor    %eax,%eax
+    (void)argv;
+
+    sgx_status_t ret;
+
+    /* Initialize the enclave */
+    if (initialize_enclave() < 0)
+    4f12:	e8 71 ff ff ff       	call   4e88 <_Z18initialize_enclavev>
+    4f17:	c1 e8 1f             	shr    $0x1f,%eax
+    4f1a:	84 c0                	test   %al,%al
+    4f1c:	74 1b                	je     4f39 <main+0x52>
+    {
+        printf("Enter a character before exit ...\n");
+    4f1e:	48 8d 3d cb b5 03 00 	lea    0x3b5cb(%rip),%rdi        # 404f0 <_ZStL6ignore+0x15f>
+    4f25:	e8 96 eb ff ff       	call   3ac0 <puts@plt>
+        getchar();
+    4f2a:	e8 f1 ea ff ff       	call   3a20 <getchar@plt>
+        return -1;
+    4f2f:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+    4f34:	e9 a4 01 00 00       	jmp    50dd <main+0x1f6>
+    }
+    //Initialize sgx-rom
+    rom_init();
+    4f39:	e8 a1 f5 ff ff       	call   44df <rom_init>
+    printf("Base addr is : %p\n", base_addr);
+    4f3e:	48 8d 05 43 72 04 00 	lea    0x47243(%rip),%rax        # 4c188 <base_addr>
+    4f45:	48 8b 00             	mov    (%rax),%rax
+    4f48:	48 89 c6             	mov    %rax,%rsi
+    4f4b:	48 8d 3d c0 b5 03 00 	lea    0x3b5c0(%rip),%rdi        # 40512 <_ZStL6ignore+0x181>
+    4f52:	b8 00 00 00 00       	mov    $0x0,%eax
+    4f57:	e8 14 e7 ff ff       	call   3670 <printf@plt>
+    ecall_init(global_eid, (void *)per_out, base_addr);
+    4f5c:	48 8d 05 25 72 04 00 	lea    0x47225(%rip),%rax        # 4c188 <base_addr>
+    4f63:	48 8b 10             	mov    (%rax),%rdx
+    4f66:	48 8d 05 9b 78 04 00 	lea    0x4789b(%rip),%rax        # 4c808 <per_out>
+    4f6d:	48 8b 08             	mov    (%rax),%rcx
+    4f70:	48 8d 05 a9 78 04 00 	lea    0x478a9(%rip),%rax        # 4c820 <global_eid>
+    4f77:	48 8b 00             	mov    (%rax),%rax
+    4f7a:	48 89 ce             	mov    %rcx,%rsi
+    4f7d:	48 89 c7             	mov    %rax,%rdi
+    4f80:	e8 53 f1 ff ff       	call   40d8 <ecall_init>
+
+    //mnist model config file
+    char cfg[128] = MNIST_CFG;
+    4f85:	48 b8 2e 2f 41 70 70 	movabs $0x6e642f7070412f2e,%rax
+    4f8c:	2f 64 6e 
+    4f8f:	48 ba 65 74 2d 6f 75 	movabs $0x632f74756f2d7465,%rdx
+    4f96:	74 2f 63 
+    4f99:	48 89 85 70 ff ff ff 	mov    %rax,-0x90(%rbp)
+    4fa0:	48 89 95 78 ff ff ff 	mov    %rdx,-0x88(%rbp)
+    4fa7:	48 b8 66 67 2f 6d 6e 	movabs $0x7473696e6d2f6766,%rax
+    4fae:	69 73 74 
+    4fb1:	ba 2e 63 66 67       	mov    $0x6766632e,%edx
+    4fb6:	48 89 45 80          	mov    %rax,-0x80(%rbp)
+    4fba:	48 89 55 88          	mov    %rdx,-0x78(%rbp)
+    4fbe:	48 8d 55 90          	lea    -0x70(%rbp),%rdx
+    4fc2:	b8 00 00 00 00       	mov    $0x0,%eax
+    4fc7:	b9 0c 00 00 00       	mov    $0xc,%ecx
+    4fcc:	48 89 d7             	mov    %rdx,%rdi
+    4fcf:	f3 48 ab             	rep stos %rax,%es:(%rdi)
+
+    //train a model on mnist via the Plinius workflow
+    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
+    4fd2:	48 8d 05 f7 78 04 00 	lea    0x478f7(%rip),%rax        # 4c8d0 <start>
+    4fd9:	48 89 c6             	mov    %rax,%rsi
+    4fdc:	bf 04 00 00 00       	mov    $0x4,%edi
+    4fe1:	e8 1a e9 ff ff       	call   3900 <clock_gettime@plt>
+    train_mnist(cfg);
+    4fe6:	48 8d 85 70 ff ff ff 	lea    -0x90(%rbp),%rax
+    4fed:	48 89 c7             	mov    %rax,%rdi
+    4ff0:	e8 62 fb ff ff       	call   4b57 <train_mnist>
+    clock_gettime(CLOCK_MONOTONIC_RAW, &stop);
+    4ff5:	48 8d 05 e4 78 04 00 	lea    0x478e4(%rip),%rax        # 4c8e0 <stop>
+    4ffc:	48 89 c6             	mov    %rax,%rsi
+    4fff:	bf 04 00 00 00       	mov    $0x4,%edi
+    5004:	e8 f7 e8 ff ff       	call   3900 <clock_gettime@plt>
+    printf("Total training time: %f mins\n", time_diff(&start, &stop, SEC) / 60);
+    5009:	ba 03 00 00 00       	mov    $0x3,%edx
+    500e:	48 8d 05 cb 78 04 00 	lea    0x478cb(%rip),%rax        # 4c8e0 <stop>
+    5015:	48 89 c6             	mov    %rax,%rsi
+    5018:	48 8d 05 b1 78 04 00 	lea    0x478b1(%rip),%rax        # 4c8d0 <start>
+    501f:	48 89 c7             	mov    %rax,%rdi
+    5022:	e8 94 04 00 00       	call   54bb <_Z9time_diffP8timespecS0_11granularity>
+    5027:	66 0f 28 c8          	movapd %xmm0,%xmm1
+    502b:	f2 0f 10 05 35 b5 03 	movsd  0x3b535(%rip),%xmm0        # 40568 <_ZStL6ignore+0x1d7>
+    5032:	00 
+    5033:	f2 0f 5e c8          	divsd  %xmm0,%xmm1
+    5037:	66 0f 28 c1          	movapd %xmm1,%xmm0
+    503b:	48 8d 3d e3 b4 03 00 	lea    0x3b4e3(%rip),%rdi        # 40525 <_ZStL6ignore+0x194>
+    5042:	b8 01 00 00 00       	mov    $0x1,%eax
+    5047:	e8 24 e6 ff ff       	call   3670 <printf@plt>
+
+    //test the accuracy of the trained model
+    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
+    504c:	48 8d 05 7d 78 04 00 	lea    0x4787d(%rip),%rax        # 4c8d0 <start>
+    5053:	48 89 c6             	mov    %rax,%rsi
+    5056:	bf 04 00 00 00       	mov    $0x4,%edi
+    505b:	e8 a0 e8 ff ff       	call   3900 <clock_gettime@plt>
+    test_mnist(cfg);
+    5060:	48 8d 85 70 ff ff ff 	lea    -0x90(%rbp),%rax
+    5067:	48 89 c7             	mov    %rax,%rdi
+    506a:	e8 b2 fb ff ff       	call   4c21 <test_mnist>
+    clock_gettime(CLOCK_MONOTONIC_RAW, &stop);
+    506f:	48 8d 05 6a 78 04 00 	lea    0x4786a(%rip),%rax        # 4c8e0 <stop>
+    5076:	48 89 c6             	mov    %rax,%rsi
+    5079:	bf 04 00 00 00       	mov    $0x4,%edi
+    507e:	e8 7d e8 ff ff       	call   3900 <clock_gettime@plt>
+    printf("Total inference time: %f mins\n", time_diff(&start, &stop, SEC) / 60);
+    5083:	ba 03 00 00 00       	mov    $0x3,%edx
+    5088:	48 8d 05 51 78 04 00 	lea    0x47851(%rip),%rax        # 4c8e0 <stop>
+    508f:	48 89 c6             	mov    %rax,%rsi
+    5092:	48 8d 05 37 78 04 00 	lea    0x47837(%rip),%rax        # 4c8d0 <start>
+    5099:	48 89 c7             	mov    %rax,%rdi
+    509c:	e8 1a 04 00 00       	call   54bb <_Z9time_diffP8timespecS0_11granularity>
+    50a1:	66 0f 28 c8          	movapd %xmm0,%xmm1
+    50a5:	f2 0f 10 05 bb b4 03 	movsd  0x3b4bb(%rip),%xmm0        # 40568 <_ZStL6ignore+0x1d7>
+    50ac:	00 
+    50ad:	f2 0f 5e c8          	divsd  %xmm0,%xmm1
+    50b1:	66 0f 28 c1          	movapd %xmm1,%xmm0
+    50b5:	48 8d 3d 8c b4 03 00 	lea    0x3b48c(%rip),%rdi        # 40548 <_ZStL6ignore+0x1b7>
+    50bc:	b8 01 00 00 00       	mov    $0x1,%eax
+    50c1:	e8 aa e5 ff ff       	call   3670 <printf@plt>
+
+    //Destroy enclave
+    sgx_destroy_enclave(global_eid);
+    50c6:	48 8d 05 53 77 04 00 	lea    0x47753(%rip),%rax        # 4c820 <global_eid>
+    50cd:	48 8b 00             	mov    (%rax),%rax
+    50d0:	48 89 c7             	mov    %rax,%rdi
+    50d3:	e8 d8 e6 ff ff       	call   37b0 <sgx_destroy_enclave@plt>
+    return 0;
+    50d8:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+    50dd:	48 8b 4d f8          	mov    -0x8(%rbp),%rcx
+    50e1:	64 48 33 0c 25 28 00 	xor    %fs:0x28,%rcx
+    50e8:	00 00 
+    50ea:	74 05                	je     50f1 <main+0x20a>
+    50ec:	e8 9f e8 ff ff       	call   3990 <__stack_chk_fail@plt>
+    50f1:	c9                   	leave  
+    50f2:	c3                   	ret    
+
+00000000000050f3 <_Z41__static_initialization_and_destruction_0ii>:
+    50f3:	f3 0f 1e fa          	endbr64 
+    50f7:	55                   	push   %rbp
+    50f8:	48 89 e5             	mov    %rsp,%rbp
+    50fb:	48 83 ec 10          	sub    $0x10,%rsp
+    50ff:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    5102:	89 75 f8             	mov    %esi,-0x8(%rbp)
+    5105:	83 7d fc 01          	cmpl   $0x1,-0x4(%rbp)
+    5109:	75 32                	jne    513d <_Z41__static_initialization_and_destruction_0ii+0x4a>
+    510b:	81 7d f8 ff ff 00 00 	cmpl   $0xffff,-0x8(%rbp)
+    5112:	75 29                	jne    513d <_Z41__static_initialization_and_destruction_0ii+0x4a>
+  extern wostream wclog;	/// Linked to standard error (buffered)
+#endif
+  //@}
+
+  // For construction of filebuffers for cout, cin, cerr, clog et. al.
+  static ios_base::Init __ioinit;
+    5114:	48 8d 3d e5 77 04 00 	lea    0x477e5(%rip),%rdi        # 4c900 <_ZStL8__ioinit>
+    511b:	e8 90 e9 ff ff       	call   3ab0 <_ZNSt8ios_base4InitC1Ev@plt>
+    5120:	48 8d 15 e1 6e 04 00 	lea    0x46ee1(%rip),%rdx        # 4c008 <__dso_handle>
+    5127:	48 8d 35 d2 77 04 00 	lea    0x477d2(%rip),%rsi        # 4c900 <_ZStL8__ioinit>
+    512e:	48 8b 05 c3 6e 04 00 	mov    0x46ec3(%rip),%rax        # 4bff8 <_ZNSt8ios_base4InitD1Ev@GLIBCXX_3.4>
+    5135:	48 89 c7             	mov    %rax,%rdi
+    5138:	e8 b3 e7 ff ff       	call   38f0 <__cxa_atexit@plt>
     513d:	90                   	nop
-    513e:	5d                   	pop    %rbp
+    513e:	c9                   	leave  
     513f:	c3                   	ret    
 
-0000000000005140 <_GLOBAL__sub_I_Romulus_helper.cpp>:
+0000000000005140 <_GLOBAL__sub_I_App.cpp>:
     5140:	f3 0f 1e fa          	endbr64 
     5144:	55                   	push   %rbp
     5145:	48 89 e5             	mov    %rsp,%rbp
     5148:	be ff ff 00 00       	mov    $0xffff,%esi
     514d:	bf 01 00 00 00       	mov    $0x1,%edi
-    5152:	e8 9e ff ff ff       	call   50f5 <_Z41__static_initialization_and_destruction_0ii>
+    5152:	e8 9c ff ff ff       	call   50f3 <_Z41__static_initialization_and_destruction_0ii>
     5157:	5d                   	pop    %rbp
     5158:	c3                   	ret    
 
@@ -3127,7 +3127,7 @@ double get_SD(std::vector<double> &data)
     5434:	e8 a9 03 00 00       	call   57e2 <_ZNSt6vectorIdSaIdEEixEm>
     5439:	f2 0f 10 00          	movsd  (%rax),%xmm0
     543d:	f2 0f 5c 45 e8       	subsd  -0x18(%rbp),%xmm0
-    5442:	f2 0f 10 0d 36 b1 03 	movsd  0x3b136(%rip),%xmm1        # 40580 <_ZStL6ignore+0x6>
+    5442:	f2 0f 10 0d 2e b1 03 	movsd  0x3b12e(%rip),%xmm1        # 40578 <_ZStL6ignore+0x6>
     5449:	00 
     544a:	e8 21 e7 ff ff       	call   3b70 <pow@plt>
     544f:	66 0f 28 c8          	movapd %xmm0,%xmm1
@@ -3206,7 +3206,7 @@ double time_diff(timespec *start, timespec *stop, granularity gran)
     5512:	48 29 c2             	sub    %rax,%rdx
     5515:	48 89 d0             	mov    %rdx,%rax
     5518:	f2 48 0f 2a c8       	cvtsi2sd %rax,%xmm1
-    551d:	f2 0f 10 05 63 b0 03 	movsd  0x3b063(%rip),%xmm0        # 40588 <_ZStL6ignore+0xe>
+    551d:	f2 0f 10 05 5b b0 03 	movsd  0x3b05b(%rip),%xmm0        # 40580 <_ZStL6ignore+0xe>
     5524:	00 
     5525:	f2 0f 59 c8          	mulsd  %xmm0,%xmm1
     5529:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
@@ -3216,7 +3216,7 @@ double time_diff(timespec *start, timespec *stop, granularity gran)
     5539:	48 29 c2             	sub    %rax,%rdx
     553c:	48 89 d0             	mov    %rdx,%rax
     553f:	f2 48 0f 2a c0       	cvtsi2sd %rax,%xmm0
-    5544:	f2 0f 10 15 44 b0 03 	movsd  0x3b044(%rip),%xmm2        # 40590 <_ZStL6ignore+0x16>
+    5544:	f2 0f 10 15 3c b0 03 	movsd  0x3b03c(%rip),%xmm2        # 40588 <_ZStL6ignore+0x16>
     554b:	00 
     554c:	f2 0f 5e c2          	divsd  %xmm2,%xmm0
     5550:	f2 0f 58 c1          	addsd  %xmm1,%xmm0
@@ -3233,7 +3233,7 @@ double time_diff(timespec *start, timespec *stop, granularity gran)
     556c:	48 29 c2             	sub    %rax,%rdx
     556f:	48 89 d0             	mov    %rdx,%rax
     5572:	f2 48 0f 2a c8       	cvtsi2sd %rax,%xmm1
-    5577:	f2 0f 10 05 11 b0 03 	movsd  0x3b011(%rip),%xmm0        # 40590 <_ZStL6ignore+0x16>
+    5577:	f2 0f 10 05 09 b0 03 	movsd  0x3b009(%rip),%xmm0        # 40588 <_ZStL6ignore+0x16>
     557e:	00 
     557f:	f2 0f 59 c8          	mulsd  %xmm0,%xmm1
     5583:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
@@ -3243,7 +3243,7 @@ double time_diff(timespec *start, timespec *stop, granularity gran)
     5593:	48 29 c2             	sub    %rax,%rdx
     5596:	48 89 d0             	mov    %rdx,%rax
     5599:	f2 48 0f 2a c0       	cvtsi2sd %rax,%xmm0
-    559e:	f2 0f 10 15 e2 af 03 	movsd  0x3afe2(%rip),%xmm2        # 40588 <_ZStL6ignore+0xe>
+    559e:	f2 0f 10 15 da af 03 	movsd  0x3afda(%rip),%xmm2        # 40580 <_ZStL6ignore+0xe>
     55a5:	00 
     55a6:	f2 0f 5e c2          	divsd  %xmm2,%xmm0
     55aa:	f2 0f 58 c1          	addsd  %xmm1,%xmm0
@@ -3260,7 +3260,7 @@ double time_diff(timespec *start, timespec *stop, granularity gran)
     55c6:	48 29 c2             	sub    %rax,%rdx
     55c9:	48 89 d0             	mov    %rdx,%rax
     55cc:	f2 48 0f 2a c8       	cvtsi2sd %rax,%xmm1
-    55d1:	f2 0f 10 05 bf af 03 	movsd  0x3afbf(%rip),%xmm0        # 40598 <_ZStL6ignore+0x1e>
+    55d1:	f2 0f 10 05 b7 af 03 	movsd  0x3afb7(%rip),%xmm0        # 40590 <_ZStL6ignore+0x1e>
     55d8:	00 
     55d9:	f2 0f 59 c8          	mulsd  %xmm0,%xmm1
     55dd:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
@@ -3291,7 +3291,7 @@ double time_diff(timespec *start, timespec *stop, granularity gran)
     562c:	48 29 c2             	sub    %rax,%rdx
     562f:	48 89 d0             	mov    %rdx,%rax
     5632:	f2 48 0f 2a c0       	cvtsi2sd %rax,%xmm0
-    5637:	f2 0f 10 15 59 af 03 	movsd  0x3af59(%rip),%xmm2        # 40598 <_ZStL6ignore+0x1e>
+    5637:	f2 0f 10 15 51 af 03 	movsd  0x3af51(%rip),%xmm2        # 40590 <_ZStL6ignore+0x1e>
     563e:	00 
     563f:	f2 0f 5e c2          	divsd  %xmm2,%xmm0
     5643:	f2 0f 58 c1          	addsd  %xmm1,%xmm0
@@ -3315,10 +3315,10 @@ double time_diff(timespec *start, timespec *stop, granularity gran)
     566a:	75 32                	jne    569e <_Z41__static_initialization_and_destruction_0ii+0x4a>
     566c:	81 7d f8 ff ff 00 00 	cmpl   $0xffff,-0x8(%rbp)
     5673:	75 29                	jne    569e <_Z41__static_initialization_and_destruction_0ii+0x4a>
-    5675:	48 8d 3d 9c 72 04 00 	lea    0x4729c(%rip),%rdi        # 4c918 <_ZStL8__ioinit>
+    5675:	48 8d 3d 85 72 04 00 	lea    0x47285(%rip),%rdi        # 4c901 <_ZStL8__ioinit>
     567c:	e8 2f e4 ff ff       	call   3ab0 <_ZNSt8ios_base4InitC1Ev@plt>
     5681:	48 8d 15 80 69 04 00 	lea    0x46980(%rip),%rdx        # 4c008 <__dso_handle>
-    5688:	48 8d 35 89 72 04 00 	lea    0x47289(%rip),%rsi        # 4c918 <_ZStL8__ioinit>
+    5688:	48 8d 35 72 72 04 00 	lea    0x47272(%rip),%rsi        # 4c901 <_ZStL8__ioinit>
     568f:	48 8b 05 62 69 04 00 	mov    0x46962(%rip),%rax        # 4bff8 <_ZNSt8ios_base4InitD1Ev@GLIBCXX_3.4>
     5696:	48 89 c7             	mov    %rax,%rdi
     5699:	e8 52 e2 ff ff       	call   38f0 <__cxa_atexit@plt>
@@ -4122,8 +4122,8 @@ void shortcut_cpu(int batch, int w1, int h1, int c1, float *add, int w2, int h2,
     5e91:	74 1f                	je     5eb2 <shortcut_cpu+0x69>
     5e93:	48 8d 0d 3e a7 03 00 	lea    0x3a73e(%rip),%rcx        # 405d8 <__PRETTY_FUNCTION__.5996>
     5e9a:	ba 48 00 00 00       	mov    $0x48,%edx
-    5e9f:	48 8d 35 fa a6 03 00 	lea    0x3a6fa(%rip),%rsi        # 405a0 <_ZStL6ignore+0x26>
-    5ea6:	48 8d 3d 0b a7 03 00 	lea    0x3a70b(%rip),%rdi        # 405b8 <_ZStL6ignore+0x3e>
+    5e9f:	48 8d 35 fa a6 03 00 	lea    0x3a6fa(%rip),%rsi        # 405a0 <_ZStL6ignore+0x2e>
+    5ea6:	48 8d 3d 0b a7 03 00 	lea    0x3a70b(%rip),%rdi        # 405b8 <_ZStL6ignore+0x46>
     5ead:	e8 7e d9 ff ff       	call   3830 <__assert_fail@plt>
     assert(sample == h2/h1);
     5eb2:	8b 45 10             	mov    0x10(%rbp),%eax
@@ -4133,8 +4133,8 @@ void shortcut_cpu(int batch, int w1, int h1, int c1, float *add, int w2, int h2,
     5ebc:	74 1f                	je     5edd <shortcut_cpu+0x94>
     5ebe:	48 8d 0d 13 a7 03 00 	lea    0x3a713(%rip),%rcx        # 405d8 <__PRETTY_FUNCTION__.5996>
     5ec5:	ba 49 00 00 00       	mov    $0x49,%edx
-    5eca:	48 8d 35 cf a6 03 00 	lea    0x3a6cf(%rip),%rsi        # 405a0 <_ZStL6ignore+0x26>
-    5ed1:	48 8d 3d f0 a6 03 00 	lea    0x3a6f0(%rip),%rdi        # 405c8 <_ZStL6ignore+0x4e>
+    5eca:	48 8d 35 cf a6 03 00 	lea    0x3a6cf(%rip),%rsi        # 405a0 <_ZStL6ignore+0x2e>
+    5ed1:	48 8d 3d f0 a6 03 00 	lea    0x3a6f0(%rip),%rdi        # 405c8 <_ZStL6ignore+0x56>
     5ed8:	e8 53 d9 ff ff       	call   3830 <__assert_fail@plt>
     if(stride < 1) stride = 1;
     5edd:	83 7d d4 00          	cmpl   $0x0,-0x2c(%rbp)

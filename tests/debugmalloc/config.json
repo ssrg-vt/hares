@@ -1,0 +1,6 @@
+{
+  "main_address":"0x442520",
+  "user_args": ["host/debugmallochost", "./enclave/debugmallocenc.signed", null],
+  "breakpoints": ["0x442692", "0x442697", "0x442770", "0x442775", "0x4428ad", "0x4428b2"]
+}
+

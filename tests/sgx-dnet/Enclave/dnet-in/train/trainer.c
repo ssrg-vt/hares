@@ -6,7 +6,7 @@
 
 #define CIFAR_WEIGHTS "/home/ubuntu/xxx/sgx-dnet/App/dnet-out/backup/cifar.weights"
 //#define TINY_WEIGHTS "/home/ubuntu/xxx/sgx-dnet/App/dnet-out/backup/tiny.weights"
-#define TINY_WEIGHTS "/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/sgx-dnet/App/dnet-out/backup/tiny.weights"
+#define TINY_WEIGHTS "/home/PopSGX-uffd-monitor/tests/sgx-dnet/App/dnet-out/backup/tiny.weights"
 //#define MNIST_WEIGHTS "/home/ubuntu/xxx/sgx-dnet/App/dnet-out/backup/mnist.weights"
 #define MNIST_WEIGHTS "/home/abi/Drive/workspace/ssrg/ssrg/sgx_sample_applications/sgx-dnet/App/dnet-out/backup/test.weights"
 

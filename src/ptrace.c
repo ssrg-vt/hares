@@ -135,7 +135,7 @@ int update_child_data(pid_t pid, long long dst, char *src, size_t len)
 	if (nwrite < 0) {
         	fprintf(stderr,"process_vm_writev");
         	return -1;
-    	}
+    }
 
 	if(nwrite != len){
 		fprintf(stderr, "Failed to read the required memory length");
@@ -186,10 +186,10 @@ int get_child_data(pid_t pid, char *dst, long long src, size_t len)
 	remote_iov.iov_len = len;
 
 	nread = process_vm_readv(pid, &local_iov, 1, &remote_iov, 1, 0);
-    	if (nread < 0) {
-        	fprintf(stderr,"process_vm_readv");
-        	return -1;
-    	}
+	if (nread < 0) {
+		fprintf(stderr,"process_vm_readv");
+		return -1;
+	}
 
 	if(nread == len){
 		memcpy(dst, buffer, len);
@@ -219,7 +219,7 @@ int get_child_data_str(pid_t pid, char *dst, long long src)
 
 long set_breakpoint(pid_t pid, unsigned long addr)
 {
-	// printf("The address passed is %lx\n", addr);
+	//printf("The address passed is %lx\n", addr);
 	long data = ptrace(PTRACE_PEEKTEXT, pid, (void *) addr, 0);
 	if(data == -1)
 	{	
