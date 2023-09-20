@@ -18,7 +18,7 @@ OBJEXT      := o
 
 # Flags, Libraries and Includes
 CFLAGS      := -Wall -O3 -g -DNDEBUG 
-LIB         := -lpthread
+LIB         := -lpthread -lcjson
 INC         := -I$(INCDIR) -I/usr/local/include 
 INCDEP      := -I$(INCDIR)
 

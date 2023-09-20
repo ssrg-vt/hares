@@ -17,4 +17,9 @@ typedef struct popsgx_app_t{
     uint64_t buffer;
 }popsgx_app;
 
+typedef struct client_args{
+    char **user_args;
+    int num_args;
+}client_args;
+
 #endif
