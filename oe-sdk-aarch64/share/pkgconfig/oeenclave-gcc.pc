@@ -1,0 +1,21 @@
+# Copyright (c) Open Enclave SDK contributors.
+# Licensed under the MIT License.
+
+prefix=${pcfiledir}/../..
+exec_prefix=${prefix}
+includedir=${prefix}/include
+libdir=${prefix}/lib
+
+mbedtlslibs=-loecryptombedtls -lmbedx509 -lmbedtls -lmbedcrypto -loelibc -loesyscall -loecore
+openssllibs=-loecryptoopenssl -lopensslssl -lopensslcrypto -loelibc -loesyscall -loecore
+openssl_3libs=-loecryptoopenssl_3 -lopensslssl_3 -lopensslcrypto_3 -loelibc -loesyscall -loecore
+openssl_symcrypt_fipslibs=-loesymcryptengine -loecryptoopenssl -lopensslssl -lopensslcrypto -loelibc -loesyscall -loecore
+
+openssl_3flags=-I${includedir}/openenclave/3rdparty/openssl_3 -nostdinc -m64 -fPIE -ftls-model=local-exec -fvisibility=hidden -fstack-protector-strong -fno-omit-frame-pointer -ffunction-sections -fdata-sections -I${includedir}/openenclave/3rdparty/libc -I${includedir}/openenclave/3rdparty -I${includedir}
+
+Name: Open Enclave
+Description: Open Enclave gcc flags and libraries for building enclaves.
+Version: 0.19.0
+Requires:
+Cflags: -nostdinc -m64 -fPIE -ftls-model=local-exec -fvisibility=hidden -fstack-protector-strong -fno-omit-frame-pointer -ffunction-sections -fdata-sections -I${includedir}/openenclave/3rdparty/libc -I${includedir}/openenclave/3rdparty -I${includedir}
+Libs: -nostdlib -nodefaultlibs -nostartfiles -Wl,--no-undefined -Wl,-Bstatic -Wl,-Bsymbolic -Wl,--export-dynamic -Wl,-pie -Wl,--build-id -Wl,-z,noexecstack -Wl,-z,now -Wl,-gc-sections -L${libdir}/openenclave/enclave -loeenclave -loelibc -loesyscall -loecore

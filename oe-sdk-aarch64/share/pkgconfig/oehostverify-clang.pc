@@ -1,0 +1,14 @@
+# Copyright (c) Open Enclave SDK contributors.
+# Licensed under the MIT License.
+
+prefix=/home/oe-sdk-aarch64
+exec_prefix=${prefix}
+includedir=${prefix}/include
+libdir=${prefix}/lib
+
+Name: Open Enclave
+Description: Open Enclave clang flags and libraries verifying remote reports on hosts.
+Version: 0.19.0
+Requires: openssl
+Cflags: -fstack-protector-strong -mllvm -x86-speculative-load-hardening -I${includedir}
+Libs: -rdynamic -Wl,-z,noexecstack -L${libdir}/openenclave/host -loehostverify -ldl -lpthread

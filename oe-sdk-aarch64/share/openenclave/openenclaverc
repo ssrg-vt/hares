@@ -1,0 +1,11 @@
+# Copyright (c) Open Enclave SDK contributors.
+# Licensed under the MIT License.
+
+# Update PKG_CONFIG_PATH.
+export PKG_CONFIG_PATH=${PKG_CONFIG_PATH}:/home/oe-sdk-aarch64/share/pkgconfig
+
+# Set CMake Config-package path
+export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/oe-sdk-aarch64/lib/openenclave/cmake
+
+# Update PATH.
+export PATH=${PATH}:/home/oe-sdk-aarch64/bin
