@@ -27,52 +27,40 @@ ifeq ($(OE_CRYPTO_LIB),openssl_3)
 	ENCLAVE_CFLAGS= $(shell pkg-config oeenclave-$(C_COMPILER) --variable=${OE_CRYPTO_LIB}flags)
 	ENCLAVE_CXXFLAGS= $(shell pkg-config oeenclave-$(CXX_COMPILER) --variable=${OE_CRYPTO_LIB}flags)
 else
-	#ENCLAVE_CFLAGS= $(call oe-config,enclave-$(C_COMPILER) --cflags)
 	ENCLAVE_CFLAGS= $(call oe-config,enclave-$(C_COMPILER) --cflags)
 	ENCLAVE_CXXFLAGS= $(call oe-config,enclave-$(CXX_COMPILER) --cflags)
 endif
 ENCLAVE_LDFLAGS:= $(call oe-config,enclave-$(C_COMPILER) --libs)
 ENCLAVE_LDFLAGS+= $(call oe-config,enclave-$(C_COMPILER) --variable=$(OE_CRYPTO_LIB)libs)
 
-#HOST_CFLAGS:= $(call oe-config,host-$(C_COMPILER) --cflags)
-HOST_CFLAGS:= -fstack-protector-strong -D_FORTIFY_SOURCE=2 -I/home/oe-sdk-aarch64/share/pkgconfig/../../include 
-#HOST_CXXFLAG:= $(call oe-config,host-$(CXX_COMPILER) --cflags)
-HOST_CXXFLAG:= -fstack-protector-strong -D_FORTIFY_SOURCE=2 -I/home/oe-sdk-aarch64/share/pkgconfig/../../include 
-#HOST_LDFLAGS:= $(call oe-config,host-$(C_COMPILER) --libs)
-HOST_LDFLAGS:= -L/home/oe-sdk-aarch64/share/pkgconfig/../../lib/openenclave/host -Wl,-z,noexecstack -loehost -ldl -lpthread -lssl -lcrypto
+HOST_CFLAGS:= $(call oe-config,host-$(C_COMPILER) --cflags)
+HOST_CXXFLAGS:= $(call oe-config,host-$(CXX_COMPILER) --cflags)
+HOST_LDFLAGS:= $(call oe-config,host-$(C_COMPILER) --libs)
 
-HOST_CFLAGS+=-I/home/oe-sdk-aarch64/include/openenclave/3rdparty/optee/liboeutee/
-#HOST_CXXFLAG+=-I/home/oe-sdk-aarch64/include/openenclave/3rdparty/optee/liboeutee/
-HOST_LDFLAGS+=-lteec -L/home/oe-sdk-aarch64/lib/openenclave/optee/libteec 
-
-#INCDIR:= $(call oe-config,enclave-$(CXX_COMPILER) --variable=includedir)
-INCDIR:= /home/oe-sdk-aarch64/share/pkgconfig/../../include
-#LIBDIR:= $(call oe-config,enclave-$(C_COMPILER) --variable=libdir)/openenclave
-LIBDIR:= /home/oe-sdk-aarch64/share/pkgconfig/../../lib/openenclave/
+INCDIR:= $(call oe-config,enclave-$(CXX_COMPILER) --variable=includedir)
+LIBDIR:= $(call oe-config,enclave-$(C_COMPILER) --variable=libdir)/openenclave
 
 #
 # Seal plug-ins are searched in two steps.
 #
 
 # Step 1 - Determine BUILD_TYPE (hence the directory containing seal plug-ins)
-#SEAL_PLUGIN_DIR:= $(or $(firstword $(wildcard $(addsuffix /,	\
-#	$(addprefix $(LIBDIR)/enclave/objects-,$(OE_SDK_BUILD_TYPES))))),	\
-#	$(error Cannot determine CMAKE_BUILD_TYPE. Object paths:	\
-#		$(shell find $(LIBDIR)/enclave -type d -name objects-*)))
+SEAL_PLUGIN_DIR:= $(or $(firstword $(wildcard $(addsuffix /,	\
+	$(addprefix $(LIBDIR)/enclave/objects-,$(OE_SDK_BUILD_TYPES))))),	\
+	$(error Cannot determine CMAKE_BUILD_TYPE. Object paths:	\
+		$(shell find $(LIBDIR)/enclave -type d -name objects-*)))
 
 # Step 2 - Locate seal plug-in object files.
-#SEAL_PLUGINS:= $(foreach p,$(OE_SEAL_PLUGINS),$(or	\
-#	$(wildcard $(SEAL_PLUGIN_DIR)oeseal_$p/*.o),	\
-#	$(wildcard $(SEAL_PLUGIN_DIR)oeseal_$p-lvi-cfg/*.o),	\
-#	$(error Seal plug-in \'$p\' missing in $(SEAL_PLUGIN_DIR))))
+SEAL_PLUGINS:= $(foreach p,$(OE_SEAL_PLUGINS),$(or	\
+	$(wildcard $(SEAL_PLUGIN_DIR)oeseal_$p/*.o),	\
+	$(wildcard $(SEAL_PLUGIN_DIR)oeseal_$p-lvi-cfg/*.o),	\
+	$(error Seal plug-in \'$p\' missing in $(SEAL_PLUGIN_DIR))))
 
 EDL_OUT_T:= $(addprefix common/$(EDL),_t.c _t.h _args.h)
 EDL_OUT_U:= $(addprefix host/$(EDL),_u.c _u.h _args.h)
 
-$(info ENC_HDRS: $(ENC_HDRS))
-
 HEADERS:= $(wildcard *.h */*.h)
-#ENCLAVES:= $(addsuffix /enclave.signed,enclave_a_v1 enclave_a_v2 enclave_b)
+ENCLAVES:= $(addsuffix /enclave.signed,enclave_a_v1 enclave_a_v2 enclave_b)
 HOST:= host/host
 
 all: build
@@ -89,9 +77,7 @@ $(foreach v,a b,$(eval $(filter enclave_$v%,$(ENCLAVES)): private_$v.pem))
 %/enclave: ENCLAVE_OR_HOST:= ENCLAVE
 
 %.cpp.o: %.cpp $(ENC_HDRS) $(EDL_OUT_T) $(EDL_OUT_U)
-	$(CC) $(HOST_CFLAGS) -I. -std=c++11 -Wall -Wextra -Wconversion -Werror -c $< -o $@
-	#$(CC) -fstack-protector-strong -D_FORTIFY_SOURCE=2 -I/home/oe-sdk-aarch64/share/pkgconfig/../../include -I. -std=c++11 -Wall -Wextra -Wconversion -Werror -c $< -o $@
-#	$(CC) $($(ENCLAVE_OR_HOST)_CXXFLAGS) -I. -std=c++11 -Wall -Wextra -Wconversion -Werror -c $< -o $@
+	$(CC) $($(ENCLAVE_OR_HOST)_CXXFLAGS) -I. -std=c++11 -Wall -Wextra -Wconversion -Werror -c $< -o $@
 
 %.c.o: %.c $(ENC_HDRS) $(EDL_OUT_T) $(EDL_OUT_U)
 	$(CC) $($(ENCLAVE_OR_HOST)_CFLAGS) -I. -c $< -o $@
@@ -116,7 +102,7 @@ $(HOST): ENCLAVE_OR_HOST:= HOST
 
 .INTERMEDIATE: $(basename $(ENCLAVES)) $(HOST_OBJS)
 
-build: $(HOST)
+build: $(ENCLAVES) $(HOST)
 
 run: build
 	$(HOST) $(ENCLAVES)
