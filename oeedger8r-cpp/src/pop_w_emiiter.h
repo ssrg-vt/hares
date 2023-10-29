@@ -28,6 +28,7 @@ class PopWEmitter
     }
 
   public:
+    
     PopWEmitter(Edl* edl, std::ofstream& file)
         : edl_(edl), file_(file), ecall_(true)
     {
@@ -82,6 +83,9 @@ class PopWEmitter
       out() <<"    /* Setup input arg struct pointer. */"
             <<"    _pargs_in = (" + f->name_ + "_args_t*)_input_buffer;"
             <<""
+            <<"    /* Setup output arg struct pointer. */"
+            <<"    _pargs_out = (seal_data_args_t*)_output_buffer;"
+            <<""
             <<"    /* Adjust the pointers within _pargs_in */";
       for(Decl* p : f->params_)
       {
@@ -101,6 +105,7 @@ class PopWEmitter
     void emit(Function* f, bool ecall, const std::string& prefix = "popsgx")
     {
       ecall_ = ecall;
+      has_deep_copy_out_ = has_deep_copy_out(edl_, f);
       std::string alloc_fcn;
       std::string free_fcn;
       std::string call;
@@ -137,7 +142,16 @@ class PopWEmitter
               <<"    size_t _output_buffer_offset = 0;"
               <<""
               <<"    ssize_t bytes_sent, bytes_received;"
-              <<""
+              <<"";
+
+        if (has_deep_copy_out_)
+        {
+            out() << "    uint8_t* _deepcopy_out_buffer = NULL;"
+                  << "    size_t _deepcopy_out_buffer_size = 0;"
+                  << "    size_t _deepcopy_out_buffer_offset = 0;";
+        }
+
+        out() <<""
               <<"    /* Return value from ecall*/"
               <<"    int _retval;"
               <<"    size_t _popsgx_buffer_sizes[3] = {0};"
@@ -189,7 +203,27 @@ class PopWEmitter
               << "        close(connfd);"
               << "        return OE_FAILURE;"
               << "    }"
-              << ""
+              << "";
+
+        if (has_deep_copy_out_ && !gen_t())
+        {
+                    out() 
+                    << ""
+                    << "    bytes_sent = popsgx_send(connfd, &_pargs_out->deepcopy_out_buffer_size, sizeof(size_t));"
+                    << "    if (bytes_sent != sizeof(size_t)){"
+                    << "        close(connfd);"
+                    << "        return OE_FAILURE;"
+                    << "    }"
+                    << ""
+                    << "    bytes_sent = popsgx_send(connfd, &_pargs_out->deepcopy_out_buffer, _pargs_out->deepcopy_out_buffer_size);"
+                    << "    if (bytes_sent != _pargs_out->deepcopy_out_buffer_size){"
+                    << "        close(connfd);"
+                    << "        return OE_FAILURE;"
+                    << "    }"
+                    << "";
+        }
+
+        out() << ""
               << "done:"
               << "    if(_buffer)"
               << "        oe_free(_buffer);"

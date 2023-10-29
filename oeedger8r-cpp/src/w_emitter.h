@@ -201,6 +201,12 @@ class WEmitter
                   << "        return OE_FAILURE;"
                   << "    }"
                   << ""
+                  << "    bytes_sent = popsgx_send(connfd, (unsigned long int*)&enclave, sizeof(unsigned long int));"
+                  << "    if(bytes_sent != sizeof(unsigned long int)){"
+                  << "        close(connfd);"
+                  << "        return OE_FAILURE;"
+                  << "    }"
+                  << ""
                   << "    size_t popsgx_buffer_sizes[3] = {0};"
                   << "    popsgx_buffer_sizes[0] = _popsgx_input_buffer_size;"
                   << "    popsgx_buffer_sizes[1] = _popsgx_output_buffer_size;"
@@ -304,11 +310,44 @@ class WEmitter
         out() << "";
         if (has_deep_copy_out_)
         {
-            out()
-                << "    _deepcopy_out_buffer = _pargs_out->deepcopy_out_buffer;"
-                << "    _deepcopy_out_buffer_size = "
-                   "_pargs_out->deepcopy_out_buffer_size;";
-            if (gen_t())
+            if(!gen_t()){
+                if(is_popsgx_server)
+                    out() 
+                    << "";
+                    /*
+                    << "    bytes_sent = popsgx_send(connfd, &_pargs_out->deepcopy_out_buffer_size, sizeof(size_t));"
+                    << "    if (bytes_sent != sizeof(size_t)){"
+                    << "        close(connfd);"
+                    << "        return OE_FAILURE;"
+                    << "    }"
+                    << ""
+                    << "    bytes_sent = popsgx_send(connfd, &_pargs_out->deepcopy_out_buffer, _pargs_out->deepcopy_out_buffer_size);"
+                    << "    if (bytes_sent != _pargs_out->deepcopy_out_buffer_size){"
+                    << "        close(connfd);"
+                    << "        return OE_FAILURE;"
+                    << "    }";
+                    */
+                else
+                    out()
+                    << "    bytes_received = popsgx_read(connfd, &_deepcopy_out_buffer_size, sizeof(size_t));"
+                    << "    if(bytes_received != sizeof(size_t)){"
+                    << "        close(connfd);"
+                    << "        return OE_FAILURE;"
+                    << "    }"
+                    << ""
+                    << "    _deepcopy_out_buffer =  (uint8_t*)oe_malloc(_deepcopy_out_buffer_size);"
+                    << "    bytes_received = popsgx_read(connfd, _deepcopy_out_buffer, _deepcopy_out_buffer_size);"
+                    << "    if(bytes_received != _deepcopy_out_buffer_size){"
+                    << "        close(connfd);"
+                    << "        return OE_FAILURE;"
+                    << "    }"
+                    << "";
+            }else{
+             out()
+                 << "    _deepcopy_out_buffer = _pargs_out->deepcopy_out_buffer;"
+                 << "    _deepcopy_out_buffer_size = "
+                    "_pargs_out->deepcopy_out_buffer_size;";
+            
                 out() << "    if (_deepcopy_out_buffer && "
                          "_deepcopy_out_buffer_size && "
                       << "        !oe_is_within_enclave(_deepcopy_out_buffer, "
@@ -317,7 +356,8 @@ class WEmitter
                       << "        _result = OE_FAILURE;"
                       << "        goto done;"
                       << "    }";
-            out() << "";
+                out() << "";
+            }
         }
         unmarshal_outputs(f);
         out() << "";
