@@ -5,6 +5,7 @@
 #define W_EMITTER_H
 
 #include <fstream>
+#include <iostream>
 
 #include "ast.h"
 #include "utils.h"
@@ -106,7 +107,7 @@ class WEmitter
         enclave_status_check();
         out() << "    /* Marshalling struct. */"
               << "    " + args_t +
-                     " _args, *_pargs_in = NULL, *_pargs_out = NULL;";
+                     " _args, _t_args, *_pargs_in = NULL, *_pargs_out = NULL;";
         out() << "    /* Marshalling buffer and sizes. */"
               << "    size_t _input_buffer_size = 0;"
               << "    size_t _output_buffer_size = 0;"
@@ -135,7 +136,8 @@ class WEmitter
         }
         out() << ""
               << "    /* Fill marshalling struct. */"
-              << "    memset(&_args, 0, sizeof(_args));";
+              << "    memset(&_args, 0, sizeof(_args));"
+              << "    memset(&_t_args, 0, sizeof(_t_args));";
         fill_marshalling_struct(f);
         out() << ""
               << "    /* Compute input buffer size. Include in and in-out "
@@ -172,6 +174,7 @@ class WEmitter
                          "sizeof(*_pargs_in));";
         }else{
             out() << ""
+                  << "    memcpy(&_t_args, &_args, sizeof(" + args_t + "));"
                   << "    /* Popsgx addons starts from here */"
                   << "    ssize_t bytes_sent, bytes_received;"
                   << "    int fcn_id = " + fcn_id + ";"
@@ -230,6 +233,18 @@ class WEmitter
                   << "    bytes_received = popsgx_read(connfd, _buffer, _popsgx_total_buffer_size);"
                   << "    if(bytes_received != _popsgx_total_buffer_size){"
                   << "        close(connfd);"
+                  << "        return OE_FAILURE;"
+                  << "    }"
+                  << ""
+                  << "    bytes_received = popsgx_read(connfd, &_output_bytes_written, sizeof(size_t));"
+                  << "    if(bytes_received != sizeof(size_t)){"
+                  << "        close(connfd);"
+                  << "        return OE_FAILURE;"
+                  << "    }"
+                  << ""
+                  << "    /* Currently exactly _output_buffer_size bytes must be written. */"
+                  << "    if (_output_bytes_written != _output_buffer_size){"
+                  << "        _result = OE_FAILURE;"
                   << "        return OE_FAILURE;"
                   << "    }"
                   << "";
@@ -444,7 +459,8 @@ class WEmitter
         const std::string& buffer_size,
         Decl* parent_prop,
         int level,
-        std::string indent = "    ")
+        std::string indent = "    ", bool _is_popsgx = false,
+        const std::string& parent_type = "")
     {
         UserType* ut = get_user_type_for_deep_copy(edl_, parent_prop);
         if (!ut)
@@ -453,12 +469,30 @@ class WEmitter
             std::string op = *parent_expr.rbegin() == ']' ? "." : "->";
             std::string expr = parent_expr + op + prop->name_;
             std::string prefix = "_args." + parent_expr + op;
+            
+            if(_is_popsgx)
+                prefix = "t_" + parent_expr + op;
+
             std::string argcount = pcount(prop, prefix);
             std::string argsize = psize(prop, prefix);
+            std::string argtype = ptype(prop, "_args.");
             std::string cond = parent_condition + " && " + expr;
-            out() << indent + "if (" + cond + ")"
-                  << indent + "    OE_ADD_ARG_SIZE(" + buffer_size + ", " +
-                         argcount + ", " + argsize + ");";
+            out() << indent + "if (" + cond + "){";
+
+            if(_is_popsgx){
+                std::string t_parent_type = "";
+                if (parent_type.size() >= 2 && parent_type.front() == '(' && parent_type.back() == ')'){
+                    t_parent_type = parent_type.substr(1, parent_type.size() - 2);
+                }
+
+                out() << indent + "    " + t_parent_type + " t_" + parent_condition +
+                        " = " + parent_type + "(_buffer + (size_t)_args." + parent_condition +");"
+                      << indent + "    t_" + expr + " = " + argtype + "_popsgx_input_buffer_size;";
+            }
+            
+            out() << indent + "    OE_ADD_ARG_SIZE(" + buffer_size + ", " +
+                         argcount + ", " + argsize + ");"
+                  << indent + "}";
 
             UserType* ut = get_user_type_for_deep_copy(edl_, prop);
             if (!ut)
@@ -469,7 +503,7 @@ class WEmitter
             if (count == "1" || count == "")
             {
                 add_size_deep_copy(
-                    cond, expr, buffer_size, prop, level + 1, indent);
+                    cond, expr, buffer_size, prop, level + 1, indent, _is_popsgx);
             }
             else
             {
@@ -480,7 +514,7 @@ class WEmitter
                              " < " + count + "; " + idx + "++)"
                       << indent + "{";
                 add_size_deep_copy(
-                    cond, expr, buffer_size, prop, level + 1, indent + "    ");
+                    cond, expr, buffer_size, prop, level + 1, indent + "    ", _is_popsgx);
                 out() << indent + "}";
             }
         });
@@ -578,10 +612,13 @@ class WEmitter
             std::string argsize = psize(p, "_args.");
             std::string argtype = ptype(p, "_args.");
             out() << "    "
-                  << "    if (" + p->name_ + ")"
-                  << "        _args." + p->name_ + " = " + argtype + " " + buffer_size + ";"
-                  << "        OE_ADD_ARG_SIZE(" + buffer_size + ", " +
-                         argcount + ", " + argsize + ");";
+                  << "    if (" + p->name_ + "){";
+            if(input){
+                out() << "        _args." + p->name_ + " = " + argtype + " " + buffer_size + ";";
+            }
+            out() << "        OE_ADD_ARG_SIZE(" + buffer_size + ", " +
+                         argcount + ", " + argsize + ");"
+                  << "    }";
             empty = false;
 
             /* Skip the nested pointers if the parameter is not
@@ -591,12 +628,12 @@ class WEmitter
                 continue;
 
             std::string count = count_attr_str(p->attrs_->count_, "_args.");
-
+           
             if (count == "1" || count == "")
             {
                 std::string cond = p->name_;
                 std::string expr = p->name_;
-                add_size_deep_copy(cond, expr, buffer_size, p, 2, "    ");
+                add_size_deep_copy(cond, expr, buffer_size, p, 2, "    ", true, argtype);
             }
             else
             {
@@ -605,7 +642,7 @@ class WEmitter
                 out() << "    for (size_t _i_1 = 0; _i_1 < " + count +
                              "; _i_1++)"
                       << "    {";
-                add_size_deep_copy(cond, expr, buffer_size, p, 2, "        ");
+                add_size_deep_copy(cond, expr, buffer_size, p, 2, "        ", true, argtype);
                 out() << "    }";
             }
         }

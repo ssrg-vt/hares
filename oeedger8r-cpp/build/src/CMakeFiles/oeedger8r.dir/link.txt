@@ -1,0 +1,1 @@
+/usr/bin/clang++-10 -g -rdynamic CMakeFiles/oeedger8r.dir/main.cpp.o CMakeFiles/oeedger8r.dir/parser.cpp.o CMakeFiles/oeedger8r.dir/lexer.cpp.o -o oeedger8r 
