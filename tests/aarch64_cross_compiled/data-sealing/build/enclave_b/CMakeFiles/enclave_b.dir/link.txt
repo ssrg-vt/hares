@@ -1,0 +1,1 @@
+/usr/bin/aarch64-linux-gnu-g++     CMakeFiles/enclave_b.dir/ecalls.cpp.o ../common/CMakeFiles/common.dir/dispatcher.cpp.o ../common/CMakeFiles/common.dir/datasealing_t.c.o  -o enclave_b 

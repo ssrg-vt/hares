@@ -1,0 +1,1 @@
+/usr/bin/aarch64-linux-gnu-g++     CMakeFiles/data-sealing_host.dir/host.cpp.o CMakeFiles/data-sealing_host.dir/datasealing_u.c.o  -o data-sealing_host /home/oe-sdk-aarch64/lib/openenclave/host/liboehost.a /usr/lib/aarch64-linux-gnu/libcrypto.so /usr/lib/aarch64-linux-gnu/libdl.so -lpthread -Wl,-z,noexecstack /home/oe-sdk-aarch64/lib/openenclave/optee/libteec/libteec.a 
