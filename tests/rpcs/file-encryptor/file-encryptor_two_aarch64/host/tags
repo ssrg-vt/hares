@@ -1,0 +1,1316 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CFLAGS	Makefile	/^CFLAGS=$(shell pkg-config oehost-$(C_COMPILER) --cflags)$/;"	m
+CIPHER_BLOCK_SIZE	host.cpp	20;"	d	file:
+CXXFLAGS	Makefile	/^CXXFLAGS=$(shell pkg-config oehost-$(CXX_COMPILER) --cflags)$/;"	m
+DATA_BLOCK_SIZE	host.cpp	21;"	d	file:
+DECRYPT_OPERATION	host.cpp	23;"	d	file:
+EDGER8R_FILEENCRYPTOR_ARGS_H	fileencryptor_args.h	5;"	d
+EDGER8R_FILEENCRYPTOR_U_H	fileencryptor_u.h	5;"	d
+EDGER8R_STRUCT_FORMAT_IDS_T	fileencryptor_args.h	127;"	d
+EDGER8R_STRUCT_OE_ADDRINFO	fileencryptor_args.h	90;"	d
+EDGER8R_STRUCT_OE_DIRENT	fileencryptor_args.h	19;"	d
+EDGER8R_STRUCT_OE_ENCLAVE_WORKER_CONTEXT_T	fileencryptor_args.h	158;"	d
+EDGER8R_STRUCT_OE_HOST_POLLFD	fileencryptor_args.h	61;"	d
+EDGER8R_STRUCT_OE_HOST_WORKER_CONTEXT_T	fileencryptor_args.h	145;"	d
+EDGER8R_STRUCT_OE_POLLFD	fileencryptor_args.h	71;"	d
+EDGER8R_STRUCT_OE_REPORT_BUFFER_T	fileencryptor_args.h	136;"	d
+EDGER8R_STRUCT_OE_SOCKADDR	fileencryptor_args.h	81;"	d
+EDGER8R_STRUCT_OE_STAT_T	fileencryptor_args.h	40;"	d
+EDGER8R_STRUCT_OE_TIMESPEC	fileencryptor_args.h	105;"	d
+EDGER8R_STRUCT_OE_UTSNAME	fileencryptor_args.h	114;"	d
+EDGER8R_STRUCT_TDX_QUOTE_COLLATERAL_T	fileencryptor_args.h	172;"	d
+EDGER8R_STRUCT___ST	fileencryptor_args.h	31;"	d
+ENCRYPT_OPERATION	host.cpp	22;"	d	file:
+INCDIR	Makefile	/^INCDIR=$(shell pkg-config oehost-$(C_COMPILER) --variable=includedir)$/;"	m
+LDFLAGS	Makefile	/^LDFLAGS=$(shell pkg-config oehost-$(CXX_COMPILER) --libs)$/;"	m
+__st	fileencryptor_args.h	/^typedef struct __st$/;"	s
+__st	fileencryptor_args.h	/^} __st;$/;"	t	typeref:struct:__st
+__st_pad0	fileencryptor_args.h	/^    uint32_t __st_pad0;$/;"	m	struct:oe_stat_t
+_close_encryptor_args_t	fileencryptor_u.c	/^typedef struct _close_encryptor_args_t$/;"	s	file:
+_encrypt_block_args_t	fileencryptor_u.c	/^typedef struct _encrypt_block_args_t$/;"	s	file:
+_fileencryptor_ecall_info_table	fileencryptor_u.c	/^static const oe_ecall_info_t _fileencryptor_ecall_info_table[] = $/;"	v	file:
+_fileencryptor_ocall_function_table	fileencryptor_u.c	/^static oe_ocall_func_t _fileencryptor_ocall_function_table[] = {$/;"	v	file:
+_initialize_encryptor_args_t	fileencryptor_u.c	/^typedef struct _initialize_encryptor_args_t$/;"	s	file:
+_oe_get_qetarget_info_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_get_qetarget_info_ocall_args_t$/;"	s	file:
+_oe_get_quote_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_get_quote_ocall_args_t$/;"	s	file:
+_oe_get_quote_verification_collateral_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_get_quote_verification_collateral_ocall_args_t$/;"	s	file:
+_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_get_quote_verification_collateral_with_baseline_ocall_args_t$/;"	s	file:
+_oe_get_report_v2_ecall_args_t	fileencryptor_u.c	/^typedef struct _oe_get_report_v2_ecall_args_t$/;"	s	file:
+_oe_get_sgx_report_ecall_args_t	fileencryptor_u.c	/^typedef struct _oe_get_sgx_report_ecall_args_t$/;"	s	file:
+_oe_get_supported_attester_format_ids_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_get_supported_attester_format_ids_ocall_args_t$/;"	s	file:
+_oe_get_tdx_quote_verification_collateral_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_get_tdx_quote_verification_collateral_ocall_args_t$/;"	s	file:
+_oe_sgx_backtrace_symbols_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_sgx_backtrace_symbols_ocall_args_t$/;"	s	file:
+_oe_sgx_get_cpuid_table_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_sgx_get_cpuid_table_ocall_args_t$/;"	s	file:
+_oe_sgx_init_context_switchless_ecall_args_t	fileencryptor_u.c	/^typedef struct _oe_sgx_init_context_switchless_ecall_args_t$/;"	s	file:
+_oe_sgx_log_backtrace_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_sgx_log_backtrace_ocall_args_t$/;"	s	file:
+_oe_sgx_sleep_switchless_worker_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_sgx_sleep_switchless_worker_ocall_args_t$/;"	s	file:
+_oe_sgx_switchless_enclave_worker_thread_ecall_args_t	fileencryptor_u.c	/^typedef struct _oe_sgx_switchless_enclave_worker_thread_ecall_args_t$/;"	s	file:
+_oe_sgx_thread_wake_wait_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_sgx_thread_wake_wait_ocall_args_t$/;"	s	file:
+_oe_sgx_wake_switchless_worker_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_sgx_wake_switchless_worker_ocall_args_t$/;"	s	file:
+_oe_syscall_accept_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_accept_ocall_args_t$/;"	s	file:
+_oe_syscall_access_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_access_ocall_args_t$/;"	s	file:
+_oe_syscall_bind_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_bind_ocall_args_t$/;"	s	file:
+_oe_syscall_clock_nanosleep_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_clock_nanosleep_ocall_args_t$/;"	s	file:
+_oe_syscall_close_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_close_ocall_args_t$/;"	s	file:
+_oe_syscall_close_socket_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_close_socket_ocall_args_t$/;"	s	file:
+_oe_syscall_closedir_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_closedir_ocall_args_t$/;"	s	file:
+_oe_syscall_connect_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_connect_ocall_args_t$/;"	s	file:
+_oe_syscall_dup_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_dup_ocall_args_t$/;"	s	file:
+_oe_syscall_epoll_close_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_epoll_close_ocall_args_t$/;"	s	file:
+_oe_syscall_epoll_create1_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_epoll_create1_ocall_args_t$/;"	s	file:
+_oe_syscall_epoll_ctl_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_epoll_ctl_ocall_args_t$/;"	s	file:
+_oe_syscall_epoll_wait_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_epoll_wait_ocall_args_t$/;"	s	file:
+_oe_syscall_epoll_wake_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_epoll_wake_ocall_args_t$/;"	s	file:
+_oe_syscall_fcntl_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_fcntl_ocall_args_t$/;"	s	file:
+_oe_syscall_fdatasync_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_fdatasync_ocall_args_t$/;"	s	file:
+_oe_syscall_flock_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_flock_ocall_args_t$/;"	s	file:
+_oe_syscall_fstat_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_fstat_ocall_args_t$/;"	s	file:
+_oe_syscall_fsync_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_fsync_ocall_args_t$/;"	s	file:
+_oe_syscall_ftruncate_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_ftruncate_ocall_args_t$/;"	s	file:
+_oe_syscall_getaddrinfo_close_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_getaddrinfo_close_ocall_args_t$/;"	s	file:
+_oe_syscall_getaddrinfo_open_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_getaddrinfo_open_ocall_args_t$/;"	s	file:
+_oe_syscall_getaddrinfo_read_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_getaddrinfo_read_ocall_args_t$/;"	s	file:
+_oe_syscall_getegid_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_getegid_ocall_args_t$/;"	s	file:
+_oe_syscall_geteuid_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_geteuid_ocall_args_t$/;"	s	file:
+_oe_syscall_getgid_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_getgid_ocall_args_t$/;"	s	file:
+_oe_syscall_getgroups_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_getgroups_ocall_args_t$/;"	s	file:
+_oe_syscall_getnameinfo_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_getnameinfo_ocall_args_t$/;"	s	file:
+_oe_syscall_getpeername_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_getpeername_ocall_args_t$/;"	s	file:
+_oe_syscall_getpgid_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_getpgid_ocall_args_t$/;"	s	file:
+_oe_syscall_getpgrp_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_getpgrp_ocall_args_t$/;"	s	file:
+_oe_syscall_getpid_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_getpid_ocall_args_t$/;"	s	file:
+_oe_syscall_getppid_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_getppid_ocall_args_t$/;"	s	file:
+_oe_syscall_getsockname_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_getsockname_ocall_args_t$/;"	s	file:
+_oe_syscall_getsockopt_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_getsockopt_ocall_args_t$/;"	s	file:
+_oe_syscall_getuid_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_getuid_ocall_args_t$/;"	s	file:
+_oe_syscall_ioctl_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_ioctl_ocall_args_t$/;"	s	file:
+_oe_syscall_kill_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_kill_ocall_args_t$/;"	s	file:
+_oe_syscall_link_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_link_ocall_args_t$/;"	s	file:
+_oe_syscall_listen_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_listen_ocall_args_t$/;"	s	file:
+_oe_syscall_lseek_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_lseek_ocall_args_t$/;"	s	file:
+_oe_syscall_mkdir_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_mkdir_ocall_args_t$/;"	s	file:
+_oe_syscall_nanosleep_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_nanosleep_ocall_args_t$/;"	s	file:
+_oe_syscall_open_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_open_ocall_args_t$/;"	s	file:
+_oe_syscall_opendir_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_opendir_ocall_args_t$/;"	s	file:
+_oe_syscall_poll_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_poll_ocall_args_t$/;"	s	file:
+_oe_syscall_pread_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_pread_ocall_args_t$/;"	s	file:
+_oe_syscall_pwrite_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_pwrite_ocall_args_t$/;"	s	file:
+_oe_syscall_read_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_read_ocall_args_t$/;"	s	file:
+_oe_syscall_readdir_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_readdir_ocall_args_t$/;"	s	file:
+_oe_syscall_readv_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_readv_ocall_args_t$/;"	s	file:
+_oe_syscall_recv_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_recv_ocall_args_t$/;"	s	file:
+_oe_syscall_recvfrom_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_recvfrom_ocall_args_t$/;"	s	file:
+_oe_syscall_recvmsg_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_recvmsg_ocall_args_t$/;"	s	file:
+_oe_syscall_recvv_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_recvv_ocall_args_t$/;"	s	file:
+_oe_syscall_rename_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_rename_ocall_args_t$/;"	s	file:
+_oe_syscall_rewinddir_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_rewinddir_ocall_args_t$/;"	s	file:
+_oe_syscall_rmdir_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_rmdir_ocall_args_t$/;"	s	file:
+_oe_syscall_send_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_send_ocall_args_t$/;"	s	file:
+_oe_syscall_sendmsg_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_sendmsg_ocall_args_t$/;"	s	file:
+_oe_syscall_sendto_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_sendto_ocall_args_t$/;"	s	file:
+_oe_syscall_sendv_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_sendv_ocall_args_t$/;"	s	file:
+_oe_syscall_setsockopt_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_setsockopt_ocall_args_t$/;"	s	file:
+_oe_syscall_shutdown_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_shutdown_ocall_args_t$/;"	s	file:
+_oe_syscall_shutdown_sockets_device_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_shutdown_sockets_device_ocall_args_t$/;"	s	file:
+_oe_syscall_socket_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_socket_ocall_args_t$/;"	s	file:
+_oe_syscall_socketpair_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_socketpair_ocall_args_t$/;"	s	file:
+_oe_syscall_stat_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_stat_ocall_args_t$/;"	s	file:
+_oe_syscall_truncate_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_truncate_ocall_args_t$/;"	s	file:
+_oe_syscall_uname_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_uname_ocall_args_t$/;"	s	file:
+_oe_syscall_unlink_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_unlink_ocall_args_t$/;"	s	file:
+_oe_syscall_write_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_write_ocall_args_t$/;"	s	file:
+_oe_syscall_writev_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_syscall_writev_ocall_args_t$/;"	s	file:
+_oe_verify_local_report_ecall_args_t	fileencryptor_u.c	/^typedef struct _oe_verify_local_report_ecall_args_t$/;"	s	file:
+_oe_verify_quote_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_verify_quote_ocall_args_t$/;"	s	file:
+_oe_verify_tdx_quote_ocall_args_t	fileencryptor_u.c	/^typedef struct _oe_verify_tdx_quote_ocall_args_t$/;"	s	file:
+addr	fileencryptor_u.c	/^    struct oe_sockaddr* addr;$/;"	m	struct:_oe_syscall_accept_ocall_args_t	typeref:struct:_oe_syscall_accept_ocall_args_t::oe_sockaddr	file:
+addr	fileencryptor_u.c	/^    struct oe_sockaddr* addr;$/;"	m	struct:_oe_syscall_bind_ocall_args_t	typeref:struct:_oe_syscall_bind_ocall_args_t::oe_sockaddr	file:
+addr	fileencryptor_u.c	/^    struct oe_sockaddr* addr;$/;"	m	struct:_oe_syscall_connect_ocall_args_t	typeref:struct:_oe_syscall_connect_ocall_args_t::oe_sockaddr	file:
+addr	fileencryptor_u.c	/^    struct oe_sockaddr* addr;$/;"	m	struct:_oe_syscall_getpeername_ocall_args_t	typeref:struct:_oe_syscall_getpeername_ocall_args_t::oe_sockaddr	file:
+addr	fileencryptor_u.c	/^    struct oe_sockaddr* addr;$/;"	m	struct:_oe_syscall_getsockname_ocall_args_t	typeref:struct:_oe_syscall_getsockname_ocall_args_t::oe_sockaddr	file:
+addrlen	fileencryptor_u.c	/^    oe_socklen_t addrlen;$/;"	m	struct:_oe_syscall_bind_ocall_args_t	file:
+addrlen	fileencryptor_u.c	/^    oe_socklen_t addrlen;$/;"	m	struct:_oe_syscall_connect_ocall_args_t	file:
+addrlen	fileencryptor_u.c	/^    oe_socklen_t addrlen;$/;"	m	struct:_oe_syscall_sendto_ocall_args_t	file:
+addrlen_in	fileencryptor_u.c	/^    oe_socklen_t addrlen_in;$/;"	m	struct:_oe_syscall_accept_ocall_args_t	file:
+addrlen_in	fileencryptor_u.c	/^    oe_socklen_t addrlen_in;$/;"	m	struct:_oe_syscall_getpeername_ocall_args_t	file:
+addrlen_in	fileencryptor_u.c	/^    oe_socklen_t addrlen_in;$/;"	m	struct:_oe_syscall_getsockname_ocall_args_t	file:
+addrlen_in	fileencryptor_u.c	/^    oe_socklen_t addrlen_in;$/;"	m	struct:_oe_syscall_recvfrom_ocall_args_t	file:
+addrlen_out	fileencryptor_u.c	/^    oe_socklen_t* addrlen_out;$/;"	m	struct:_oe_syscall_accept_ocall_args_t	file:
+addrlen_out	fileencryptor_u.c	/^    oe_socklen_t* addrlen_out;$/;"	m	struct:_oe_syscall_getpeername_ocall_args_t	file:
+addrlen_out	fileencryptor_u.c	/^    oe_socklen_t* addrlen_out;$/;"	m	struct:_oe_syscall_getsockname_ocall_args_t	file:
+addrlen_out	fileencryptor_u.c	/^    oe_socklen_t* addrlen_out;$/;"	m	struct:_oe_syscall_recvfrom_ocall_args_t	file:
+ai_addr	fileencryptor_args.h	/^    struct oe_sockaddr* ai_addr;$/;"	m	struct:oe_addrinfo	typeref:struct:oe_addrinfo::oe_sockaddr
+ai_addr	fileencryptor_u.c	/^    struct oe_sockaddr* ai_addr;$/;"	m	struct:_oe_syscall_getaddrinfo_read_ocall_args_t	typeref:struct:_oe_syscall_getaddrinfo_read_ocall_args_t::oe_sockaddr	file:
+ai_addrlen	fileencryptor_args.h	/^    oe_socklen_t ai_addrlen;$/;"	m	struct:oe_addrinfo
+ai_addrlen	fileencryptor_u.c	/^    oe_socklen_t* ai_addrlen;$/;"	m	struct:_oe_syscall_getaddrinfo_read_ocall_args_t	file:
+ai_addrlen_in	fileencryptor_u.c	/^    oe_socklen_t ai_addrlen_in;$/;"	m	struct:_oe_syscall_getaddrinfo_read_ocall_args_t	file:
+ai_canonname	fileencryptor_args.h	/^    char* ai_canonname;$/;"	m	struct:oe_addrinfo
+ai_canonname	fileencryptor_u.c	/^    char* ai_canonname;$/;"	m	struct:_oe_syscall_getaddrinfo_read_ocall_args_t	file:
+ai_canonnamelen	fileencryptor_u.c	/^    size_t* ai_canonnamelen;$/;"	m	struct:_oe_syscall_getaddrinfo_read_ocall_args_t	file:
+ai_canonnamelen_in	fileencryptor_u.c	/^    size_t ai_canonnamelen_in;$/;"	m	struct:_oe_syscall_getaddrinfo_read_ocall_args_t	file:
+ai_family	fileencryptor_args.h	/^    int ai_family;$/;"	m	struct:oe_addrinfo
+ai_family	fileencryptor_u.c	/^    int* ai_family;$/;"	m	struct:_oe_syscall_getaddrinfo_read_ocall_args_t	file:
+ai_flags	fileencryptor_args.h	/^    int ai_flags;$/;"	m	struct:oe_addrinfo
+ai_flags	fileencryptor_u.c	/^    int* ai_flags;$/;"	m	struct:_oe_syscall_getaddrinfo_read_ocall_args_t	file:
+ai_next	fileencryptor_args.h	/^    struct oe_addrinfo* ai_next;$/;"	m	struct:oe_addrinfo	typeref:struct:oe_addrinfo::oe_addrinfo
+ai_protocol	fileencryptor_args.h	/^    int ai_protocol;$/;"	m	struct:oe_addrinfo
+ai_protocol	fileencryptor_u.c	/^    int* ai_protocol;$/;"	m	struct:_oe_syscall_getaddrinfo_read_ocall_args_t	file:
+ai_socktype	fileencryptor_args.h	/^    int ai_socktype;$/;"	m	struct:oe_addrinfo
+ai_socktype	fileencryptor_u.c	/^    int* ai_socktype;$/;"	m	struct:_oe_syscall_getaddrinfo_read_ocall_args_t	file:
+arg	fileencryptor_u.c	/^    uint64_t arg;$/;"	m	struct:_oe_syscall_fcntl_ocall_args_t	file:
+arg	fileencryptor_u.c	/^    uint64_t arg;$/;"	m	struct:_oe_syscall_ioctl_ocall_args_t	file:
+argout	fileencryptor_u.c	/^    void* argout;$/;"	m	struct:_oe_syscall_fcntl_ocall_args_t	file:
+argout	fileencryptor_u.c	/^    void* argout;$/;"	m	struct:_oe_syscall_ioctl_ocall_args_t	file:
+argsize	fileencryptor_u.c	/^    uint64_t argsize;$/;"	m	struct:_oe_syscall_fcntl_ocall_args_t	file:
+argsize	fileencryptor_u.c	/^    uint64_t argsize;$/;"	m	struct:_oe_syscall_ioctl_ocall_args_t	file:
+backlog	fileencryptor_u.c	/^    int backlog;$/;"	m	struct:_oe_syscall_listen_ocall_args_t	file:
+baseline	fileencryptor_u.c	/^    void* baseline;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+baseline_size	fileencryptor_u.c	/^    size_t baseline_size;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+buf	fileencryptor_u.c	/^    struct oe_stat_t* buf;$/;"	m	struct:_oe_syscall_fstat_ocall_args_t	typeref:struct:_oe_syscall_fstat_ocall_args_t::oe_stat_t	file:
+buf	fileencryptor_u.c	/^    struct oe_stat_t* buf;$/;"	m	struct:_oe_syscall_stat_ocall_args_t	typeref:struct:_oe_syscall_stat_ocall_args_t::oe_stat_t	file:
+buf	fileencryptor_u.c	/^    struct oe_utsname* buf;$/;"	m	struct:_oe_syscall_uname_ocall_args_t	typeref:struct:_oe_syscall_uname_ocall_args_t::oe_utsname	file:
+buf	fileencryptor_u.c	/^    void* buf;$/;"	m	struct:_oe_syscall_pread_ocall_args_t	file:
+buf	fileencryptor_u.c	/^    void* buf;$/;"	m	struct:_oe_syscall_pwrite_ocall_args_t	file:
+buf	fileencryptor_u.c	/^    void* buf;$/;"	m	struct:_oe_syscall_read_ocall_args_t	file:
+buf	fileencryptor_u.c	/^    void* buf;$/;"	m	struct:_oe_syscall_recv_ocall_args_t	file:
+buf	fileencryptor_u.c	/^    void* buf;$/;"	m	struct:_oe_syscall_recvfrom_ocall_args_t	file:
+buf	fileencryptor_u.c	/^    void* buf;$/;"	m	struct:_oe_syscall_send_ocall_args_t	file:
+buf	fileencryptor_u.c	/^    void* buf;$/;"	m	struct:_oe_syscall_sendto_ocall_args_t	file:
+buf	fileencryptor_u.c	/^    void* buf;$/;"	m	struct:_oe_syscall_write_ocall_args_t	file:
+buffer	fileencryptor_args.h	/^    uint8_t* buffer;$/;"	m	struct:oe_report_buffer_t
+buffer	fileencryptor_u.c	/^    uint64_t* buffer;$/;"	m	struct:_oe_sgx_backtrace_symbols_ocall_args_t	file:
+buffer	fileencryptor_u.c	/^    uint64_t* buffer;$/;"	m	struct:_oe_sgx_log_backtrace_ocall_args_t	file:
+call_arg	fileencryptor_args.h	/^    void* call_arg;$/;"	m	struct:oe_enclave_worker_context_t
+call_arg	fileencryptor_args.h	/^    void* call_arg;$/;"	m	struct:oe_host_worker_context_t
+check_simulate_opt	host.cpp	/^bool check_simulate_opt(int* argc, const char* argv[])$/;"	f
+clockid	fileencryptor_u.c	/^    oe_clockid_t clockid;$/;"	m	struct:_oe_syscall_clock_nanosleep_ocall_args_t	file:
+close_encryptor_args_t	fileencryptor_u.c	/^} close_encryptor_args_t;$/;"	t	typeref:struct:_close_encryptor_args_t	file:
+cmd	fileencryptor_u.c	/^    int cmd;$/;"	m	struct:_oe_syscall_fcntl_ocall_args_t	file:
+collateral	fileencryptor_u.c	/^    tdx_quote_collateral_t* collateral;$/;"	m	struct:_oe_get_tdx_quote_verification_collateral_ocall_args_t	file:
+collateral_provider	fileencryptor_u.c	/^    uint8_t collateral_provider;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+collateral_provider	fileencryptor_u.c	/^    uint8_t collateral_provider;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+collateral_version	fileencryptor_u.c	/^    uint32_t collateral_version;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+compare_2_files	host.cpp	/^int compare_2_files(const char* first_file, const char* second_file)$/;"	f
+context	fileencryptor_u.c	/^    oe_enclave_worker_context_t* context;$/;"	m	struct:_oe_sgx_sleep_switchless_worker_ocall_args_t	file:
+context	fileencryptor_u.c	/^    oe_enclave_worker_context_t* context;$/;"	m	struct:_oe_sgx_switchless_enclave_worker_thread_ecall_args_t	file:
+context	fileencryptor_u.c	/^    oe_host_worker_context_t* context;$/;"	m	struct:_oe_sgx_wake_switchless_worker_ocall_args_t	file:
+count	fileencryptor_u.c	/^    size_t count;$/;"	m	struct:_oe_syscall_pread_ocall_args_t	file:
+count	fileencryptor_u.c	/^    size_t count;$/;"	m	struct:_oe_syscall_pwrite_ocall_args_t	file:
+count	fileencryptor_u.c	/^    size_t count;$/;"	m	struct:_oe_syscall_read_ocall_args_t	file:
+count	fileencryptor_u.c	/^    size_t count;$/;"	m	struct:_oe_syscall_write_ocall_args_t	file:
+cpuid_table_buffer	fileencryptor_u.c	/^    void* cpuid_table_buffer;$/;"	m	struct:_oe_sgx_get_cpuid_table_ocall_args_t	file:
+cpuid_table_buffer_size	fileencryptor_u.c	/^    size_t cpuid_table_buffer_size;$/;"	m	struct:_oe_sgx_get_cpuid_table_ocall_args_t	file:
+d_ino	fileencryptor_args.h	/^    uint64_t d_ino;$/;"	m	struct:oe_dirent
+d_name	fileencryptor_args.h	/^    char d_name[256];$/;"	m	struct:oe_dirent
+d_off	fileencryptor_args.h	/^    oe_off_t d_off;$/;"	m	struct:oe_dirent
+d_reclen	fileencryptor_args.h	/^    uint16_t d_reclen;$/;"	m	struct:oe_dirent
+d_type	fileencryptor_args.h	/^    uint8_t d_type;$/;"	m	struct:oe_dirent
+data	fileencryptor_args.h	/^    uint8_t* data;$/;"	m	struct:tdx_quote_collateral_t
+data	fileencryptor_args.h	/^    void* data;$/;"	m	struct:format_ids_t
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_close_encryptor_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_encrypt_block_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_initialize_encryptor_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_get_qetarget_info_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_get_quote_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_get_report_v2_ecall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_get_sgx_report_ecall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_get_supported_attester_format_ids_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_get_tdx_quote_verification_collateral_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_sgx_backtrace_symbols_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_sgx_get_cpuid_table_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_sgx_init_context_switchless_ecall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_sgx_log_backtrace_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_sgx_sleep_switchless_worker_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_sgx_switchless_enclave_worker_thread_ecall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_sgx_thread_wake_wait_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_sgx_wake_switchless_worker_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_accept_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_access_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_bind_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_clock_nanosleep_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_close_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_close_socket_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_closedir_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_connect_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_dup_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_epoll_close_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_epoll_create1_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_epoll_ctl_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_epoll_wait_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_epoll_wake_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_fcntl_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_fdatasync_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_flock_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_fstat_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_fsync_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_ftruncate_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_getaddrinfo_close_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_getaddrinfo_open_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_getaddrinfo_read_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_getegid_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_geteuid_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_getgid_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_getgroups_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_getnameinfo_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_getpeername_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_getpgid_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_getpgrp_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_getpid_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_getppid_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_getsockname_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_getsockopt_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_getuid_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_ioctl_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_kill_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_link_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_listen_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_lseek_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_mkdir_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_nanosleep_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_open_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_opendir_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_poll_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_pread_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_pwrite_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_read_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_readdir_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_readv_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_recv_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_recvfrom_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_recvmsg_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_recvv_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_rename_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_rewinddir_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_rmdir_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_send_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_sendmsg_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_sendto_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_sendv_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_setsockopt_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_shutdown_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_shutdown_sockets_device_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_socket_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_socketpair_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_stat_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_truncate_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_uname_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_unlink_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_write_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_syscall_writev_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_verify_local_report_ecall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+deepcopy_out_buffer	fileencryptor_u.c	/^    uint8_t* deepcopy_out_buffer;$/;"	m	struct:_oe_verify_tdx_quote_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_close_encryptor_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_encrypt_block_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_initialize_encryptor_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_get_qetarget_info_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_get_quote_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_get_report_v2_ecall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_get_sgx_report_ecall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_get_supported_attester_format_ids_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_get_tdx_quote_verification_collateral_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_sgx_backtrace_symbols_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_sgx_get_cpuid_table_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_sgx_init_context_switchless_ecall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_sgx_log_backtrace_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_sgx_sleep_switchless_worker_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_sgx_switchless_enclave_worker_thread_ecall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_sgx_thread_wake_wait_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_sgx_wake_switchless_worker_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_accept_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_access_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_bind_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_clock_nanosleep_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_close_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_close_socket_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_closedir_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_connect_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_dup_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_epoll_close_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_epoll_create1_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_epoll_ctl_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_epoll_wait_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_epoll_wake_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_fcntl_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_fdatasync_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_flock_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_fstat_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_fsync_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_ftruncate_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_getaddrinfo_close_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_getaddrinfo_open_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_getaddrinfo_read_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_getegid_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_geteuid_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_getgid_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_getgroups_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_getnameinfo_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_getpeername_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_getpgid_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_getpgrp_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_getpid_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_getppid_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_getsockname_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_getsockopt_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_getuid_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_ioctl_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_kill_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_link_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_listen_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_lseek_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_mkdir_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_nanosleep_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_open_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_opendir_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_poll_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_pread_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_pwrite_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_read_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_readdir_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_readv_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_recv_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_recvfrom_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_recvmsg_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_recvv_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_rename_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_rewinddir_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_rmdir_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_send_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_sendmsg_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_sendto_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_sendv_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_setsockopt_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_shutdown_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_shutdown_sockets_device_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_socket_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_socketpair_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_stat_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_truncate_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_uname_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_unlink_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_write_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_syscall_writev_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_verify_local_report_ecall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+deepcopy_out_buffer_size	fileencryptor_u.c	/^    size_t deepcopy_out_buffer_size;$/;"	m	struct:_oe_verify_tdx_quote_ocall_args_t	file:
+dest_addr	fileencryptor_u.c	/^    struct oe_sockaddr* dest_addr;$/;"	m	struct:_oe_syscall_sendto_ocall_args_t	typeref:struct:_oe_syscall_sendto_ocall_args_t::oe_sockaddr	file:
+dirp	fileencryptor_u.c	/^    uint64_t dirp;$/;"	m	struct:_oe_syscall_closedir_ocall_args_t	file:
+dirp	fileencryptor_u.c	/^    uint64_t dirp;$/;"	m	struct:_oe_syscall_readdir_ocall_args_t	file:
+dirp	fileencryptor_u.c	/^    uint64_t dirp;$/;"	m	struct:_oe_syscall_rewinddir_ocall_args_t	file:
+domain	fileencryptor_u.c	/^    int domain;$/;"	m	struct:_oe_syscall_socket_ocall_args_t	file:
+domain	fileencryptor_u.c	/^    int domain;$/;"	m	struct:_oe_syscall_socketpair_ocall_args_t	file:
+domainname	fileencryptor_args.h	/^    char domainname[65];$/;"	m	struct:oe_utsname
+dump_header	host.cpp	/^void dump_header(encryption_header_t* _header)$/;"	f
+enc	fileencryptor_args.h	/^    oe_enclave_t* enc;$/;"	m	struct:oe_enclave_worker_context_t
+enc	fileencryptor_args.h	/^    oe_enclave_t* enc;$/;"	m	struct:oe_host_worker_context_t
+encrypt	fileencryptor_u.c	/^    bool encrypt;$/;"	m	struct:_encrypt_block_args_t	file:
+encrypt	fileencryptor_u.c	/^    bool encrypt;$/;"	m	struct:_initialize_encryptor_args_t	file:
+encrypt_block_args_t	fileencryptor_u.c	/^} encrypt_block_args_t;$/;"	t	typeref:struct:_encrypt_block_args_t	file:
+encrypt_file	host.cpp	/^int encrypt_file($/;"	f
+endorsements_size	fileencryptor_u.c	/^    uint32_t endorsements_size;$/;"	m	struct:_oe_verify_tdx_quote_ocall_args_t	file:
+entry	fileencryptor_u.c	/^    struct oe_dirent* entry;$/;"	m	struct:_oe_syscall_readdir_ocall_args_t	typeref:struct:_oe_syscall_readdir_ocall_args_t::oe_dirent	file:
+epfd	fileencryptor_u.c	/^    int64_t epfd;$/;"	m	struct:_oe_syscall_epoll_ctl_ocall_args_t	file:
+epfd	fileencryptor_u.c	/^    int64_t epfd;$/;"	m	struct:_oe_syscall_epoll_wait_ocall_args_t	file:
+epfd	fileencryptor_u.c	/^    oe_host_fd_t epfd;$/;"	m	struct:_oe_syscall_epoll_close_ocall_args_t	file:
+event	fileencryptor_args.h	/^    int64_t event;$/;"	m	struct:oe_enclave_worker_context_t
+event	fileencryptor_args.h	/^    int64_t event;$/;"	m	struct:oe_host_worker_context_t
+event	fileencryptor_u.c	/^    struct oe_epoll_event* event;$/;"	m	struct:_oe_syscall_epoll_ctl_ocall_args_t	typeref:struct:_oe_syscall_epoll_ctl_ocall_args_t::oe_epoll_event	file:
+events	fileencryptor_args.h	/^    short int events;$/;"	m	struct:oe_host_pollfd
+events	fileencryptor_args.h	/^    short int events;$/;"	m	struct:oe_pollfd
+events	fileencryptor_u.c	/^    struct oe_epoll_event* events;$/;"	m	struct:_oe_syscall_epoll_wait_ocall_args_t	typeref:struct:_oe_syscall_epoll_wait_ocall_args_t::oe_epoll_event	file:
+expiration_check_date	fileencryptor_u.c	/^    time_t expiration_check_date;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+expiration_check_date	fileencryptor_u.c	/^    time_t expiration_check_date;$/;"	m	struct:_oe_verify_tdx_quote_ocall_args_t	file:
+fd	fileencryptor_args.h	/^    int fd;$/;"	m	struct:oe_pollfd
+fd	fileencryptor_args.h	/^    oe_host_fd_t fd;$/;"	m	struct:oe_host_pollfd
+fd	fileencryptor_u.c	/^    int64_t fd;$/;"	m	struct:_oe_syscall_epoll_ctl_ocall_args_t	file:
+fd	fileencryptor_u.c	/^    oe_host_fd_t fd;$/;"	m	struct:_oe_syscall_close_ocall_args_t	file:
+fd	fileencryptor_u.c	/^    oe_host_fd_t fd;$/;"	m	struct:_oe_syscall_fcntl_ocall_args_t	file:
+fd	fileencryptor_u.c	/^    oe_host_fd_t fd;$/;"	m	struct:_oe_syscall_fdatasync_ocall_args_t	file:
+fd	fileencryptor_u.c	/^    oe_host_fd_t fd;$/;"	m	struct:_oe_syscall_flock_ocall_args_t	file:
+fd	fileencryptor_u.c	/^    oe_host_fd_t fd;$/;"	m	struct:_oe_syscall_fstat_ocall_args_t	file:
+fd	fileencryptor_u.c	/^    oe_host_fd_t fd;$/;"	m	struct:_oe_syscall_fsync_ocall_args_t	file:
+fd	fileencryptor_u.c	/^    oe_host_fd_t fd;$/;"	m	struct:_oe_syscall_ftruncate_ocall_args_t	file:
+fd	fileencryptor_u.c	/^    oe_host_fd_t fd;$/;"	m	struct:_oe_syscall_ioctl_ocall_args_t	file:
+fd	fileencryptor_u.c	/^    oe_host_fd_t fd;$/;"	m	struct:_oe_syscall_lseek_ocall_args_t	file:
+fd	fileencryptor_u.c	/^    oe_host_fd_t fd;$/;"	m	struct:_oe_syscall_pread_ocall_args_t	file:
+fd	fileencryptor_u.c	/^    oe_host_fd_t fd;$/;"	m	struct:_oe_syscall_pwrite_ocall_args_t	file:
+fd	fileencryptor_u.c	/^    oe_host_fd_t fd;$/;"	m	struct:_oe_syscall_read_ocall_args_t	file:
+fd	fileencryptor_u.c	/^    oe_host_fd_t fd;$/;"	m	struct:_oe_syscall_readv_ocall_args_t	file:
+fd	fileencryptor_u.c	/^    oe_host_fd_t fd;$/;"	m	struct:_oe_syscall_recvv_ocall_args_t	file:
+fd	fileencryptor_u.c	/^    oe_host_fd_t fd;$/;"	m	struct:_oe_syscall_sendv_ocall_args_t	file:
+fd	fileencryptor_u.c	/^    oe_host_fd_t fd;$/;"	m	struct:_oe_syscall_write_ocall_args_t	file:
+fd	fileencryptor_u.c	/^    oe_host_fd_t fd;$/;"	m	struct:_oe_syscall_writev_ocall_args_t	file:
+fileencryptor_close_encryptor	fileencryptor_u.c	/^oe_result_t fileencryptor_close_encryptor(oe_enclave_t* enclave)$/;"	f
+fileencryptor_encrypt_block	fileencryptor_u.c	/^oe_result_t fileencryptor_encrypt_block($/;"	f
+fileencryptor_fcn_id_close_encryptor	fileencryptor_u.c	/^    fileencryptor_fcn_id_close_encryptor = 2,$/;"	e	enum:__anon1	file:
+fileencryptor_fcn_id_encrypt_block	fileencryptor_u.c	/^    fileencryptor_fcn_id_encrypt_block = 1,$/;"	e	enum:__anon1	file:
+fileencryptor_fcn_id_initialize_encryptor	fileencryptor_u.c	/^    fileencryptor_fcn_id_initialize_encryptor = 0,$/;"	e	enum:__anon1	file:
+fileencryptor_fcn_id_oe_get_qetarget_info_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_get_qetarget_info_ocall = 74,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_get_quote_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_get_quote_ocall = 75,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_get_quote_verification_collateral_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_get_quote_verification_collateral_ocall = 76,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_get_quote_verification_collateral_with_baseline_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_get_quote_verification_collateral_with_baseline_ocall = 77,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_get_report_v2_ecall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_get_report_v2_ecall = 4,$/;"	e	enum:__anon1	file:
+fileencryptor_fcn_id_oe_get_sgx_report_ecall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_get_sgx_report_ecall = 3,$/;"	e	enum:__anon1	file:
+fileencryptor_fcn_id_oe_get_supported_attester_format_ids_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_get_supported_attester_format_ids_ocall = 73,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_get_tdx_quote_verification_collateral_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_get_tdx_quote_verification_collateral_ocall = 85,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_sgx_backtrace_symbols_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_sgx_backtrace_symbols_ocall = 80,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_sgx_get_cpuid_table_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_sgx_get_cpuid_table_ocall = 79,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_sgx_init_context_switchless_ecall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_sgx_init_context_switchless_ecall = 6,$/;"	e	enum:__anon1	file:
+fileencryptor_fcn_id_oe_sgx_log_backtrace_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_sgx_log_backtrace_ocall = 81,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_sgx_sleep_switchless_worker_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_sgx_sleep_switchless_worker_ocall = 84,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_sgx_switchless_enclave_worker_thread_ecall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_sgx_switchless_enclave_worker_thread_ecall = 7,$/;"	e	enum:__anon1	file:
+fileencryptor_fcn_id_oe_sgx_thread_wake_wait_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_sgx_thread_wake_wait_ocall = 82,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_sgx_wake_switchless_worker_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_sgx_wake_switchless_worker_ocall = 83,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_accept_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_accept_ocall = 41,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_access_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_access_ocall = 24,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_bind_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_bind_ocall = 42,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_clock_nanosleep_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_clock_nanosleep_ocall = 62,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_close_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_close_ocall = 13,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_close_socket_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_close_socket_ocall = 36,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_closedir_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_closedir_ocall = 21,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_connect_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_connect_ocall = 40,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_dup_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_dup_ocall = 17,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_epoll_close_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_epoll_close_ocall = 4,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_epoll_create1_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_epoll_create1_ocall = 0,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_epoll_ctl_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_epoll_ctl_ocall = 3,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_epoll_wait_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_epoll_wait_ocall = 1,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_epoll_wake_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_epoll_wake_ocall = 2,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_fcntl_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_fcntl_ocall = 32,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_fdatasync_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_fdatasync_ocall = 16,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_flock_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_flock_ocall = 14,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_fstat_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_fstat_ocall = 23,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_fsync_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_fsync_ocall = 15,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_ftruncate_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_ftruncate_ocall = 29,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_getaddrinfo_close_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_getaddrinfo_close_ocall = 59,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_getaddrinfo_open_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_getaddrinfo_open_ocall = 57,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_getaddrinfo_read_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_getaddrinfo_read_ocall = 58,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_getegid_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_getegid_ocall = 69,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_geteuid_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_geteuid_ocall = 67,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_getgid_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_getgid_ocall = 68,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_getgroups_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_getgroups_ocall = 71,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_getnameinfo_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_getnameinfo_ocall = 60,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_getpeername_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_getpeername_ocall = 56,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_getpgid_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_getpgid_ocall = 70,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_getpgrp_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_getpgrp_ocall = 65,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_getpid_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_getpid_ocall = 63,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_getppid_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_getppid_ocall = 64,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_getsockname_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_getsockname_ocall = 55,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_getsockopt_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_getsockopt_ocall = 54,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_getuid_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_getuid_ocall = 66,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_ioctl_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_ioctl_ocall = 33,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_kill_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_kill_ocall = 35,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_link_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_link_ocall = 25,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_listen_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_listen_ocall = 43,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_lseek_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_lseek_ocall = 10,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_mkdir_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_mkdir_ocall = 30,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_nanosleep_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_nanosleep_ocall = 61,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_open_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_open_ocall = 5,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_opendir_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_opendir_ocall = 18,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_poll_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_poll_ocall = 34,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_pread_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_pread_ocall = 11,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_pwrite_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_pwrite_ocall = 12,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_read_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_read_ocall = 6,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_readdir_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_readdir_ocall = 19,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_readv_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_readv_ocall = 8,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_recv_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_recv_ocall = 46,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_recvfrom_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_recvfrom_ocall = 47,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_recvmsg_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_recvmsg_ocall = 44,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_recvv_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_recvv_ocall = 50,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_rename_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_rename_ocall = 27,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_rewinddir_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_rewinddir_ocall = 20,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_rmdir_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_rmdir_ocall = 31,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_send_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_send_ocall = 48,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_sendmsg_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_sendmsg_ocall = 45,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_sendto_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_sendto_ocall = 49,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_sendv_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_sendv_ocall = 51,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_setsockopt_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_setsockopt_ocall = 53,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_shutdown_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_shutdown_ocall = 52,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_shutdown_sockets_device_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_shutdown_sockets_device_ocall = 38,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_socket_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_socket_ocall = 37,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_socketpair_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_socketpair_ocall = 39,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_stat_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_stat_ocall = 22,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_truncate_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_truncate_ocall = 28,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_uname_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_uname_ocall = 72,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_unlink_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_unlink_ocall = 26,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_write_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_write_ocall = 7,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_syscall_writev_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_syscall_writev_ocall = 9,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_verify_local_report_ecall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_verify_local_report_ecall = 5,$/;"	e	enum:__anon1	file:
+fileencryptor_fcn_id_oe_verify_quote_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_verify_quote_ocall = 78,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_oe_verify_tdx_quote_ocall	fileencryptor_u.c	/^    fileencryptor_fcn_id_oe_verify_tdx_quote_ocall = 86,$/;"	e	enum:__anon2	file:
+fileencryptor_fcn_id_trusted_call_id_max	fileencryptor_u.c	/^    fileencryptor_fcn_id_trusted_call_id_max = OE_ENUM_MAX$/;"	e	enum:__anon1	file:
+fileencryptor_fcn_id_untrusted_call_max	fileencryptor_u.c	/^    fileencryptor_fcn_id_untrusted_call_max = OE_ENUM_MAX$/;"	e	enum:__anon2	file:
+fileencryptor_initialize_encryptor	fileencryptor_u.c	/^oe_result_t fileencryptor_initialize_encryptor($/;"	f
+fileencryptor_oe_get_report_v2_ecall	fileencryptor_u.c	/^oe_result_t fileencryptor_oe_get_report_v2_ecall($/;"	f
+fileencryptor_oe_get_sgx_report_ecall	fileencryptor_u.c	/^oe_result_t fileencryptor_oe_get_sgx_report_ecall($/;"	f
+fileencryptor_oe_sgx_init_context_switchless_ecall	fileencryptor_u.c	/^oe_result_t fileencryptor_oe_sgx_init_context_switchless_ecall($/;"	f
+fileencryptor_oe_sgx_switchless_enclave_worker_thread_ecall	fileencryptor_u.c	/^oe_result_t fileencryptor_oe_sgx_switchless_enclave_worker_thread_ecall($/;"	f
+fileencryptor_oe_verify_local_report_ecall	fileencryptor_u.c	/^oe_result_t fileencryptor_oe_verify_local_report_ecall($/;"	f
+flag	fileencryptor_u.c	/^    int flag;$/;"	m	struct:_oe_syscall_clock_nanosleep_ocall_args_t	file:
+flags	fileencryptor_u.c	/^    int flags;$/;"	m	struct:_oe_syscall_epoll_create1_ocall_args_t	file:
+flags	fileencryptor_u.c	/^    int flags;$/;"	m	struct:_oe_syscall_getnameinfo_ocall_args_t	file:
+flags	fileencryptor_u.c	/^    int flags;$/;"	m	struct:_oe_syscall_open_ocall_args_t	file:
+flags	fileencryptor_u.c	/^    int flags;$/;"	m	struct:_oe_syscall_recv_ocall_args_t	file:
+flags	fileencryptor_u.c	/^    int flags;$/;"	m	struct:_oe_syscall_recvfrom_ocall_args_t	file:
+flags	fileencryptor_u.c	/^    int flags;$/;"	m	struct:_oe_syscall_recvmsg_ocall_args_t	file:
+flags	fileencryptor_u.c	/^    int flags;$/;"	m	struct:_oe_syscall_send_ocall_args_t	file:
+flags	fileencryptor_u.c	/^    int flags;$/;"	m	struct:_oe_syscall_sendmsg_ocall_args_t	file:
+flags	fileencryptor_u.c	/^    int flags;$/;"	m	struct:_oe_syscall_sendto_ocall_args_t	file:
+flags	fileencryptor_u.c	/^    uint32_t flags;$/;"	m	struct:_oe_get_report_v2_ecall_args_t	file:
+fmspc	fileencryptor_u.c	/^    uint8_t* fmspc;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+fmspc	fileencryptor_u.c	/^    uint8_t* fmspc;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+format_id	fileencryptor_u.c	/^    oe_uuid_t* format_id;$/;"	m	struct:_oe_get_qetarget_info_ocall_args_t	file:
+format_id	fileencryptor_u.c	/^    oe_uuid_t* format_id;$/;"	m	struct:_oe_get_quote_ocall_args_t	file:
+format_id	fileencryptor_u.c	/^    oe_uuid_t* format_id;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+format_id	fileencryptor_u.c	/^    oe_uuid_t* format_id;$/;"	m	struct:_oe_verify_tdx_quote_ocall_args_t	file:
+format_ids	fileencryptor_u.c	/^    format_ids_t* format_ids;$/;"	m	struct:_oe_get_supported_attester_format_ids_ocall_args_t	file:
+format_ids_t	fileencryptor_args.h	/^typedef struct format_ids_t$/;"	s
+format_ids_t	fileencryptor_args.h	/^} format_ids_t;$/;"	t	typeref:struct:format_ids_t
+get_file_size	host.cpp	/^int get_file_size(FILE* file, size_t* _file_size)$/;"	f
+handle	fileencryptor_u.c	/^    uint64_t handle;$/;"	m	struct:_oe_syscall_getaddrinfo_close_ocall_args_t	file:
+handle	fileencryptor_u.c	/^    uint64_t handle;$/;"	m	struct:_oe_syscall_getaddrinfo_read_ocall_args_t	file:
+handle	fileencryptor_u.c	/^    uint64_t* handle;$/;"	m	struct:_oe_syscall_getaddrinfo_open_ocall_args_t	file:
+header	fileencryptor_u.c	/^    encryption_header_t* header;$/;"	m	struct:_initialize_encryptor_args_t	file:
+hints	fileencryptor_u.c	/^    struct oe_addrinfo* hints;$/;"	m	struct:_oe_syscall_getaddrinfo_open_ocall_args_t	typeref:struct:_oe_syscall_getaddrinfo_open_ocall_args_t::oe_addrinfo	file:
+host	fileencryptor_u.c	/^    char* host;$/;"	m	struct:_oe_syscall_getnameinfo_ocall_args_t	file:
+host_fds	fileencryptor_u.c	/^    struct oe_host_pollfd* host_fds;$/;"	m	struct:_oe_syscall_poll_ocall_args_t	typeref:struct:_oe_syscall_poll_ocall_args_t::oe_host_pollfd	file:
+host_worker_contexts	fileencryptor_u.c	/^    oe_host_worker_context_t* host_worker_contexts;$/;"	m	struct:_oe_sgx_init_context_switchless_ecall_args_t	file:
+hostlen	fileencryptor_u.c	/^    oe_socklen_t hostlen;$/;"	m	struct:_oe_syscall_getnameinfo_ocall_args_t	file:
+how	fileencryptor_u.c	/^    int how;$/;"	m	struct:_oe_syscall_shutdown_ocall_args_t	file:
+initialize_encryptor_args_t	fileencryptor_u.c	/^} initialize_encryptor_args_t;$/;"	t	typeref:struct:_initialize_encryptor_args_t	file:
+input_buf	fileencryptor_u.c	/^    unsigned char* input_buf;$/;"	m	struct:_encrypt_block_args_t	file:
+iov_buf	fileencryptor_u.c	/^    void* iov_buf;$/;"	m	struct:_oe_syscall_readv_ocall_args_t	file:
+iov_buf	fileencryptor_u.c	/^    void* iov_buf;$/;"	m	struct:_oe_syscall_recvv_ocall_args_t	file:
+iov_buf	fileencryptor_u.c	/^    void* iov_buf;$/;"	m	struct:_oe_syscall_sendv_ocall_args_t	file:
+iov_buf	fileencryptor_u.c	/^    void* iov_buf;$/;"	m	struct:_oe_syscall_writev_ocall_args_t	file:
+iov_buf_size	fileencryptor_u.c	/^    size_t iov_buf_size;$/;"	m	struct:_oe_syscall_readv_ocall_args_t	file:
+iov_buf_size	fileencryptor_u.c	/^    size_t iov_buf_size;$/;"	m	struct:_oe_syscall_recvv_ocall_args_t	file:
+iov_buf_size	fileencryptor_u.c	/^    size_t iov_buf_size;$/;"	m	struct:_oe_syscall_sendv_ocall_args_t	file:
+iov_buf_size	fileencryptor_u.c	/^    size_t iov_buf_size;$/;"	m	struct:_oe_syscall_writev_ocall_args_t	file:
+iovcnt	fileencryptor_u.c	/^    int iovcnt;$/;"	m	struct:_oe_syscall_readv_ocall_args_t	file:
+iovcnt	fileencryptor_u.c	/^    int iovcnt;$/;"	m	struct:_oe_syscall_recvv_ocall_args_t	file:
+iovcnt	fileencryptor_u.c	/^    int iovcnt;$/;"	m	struct:_oe_syscall_sendv_ocall_args_t	file:
+iovcnt	fileencryptor_u.c	/^    int iovcnt;$/;"	m	struct:_oe_syscall_writev_ocall_args_t	file:
+is_stopping	fileencryptor_args.h	/^    int64_t is_stopping;$/;"	m	struct:oe_enclave_worker_context_t
+is_stopping	fileencryptor_args.h	/^    int64_t is_stopping;$/;"	m	struct:oe_host_worker_context_t
+len	fileencryptor_u.c	/^    size_t len;$/;"	m	struct:_oe_syscall_recv_ocall_args_t	file:
+len	fileencryptor_u.c	/^    size_t len;$/;"	m	struct:_oe_syscall_recvfrom_ocall_args_t	file:
+len	fileencryptor_u.c	/^    size_t len;$/;"	m	struct:_oe_syscall_send_ocall_args_t	file:
+len	fileencryptor_u.c	/^    size_t len;$/;"	m	struct:_oe_syscall_sendto_ocall_args_t	file:
+length	fileencryptor_u.c	/^    oe_off_t length;$/;"	m	struct:_oe_syscall_ftruncate_ocall_args_t	file:
+length	fileencryptor_u.c	/^    oe_off_t length;$/;"	m	struct:_oe_syscall_truncate_ocall_args_t	file:
+level	fileencryptor_u.c	/^    int level;$/;"	m	struct:_oe_syscall_getsockopt_ocall_args_t	file:
+level	fileencryptor_u.c	/^    int level;$/;"	m	struct:_oe_syscall_setsockopt_ocall_args_t	file:
+level	fileencryptor_u.c	/^    oe_log_level_t level;$/;"	m	struct:_oe_sgx_log_backtrace_ocall_args_t	file:
+list	fileencryptor_u.c	/^    unsigned int* list;$/;"	m	struct:_oe_syscall_getgroups_ocall_args_t	file:
+machine	fileencryptor_args.h	/^    char machine[65];$/;"	m	struct:oe_utsname
+main	host.cpp	/^int main(int argc, const char* argv[])$/;"	f
+maxevents	fileencryptor_u.c	/^    unsigned int maxevents;$/;"	m	struct:_oe_syscall_epoll_wait_ocall_args_t	file:
+mode	fileencryptor_u.c	/^    int mode;$/;"	m	struct:_oe_syscall_access_ocall_args_t	file:
+mode	fileencryptor_u.c	/^    oe_mode_t mode;$/;"	m	struct:_oe_syscall_mkdir_ocall_args_t	file:
+mode	fileencryptor_u.c	/^    oe_mode_t mode;$/;"	m	struct:_oe_syscall_open_ocall_args_t	file:
+msg_control	fileencryptor_u.c	/^    void* msg_control;$/;"	m	struct:_oe_syscall_recvmsg_ocall_args_t	file:
+msg_control	fileencryptor_u.c	/^    void* msg_control;$/;"	m	struct:_oe_syscall_sendmsg_ocall_args_t	file:
+msg_controllen	fileencryptor_u.c	/^    size_t msg_controllen;$/;"	m	struct:_oe_syscall_recvmsg_ocall_args_t	file:
+msg_controllen	fileencryptor_u.c	/^    size_t msg_controllen;$/;"	m	struct:_oe_syscall_sendmsg_ocall_args_t	file:
+msg_controllen_out	fileencryptor_u.c	/^    size_t* msg_controllen_out;$/;"	m	struct:_oe_syscall_recvmsg_ocall_args_t	file:
+msg_iov_buf	fileencryptor_u.c	/^    void* msg_iov_buf;$/;"	m	struct:_oe_syscall_recvmsg_ocall_args_t	file:
+msg_iov_buf	fileencryptor_u.c	/^    void* msg_iov_buf;$/;"	m	struct:_oe_syscall_sendmsg_ocall_args_t	file:
+msg_iov_buf_size	fileencryptor_u.c	/^    size_t msg_iov_buf_size;$/;"	m	struct:_oe_syscall_recvmsg_ocall_args_t	file:
+msg_iov_buf_size	fileencryptor_u.c	/^    size_t msg_iov_buf_size;$/;"	m	struct:_oe_syscall_sendmsg_ocall_args_t	file:
+msg_iovlen	fileencryptor_u.c	/^    size_t msg_iovlen;$/;"	m	struct:_oe_syscall_recvmsg_ocall_args_t	file:
+msg_iovlen	fileencryptor_u.c	/^    size_t msg_iovlen;$/;"	m	struct:_oe_syscall_sendmsg_ocall_args_t	file:
+msg_name	fileencryptor_u.c	/^    void* msg_name;$/;"	m	struct:_oe_syscall_recvmsg_ocall_args_t	file:
+msg_name	fileencryptor_u.c	/^    void* msg_name;$/;"	m	struct:_oe_syscall_sendmsg_ocall_args_t	file:
+msg_namelen	fileencryptor_u.c	/^    oe_socklen_t msg_namelen;$/;"	m	struct:_oe_syscall_recvmsg_ocall_args_t	file:
+msg_namelen	fileencryptor_u.c	/^    oe_socklen_t msg_namelen;$/;"	m	struct:_oe_syscall_sendmsg_ocall_args_t	file:
+msg_namelen_out	fileencryptor_u.c	/^    oe_socklen_t* msg_namelen_out;$/;"	m	struct:_oe_syscall_recvmsg_ocall_args_t	file:
+name	fileencryptor_u.c	/^    char* name;$/;"	m	struct:_oe_syscall_opendir_ocall_args_t	file:
+name_len	fileencryptor_u.c	/^    size_t name_len;$/;"	m	struct:_oe_syscall_opendir_ocall_args_t	file:
+newpath	fileencryptor_u.c	/^    char* newpath;$/;"	m	struct:_oe_syscall_link_ocall_args_t	file:
+newpath	fileencryptor_u.c	/^    char* newpath;$/;"	m	struct:_oe_syscall_rename_ocall_args_t	file:
+newpath_len	fileencryptor_u.c	/^    size_t newpath_len;$/;"	m	struct:_oe_syscall_link_ocall_args_t	file:
+newpath_len	fileencryptor_u.c	/^    size_t newpath_len;$/;"	m	struct:_oe_syscall_rename_ocall_args_t	file:
+nfds	fileencryptor_u.c	/^    oe_nfds_t nfds;$/;"	m	struct:_oe_syscall_poll_ocall_args_t	file:
+node	fileencryptor_u.c	/^    char* node;$/;"	m	struct:_oe_syscall_getaddrinfo_open_ocall_args_t	file:
+node_len	fileencryptor_u.c	/^    size_t node_len;$/;"	m	struct:_oe_syscall_getaddrinfo_open_ocall_args_t	file:
+nodename	fileencryptor_args.h	/^    char nodename[65];$/;"	m	struct:oe_utsname
+num_host_workers	fileencryptor_u.c	/^    uint64_t num_host_workers;$/;"	m	struct:_oe_sgx_init_context_switchless_ecall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_accept_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_access_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_bind_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_clock_nanosleep_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_close_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_close_socket_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_closedir_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_connect_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_dup_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_epoll_close_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_epoll_create1_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_epoll_ctl_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_epoll_wait_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_epoll_wake_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_fcntl_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_fdatasync_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_flock_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_fstat_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_fsync_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_ftruncate_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_getaddrinfo_close_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_getaddrinfo_open_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_getaddrinfo_read_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_getgroups_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_getnameinfo_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_getpeername_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_getpgid_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_getsockname_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_getsockopt_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_ioctl_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_kill_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_link_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_listen_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_lseek_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_mkdir_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_nanosleep_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_open_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_opendir_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_poll_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_pread_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_pwrite_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_read_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_readdir_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_readv_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_recv_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_recvfrom_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_recvmsg_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_recvv_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_rename_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_rmdir_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_send_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_sendmsg_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_sendto_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_sendv_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_setsockopt_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_shutdown_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_shutdown_sockets_device_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_socket_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_socketpair_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_stat_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_truncate_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_uname_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_unlink_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_write_ocall_args_t	file:
+ocall_errno	fileencryptor_u.c	/^    int ocall_errno;$/;"	m	struct:_oe_syscall_writev_ocall_args_t	file:
+ocall_oe_get_qetarget_info_ocall	fileencryptor_u.c	/^static void ocall_oe_get_qetarget_info_ocall($/;"	f	file:
+ocall_oe_get_quote_ocall	fileencryptor_u.c	/^static void ocall_oe_get_quote_ocall($/;"	f	file:
+ocall_oe_get_quote_verification_collateral_ocall	fileencryptor_u.c	/^static void ocall_oe_get_quote_verification_collateral_ocall($/;"	f	file:
+ocall_oe_get_quote_verification_collateral_with_baseline_ocall	fileencryptor_u.c	/^static void ocall_oe_get_quote_verification_collateral_with_baseline_ocall($/;"	f	file:
+ocall_oe_get_supported_attester_format_ids_ocall	fileencryptor_u.c	/^static void ocall_oe_get_supported_attester_format_ids_ocall($/;"	f	file:
+ocall_oe_get_tdx_quote_verification_collateral_ocall	fileencryptor_u.c	/^static void ocall_oe_get_tdx_quote_verification_collateral_ocall($/;"	f	file:
+ocall_oe_sgx_backtrace_symbols_ocall	fileencryptor_u.c	/^static void ocall_oe_sgx_backtrace_symbols_ocall($/;"	f	file:
+ocall_oe_sgx_get_cpuid_table_ocall	fileencryptor_u.c	/^static void ocall_oe_sgx_get_cpuid_table_ocall($/;"	f	file:
+ocall_oe_sgx_log_backtrace_ocall	fileencryptor_u.c	/^static void ocall_oe_sgx_log_backtrace_ocall($/;"	f	file:
+ocall_oe_sgx_sleep_switchless_worker_ocall	fileencryptor_u.c	/^static void ocall_oe_sgx_sleep_switchless_worker_ocall($/;"	f	file:
+ocall_oe_sgx_thread_wake_wait_ocall	fileencryptor_u.c	/^static void ocall_oe_sgx_thread_wake_wait_ocall($/;"	f	file:
+ocall_oe_sgx_wake_switchless_worker_ocall	fileencryptor_u.c	/^static void ocall_oe_sgx_wake_switchless_worker_ocall($/;"	f	file:
+ocall_oe_syscall_accept_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_accept_ocall($/;"	f	file:
+ocall_oe_syscall_access_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_access_ocall($/;"	f	file:
+ocall_oe_syscall_bind_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_bind_ocall($/;"	f	file:
+ocall_oe_syscall_clock_nanosleep_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_clock_nanosleep_ocall($/;"	f	file:
+ocall_oe_syscall_close_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_close_ocall($/;"	f	file:
+ocall_oe_syscall_close_socket_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_close_socket_ocall($/;"	f	file:
+ocall_oe_syscall_closedir_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_closedir_ocall($/;"	f	file:
+ocall_oe_syscall_connect_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_connect_ocall($/;"	f	file:
+ocall_oe_syscall_dup_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_dup_ocall($/;"	f	file:
+ocall_oe_syscall_epoll_close_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_epoll_close_ocall($/;"	f	file:
+ocall_oe_syscall_epoll_create1_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_epoll_create1_ocall($/;"	f	file:
+ocall_oe_syscall_epoll_ctl_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_epoll_ctl_ocall($/;"	f	file:
+ocall_oe_syscall_epoll_wait_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_epoll_wait_ocall($/;"	f	file:
+ocall_oe_syscall_epoll_wake_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_epoll_wake_ocall($/;"	f	file:
+ocall_oe_syscall_fcntl_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_fcntl_ocall($/;"	f	file:
+ocall_oe_syscall_fdatasync_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_fdatasync_ocall($/;"	f	file:
+ocall_oe_syscall_flock_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_flock_ocall($/;"	f	file:
+ocall_oe_syscall_fstat_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_fstat_ocall($/;"	f	file:
+ocall_oe_syscall_fsync_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_fsync_ocall($/;"	f	file:
+ocall_oe_syscall_ftruncate_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_ftruncate_ocall($/;"	f	file:
+ocall_oe_syscall_getaddrinfo_close_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_getaddrinfo_close_ocall($/;"	f	file:
+ocall_oe_syscall_getaddrinfo_open_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_getaddrinfo_open_ocall($/;"	f	file:
+ocall_oe_syscall_getaddrinfo_read_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_getaddrinfo_read_ocall($/;"	f	file:
+ocall_oe_syscall_getegid_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_getegid_ocall($/;"	f	file:
+ocall_oe_syscall_geteuid_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_geteuid_ocall($/;"	f	file:
+ocall_oe_syscall_getgid_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_getgid_ocall($/;"	f	file:
+ocall_oe_syscall_getgroups_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_getgroups_ocall($/;"	f	file:
+ocall_oe_syscall_getnameinfo_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_getnameinfo_ocall($/;"	f	file:
+ocall_oe_syscall_getpeername_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_getpeername_ocall($/;"	f	file:
+ocall_oe_syscall_getpgid_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_getpgid_ocall($/;"	f	file:
+ocall_oe_syscall_getpgrp_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_getpgrp_ocall($/;"	f	file:
+ocall_oe_syscall_getpid_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_getpid_ocall($/;"	f	file:
+ocall_oe_syscall_getppid_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_getppid_ocall($/;"	f	file:
+ocall_oe_syscall_getsockname_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_getsockname_ocall($/;"	f	file:
+ocall_oe_syscall_getsockopt_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_getsockopt_ocall($/;"	f	file:
+ocall_oe_syscall_getuid_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_getuid_ocall($/;"	f	file:
+ocall_oe_syscall_ioctl_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_ioctl_ocall($/;"	f	file:
+ocall_oe_syscall_kill_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_kill_ocall($/;"	f	file:
+ocall_oe_syscall_link_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_link_ocall($/;"	f	file:
+ocall_oe_syscall_listen_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_listen_ocall($/;"	f	file:
+ocall_oe_syscall_lseek_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_lseek_ocall($/;"	f	file:
+ocall_oe_syscall_mkdir_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_mkdir_ocall($/;"	f	file:
+ocall_oe_syscall_nanosleep_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_nanosleep_ocall($/;"	f	file:
+ocall_oe_syscall_open_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_open_ocall($/;"	f	file:
+ocall_oe_syscall_opendir_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_opendir_ocall($/;"	f	file:
+ocall_oe_syscall_poll_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_poll_ocall($/;"	f	file:
+ocall_oe_syscall_pread_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_pread_ocall($/;"	f	file:
+ocall_oe_syscall_pwrite_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_pwrite_ocall($/;"	f	file:
+ocall_oe_syscall_read_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_read_ocall($/;"	f	file:
+ocall_oe_syscall_readdir_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_readdir_ocall($/;"	f	file:
+ocall_oe_syscall_readv_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_readv_ocall($/;"	f	file:
+ocall_oe_syscall_recv_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_recv_ocall($/;"	f	file:
+ocall_oe_syscall_recvfrom_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_recvfrom_ocall($/;"	f	file:
+ocall_oe_syscall_recvmsg_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_recvmsg_ocall($/;"	f	file:
+ocall_oe_syscall_recvv_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_recvv_ocall($/;"	f	file:
+ocall_oe_syscall_rename_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_rename_ocall($/;"	f	file:
+ocall_oe_syscall_rewinddir_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_rewinddir_ocall($/;"	f	file:
+ocall_oe_syscall_rmdir_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_rmdir_ocall($/;"	f	file:
+ocall_oe_syscall_send_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_send_ocall($/;"	f	file:
+ocall_oe_syscall_sendmsg_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_sendmsg_ocall($/;"	f	file:
+ocall_oe_syscall_sendto_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_sendto_ocall($/;"	f	file:
+ocall_oe_syscall_sendv_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_sendv_ocall($/;"	f	file:
+ocall_oe_syscall_setsockopt_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_setsockopt_ocall($/;"	f	file:
+ocall_oe_syscall_shutdown_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_shutdown_ocall($/;"	f	file:
+ocall_oe_syscall_shutdown_sockets_device_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_shutdown_sockets_device_ocall($/;"	f	file:
+ocall_oe_syscall_socket_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_socket_ocall($/;"	f	file:
+ocall_oe_syscall_socketpair_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_socketpair_ocall($/;"	f	file:
+ocall_oe_syscall_stat_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_stat_ocall($/;"	f	file:
+ocall_oe_syscall_truncate_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_truncate_ocall($/;"	f	file:
+ocall_oe_syscall_uname_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_uname_ocall($/;"	f	file:
+ocall_oe_syscall_unlink_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_unlink_ocall($/;"	f	file:
+ocall_oe_syscall_write_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_write_ocall($/;"	f	file:
+ocall_oe_syscall_writev_ocall	fileencryptor_u.c	/^static void ocall_oe_syscall_writev_ocall($/;"	f	file:
+ocall_oe_verify_quote_ocall	fileencryptor_u.c	/^static void ocall_oe_verify_quote_ocall($/;"	f	file:
+ocall_oe_verify_tdx_quote_ocall	fileencryptor_u.c	/^static void ocall_oe_verify_tdx_quote_ocall($/;"	f	file:
+oe_addrinfo	fileencryptor_args.h	/^typedef struct oe_addrinfo$/;"	s
+oe_addrinfo	fileencryptor_args.h	/^} oe_addrinfo;$/;"	t	typeref:struct:oe_addrinfo
+oe_create_fileencryptor_enclave	fileencryptor_u.c	/^oe_result_t oe_create_fileencryptor_enclave($/;"	f
+oe_dirent	fileencryptor_args.h	/^typedef struct oe_dirent$/;"	s
+oe_dirent	fileencryptor_args.h	/^} oe_dirent;$/;"	t	typeref:struct:oe_dirent
+oe_enclave	fileencryptor_u.c	/^    oe_enclave_t* oe_enclave;$/;"	m	struct:_oe_sgx_backtrace_symbols_ocall_args_t	file:
+oe_enclave	fileencryptor_u.c	/^    oe_enclave_t* oe_enclave;$/;"	m	struct:_oe_sgx_log_backtrace_ocall_args_t	file:
+oe_enclave	fileencryptor_u.c	/^    oe_enclave_t* oe_enclave;$/;"	m	struct:_oe_sgx_thread_wake_wait_ocall_args_t	file:
+oe_enclave_worker_context_t	fileencryptor_args.h	/^typedef struct oe_enclave_worker_context_t$/;"	s
+oe_enclave_worker_context_t	fileencryptor_args.h	/^} oe_enclave_worker_context_t;$/;"	t	typeref:struct:oe_enclave_worker_context_t
+oe_get_qetarget_info_ocall_args_t	fileencryptor_u.c	/^} oe_get_qetarget_info_ocall_args_t;$/;"	t	typeref:struct:_oe_get_qetarget_info_ocall_args_t	file:
+oe_get_quote_ocall_args_t	fileencryptor_u.c	/^} oe_get_quote_ocall_args_t;$/;"	t	typeref:struct:_oe_get_quote_ocall_args_t	file:
+oe_get_quote_verification_collateral_ocall_args_t	fileencryptor_u.c	/^} oe_get_quote_verification_collateral_ocall_args_t;$/;"	t	typeref:struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+oe_get_quote_verification_collateral_with_baseline_ocall_args_t	fileencryptor_u.c	/^} oe_get_quote_verification_collateral_with_baseline_ocall_args_t;$/;"	t	typeref:struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+oe_get_report_v2_ecall_args_t	fileencryptor_u.c	/^} oe_get_report_v2_ecall_args_t;$/;"	t	typeref:struct:_oe_get_report_v2_ecall_args_t	file:
+oe_get_sgx_report_ecall_args_t	fileencryptor_u.c	/^} oe_get_sgx_report_ecall_args_t;$/;"	t	typeref:struct:_oe_get_sgx_report_ecall_args_t	file:
+oe_get_supported_attester_format_ids_ocall_args_t	fileencryptor_u.c	/^} oe_get_supported_attester_format_ids_ocall_args_t;$/;"	t	typeref:struct:_oe_get_supported_attester_format_ids_ocall_args_t	file:
+oe_get_tdx_quote_verification_collateral_ocall_args_t	fileencryptor_u.c	/^} oe_get_tdx_quote_verification_collateral_ocall_args_t;$/;"	t	typeref:struct:_oe_get_tdx_quote_verification_collateral_ocall_args_t	file:
+oe_host_pollfd	fileencryptor_args.h	/^typedef struct oe_host_pollfd$/;"	s
+oe_host_pollfd	fileencryptor_args.h	/^} oe_host_pollfd;$/;"	t	typeref:struct:oe_host_pollfd
+oe_host_worker_context_t	fileencryptor_args.h	/^typedef struct oe_host_worker_context_t$/;"	s
+oe_host_worker_context_t	fileencryptor_args.h	/^} oe_host_worker_context_t;$/;"	t	typeref:struct:oe_host_worker_context_t
+oe_pollfd	fileencryptor_args.h	/^typedef struct oe_pollfd$/;"	s
+oe_pollfd	fileencryptor_args.h	/^} oe_pollfd;$/;"	t	typeref:struct:oe_pollfd
+oe_report_buffer_t	fileencryptor_args.h	/^typedef struct oe_report_buffer_t$/;"	s
+oe_report_buffer_t	fileencryptor_args.h	/^} oe_report_buffer_t;$/;"	t	typeref:struct:oe_report_buffer_t
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_close_encryptor_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_encrypt_block_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_initialize_encryptor_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_get_qetarget_info_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_get_quote_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_get_report_v2_ecall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_get_sgx_report_ecall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_get_supported_attester_format_ids_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_get_tdx_quote_verification_collateral_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_sgx_backtrace_symbols_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_sgx_get_cpuid_table_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_sgx_init_context_switchless_ecall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_sgx_log_backtrace_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_sgx_sleep_switchless_worker_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_sgx_switchless_enclave_worker_thread_ecall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_sgx_thread_wake_wait_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_sgx_wake_switchless_worker_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_accept_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_access_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_bind_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_clock_nanosleep_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_close_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_close_socket_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_closedir_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_connect_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_dup_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_epoll_close_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_epoll_create1_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_epoll_ctl_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_epoll_wait_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_epoll_wake_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_fcntl_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_fdatasync_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_flock_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_fstat_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_fsync_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_ftruncate_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_getaddrinfo_close_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_getaddrinfo_open_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_getaddrinfo_read_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_getegid_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_geteuid_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_getgid_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_getgroups_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_getnameinfo_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_getpeername_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_getpgid_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_getpgrp_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_getpid_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_getppid_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_getsockname_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_getsockopt_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_getuid_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_ioctl_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_kill_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_link_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_listen_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_lseek_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_mkdir_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_nanosleep_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_open_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_opendir_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_poll_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_pread_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_pwrite_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_read_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_readdir_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_readv_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_recv_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_recvfrom_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_recvmsg_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_recvv_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_rename_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_rewinddir_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_rmdir_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_send_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_sendmsg_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_sendto_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_sendv_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_setsockopt_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_shutdown_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_shutdown_sockets_device_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_socket_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_socketpair_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_stat_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_truncate_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_uname_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_unlink_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_write_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_syscall_writev_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_verify_local_report_ecall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+oe_result	fileencryptor_u.c	/^    oe_result_t oe_result;$/;"	m	struct:_oe_verify_tdx_quote_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_encrypt_block_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_initialize_encryptor_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_access_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_bind_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_clock_nanosleep_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_close_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_close_socket_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_closedir_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_connect_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_epoll_close_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_epoll_ctl_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_epoll_wait_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_epoll_wake_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_fcntl_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_fdatasync_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_flock_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_fstat_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_fsync_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_ftruncate_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_getaddrinfo_close_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_getaddrinfo_open_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_getaddrinfo_read_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_getgroups_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_getnameinfo_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_getpeername_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_getpgid_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_getpgrp_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_getpid_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_getppid_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_getsockname_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_getsockopt_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_ioctl_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_kill_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_link_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_listen_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_mkdir_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_nanosleep_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_poll_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_readdir_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_rename_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_rmdir_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_setsockopt_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_shutdown_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_shutdown_sockets_device_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_socketpair_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_stat_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_truncate_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_uname_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    int oe_retval;$/;"	m	struct:_oe_syscall_unlink_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_host_fd_t oe_retval;$/;"	m	struct:_oe_syscall_accept_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_host_fd_t oe_retval;$/;"	m	struct:_oe_syscall_dup_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_host_fd_t oe_retval;$/;"	m	struct:_oe_syscall_epoll_create1_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_host_fd_t oe_retval;$/;"	m	struct:_oe_syscall_open_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_host_fd_t oe_retval;$/;"	m	struct:_oe_syscall_socket_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_off_t oe_retval;$/;"	m	struct:_oe_syscall_lseek_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_result_t oe_retval;$/;"	m	struct:_oe_get_qetarget_info_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_result_t oe_retval;$/;"	m	struct:_oe_get_quote_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_result_t oe_retval;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_result_t oe_retval;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_result_t oe_retval;$/;"	m	struct:_oe_get_report_v2_ecall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_result_t oe_retval;$/;"	m	struct:_oe_get_sgx_report_ecall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_result_t oe_retval;$/;"	m	struct:_oe_get_supported_attester_format_ids_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_result_t oe_retval;$/;"	m	struct:_oe_get_tdx_quote_verification_collateral_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_result_t oe_retval;$/;"	m	struct:_oe_sgx_backtrace_symbols_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_result_t oe_retval;$/;"	m	struct:_oe_sgx_get_cpuid_table_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_result_t oe_retval;$/;"	m	struct:_oe_sgx_init_context_switchless_ecall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_result_t oe_retval;$/;"	m	struct:_oe_sgx_log_backtrace_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_result_t oe_retval;$/;"	m	struct:_oe_verify_local_report_ecall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_result_t oe_retval;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    oe_result_t oe_retval;$/;"	m	struct:_oe_verify_tdx_quote_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    ssize_t oe_retval;$/;"	m	struct:_oe_syscall_pread_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    ssize_t oe_retval;$/;"	m	struct:_oe_syscall_pwrite_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    ssize_t oe_retval;$/;"	m	struct:_oe_syscall_read_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    ssize_t oe_retval;$/;"	m	struct:_oe_syscall_readv_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    ssize_t oe_retval;$/;"	m	struct:_oe_syscall_recv_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    ssize_t oe_retval;$/;"	m	struct:_oe_syscall_recvfrom_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    ssize_t oe_retval;$/;"	m	struct:_oe_syscall_recvmsg_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    ssize_t oe_retval;$/;"	m	struct:_oe_syscall_recvv_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    ssize_t oe_retval;$/;"	m	struct:_oe_syscall_send_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    ssize_t oe_retval;$/;"	m	struct:_oe_syscall_sendmsg_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    ssize_t oe_retval;$/;"	m	struct:_oe_syscall_sendto_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    ssize_t oe_retval;$/;"	m	struct:_oe_syscall_sendv_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    ssize_t oe_retval;$/;"	m	struct:_oe_syscall_write_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    ssize_t oe_retval;$/;"	m	struct:_oe_syscall_writev_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    uint64_t oe_retval;$/;"	m	struct:_oe_syscall_opendir_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    unsigned int oe_retval;$/;"	m	struct:_oe_syscall_getegid_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    unsigned int oe_retval;$/;"	m	struct:_oe_syscall_geteuid_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    unsigned int oe_retval;$/;"	m	struct:_oe_syscall_getgid_ocall_args_t	file:
+oe_retval	fileencryptor_u.c	/^    unsigned int oe_retval;$/;"	m	struct:_oe_syscall_getuid_ocall_args_t	file:
+oe_sgx_backtrace_symbols_ocall_args_t	fileencryptor_u.c	/^} oe_sgx_backtrace_symbols_ocall_args_t;$/;"	t	typeref:struct:_oe_sgx_backtrace_symbols_ocall_args_t	file:
+oe_sgx_get_cpuid_table_ocall_args_t	fileencryptor_u.c	/^} oe_sgx_get_cpuid_table_ocall_args_t;$/;"	t	typeref:struct:_oe_sgx_get_cpuid_table_ocall_args_t	file:
+oe_sgx_init_context_switchless_ecall_args_t	fileencryptor_u.c	/^} oe_sgx_init_context_switchless_ecall_args_t;$/;"	t	typeref:struct:_oe_sgx_init_context_switchless_ecall_args_t	file:
+oe_sgx_log_backtrace_ocall_args_t	fileencryptor_u.c	/^} oe_sgx_log_backtrace_ocall_args_t;$/;"	t	typeref:struct:_oe_sgx_log_backtrace_ocall_args_t	file:
+oe_sgx_sleep_switchless_worker_ocall_args_t	fileencryptor_u.c	/^} oe_sgx_sleep_switchless_worker_ocall_args_t;$/;"	t	typeref:struct:_oe_sgx_sleep_switchless_worker_ocall_args_t	file:
+oe_sgx_switchless_enclave_worker_thread_ecall_args_t	fileencryptor_u.c	/^} oe_sgx_switchless_enclave_worker_thread_ecall_args_t;$/;"	t	typeref:struct:_oe_sgx_switchless_enclave_worker_thread_ecall_args_t	file:
+oe_sgx_thread_wake_wait_ocall_args_t	fileencryptor_u.c	/^} oe_sgx_thread_wake_wait_ocall_args_t;$/;"	t	typeref:struct:_oe_sgx_thread_wake_wait_ocall_args_t	file:
+oe_sgx_wake_switchless_worker_ocall_args_t	fileencryptor_u.c	/^} oe_sgx_wake_switchless_worker_ocall_args_t;$/;"	t	typeref:struct:_oe_sgx_wake_switchless_worker_ocall_args_t	file:
+oe_sockaddr	fileencryptor_args.h	/^typedef struct oe_sockaddr$/;"	s
+oe_sockaddr	fileencryptor_args.h	/^} oe_sockaddr;$/;"	t	typeref:struct:oe_sockaddr
+oe_stat_t	fileencryptor_args.h	/^typedef struct oe_stat_t$/;"	s
+oe_stat_t	fileencryptor_args.h	/^} oe_stat_t;$/;"	t	typeref:struct:oe_stat_t
+oe_syscall_accept_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_accept_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_accept_ocall_args_t	file:
+oe_syscall_access_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_access_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_access_ocall_args_t	file:
+oe_syscall_bind_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_bind_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_bind_ocall_args_t	file:
+oe_syscall_clock_nanosleep_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_clock_nanosleep_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_clock_nanosleep_ocall_args_t	file:
+oe_syscall_close_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_close_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_close_ocall_args_t	file:
+oe_syscall_close_socket_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_close_socket_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_close_socket_ocall_args_t	file:
+oe_syscall_closedir_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_closedir_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_closedir_ocall_args_t	file:
+oe_syscall_connect_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_connect_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_connect_ocall_args_t	file:
+oe_syscall_dup_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_dup_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_dup_ocall_args_t	file:
+oe_syscall_epoll_close_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_epoll_close_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_epoll_close_ocall_args_t	file:
+oe_syscall_epoll_create1_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_epoll_create1_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_epoll_create1_ocall_args_t	file:
+oe_syscall_epoll_ctl_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_epoll_ctl_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_epoll_ctl_ocall_args_t	file:
+oe_syscall_epoll_wait_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_epoll_wait_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_epoll_wait_ocall_args_t	file:
+oe_syscall_epoll_wake_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_epoll_wake_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_epoll_wake_ocall_args_t	file:
+oe_syscall_fcntl_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_fcntl_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_fcntl_ocall_args_t	file:
+oe_syscall_fdatasync_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_fdatasync_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_fdatasync_ocall_args_t	file:
+oe_syscall_flock_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_flock_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_flock_ocall_args_t	file:
+oe_syscall_fstat_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_fstat_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_fstat_ocall_args_t	file:
+oe_syscall_fsync_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_fsync_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_fsync_ocall_args_t	file:
+oe_syscall_ftruncate_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_ftruncate_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_ftruncate_ocall_args_t	file:
+oe_syscall_getaddrinfo_close_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_getaddrinfo_close_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_getaddrinfo_close_ocall_args_t	file:
+oe_syscall_getaddrinfo_open_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_getaddrinfo_open_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_getaddrinfo_open_ocall_args_t	file:
+oe_syscall_getaddrinfo_read_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_getaddrinfo_read_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_getaddrinfo_read_ocall_args_t	file:
+oe_syscall_getegid_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_getegid_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_getegid_ocall_args_t	file:
+oe_syscall_geteuid_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_geteuid_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_geteuid_ocall_args_t	file:
+oe_syscall_getgid_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_getgid_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_getgid_ocall_args_t	file:
+oe_syscall_getgroups_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_getgroups_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_getgroups_ocall_args_t	file:
+oe_syscall_getnameinfo_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_getnameinfo_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_getnameinfo_ocall_args_t	file:
+oe_syscall_getpeername_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_getpeername_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_getpeername_ocall_args_t	file:
+oe_syscall_getpgid_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_getpgid_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_getpgid_ocall_args_t	file:
+oe_syscall_getpgrp_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_getpgrp_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_getpgrp_ocall_args_t	file:
+oe_syscall_getpid_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_getpid_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_getpid_ocall_args_t	file:
+oe_syscall_getppid_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_getppid_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_getppid_ocall_args_t	file:
+oe_syscall_getsockname_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_getsockname_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_getsockname_ocall_args_t	file:
+oe_syscall_getsockopt_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_getsockopt_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_getsockopt_ocall_args_t	file:
+oe_syscall_getuid_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_getuid_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_getuid_ocall_args_t	file:
+oe_syscall_ioctl_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_ioctl_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_ioctl_ocall_args_t	file:
+oe_syscall_kill_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_kill_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_kill_ocall_args_t	file:
+oe_syscall_link_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_link_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_link_ocall_args_t	file:
+oe_syscall_listen_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_listen_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_listen_ocall_args_t	file:
+oe_syscall_lseek_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_lseek_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_lseek_ocall_args_t	file:
+oe_syscall_mkdir_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_mkdir_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_mkdir_ocall_args_t	file:
+oe_syscall_nanosleep_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_nanosleep_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_nanosleep_ocall_args_t	file:
+oe_syscall_open_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_open_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_open_ocall_args_t	file:
+oe_syscall_opendir_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_opendir_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_opendir_ocall_args_t	file:
+oe_syscall_poll_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_poll_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_poll_ocall_args_t	file:
+oe_syscall_pread_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_pread_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_pread_ocall_args_t	file:
+oe_syscall_pwrite_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_pwrite_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_pwrite_ocall_args_t	file:
+oe_syscall_read_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_read_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_read_ocall_args_t	file:
+oe_syscall_readdir_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_readdir_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_readdir_ocall_args_t	file:
+oe_syscall_readv_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_readv_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_readv_ocall_args_t	file:
+oe_syscall_recv_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_recv_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_recv_ocall_args_t	file:
+oe_syscall_recvfrom_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_recvfrom_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_recvfrom_ocall_args_t	file:
+oe_syscall_recvmsg_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_recvmsg_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_recvmsg_ocall_args_t	file:
+oe_syscall_recvv_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_recvv_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_recvv_ocall_args_t	file:
+oe_syscall_rename_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_rename_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_rename_ocall_args_t	file:
+oe_syscall_rewinddir_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_rewinddir_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_rewinddir_ocall_args_t	file:
+oe_syscall_rmdir_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_rmdir_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_rmdir_ocall_args_t	file:
+oe_syscall_send_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_send_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_send_ocall_args_t	file:
+oe_syscall_sendmsg_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_sendmsg_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_sendmsg_ocall_args_t	file:
+oe_syscall_sendto_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_sendto_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_sendto_ocall_args_t	file:
+oe_syscall_sendv_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_sendv_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_sendv_ocall_args_t	file:
+oe_syscall_setsockopt_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_setsockopt_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_setsockopt_ocall_args_t	file:
+oe_syscall_shutdown_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_shutdown_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_shutdown_ocall_args_t	file:
+oe_syscall_shutdown_sockets_device_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_shutdown_sockets_device_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_shutdown_sockets_device_ocall_args_t	file:
+oe_syscall_socket_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_socket_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_socket_ocall_args_t	file:
+oe_syscall_socketpair_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_socketpair_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_socketpair_ocall_args_t	file:
+oe_syscall_stat_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_stat_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_stat_ocall_args_t	file:
+oe_syscall_truncate_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_truncate_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_truncate_ocall_args_t	file:
+oe_syscall_uname_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_uname_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_uname_ocall_args_t	file:
+oe_syscall_unlink_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_unlink_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_unlink_ocall_args_t	file:
+oe_syscall_write_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_write_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_write_ocall_args_t	file:
+oe_syscall_writev_ocall_args_t	fileencryptor_u.c	/^} oe_syscall_writev_ocall_args_t;$/;"	t	typeref:struct:_oe_syscall_writev_ocall_args_t	file:
+oe_timespec	fileencryptor_args.h	/^typedef struct oe_timespec$/;"	s
+oe_timespec	fileencryptor_args.h	/^} oe_timespec;$/;"	t	typeref:struct:oe_timespec
+oe_utsname	fileencryptor_args.h	/^typedef struct oe_utsname$/;"	s
+oe_utsname	fileencryptor_args.h	/^} oe_utsname;$/;"	t	typeref:struct:oe_utsname
+oe_verify_local_report_ecall_args_t	fileencryptor_u.c	/^} oe_verify_local_report_ecall_args_t;$/;"	t	typeref:struct:_oe_verify_local_report_ecall_args_t	file:
+oe_verify_quote_ocall_args_t	fileencryptor_u.c	/^} oe_verify_quote_ocall_args_t;$/;"	t	typeref:struct:_oe_verify_quote_ocall_args_t	file:
+oe_verify_tdx_quote_ocall_args_t	fileencryptor_u.c	/^} oe_verify_tdx_quote_ocall_args_t;$/;"	t	typeref:struct:_oe_verify_tdx_quote_ocall_args_t	file:
+offset	fileencryptor_u.c	/^    oe_off_t offset;$/;"	m	struct:_oe_syscall_lseek_ocall_args_t	file:
+offset	fileencryptor_u.c	/^    oe_off_t offset;$/;"	m	struct:_oe_syscall_pread_ocall_args_t	file:
+offset	fileencryptor_u.c	/^    oe_off_t offset;$/;"	m	struct:_oe_syscall_pwrite_ocall_args_t	file:
+oldfd	fileencryptor_u.c	/^    oe_host_fd_t oldfd;$/;"	m	struct:_oe_syscall_dup_ocall_args_t	file:
+oldpath	fileencryptor_u.c	/^    char* oldpath;$/;"	m	struct:_oe_syscall_link_ocall_args_t	file:
+oldpath	fileencryptor_u.c	/^    char* oldpath;$/;"	m	struct:_oe_syscall_rename_ocall_args_t	file:
+oldpath_len	fileencryptor_u.c	/^    size_t oldpath_len;$/;"	m	struct:_oe_syscall_link_ocall_args_t	file:
+oldpath_len	fileencryptor_u.c	/^    size_t oldpath_len;$/;"	m	struct:_oe_syscall_rename_ocall_args_t	file:
+op	fileencryptor_u.c	/^    int op;$/;"	m	struct:_oe_syscall_epoll_ctl_ocall_args_t	file:
+operation	fileencryptor_u.c	/^    int operation;$/;"	m	struct:_oe_syscall_flock_ocall_args_t	file:
+opt_params	fileencryptor_u.c	/^    void* opt_params;$/;"	m	struct:_oe_get_qetarget_info_ocall_args_t	file:
+opt_params	fileencryptor_u.c	/^    void* opt_params;$/;"	m	struct:_oe_get_quote_ocall_args_t	file:
+opt_params	fileencryptor_u.c	/^    void* opt_params;$/;"	m	struct:_oe_get_report_v2_ecall_args_t	file:
+opt_params	fileencryptor_u.c	/^    void* opt_params;$/;"	m	struct:_oe_get_sgx_report_ecall_args_t	file:
+opt_params	fileencryptor_u.c	/^    void* opt_params;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+opt_params	fileencryptor_u.c	/^    void* opt_params;$/;"	m	struct:_oe_verify_tdx_quote_ocall_args_t	file:
+opt_params_size	fileencryptor_u.c	/^    size_t opt_params_size;$/;"	m	struct:_oe_get_qetarget_info_ocall_args_t	file:
+opt_params_size	fileencryptor_u.c	/^    size_t opt_params_size;$/;"	m	struct:_oe_get_quote_ocall_args_t	file:
+opt_params_size	fileencryptor_u.c	/^    size_t opt_params_size;$/;"	m	struct:_oe_get_report_v2_ecall_args_t	file:
+opt_params_size	fileencryptor_u.c	/^    size_t opt_params_size;$/;"	m	struct:_oe_get_sgx_report_ecall_args_t	file:
+opt_params_size	fileencryptor_u.c	/^    size_t opt_params_size;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+opt_params_size	fileencryptor_u.c	/^    size_t opt_params_size;$/;"	m	struct:_oe_verify_tdx_quote_ocall_args_t	file:
+optlen	fileencryptor_u.c	/^    oe_socklen_t optlen;$/;"	m	struct:_oe_syscall_setsockopt_ocall_args_t	file:
+optlen_in	fileencryptor_u.c	/^    oe_socklen_t optlen_in;$/;"	m	struct:_oe_syscall_getsockopt_ocall_args_t	file:
+optlen_out	fileencryptor_u.c	/^    oe_socklen_t* optlen_out;$/;"	m	struct:_oe_syscall_getsockopt_ocall_args_t	file:
+optname	fileencryptor_u.c	/^    int optname;$/;"	m	struct:_oe_syscall_getsockopt_ocall_args_t	file:
+optname	fileencryptor_u.c	/^    int optname;$/;"	m	struct:_oe_syscall_setsockopt_ocall_args_t	file:
+optval	fileencryptor_u.c	/^    void* optval;$/;"	m	struct:_oe_syscall_getsockopt_ocall_args_t	file:
+optval	fileencryptor_u.c	/^    void* optval;$/;"	m	struct:_oe_syscall_setsockopt_ocall_args_t	file:
+output_buf	fileencryptor_u.c	/^    unsigned char* output_buf;$/;"	m	struct:_encrypt_block_args_t	file:
+p_collateral_expiration_status	fileencryptor_u.c	/^    uint32_t* p_collateral_expiration_status;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+p_collateral_expiration_status	fileencryptor_u.c	/^    uint32_t* p_collateral_expiration_status;$/;"	m	struct:_oe_verify_tdx_quote_ocall_args_t	file:
+p_endorsements	fileencryptor_u.c	/^    void* p_endorsements;$/;"	m	struct:_oe_verify_tdx_quote_ocall_args_t	file:
+p_pck_crl	fileencryptor_u.c	/^    void* p_pck_crl;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+p_pck_crl_issuer_chain	fileencryptor_u.c	/^    void* p_pck_crl_issuer_chain;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+p_qe_identity	fileencryptor_u.c	/^    void* p_qe_identity;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+p_qe_identity_issuer_chain	fileencryptor_u.c	/^    void* p_qe_identity_issuer_chain;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+p_quote	fileencryptor_u.c	/^    void* p_quote;$/;"	m	struct:_oe_get_tdx_quote_verification_collateral_ocall_args_t	file:
+p_quote	fileencryptor_u.c	/^    void* p_quote;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+p_quote	fileencryptor_u.c	/^    void* p_quote;$/;"	m	struct:_oe_verify_tdx_quote_ocall_args_t	file:
+p_quote_verification_result	fileencryptor_u.c	/^    uint32_t* p_quote_verification_result;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+p_quote_verification_result	fileencryptor_u.c	/^    uint32_t* p_quote_verification_result;$/;"	m	struct:_oe_verify_tdx_quote_ocall_args_t	file:
+p_qve_report_info	fileencryptor_u.c	/^    void* p_qve_report_info;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+p_qve_report_info	fileencryptor_u.c	/^    void* p_qve_report_info;$/;"	m	struct:_oe_verify_tdx_quote_ocall_args_t	file:
+p_root_ca_crl	fileencryptor_u.c	/^    void* p_root_ca_crl;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+p_supplemental_data	fileencryptor_u.c	/^    void* p_supplemental_data;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+p_supplemental_data	fileencryptor_u.c	/^    void* p_supplemental_data;$/;"	m	struct:_oe_verify_tdx_quote_ocall_args_t	file:
+p_supplemental_data_size_out	fileencryptor_u.c	/^    uint32_t* p_supplemental_data_size_out;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+p_supplemental_data_size_out	fileencryptor_u.c	/^    uint32_t* p_supplemental_data_size_out;$/;"	m	struct:_oe_verify_tdx_quote_ocall_args_t	file:
+p_tcb_info	fileencryptor_u.c	/^    void* p_tcb_info;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+p_tcb_info_issuer_chain	fileencryptor_u.c	/^    void* p_tcb_info_issuer_chain;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+parsed_report	fileencryptor_u.c	/^    oe_report_t* parsed_report;$/;"	m	struct:_oe_verify_local_report_ecall_args_t	file:
+password	fileencryptor_u.c	/^    char* password;$/;"	m	struct:_initialize_encryptor_args_t	file:
+password_len	fileencryptor_u.c	/^    size_t password_len;$/;"	m	struct:_initialize_encryptor_args_t	file:
+path	fileencryptor_u.c	/^    char* path;$/;"	m	struct:_oe_syscall_truncate_ocall_args_t	file:
+path_len	fileencryptor_u.c	/^    size_t path_len;$/;"	m	struct:_oe_syscall_truncate_ocall_args_t	file:
+pathname	fileencryptor_u.c	/^    char* pathname;$/;"	m	struct:_oe_syscall_access_ocall_args_t	file:
+pathname	fileencryptor_u.c	/^    char* pathname;$/;"	m	struct:_oe_syscall_mkdir_ocall_args_t	file:
+pathname	fileencryptor_u.c	/^    char* pathname;$/;"	m	struct:_oe_syscall_open_ocall_args_t	file:
+pathname	fileencryptor_u.c	/^    char* pathname;$/;"	m	struct:_oe_syscall_rmdir_ocall_args_t	file:
+pathname	fileencryptor_u.c	/^    char* pathname;$/;"	m	struct:_oe_syscall_stat_ocall_args_t	file:
+pathname	fileencryptor_u.c	/^    char* pathname;$/;"	m	struct:_oe_syscall_unlink_ocall_args_t	file:
+pathname_len	fileencryptor_u.c	/^    size_t pathname_len;$/;"	m	struct:_oe_syscall_access_ocall_args_t	file:
+pathname_len	fileencryptor_u.c	/^    size_t pathname_len;$/;"	m	struct:_oe_syscall_mkdir_ocall_args_t	file:
+pathname_len	fileencryptor_u.c	/^    size_t pathname_len;$/;"	m	struct:_oe_syscall_open_ocall_args_t	file:
+pathname_len	fileencryptor_u.c	/^    size_t pathname_len;$/;"	m	struct:_oe_syscall_rmdir_ocall_args_t	file:
+pathname_len	fileencryptor_u.c	/^    size_t pathname_len;$/;"	m	struct:_oe_syscall_stat_ocall_args_t	file:
+pathname_len	fileencryptor_u.c	/^    size_t pathname_len;$/;"	m	struct:_oe_syscall_unlink_ocall_args_t	file:
+pck_crl	fileencryptor_u.c	/^    void* pck_crl;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+pck_crl	fileencryptor_u.c	/^    void* pck_crl;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+pck_crl_issuer_chain	fileencryptor_u.c	/^    void* pck_crl_issuer_chain;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+pck_crl_issuer_chain	fileencryptor_u.c	/^    void* pck_crl_issuer_chain;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+pck_crl_issuer_chain_size	fileencryptor_u.c	/^    size_t pck_crl_issuer_chain_size;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+pck_crl_issuer_chain_size	fileencryptor_u.c	/^    size_t pck_crl_issuer_chain_size;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+pck_crl_issuer_chain_size	fileencryptor_u.c	/^    uint32_t pck_crl_issuer_chain_size;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+pck_crl_issuer_chain_size_out	fileencryptor_u.c	/^    size_t* pck_crl_issuer_chain_size_out;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+pck_crl_issuer_chain_size_out	fileencryptor_u.c	/^    size_t* pck_crl_issuer_chain_size_out;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+pck_crl_size	fileencryptor_u.c	/^    size_t pck_crl_size;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+pck_crl_size	fileencryptor_u.c	/^    size_t pck_crl_size;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+pck_crl_size	fileencryptor_u.c	/^    uint32_t pck_crl_size;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+pck_crl_size_out	fileencryptor_u.c	/^    size_t* pck_crl_size_out;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+pck_crl_size_out	fileencryptor_u.c	/^    size_t* pck_crl_size_out;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+pid	fileencryptor_u.c	/^    int pid;$/;"	m	struct:_oe_syscall_getpgid_ocall_args_t	file:
+pid	fileencryptor_u.c	/^    int pid;$/;"	m	struct:_oe_syscall_kill_ocall_args_t	file:
+protocol	fileencryptor_u.c	/^    int protocol;$/;"	m	struct:_oe_syscall_socket_ocall_args_t	file:
+protocol	fileencryptor_u.c	/^    int protocol;$/;"	m	struct:_oe_syscall_socketpair_ocall_args_t	file:
+qe_identity	fileencryptor_u.c	/^    void* qe_identity;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+qe_identity	fileencryptor_u.c	/^    void* qe_identity;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+qe_identity_issuer_chain	fileencryptor_u.c	/^    void* qe_identity_issuer_chain;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+qe_identity_issuer_chain	fileencryptor_u.c	/^    void* qe_identity_issuer_chain;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+qe_identity_issuer_chain_size	fileencryptor_u.c	/^    size_t qe_identity_issuer_chain_size;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+qe_identity_issuer_chain_size	fileencryptor_u.c	/^    size_t qe_identity_issuer_chain_size;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+qe_identity_issuer_chain_size	fileencryptor_u.c	/^    uint32_t qe_identity_issuer_chain_size;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+qe_identity_issuer_chain_size_out	fileencryptor_u.c	/^    size_t* qe_identity_issuer_chain_size_out;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+qe_identity_issuer_chain_size_out	fileencryptor_u.c	/^    size_t* qe_identity_issuer_chain_size_out;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+qe_identity_size	fileencryptor_u.c	/^    size_t qe_identity_size;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+qe_identity_size	fileencryptor_u.c	/^    size_t qe_identity_size;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+qe_identity_size	fileencryptor_u.c	/^    uint32_t qe_identity_size;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+qe_identity_size_out	fileencryptor_u.c	/^    size_t* qe_identity_size_out;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+qe_identity_size_out	fileencryptor_u.c	/^    size_t* qe_identity_size_out;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+quote	fileencryptor_u.c	/^    void* quote;$/;"	m	struct:_oe_get_quote_ocall_args_t	file:
+quote_size	fileencryptor_u.c	/^    size_t quote_size;$/;"	m	struct:_oe_get_quote_ocall_args_t	file:
+quote_size	fileencryptor_u.c	/^    uint32_t quote_size;$/;"	m	struct:_oe_get_tdx_quote_verification_collateral_ocall_args_t	file:
+quote_size	fileencryptor_u.c	/^    uint32_t quote_size;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+quote_size	fileencryptor_u.c	/^    uint32_t quote_size;$/;"	m	struct:_oe_verify_tdx_quote_ocall_args_t	file:
+quote_size_out	fileencryptor_u.c	/^    size_t* quote_size_out;$/;"	m	struct:_oe_get_quote_ocall_args_t	file:
+qve_report_info_size	fileencryptor_u.c	/^    uint32_t qve_report_info_size;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+qve_report_info_size	fileencryptor_u.c	/^    uint32_t qve_report_info_size;$/;"	m	struct:_oe_verify_tdx_quote_ocall_args_t	file:
+release	fileencryptor_args.h	/^    char release[65];$/;"	m	struct:oe_utsname
+rem	fileencryptor_u.c	/^    struct oe_timespec* rem;$/;"	m	struct:_oe_syscall_clock_nanosleep_ocall_args_t	typeref:struct:_oe_syscall_clock_nanosleep_ocall_args_t::oe_timespec	file:
+rem	fileencryptor_u.c	/^    struct oe_timespec* rem;$/;"	m	struct:_oe_syscall_nanosleep_ocall_args_t	typeref:struct:_oe_syscall_nanosleep_ocall_args_t::oe_timespec	file:
+report	fileencryptor_u.c	/^    oe_report_buffer_t* report;$/;"	m	struct:_oe_get_report_v2_ecall_args_t	file:
+report	fileencryptor_u.c	/^    sgx_report_t* report;$/;"	m	struct:_oe_get_sgx_report_ecall_args_t	file:
+report	fileencryptor_u.c	/^    uint8_t* report;$/;"	m	struct:_oe_verify_local_report_ecall_args_t	file:
+report_size	fileencryptor_u.c	/^    size_t report_size;$/;"	m	struct:_oe_verify_local_report_ecall_args_t	file:
+req	fileencryptor_u.c	/^    struct oe_timespec* req;$/;"	m	struct:_oe_syscall_clock_nanosleep_ocall_args_t	typeref:struct:_oe_syscall_clock_nanosleep_ocall_args_t::oe_timespec	file:
+req	fileencryptor_u.c	/^    struct oe_timespec* req;$/;"	m	struct:_oe_syscall_nanosleep_ocall_args_t	typeref:struct:_oe_syscall_nanosleep_ocall_args_t::oe_timespec	file:
+request	fileencryptor_u.c	/^    uint64_t request;$/;"	m	struct:_oe_syscall_ioctl_ocall_args_t	file:
+revents	fileencryptor_args.h	/^    short int revents;$/;"	m	struct:oe_host_pollfd
+revents	fileencryptor_args.h	/^    short int revents;$/;"	m	struct:oe_pollfd
+root_ca_crl	fileencryptor_u.c	/^    void* root_ca_crl;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+root_ca_crl	fileencryptor_u.c	/^    void* root_ca_crl;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+root_ca_crl_size	fileencryptor_u.c	/^    size_t root_ca_crl_size;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+root_ca_crl_size	fileencryptor_u.c	/^    size_t root_ca_crl_size;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+root_ca_crl_size	fileencryptor_u.c	/^    uint32_t root_ca_crl_size;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+root_ca_crl_size_out	fileencryptor_u.c	/^    size_t* root_ca_crl_size_out;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+root_ca_crl_size_out	fileencryptor_u.c	/^    size_t* root_ca_crl_size_out;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+sa	fileencryptor_u.c	/^    struct oe_sockaddr* sa;$/;"	m	struct:_oe_syscall_getnameinfo_ocall_args_t	typeref:struct:_oe_syscall_getnameinfo_ocall_args_t::oe_sockaddr	file:
+sa_data	fileencryptor_args.h	/^    char sa_data[14];$/;"	m	struct:oe_sockaddr
+sa_family	fileencryptor_args.h	/^    oe_sa_family_t sa_family;$/;"	m	struct:oe_sockaddr
+salen	fileencryptor_u.c	/^    oe_socklen_t salen;$/;"	m	struct:_oe_syscall_getnameinfo_ocall_args_t	file:
+self_tcs	fileencryptor_u.c	/^    uint64_t self_tcs;$/;"	m	struct:_oe_sgx_thread_wake_wait_ocall_args_t	file:
+serv	fileencryptor_u.c	/^    char* serv;$/;"	m	struct:_oe_syscall_getnameinfo_ocall_args_t	file:
+service	fileencryptor_u.c	/^    char* service;$/;"	m	struct:_oe_syscall_getaddrinfo_open_ocall_args_t	file:
+service_len	fileencryptor_u.c	/^    size_t service_len;$/;"	m	struct:_oe_syscall_getaddrinfo_open_ocall_args_t	file:
+servlen	fileencryptor_u.c	/^    oe_socklen_t servlen;$/;"	m	struct:_oe_syscall_getnameinfo_ocall_args_t	file:
+sgx_report	fileencryptor_u.c	/^    sgx_report_t* sgx_report;$/;"	m	struct:_oe_get_quote_ocall_args_t	file:
+signum	fileencryptor_u.c	/^    int signum;$/;"	m	struct:_oe_syscall_kill_ocall_args_t	file:
+size	fileencryptor_args.h	/^    size_t size;$/;"	m	struct:format_ids_t
+size	fileencryptor_args.h	/^    size_t size;$/;"	m	struct:oe_report_buffer_t
+size	fileencryptor_args.h	/^    uint32_t size;$/;"	m	struct:tdx_quote_collateral_t
+size	fileencryptor_u.c	/^    size_t size;$/;"	m	struct:_encrypt_block_args_t	file:
+size	fileencryptor_u.c	/^    size_t size;$/;"	m	struct:_oe_sgx_backtrace_symbols_ocall_args_t	file:
+size	fileencryptor_u.c	/^    size_t size;$/;"	m	struct:_oe_sgx_log_backtrace_ocall_args_t	file:
+size	fileencryptor_u.c	/^    size_t size;$/;"	m	struct:_oe_syscall_getgroups_ocall_args_t	file:
+sockfd	fileencryptor_u.c	/^    oe_host_fd_t sockfd;$/;"	m	struct:_oe_syscall_accept_ocall_args_t	file:
+sockfd	fileencryptor_u.c	/^    oe_host_fd_t sockfd;$/;"	m	struct:_oe_syscall_bind_ocall_args_t	file:
+sockfd	fileencryptor_u.c	/^    oe_host_fd_t sockfd;$/;"	m	struct:_oe_syscall_close_socket_ocall_args_t	file:
+sockfd	fileencryptor_u.c	/^    oe_host_fd_t sockfd;$/;"	m	struct:_oe_syscall_connect_ocall_args_t	file:
+sockfd	fileencryptor_u.c	/^    oe_host_fd_t sockfd;$/;"	m	struct:_oe_syscall_getpeername_ocall_args_t	file:
+sockfd	fileencryptor_u.c	/^    oe_host_fd_t sockfd;$/;"	m	struct:_oe_syscall_getsockname_ocall_args_t	file:
+sockfd	fileencryptor_u.c	/^    oe_host_fd_t sockfd;$/;"	m	struct:_oe_syscall_getsockopt_ocall_args_t	file:
+sockfd	fileencryptor_u.c	/^    oe_host_fd_t sockfd;$/;"	m	struct:_oe_syscall_listen_ocall_args_t	file:
+sockfd	fileencryptor_u.c	/^    oe_host_fd_t sockfd;$/;"	m	struct:_oe_syscall_recv_ocall_args_t	file:
+sockfd	fileencryptor_u.c	/^    oe_host_fd_t sockfd;$/;"	m	struct:_oe_syscall_recvfrom_ocall_args_t	file:
+sockfd	fileencryptor_u.c	/^    oe_host_fd_t sockfd;$/;"	m	struct:_oe_syscall_recvmsg_ocall_args_t	file:
+sockfd	fileencryptor_u.c	/^    oe_host_fd_t sockfd;$/;"	m	struct:_oe_syscall_send_ocall_args_t	file:
+sockfd	fileencryptor_u.c	/^    oe_host_fd_t sockfd;$/;"	m	struct:_oe_syscall_sendmsg_ocall_args_t	file:
+sockfd	fileencryptor_u.c	/^    oe_host_fd_t sockfd;$/;"	m	struct:_oe_syscall_sendto_ocall_args_t	file:
+sockfd	fileencryptor_u.c	/^    oe_host_fd_t sockfd;$/;"	m	struct:_oe_syscall_setsockopt_ocall_args_t	file:
+sockfd	fileencryptor_u.c	/^    oe_host_fd_t sockfd;$/;"	m	struct:_oe_syscall_shutdown_ocall_args_t	file:
+sockfd	fileencryptor_u.c	/^    oe_host_fd_t sockfd;$/;"	m	struct:_oe_syscall_shutdown_sockets_device_ocall_args_t	file:
+spin_count	fileencryptor_args.h	/^    uint64_t spin_count;$/;"	m	struct:oe_enclave_worker_context_t
+spin_count	fileencryptor_args.h	/^    uint64_t spin_count;$/;"	m	struct:oe_host_worker_context_t
+spin_count_threshold	fileencryptor_args.h	/^    uint64_t spin_count_threshold;$/;"	m	struct:oe_enclave_worker_context_t
+src_addr	fileencryptor_u.c	/^    struct oe_sockaddr* src_addr;$/;"	m	struct:_oe_syscall_recvfrom_ocall_args_t	typeref:struct:_oe_syscall_recvfrom_ocall_args_t::oe_sockaddr	file:
+st_atim	fileencryptor_args.h	/^    struct __st st_atim;$/;"	m	struct:oe_stat_t	typeref:struct:oe_stat_t::__st
+st_blksize	fileencryptor_args.h	/^    oe_blksize_t st_blksize;$/;"	m	struct:oe_stat_t
+st_blocks	fileencryptor_args.h	/^    oe_blkcnt_t st_blocks;$/;"	m	struct:oe_stat_t
+st_ctim	fileencryptor_args.h	/^    struct __st st_ctim;$/;"	m	struct:oe_stat_t	typeref:struct:oe_stat_t::__st
+st_dev	fileencryptor_args.h	/^    oe_dev_t st_dev;$/;"	m	struct:oe_stat_t
+st_gid	fileencryptor_args.h	/^    oe_gid_t st_gid;$/;"	m	struct:oe_stat_t
+st_ino	fileencryptor_args.h	/^    oe_ino_t st_ino;$/;"	m	struct:oe_stat_t
+st_mode	fileencryptor_args.h	/^    oe_mode_t st_mode;$/;"	m	struct:oe_stat_t
+st_mtim	fileencryptor_args.h	/^    struct __st st_mtim;$/;"	m	struct:oe_stat_t	typeref:struct:oe_stat_t::__st
+st_nlink	fileencryptor_args.h	/^    oe_nlink_t st_nlink;$/;"	m	struct:oe_stat_t
+st_rdev	fileencryptor_args.h	/^    oe_dev_t st_rdev;$/;"	m	struct:oe_stat_t
+st_size	fileencryptor_args.h	/^    oe_off_t st_size;$/;"	m	struct:oe_stat_t
+st_uid	fileencryptor_args.h	/^    oe_uid_t st_uid;$/;"	m	struct:oe_stat_t
+supplemental_data_size	fileencryptor_u.c	/^    uint32_t supplemental_data_size;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+supplemental_data_size	fileencryptor_u.c	/^    uint32_t supplemental_data_size;$/;"	m	struct:_oe_verify_tdx_quote_ocall_args_t	file:
+sv	fileencryptor_u.c	/^    oe_host_fd_t* sv;$/;"	m	struct:_oe_syscall_socketpair_ocall_args_t	file:
+symbols_buffer	fileencryptor_u.c	/^    void* symbols_buffer;$/;"	m	struct:_oe_sgx_backtrace_symbols_ocall_args_t	file:
+symbols_buffer_size	fileencryptor_u.c	/^    size_t symbols_buffer_size;$/;"	m	struct:_oe_sgx_backtrace_symbols_ocall_args_t	file:
+symbols_buffer_size_out	fileencryptor_u.c	/^    size_t* symbols_buffer_size_out;$/;"	m	struct:_oe_sgx_backtrace_symbols_ocall_args_t	file:
+sysname	fileencryptor_args.h	/^    char sysname[65];$/;"	m	struct:oe_utsname
+target_info	fileencryptor_u.c	/^    sgx_target_info_t* target_info;$/;"	m	struct:_oe_get_qetarget_info_ocall_args_t	file:
+tcb_info	fileencryptor_u.c	/^    void* tcb_info;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+tcb_info	fileencryptor_u.c	/^    void* tcb_info;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+tcb_info_issuer_chain	fileencryptor_u.c	/^    void* tcb_info_issuer_chain;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+tcb_info_issuer_chain	fileencryptor_u.c	/^    void* tcb_info_issuer_chain;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+tcb_info_issuer_chain_size	fileencryptor_u.c	/^    size_t tcb_info_issuer_chain_size;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+tcb_info_issuer_chain_size	fileencryptor_u.c	/^    size_t tcb_info_issuer_chain_size;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+tcb_info_issuer_chain_size	fileencryptor_u.c	/^    uint32_t tcb_info_issuer_chain_size;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+tcb_info_issuer_chain_size_out	fileencryptor_u.c	/^    size_t* tcb_info_issuer_chain_size_out;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+tcb_info_issuer_chain_size_out	fileencryptor_u.c	/^    size_t* tcb_info_issuer_chain_size_out;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+tcb_info_size	fileencryptor_u.c	/^    size_t tcb_info_size;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+tcb_info_size	fileencryptor_u.c	/^    size_t tcb_info_size;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+tcb_info_size	fileencryptor_u.c	/^    uint32_t tcb_info_size;$/;"	m	struct:_oe_verify_quote_ocall_args_t	file:
+tcb_info_size_out	fileencryptor_u.c	/^    size_t* tcb_info_size_out;$/;"	m	struct:_oe_get_quote_verification_collateral_ocall_args_t	file:
+tcb_info_size_out	fileencryptor_u.c	/^    size_t* tcb_info_size_out;$/;"	m	struct:_oe_get_quote_verification_collateral_with_baseline_ocall_args_t	file:
+tdx_quote_collateral_t	fileencryptor_args.h	/^typedef struct tdx_quote_collateral_t$/;"	s
+tdx_quote_collateral_t	fileencryptor_args.h	/^} tdx_quote_collateral_t;$/;"	t	typeref:struct:tdx_quote_collateral_t
+timeout	fileencryptor_u.c	/^    int timeout;$/;"	m	struct:_oe_syscall_epoll_wait_ocall_args_t	file:
+timeout	fileencryptor_u.c	/^    int timeout;$/;"	m	struct:_oe_syscall_poll_ocall_args_t	file:
+total_spin_count	fileencryptor_args.h	/^    uint64_t total_spin_count;$/;"	m	struct:oe_enclave_worker_context_t
+total_spin_count	fileencryptor_args.h	/^    uint64_t total_spin_count;$/;"	m	struct:oe_host_worker_context_t
+tv_nsec	fileencryptor_args.h	/^    long int tv_nsec;$/;"	m	struct:oe_timespec
+tv_nsec	fileencryptor_args.h	/^    suseconds_t tv_nsec;$/;"	m	struct:__st
+tv_sec	fileencryptor_args.h	/^    time_t tv_sec;$/;"	m	struct:__st
+tv_sec	fileencryptor_args.h	/^    time_t tv_sec;$/;"	m	struct:oe_timespec
+type	fileencryptor_u.c	/^    int type;$/;"	m	struct:_oe_syscall_socket_ocall_args_t	file:
+type	fileencryptor_u.c	/^    int type;$/;"	m	struct:_oe_syscall_socketpair_ocall_args_t	file:
+version	fileencryptor_args.h	/^    char version[65];$/;"	m	struct:oe_utsname
+waiter_tcs	fileencryptor_u.c	/^    uint64_t waiter_tcs;$/;"	m	struct:_oe_sgx_thread_wake_wait_ocall_args_t	file:
+whence	fileencryptor_u.c	/^    int whence;$/;"	m	struct:_oe_syscall_lseek_ocall_args_t	file:
