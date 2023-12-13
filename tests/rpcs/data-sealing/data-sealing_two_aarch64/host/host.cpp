@@ -317,6 +317,7 @@ int main(int argc, const char* argv[])
 
 exit:
     cout << "Host: Terminating enclaves" << endl;
+    /*
     if (enclave_a_v1)
         terminate_enclave(enclave_a_v1);
 
@@ -325,7 +326,7 @@ exit:
 
     if (enclave_b)
         terminate_enclave(enclave_b);
-
+    */
     if (ret == 0)
         cout << "Host: Sample completed successfully." << endl;
 

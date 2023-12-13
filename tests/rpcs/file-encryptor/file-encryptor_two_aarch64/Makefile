@@ -13,7 +13,7 @@ build:
 	$(MAKE) -C host
 
 clean:
-	$(MAKE) -C enclave clean
+	#$(MAKE) -C enclave clean
 	$(MAKE) -C host clean
 
 run:

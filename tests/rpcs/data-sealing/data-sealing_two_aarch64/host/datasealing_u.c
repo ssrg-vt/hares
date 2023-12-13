@@ -2879,9 +2879,10 @@ static void ocall_oe_syscall_epoll_create1_ocall(
     /* There were no out nor in-out parameters. */
 
     /* Call user function. */
+    /*
     _pargs_out->oe_retval = oe_syscall_epoll_create1_ocall(
         _pargs_in->flags);
-
+    */
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -7431,6 +7432,7 @@ static void ocall_oe_get_qetarget_info_ocall(
         _pargs_in->opt_params_size,
         _pargs_in->target_info);
     */
+
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -7501,6 +7503,7 @@ static void ocall_oe_get_quote_ocall(
         _pargs_in->quote_size,
         _pargs_in->quote_size_out);
     */
+
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -8505,7 +8508,7 @@ oe_result_t connect_popsgx_server(int *connfd){
  
     // assign IP, PORT
     servaddr.sin_family = AF_INET;
-    servaddr.sin_addr.s_addr = inet_addr("192.168.2.143");
+    servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
     servaddr.sin_port = htons(PORT);
  
     // connect the client socket to server socket

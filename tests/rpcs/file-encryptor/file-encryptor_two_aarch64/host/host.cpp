@@ -468,6 +468,6 @@ int main(int argc, const char* argv[])
 exit:
     cout << "Host: terminate the enclave" << endl;
     cout << "Host: Sample completed successfully." << endl;
-    oe_terminate_enclave(enclave);
+    //oe_terminate_enclave(enclave);
     return ret;
 }

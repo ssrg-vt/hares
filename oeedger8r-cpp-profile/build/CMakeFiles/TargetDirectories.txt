@@ -1,0 +1,5 @@
+/home/abi/Drive/workspace/ssrg/cross_enclave_prototype/oeedger8r-cpp/build/CMakeFiles/edit_cache.dir
+/home/abi/Drive/workspace/ssrg/cross_enclave_prototype/oeedger8r-cpp/build/CMakeFiles/rebuild_cache.dir
+/home/abi/Drive/workspace/ssrg/cross_enclave_prototype/oeedger8r-cpp/build/src/CMakeFiles/oeedger8r.dir
+/home/abi/Drive/workspace/ssrg/cross_enclave_prototype/oeedger8r-cpp/build/src/CMakeFiles/edit_cache.dir
+/home/abi/Drive/workspace/ssrg/cross_enclave_prototype/oeedger8r-cpp/build/src/CMakeFiles/rebuild_cache.dir
