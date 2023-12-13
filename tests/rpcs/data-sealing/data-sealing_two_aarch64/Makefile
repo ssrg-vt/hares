@@ -100,11 +100,11 @@ $(foreach v,a b,$(eval $(filter enclave_$v%,$(ENCLAVES)): private_$v.pem))
 	openssl genrsa -out $@ -3 3072
 
 $(EDL_OUT_T) $(EDL_OUT_U): $(EDL).edl
-	./oeedger8r $<	\
-		--popsgx_client \
-		--trusted-dir $(sort $(dir $(EDL_OUT_T)))	\
-		--untrusted-dir $(sort $(dir $(EDL_OUT_U)))	\
-		--search-path $(INCDIR) --search-path $(INCDIR)/openenclave/edl/sgx
+	#./oeedger8r $<	\
+	#	--popsgx_client \
+	#	--trusted-dir $(sort $(dir $(EDL_OUT_T)))	\
+	#	--untrusted-dir $(sort $(dir $(EDL_OUT_U)))	\
+	#	--search-path $(INCDIR) --search-path $(INCDIR)/openenclave/edl/sgx
 
 HOST_OBJS:= $(addsuffix .o,	\
 	$(wildcard $(dir $(HOST))*.cpp)	\

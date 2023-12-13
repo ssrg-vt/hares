@@ -177,7 +177,7 @@ oe_result_t log_callback_enclave_hello(oe_enclave_t* enclave)
     static uint64_t global_id = OE_GLOBAL_ECALL_ID_NULL;
 
     /* Marshalling struct. */
-    enclave_hello_args_t _args, *_pargs_in = NULL, *_pargs_out = NULL;
+    enclave_hello_args_t _args, _t_args, *_pargs_in = NULL, *_pargs_out = NULL;
     /* Marshalling buffer and sizes. */
     size_t _input_buffer_size = 0;
     size_t _output_buffer_size = 0;
@@ -196,6 +196,7 @@ oe_result_t log_callback_enclave_hello(oe_enclave_t* enclave)
 
     /* Fill marshalling struct. */
     memset(&_args, 0, sizeof(_args));
+    memset(&_t_args, 0, sizeof(_t_args));
 
     /* Compute input buffer size. Include in and in-out parameters. */
     OE_ADD_SIZE(_input_buffer_size, sizeof(enclave_hello_args_t));
@@ -224,6 +225,7 @@ oe_result_t log_callback_enclave_hello(oe_enclave_t* enclave)
     
     /* Copy args structure (now filled) to input buffer. */
 
+    memcpy(&_t_args, &_args, sizeof(enclave_hello_args_t));
     /* Popsgx addons starts from here */
     ssize_t bytes_sent, bytes_received;
     int fcn_id = log_callback_fcn_id_enclave_hello;
@@ -252,6 +254,12 @@ oe_result_t log_callback_enclave_hello(oe_enclave_t* enclave)
         return OE_FAILURE;
     }
 
+    bytes_sent = popsgx_send(connfd, (unsigned long int*)&enclave, sizeof(unsigned long int));
+    if(bytes_sent != sizeof(unsigned long int)){
+        close(connfd);
+        return OE_FAILURE;
+    }
+
     size_t popsgx_buffer_sizes[3] = {0};
     popsgx_buffer_sizes[0] = _popsgx_input_buffer_size;
     popsgx_buffer_sizes[1] = _popsgx_output_buffer_size;
@@ -275,6 +283,18 @@ oe_result_t log_callback_enclave_hello(oe_enclave_t* enclave)
     bytes_received = popsgx_read(connfd, _buffer, _popsgx_total_buffer_size);
     if(bytes_received != _popsgx_total_buffer_size){
         close(connfd);
+        return OE_FAILURE;
+    }
+
+    bytes_received = popsgx_read(connfd, &_output_bytes_written, sizeof(size_t));
+    if(bytes_received != sizeof(size_t)){
+        close(connfd);
+        return OE_FAILURE;
+    }
+
+    /* Currently exactly _output_buffer_size bytes must be written. */
+    if (_output_bytes_written != _output_buffer_size){
+        _result = OE_FAILURE;
         return OE_FAILURE;
     }
 
@@ -309,7 +329,7 @@ oe_result_t log_callback_enclave_set_log_callback(oe_enclave_t* enclave)
     static uint64_t global_id = OE_GLOBAL_ECALL_ID_NULL;
 
     /* Marshalling struct. */
-    enclave_set_log_callback_args_t _args, *_pargs_in = NULL, *_pargs_out = NULL;
+    enclave_set_log_callback_args_t _args, _t_args, *_pargs_in = NULL, *_pargs_out = NULL;
     /* Marshalling buffer and sizes. */
     size_t _input_buffer_size = 0;
     size_t _output_buffer_size = 0;
@@ -328,6 +348,7 @@ oe_result_t log_callback_enclave_set_log_callback(oe_enclave_t* enclave)
 
     /* Fill marshalling struct. */
     memset(&_args, 0, sizeof(_args));
+    memset(&_t_args, 0, sizeof(_t_args));
 
     /* Compute input buffer size. Include in and in-out parameters. */
     OE_ADD_SIZE(_input_buffer_size, sizeof(enclave_set_log_callback_args_t));
@@ -356,6 +377,7 @@ oe_result_t log_callback_enclave_set_log_callback(oe_enclave_t* enclave)
     
     /* Copy args structure (now filled) to input buffer. */
 
+    memcpy(&_t_args, &_args, sizeof(enclave_set_log_callback_args_t));
     /* Popsgx addons starts from here */
     ssize_t bytes_sent, bytes_received;
     int fcn_id = log_callback_fcn_id_enclave_set_log_callback;
@@ -384,6 +406,12 @@ oe_result_t log_callback_enclave_set_log_callback(oe_enclave_t* enclave)
         return OE_FAILURE;
     }
 
+    bytes_sent = popsgx_send(connfd, (unsigned long int*)&enclave, sizeof(unsigned long int));
+    if(bytes_sent != sizeof(unsigned long int)){
+        close(connfd);
+        return OE_FAILURE;
+    }
+
     size_t popsgx_buffer_sizes[3] = {0};
     popsgx_buffer_sizes[0] = _popsgx_input_buffer_size;
     popsgx_buffer_sizes[1] = _popsgx_output_buffer_size;
@@ -407,6 +435,18 @@ oe_result_t log_callback_enclave_set_log_callback(oe_enclave_t* enclave)
     bytes_received = popsgx_read(connfd, _buffer, _popsgx_total_buffer_size);
     if(bytes_received != _popsgx_total_buffer_size){
         close(connfd);
+        return OE_FAILURE;
+    }
+
+    bytes_received = popsgx_read(connfd, &_output_bytes_written, sizeof(size_t));
+    if(bytes_received != sizeof(size_t)){
+        close(connfd);
+        return OE_FAILURE;
+    }
+
+    /* Currently exactly _output_buffer_size bytes must be written. */
+    if (_output_bytes_written != _output_buffer_size){
+        _result = OE_FAILURE;
         return OE_FAILURE;
     }
 
@@ -444,7 +484,7 @@ oe_result_t log_callback_oe_log_init_ecall(
     static uint64_t global_id = OE_GLOBAL_ECALL_ID_NULL;
 
     /* Marshalling struct. */
-    oe_log_init_ecall_args_t _args, *_pargs_in = NULL, *_pargs_out = NULL;
+    oe_log_init_ecall_args_t _args, _t_args, *_pargs_in = NULL, *_pargs_out = NULL;
     /* Marshalling buffer and sizes. */
     size_t _input_buffer_size = 0;
     size_t _output_buffer_size = 0;
@@ -463,6 +503,7 @@ oe_result_t log_callback_oe_log_init_ecall(
 
     /* Fill marshalling struct. */
     memset(&_args, 0, sizeof(_args));
+    memset(&_t_args, 0, sizeof(_t_args));
     _args.enclave_path = (char*)enclave_path;
     _args.enclave_path_len = (enclave_path) ? (oe_strlen(enclave_path) + 1) : 0;
     _args.log_level = log_level;
@@ -496,6 +537,7 @@ oe_result_t log_callback_oe_log_init_ecall(
     
     /* Copy args structure (now filled) to input buffer. */
 
+    memcpy(&_t_args, &_args, sizeof(oe_log_init_ecall_args_t));
     /* Popsgx addons starts from here */
     ssize_t bytes_sent, bytes_received;
     int fcn_id = log_callback_fcn_id_oe_log_init_ecall;
@@ -503,9 +545,10 @@ oe_result_t log_callback_oe_log_init_ecall(
 
     OE_ADD_SIZE(_popsgx_input_buffer_size, sizeof(oe_log_init_ecall_args_t));
     
-    if (enclave_path)
+    if (enclave_path){
         _args.enclave_path = (char*) _popsgx_input_buffer_size;
         OE_ADD_ARG_SIZE(_popsgx_input_buffer_size, _args.enclave_path_len, sizeof(char));
+    }
 
     OE_ADD_SIZE(_popsgx_output_buffer_size, sizeof(oe_log_init_ecall_args_t));
     /* There were no corresponding parameters. */
@@ -523,6 +566,12 @@ oe_result_t log_callback_oe_log_init_ecall(
 
     bytes_received = popsgx_read(connfd, &_result, sizeof(_result));
     if(bytes_received != sizeof(_result)){
+        close(connfd);
+        return OE_FAILURE;
+    }
+
+    bytes_sent = popsgx_send(connfd, (unsigned long int*)&enclave, sizeof(unsigned long int));
+    if(bytes_sent != sizeof(unsigned long int)){
         close(connfd);
         return OE_FAILURE;
     }
@@ -550,6 +599,18 @@ oe_result_t log_callback_oe_log_init_ecall(
     bytes_received = popsgx_read(connfd, _buffer, _popsgx_total_buffer_size);
     if(bytes_received != _popsgx_total_buffer_size){
         close(connfd);
+        return OE_FAILURE;
+    }
+
+    bytes_received = popsgx_read(connfd, &_output_bytes_written, sizeof(size_t));
+    if(bytes_received != sizeof(size_t)){
+        close(connfd);
+        return OE_FAILURE;
+    }
+
+    /* Currently exactly _output_buffer_size bytes must be written. */
+    if (_output_bytes_written != _output_buffer_size){
+        _result = OE_FAILURE;
         return OE_FAILURE;
     }
 
@@ -589,7 +650,7 @@ oe_result_t log_callback_oe_get_sgx_report_ecall(
     static uint64_t global_id = OE_GLOBAL_ECALL_ID_NULL;
 
     /* Marshalling struct. */
-    oe_get_sgx_report_ecall_args_t _args, *_pargs_in = NULL, *_pargs_out = NULL;
+    oe_get_sgx_report_ecall_args_t _args, _t_args, *_pargs_in = NULL, *_pargs_out = NULL;
     /* Marshalling buffer and sizes. */
     size_t _input_buffer_size = 0;
     size_t _output_buffer_size = 0;
@@ -608,6 +669,7 @@ oe_result_t log_callback_oe_get_sgx_report_ecall(
 
     /* Fill marshalling struct. */
     memset(&_args, 0, sizeof(_args));
+    memset(&_t_args, 0, sizeof(_t_args));
     _args.opt_params = (void*)opt_params;
     _args.opt_params_size = opt_params_size;
     _args.report = (sgx_report_t*)report;
@@ -642,6 +704,7 @@ oe_result_t log_callback_oe_get_sgx_report_ecall(
     
     /* Copy args structure (now filled) to input buffer. */
 
+    memcpy(&_t_args, &_args, sizeof(oe_get_sgx_report_ecall_args_t));
     /* Popsgx addons starts from here */
     ssize_t bytes_sent, bytes_received;
     int fcn_id = log_callback_fcn_id_oe_get_sgx_report_ecall;
@@ -649,15 +712,16 @@ oe_result_t log_callback_oe_get_sgx_report_ecall(
 
     OE_ADD_SIZE(_popsgx_input_buffer_size, sizeof(oe_get_sgx_report_ecall_args_t));
     
-    if (opt_params)
+    if (opt_params){
         _args.opt_params = (void*) _popsgx_input_buffer_size;
         OE_ADD_ARG_SIZE(_popsgx_input_buffer_size, 1, _args.opt_params_size);
+    }
 
     OE_ADD_SIZE(_popsgx_output_buffer_size, sizeof(oe_get_sgx_report_ecall_args_t));
     
-    if (report)
-        _args.report = (sgx_report_t*) _popsgx_output_buffer_size;
+    if (report){
         OE_ADD_ARG_SIZE(_popsgx_output_buffer_size, 1, sizeof(sgx_report_t));
+    }
 
     _popsgx_total_buffer_size = _popsgx_input_buffer_size;
     OE_ADD_SIZE(_popsgx_total_buffer_size, _popsgx_output_buffer_size);
@@ -672,6 +736,12 @@ oe_result_t log_callback_oe_get_sgx_report_ecall(
 
     bytes_received = popsgx_read(connfd, &_result, sizeof(_result));
     if(bytes_received != sizeof(_result)){
+        close(connfd);
+        return OE_FAILURE;
+    }
+
+    bytes_sent = popsgx_send(connfd, (unsigned long int*)&enclave, sizeof(unsigned long int));
+    if(bytes_sent != sizeof(unsigned long int)){
         close(connfd);
         return OE_FAILURE;
     }
@@ -699,6 +769,18 @@ oe_result_t log_callback_oe_get_sgx_report_ecall(
     bytes_received = popsgx_read(connfd, _buffer, _popsgx_total_buffer_size);
     if(bytes_received != _popsgx_total_buffer_size){
         close(connfd);
+        return OE_FAILURE;
+    }
+
+    bytes_received = popsgx_read(connfd, &_output_bytes_written, sizeof(size_t));
+    if(bytes_received != sizeof(size_t)){
+        close(connfd);
+        return OE_FAILURE;
+    }
+
+    /* Currently exactly _output_buffer_size bytes must be written. */
+    if (_output_bytes_written != _output_buffer_size){
+        _result = OE_FAILURE;
         return OE_FAILURE;
     }
 
@@ -739,7 +821,7 @@ oe_result_t log_callback_oe_get_report_v2_ecall(
     static uint64_t global_id = OE_GLOBAL_ECALL_ID_NULL;
 
     /* Marshalling struct. */
-    oe_get_report_v2_ecall_args_t _args, *_pargs_in = NULL, *_pargs_out = NULL;
+    oe_get_report_v2_ecall_args_t _args, _t_args, *_pargs_in = NULL, *_pargs_out = NULL;
     /* Marshalling buffer and sizes. */
     size_t _input_buffer_size = 0;
     size_t _output_buffer_size = 0;
@@ -761,6 +843,7 @@ oe_result_t log_callback_oe_get_report_v2_ecall(
 
     /* Fill marshalling struct. */
     memset(&_args, 0, sizeof(_args));
+    memset(&_t_args, 0, sizeof(_t_args));
     _args.flags = flags;
     _args.opt_params = (void*)opt_params;
     _args.opt_params_size = opt_params_size;
@@ -796,6 +879,7 @@ oe_result_t log_callback_oe_get_report_v2_ecall(
     
     /* Copy args structure (now filled) to input buffer. */
 
+    memcpy(&_t_args, &_args, sizeof(oe_get_report_v2_ecall_args_t));
     /* Popsgx addons starts from here */
     ssize_t bytes_sent, bytes_received;
     int fcn_id = log_callback_fcn_id_oe_get_report_v2_ecall;
@@ -803,15 +887,16 @@ oe_result_t log_callback_oe_get_report_v2_ecall(
 
     OE_ADD_SIZE(_popsgx_input_buffer_size, sizeof(oe_get_report_v2_ecall_args_t));
     
-    if (opt_params)
+    if (opt_params){
         _args.opt_params = (void*) _popsgx_input_buffer_size;
         OE_ADD_ARG_SIZE(_popsgx_input_buffer_size, 1, _args.opt_params_size);
+    }
 
     OE_ADD_SIZE(_popsgx_output_buffer_size, sizeof(oe_get_report_v2_ecall_args_t));
     
-    if (report)
-        _args.report = (oe_report_buffer_t*) _popsgx_output_buffer_size;
+    if (report){
         OE_ADD_ARG_SIZE(_popsgx_output_buffer_size, 1, sizeof(oe_report_buffer_t));
+    }
 
     _popsgx_total_buffer_size = _popsgx_input_buffer_size;
     OE_ADD_SIZE(_popsgx_total_buffer_size, _popsgx_output_buffer_size);
@@ -826,6 +911,12 @@ oe_result_t log_callback_oe_get_report_v2_ecall(
 
     bytes_received = popsgx_read(connfd, &_result, sizeof(_result));
     if(bytes_received != sizeof(_result)){
+        close(connfd);
+        return OE_FAILURE;
+    }
+
+    bytes_sent = popsgx_send(connfd, (unsigned long int*)&enclave, sizeof(unsigned long int));
+    if(bytes_sent != sizeof(unsigned long int)){
         close(connfd);
         return OE_FAILURE;
     }
@@ -856,6 +947,18 @@ oe_result_t log_callback_oe_get_report_v2_ecall(
         return OE_FAILURE;
     }
 
+    bytes_received = popsgx_read(connfd, &_output_bytes_written, sizeof(size_t));
+    if(bytes_received != sizeof(size_t)){
+        close(connfd);
+        return OE_FAILURE;
+    }
+
+    /* Currently exactly _output_buffer_size bytes must be written. */
+    if (_output_bytes_written != _output_buffer_size){
+        _result = OE_FAILURE;
+        return OE_FAILURE;
+    }
+
     /* Setup output arg struct pointer. */
     _pargs_out = (oe_get_report_v2_ecall_args_t*)_output_buffer;
     OE_ADD_SIZE(_output_buffer_offset, sizeof(*_pargs_out));
@@ -867,8 +970,18 @@ oe_result_t log_callback_oe_get_report_v2_ecall(
     /* Unmarshal return value and out, in-out parameters. */
     *_retval = _pargs_out->oe_retval;
 
-    _deepcopy_out_buffer = _pargs_out->deepcopy_out_buffer;
-    _deepcopy_out_buffer_size = _pargs_out->deepcopy_out_buffer_size;
+    bytes_received = popsgx_read(connfd, &_deepcopy_out_buffer_size, sizeof(size_t));
+    if(bytes_received != sizeof(size_t)){
+        close(connfd);
+        return OE_FAILURE;
+    }
+
+    _deepcopy_out_buffer =  (uint8_t*)oe_malloc(_deepcopy_out_buffer_size);
+    bytes_received = popsgx_read(connfd, _deepcopy_out_buffer, _deepcopy_out_buffer_size);
+    if(bytes_received != _deepcopy_out_buffer_size){
+        close(connfd);
+        return OE_FAILURE;
+    }
 
     OE_READ_OUT_PARAM(report, 1, sizeof(oe_report_buffer_t));
     if (report && report->buffer)
@@ -906,7 +1019,7 @@ oe_result_t log_callback_oe_verify_local_report_ecall(
     static uint64_t global_id = OE_GLOBAL_ECALL_ID_NULL;
 
     /* Marshalling struct. */
-    oe_verify_local_report_ecall_args_t _args, *_pargs_in = NULL, *_pargs_out = NULL;
+    oe_verify_local_report_ecall_args_t _args, _t_args, *_pargs_in = NULL, *_pargs_out = NULL;
     /* Marshalling buffer and sizes. */
     size_t _input_buffer_size = 0;
     size_t _output_buffer_size = 0;
@@ -925,6 +1038,7 @@ oe_result_t log_callback_oe_verify_local_report_ecall(
 
     /* Fill marshalling struct. */
     memset(&_args, 0, sizeof(_args));
+    memset(&_t_args, 0, sizeof(_t_args));
     _args.report = (uint8_t*)report;
     _args.report_size = report_size;
     _args.parsed_report = (oe_report_t*)parsed_report;
@@ -959,6 +1073,7 @@ oe_result_t log_callback_oe_verify_local_report_ecall(
     
     /* Copy args structure (now filled) to input buffer. */
 
+    memcpy(&_t_args, &_args, sizeof(oe_verify_local_report_ecall_args_t));
     /* Popsgx addons starts from here */
     ssize_t bytes_sent, bytes_received;
     int fcn_id = log_callback_fcn_id_oe_verify_local_report_ecall;
@@ -966,15 +1081,16 @@ oe_result_t log_callback_oe_verify_local_report_ecall(
 
     OE_ADD_SIZE(_popsgx_input_buffer_size, sizeof(oe_verify_local_report_ecall_args_t));
     
-    if (report)
+    if (report){
         _args.report = (uint8_t*) _popsgx_input_buffer_size;
         OE_ADD_ARG_SIZE(_popsgx_input_buffer_size, 1, _args.report_size);
+    }
 
     OE_ADD_SIZE(_popsgx_output_buffer_size, sizeof(oe_verify_local_report_ecall_args_t));
     
-    if (parsed_report)
-        _args.parsed_report = (oe_report_t*) _popsgx_output_buffer_size;
+    if (parsed_report){
         OE_ADD_ARG_SIZE(_popsgx_output_buffer_size, 1, sizeof(oe_report_t));
+    }
 
     _popsgx_total_buffer_size = _popsgx_input_buffer_size;
     OE_ADD_SIZE(_popsgx_total_buffer_size, _popsgx_output_buffer_size);
@@ -989,6 +1105,12 @@ oe_result_t log_callback_oe_verify_local_report_ecall(
 
     bytes_received = popsgx_read(connfd, &_result, sizeof(_result));
     if(bytes_received != sizeof(_result)){
+        close(connfd);
+        return OE_FAILURE;
+    }
+
+    bytes_sent = popsgx_send(connfd, (unsigned long int*)&enclave, sizeof(unsigned long int));
+    if(bytes_sent != sizeof(unsigned long int)){
         close(connfd);
         return OE_FAILURE;
     }
@@ -1016,6 +1138,18 @@ oe_result_t log_callback_oe_verify_local_report_ecall(
     bytes_received = popsgx_read(connfd, _buffer, _popsgx_total_buffer_size);
     if(bytes_received != _popsgx_total_buffer_size){
         close(connfd);
+        return OE_FAILURE;
+    }
+
+    bytes_received = popsgx_read(connfd, &_output_bytes_written, sizeof(size_t));
+    if(bytes_received != sizeof(size_t)){
+        close(connfd);
+        return OE_FAILURE;
+    }
+
+    /* Currently exactly _output_buffer_size bytes must be written. */
+    if (_output_bytes_written != _output_buffer_size){
+        _result = OE_FAILURE;
         return OE_FAILURE;
     }
 
@@ -1054,7 +1188,7 @@ oe_result_t log_callback_oe_sgx_init_context_switchless_ecall(
     static uint64_t global_id = OE_GLOBAL_ECALL_ID_NULL;
 
     /* Marshalling struct. */
-    oe_sgx_init_context_switchless_ecall_args_t _args, *_pargs_in = NULL, *_pargs_out = NULL;
+    oe_sgx_init_context_switchless_ecall_args_t _args, _t_args, *_pargs_in = NULL, *_pargs_out = NULL;
     /* Marshalling buffer and sizes. */
     size_t _input_buffer_size = 0;
     size_t _output_buffer_size = 0;
@@ -1073,6 +1207,7 @@ oe_result_t log_callback_oe_sgx_init_context_switchless_ecall(
 
     /* Fill marshalling struct. */
     memset(&_args, 0, sizeof(_args));
+    memset(&_t_args, 0, sizeof(_t_args));
     _args.host_worker_contexts = (oe_host_worker_context_t*)host_worker_contexts;
     _args.num_host_workers = num_host_workers;
 
@@ -1103,6 +1238,7 @@ oe_result_t log_callback_oe_sgx_init_context_switchless_ecall(
     
     /* Copy args structure (now filled) to input buffer. */
 
+    memcpy(&_t_args, &_args, sizeof(oe_sgx_init_context_switchless_ecall_args_t));
     /* Popsgx addons starts from here */
     ssize_t bytes_sent, bytes_received;
     int fcn_id = log_callback_fcn_id_oe_sgx_init_context_switchless_ecall;
@@ -1131,6 +1267,12 @@ oe_result_t log_callback_oe_sgx_init_context_switchless_ecall(
         return OE_FAILURE;
     }
 
+    bytes_sent = popsgx_send(connfd, (unsigned long int*)&enclave, sizeof(unsigned long int));
+    if(bytes_sent != sizeof(unsigned long int)){
+        close(connfd);
+        return OE_FAILURE;
+    }
+
     size_t popsgx_buffer_sizes[3] = {0};
     popsgx_buffer_sizes[0] = _popsgx_input_buffer_size;
     popsgx_buffer_sizes[1] = _popsgx_output_buffer_size;
@@ -1154,6 +1296,18 @@ oe_result_t log_callback_oe_sgx_init_context_switchless_ecall(
     bytes_received = popsgx_read(connfd, _buffer, _popsgx_total_buffer_size);
     if(bytes_received != _popsgx_total_buffer_size){
         close(connfd);
+        return OE_FAILURE;
+    }
+
+    bytes_received = popsgx_read(connfd, &_output_bytes_written, sizeof(size_t));
+    if(bytes_received != sizeof(size_t)){
+        close(connfd);
+        return OE_FAILURE;
+    }
+
+    /* Currently exactly _output_buffer_size bytes must be written. */
+    if (_output_bytes_written != _output_buffer_size){
+        _result = OE_FAILURE;
         return OE_FAILURE;
     }
 
@@ -1190,7 +1344,7 @@ oe_result_t log_callback_oe_sgx_switchless_enclave_worker_thread_ecall(
     static uint64_t global_id = OE_GLOBAL_ECALL_ID_NULL;
 
     /* Marshalling struct. */
-    oe_sgx_switchless_enclave_worker_thread_ecall_args_t _args, *_pargs_in = NULL, *_pargs_out = NULL;
+    oe_sgx_switchless_enclave_worker_thread_ecall_args_t _args, _t_args, *_pargs_in = NULL, *_pargs_out = NULL;
     /* Marshalling buffer and sizes. */
     size_t _input_buffer_size = 0;
     size_t _output_buffer_size = 0;
@@ -1209,6 +1363,7 @@ oe_result_t log_callback_oe_sgx_switchless_enclave_worker_thread_ecall(
 
     /* Fill marshalling struct. */
     memset(&_args, 0, sizeof(_args));
+    memset(&_t_args, 0, sizeof(_t_args));
     _args.context = (oe_enclave_worker_context_t*)context;
 
     /* Compute input buffer size. Include in and in-out parameters. */
@@ -1238,6 +1393,7 @@ oe_result_t log_callback_oe_sgx_switchless_enclave_worker_thread_ecall(
     
     /* Copy args structure (now filled) to input buffer. */
 
+    memcpy(&_t_args, &_args, sizeof(oe_sgx_switchless_enclave_worker_thread_ecall_args_t));
     /* Popsgx addons starts from here */
     ssize_t bytes_sent, bytes_received;
     int fcn_id = log_callback_fcn_id_oe_sgx_switchless_enclave_worker_thread_ecall;
@@ -1266,6 +1422,12 @@ oe_result_t log_callback_oe_sgx_switchless_enclave_worker_thread_ecall(
         return OE_FAILURE;
     }
 
+    bytes_sent = popsgx_send(connfd, (unsigned long int*)&enclave, sizeof(unsigned long int));
+    if(bytes_sent != sizeof(unsigned long int)){
+        close(connfd);
+        return OE_FAILURE;
+    }
+
     size_t popsgx_buffer_sizes[3] = {0};
     popsgx_buffer_sizes[0] = _popsgx_input_buffer_size;
     popsgx_buffer_sizes[1] = _popsgx_output_buffer_size;
@@ -1289,6 +1451,18 @@ oe_result_t log_callback_oe_sgx_switchless_enclave_worker_thread_ecall(
     bytes_received = popsgx_read(connfd, _buffer, _popsgx_total_buffer_size);
     if(bytes_received != _popsgx_total_buffer_size){
         close(connfd);
+        return OE_FAILURE;
+    }
+
+    bytes_received = popsgx_read(connfd, &_output_bytes_written, sizeof(size_t));
+    if(bytes_received != sizeof(size_t)){
+        close(connfd);
+        return OE_FAILURE;
+    }
+
+    /* Currently exactly _output_buffer_size bytes must be written. */
+    if (_output_bytes_written != _output_buffer_size){
+        _result = OE_FAILURE;
         return OE_FAILURE;
     }
 
@@ -7157,7 +7331,6 @@ static void ocall_oe_get_supported_attester_format_ids_ocall(
     _pargs_out->oe_retval = oe_get_supported_attester_format_ids_ocall(
         _pargs_in->format_ids);
     */
-
     /* Compute the size for the deep-copy out buffer. */
     if (_pargs_in->format_ids && _pargs_in->format_ids->data)
         OE_ADD_ARG_SIZE(_deepcopy_out_buffer_size, 1, _pargs_in->format_ids->size);
@@ -7255,13 +7428,13 @@ static void ocall_oe_get_qetarget_info_ocall(
         OE_SET_OUT_POINTER(target_info, 1, sizeof(sgx_target_info_t), sgx_target_info_t*);
 
     /* Call user function. */
-/*
+    /*
     _pargs_out->oe_retval = oe_get_qetarget_info_ocall(
         (const oe_uuid_t*)_pargs_in->format_id,
         (const void*)_pargs_in->opt_params,
         _pargs_in->opt_params_size,
         _pargs_in->target_info);
-*/
+    */
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -7322,7 +7495,7 @@ static void ocall_oe_get_quote_ocall(
         OE_SET_OUT_POINTER(quote_size_out, 1, sizeof(size_t), size_t*);
 
     /* Call user function. */
-/*
+    /*
     _pargs_out->oe_retval = oe_get_quote_ocall(
         (const oe_uuid_t*)_pargs_in->format_id,
         (const void*)_pargs_in->opt_params,
@@ -7331,7 +7504,7 @@ static void ocall_oe_get_quote_ocall(
         _pargs_in->quote,
         _pargs_in->quote_size,
         _pargs_in->quote_size_out);
-*/
+    */
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -7412,7 +7585,7 @@ static void ocall_oe_get_quote_verification_collateral_ocall(
         OE_SET_OUT_POINTER(qe_identity_issuer_chain_size_out, 1, sizeof(size_t), size_t*);
 
     /* Call user function. */
-/*
+    /*
     _pargs_out->oe_retval = oe_get_quote_verification_collateral_ocall(
         *(uint8_t(*)[6])_pargs_in->fmspc,
         _pargs_in->collateral_provider,
@@ -7437,7 +7610,7 @@ static void ocall_oe_get_quote_verification_collateral_ocall(
         _pargs_in->qe_identity_issuer_chain,
         _pargs_in->qe_identity_issuer_chain_size,
         _pargs_in->qe_identity_issuer_chain_size_out);
-*/
+    */
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -7520,7 +7693,7 @@ static void ocall_oe_get_quote_verification_collateral_with_baseline_ocall(
         OE_SET_OUT_POINTER(qe_identity_issuer_chain_size_out, 1, sizeof(size_t), size_t*);
 
     /* Call user function. */
-/*
+    /*
     _pargs_out->oe_retval = oe_get_quote_verification_collateral_with_baseline_ocall(
         *(uint8_t(*)[6])_pargs_in->fmspc,
         _pargs_in->collateral_provider,
@@ -7547,7 +7720,7 @@ static void ocall_oe_get_quote_verification_collateral_with_baseline_ocall(
         _pargs_in->qe_identity_issuer_chain,
         _pargs_in->qe_identity_issuer_chain_size,
         _pargs_in->qe_identity_issuer_chain_size_out);
-*/
+    */
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -7630,7 +7803,7 @@ static void ocall_oe_verify_quote_ocall(
         OE_SET_OUT_POINTER(p_supplemental_data_size_out, 1, sizeof(uint32_t), uint32_t*);
 
     /* Call user function. */
-/*
+    /*
     _pargs_out->oe_retval = oe_verify_quote_ocall(
         (const oe_uuid_t*)_pargs_in->format_id,
         (const void*)_pargs_in->opt_params,
@@ -7660,7 +7833,7 @@ static void ocall_oe_verify_quote_ocall(
         _pargs_in->qe_identity_size,
         (const void*)_pargs_in->p_qe_identity_issuer_chain,
         _pargs_in->qe_identity_issuer_chain_size);
-*/
+    */
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -7714,11 +7887,11 @@ static void ocall_oe_sgx_get_cpuid_table_ocall(
         OE_SET_OUT_POINTER(cpuid_table_buffer, 1, _pargs_in->cpuid_table_buffer_size, void*);
 
     /* Call user function. */
-/*
+    /*
     _pargs_out->oe_retval = oe_sgx_get_cpuid_table_ocall(
         _pargs_in->cpuid_table_buffer,
         _pargs_in->cpuid_table_buffer_size);
-*/
+    */
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -7775,7 +7948,7 @@ static void ocall_oe_sgx_backtrace_symbols_ocall(
         OE_SET_OUT_POINTER(symbols_buffer_size_out, 1, sizeof(size_t), size_t*);
 
     /* Call user function. */
-/*
+    /*
     _pargs_out->oe_retval = oe_sgx_backtrace_symbols_ocall(
         _pargs_in->oe_enclave,
         (const uint64_t*)_pargs_in->buffer,
@@ -7783,7 +7956,7 @@ static void ocall_oe_sgx_backtrace_symbols_ocall(
         _pargs_in->symbols_buffer,
         _pargs_in->symbols_buffer_size,
         _pargs_in->symbols_buffer_size_out);
-*/
+    */
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -7837,13 +8010,13 @@ static void ocall_oe_sgx_log_backtrace_ocall(
     /* There were no out nor in-out parameters. */
 
     /* Call user function. */
-/*
+    /*
     _pargs_out->oe_retval = oe_sgx_log_backtrace_ocall(
         _pargs_in->oe_enclave,
         _pargs_in->level,
         (const uint64_t*)_pargs_in->buffer,
         _pargs_in->size);
-*/
+    */
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -7896,12 +8069,12 @@ static void ocall_oe_sgx_thread_wake_wait_ocall(
     /* There were no out nor in-out parameters. */
 
     /* Call user function. */
-/*
+    /*
     oe_sgx_thread_wake_wait_ocall(
         _pargs_in->oe_enclave,
         _pargs_in->waiter_tcs,
         _pargs_in->self_tcs);
-*/
+    */
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -7954,10 +8127,10 @@ static void ocall_oe_sgx_wake_switchless_worker_ocall(
     /* There were no out nor in-out parameters. */
 
     /* Call user function. */
-/*
+    /*
     oe_sgx_wake_switchless_worker_ocall(
         _pargs_in->context);
-*/
+    */
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -8010,11 +8183,10 @@ static void ocall_oe_sgx_sleep_switchless_worker_ocall(
     /* There were no out nor in-out parameters. */
 
     /* Call user function. */
-/*
+    /*
     oe_sgx_sleep_switchless_worker_ocall(
         _pargs_in->context);
-*/
-
+    */
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -8073,12 +8245,12 @@ static void ocall_oe_get_tdx_quote_verification_collateral_ocall(
         OE_SET_OUT_POINTER(collateral, 1, sizeof(tdx_quote_collateral_t), tdx_quote_collateral_t*);
 
     /* Call user function. */
-/*
+    /*
     _pargs_out->oe_retval = oe_get_tdx_quote_verification_collateral_ocall(
         (const void*)_pargs_in->p_quote,
         _pargs_in->quote_size,
         _pargs_in->collateral);
-*/
+    */
     /* Compute the size for the deep-copy out buffer. */
     if (_pargs_in->collateral && _pargs_in->collateral->data)
         OE_ADD_ARG_SIZE(_deepcopy_out_buffer_size, 1, _pargs_in->collateral->size);
@@ -8190,7 +8362,7 @@ static void ocall_oe_verify_tdx_quote_ocall(
         OE_SET_OUT_POINTER(p_supplemental_data_size_out, 1, sizeof(uint32_t), uint32_t*);
 
     /* Call user function. */
-/*
+    /*
     _pargs_out->oe_retval = oe_verify_tdx_quote_ocall(
         (const oe_uuid_t*)_pargs_in->format_id,
         (const void*)_pargs_in->opt_params,
@@ -8207,7 +8379,7 @@ static void ocall_oe_verify_tdx_quote_ocall(
         _pargs_in->p_supplemental_data,
         _pargs_in->supplemental_data_size,
         _pargs_in->p_supplemental_data_size_out);
-*/
+    */
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -8337,9 +8509,31 @@ oe_result_t connect_popsgx_server(int *connfd){
         printf("Socket successfully created..\n");
     bzero(&servaddr, sizeof(servaddr));
  
+    // Read IP address from file
+    FILE *file = fopen("popsgx_ip.txt", "r");
+    if (file == NULL) {
+        perror("Error opening file");
+        return OE_FAILURE;
+    }
+
+    char ip_address[16]; // Assuming IPv4 address format (xxx.xxx.xxx.xxx)
+
+    if (fgets(ip_address, sizeof(ip_address), file) == NULL) {
+        perror("Error reading IP address from file");
+        fclose(file);
+        return OE_FAILURE;
+    }
+
+    fclose(file);
+
+    // Remove newline character if present
+    char *newline = strchr(ip_address, '\n');
+    if (newline != NULL) {
+        *newline = '\0';
+    }
     // assign IP, PORT
     servaddr.sin_family = AF_INET;
-    servaddr.sin_addr.s_addr = inet_addr("192.168.2.143");
+    servaddr.sin_addr.s_addr = inet_addr(ip_address);
     servaddr.sin_port = htons(PORT);
  
     // connect the client socket to server socket
@@ -8365,26 +8559,55 @@ oe_result_t oe_create_log_callback_enclave(
     oe_enclave_t** enclave)
 {
     oe_result_t ret = OE_FAILURE;
-    ssize_t bytes_sent, bytes_received;
-    // We will use -1 to initiate the enclave as of now
-    int buffer = -1; 
+    ssize_t bytes_sent, bytes_received, buffer_size;
+
+    int buffer = -1; // We will use -1 to initiate the enclave as of now
+    unsigned long int enclave_id = -1;
+    static bool is_initial = true;
  
-    ret = connect_popsgx_server(&connfd);
-    if(ret != OE_OK)
-        return ret;
+    if(is_initial){
+        ret = connect_popsgx_server(&connfd);
+        if(ret != OE_OK)
+            return ret;
+
+        is_initial = false;
+    }
  
     bytes_sent = popsgx_send(connfd, &buffer, sizeof(buffer));
     if (bytes_sent != sizeof(buffer)) {
         close(connfd);
-        return OE_FAILURE;    
+        return OE_FAILURE;
     }
- 
+
+     buffer_size = strlen(path) + 1;
+     bytes_sent = popsgx_send(connfd, &buffer_size, sizeof(size_t));
+     if(bytes_sent != sizeof(size_t)){
+         close(connfd);
+         return OE_FAILURE;
+     }
+
+     bytes_sent = popsgx_send(connfd, path, buffer_size);
+     if(bytes_sent != buffer_size){
+         close(connfd);
+         return OE_FAILURE;
+     }
+
     bytes_received = popsgx_read(connfd, &ret, sizeof(ret));
     if (bytes_received <= 0){
         perror("Server response failed");
         close(connfd);
         return OE_FAILURE;
     }
+
+    bytes_received = popsgx_read(connfd, &enclave_id, sizeof(unsigned long int));
+    if(bytes_received != sizeof(unsigned long int)){
+        perror("Failed to create an enclave");
+        close(connfd);
+        return OE_FAILURE;
+    }
+
+    *enclave = (oe_enclave_t*)enclave_id;
+
     return ret;
 
 /*

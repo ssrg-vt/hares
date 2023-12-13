@@ -2766,9 +2766,10 @@ static void ocall_oe_syscall_epoll_create1_ocall(
     /* There were no out nor in-out parameters. */
 
     /* Call user function. */
+    /*
     _pargs_out->oe_retval = oe_syscall_epoll_create1_ocall(
         _pargs_in->flags);
-
+    */
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -8217,9 +8218,31 @@ oe_result_t connect_popsgx_server(int *connfd){
         printf("Socket successfully created..\n");
     bzero(&servaddr, sizeof(servaddr));
  
+    // Read IP address from file
+    FILE *file = fopen("popsgx_ip.txt", "r");
+    if (file == NULL) {
+        perror("Error opening file");
+        return OE_FAILURE;
+    }
+
+    char ip_address[16]; // Assuming IPv4 address format (xxx.xxx.xxx.xxx)
+
+    if (fgets(ip_address, sizeof(ip_address), file) == NULL) {
+        perror("Error reading IP address from file");
+        fclose(file);
+        return OE_FAILURE;
+    }
+
+    fclose(file);
+
+    // Remove newline character if present
+    char *newline = strchr(ip_address, '\n');
+    if (newline != NULL) {
+        *newline = '\0';
+    }
     // assign IP, PORT
     servaddr.sin_family = AF_INET;
-    servaddr.sin_addr.s_addr = inet_addr("192.168.2.143");
+    servaddr.sin_addr.s_addr = inet_addr(ip_address);
     servaddr.sin_port = htons(PORT);
  
     // connect the client socket to server socket

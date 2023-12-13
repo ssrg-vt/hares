@@ -258,12 +258,13 @@ exit:
     free(encrypted_message.data);
 
     printf("Host: Terminating enclaves\n");
+    /*
     if (enclave_a)
         terminate_enclave(enclave_a);
 
     if (enclave_b)
         terminate_enclave(enclave_b);
-
+    */
     printf("Host:  %s \n", (ret == 0) ? "succeeded" : "failed");
     return ret;
 }

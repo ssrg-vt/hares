@@ -3446,10 +3446,9 @@ static void ocall_oe_syscall_epoll_create1_ocall(
     /* There were no out nor in-out parameters. */
 
     /* Call user function. */
-    /*
     _pargs_out->oe_retval = oe_syscall_epoll_create1_ocall(
         _pargs_in->flags);
-    */
+
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -7725,6 +7724,7 @@ static void ocall_oe_get_supported_attester_format_ids_ocall(
     _pargs_out->oe_retval = oe_get_supported_attester_format_ids_ocall(
         _pargs_in->format_ids);
     */
+
     /* Compute the size for the deep-copy out buffer. */
     if (_pargs_in->format_ids && _pargs_in->format_ids->data)
         OE_ADD_ARG_SIZE(_deepcopy_out_buffer_size, 1, _pargs_in->format_ids->size);
@@ -7829,6 +7829,7 @@ static void ocall_oe_get_qetarget_info_ocall(
         _pargs_in->opt_params_size,
         _pargs_in->target_info);
     */
+
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -7899,6 +7900,7 @@ static void ocall_oe_get_quote_ocall(
         _pargs_in->quote_size,
         _pargs_in->quote_size_out);
     */
+
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -8005,6 +8007,7 @@ static void ocall_oe_get_quote_verification_collateral_ocall(
         _pargs_in->qe_identity_issuer_chain_size,
         _pargs_in->qe_identity_issuer_chain_size_out);
     */
+
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -8774,6 +8777,7 @@ static void ocall_oe_verify_tdx_quote_ocall(
         _pargs_in->supplemental_data_size,
         _pargs_in->p_supplemental_data_size_out);
     */
+
     /* There is no deep-copyable out parameter. */
     _pargs_out->deepcopy_out_buffer = NULL;
     _pargs_out->deepcopy_out_buffer_size = 0;
@@ -8898,9 +8902,31 @@ oe_result_t connect_popsgx_server(int *connfd){
         printf("Socket successfully created..\n");
     bzero(&servaddr, sizeof(servaddr));
  
+    // Read IP address from file
+    FILE *file = fopen("popsgx_ip.txt", "r");
+    if (file == NULL) {
+        perror("Error opening file");
+        return OE_FAILURE;
+    }
+
+    char ip_address[16]; // Assuming IPv4 address format (xxx.xxx.xxx.xxx)
+
+    if (fgets(ip_address, sizeof(ip_address), file) == NULL) {
+        perror("Error reading IP address from file");
+        fclose(file);
+        return OE_FAILURE;
+    }
+
+    fclose(file);
+
+    // Remove newline character if present
+    char *newline = strchr(ip_address, '\n');
+    if (newline != NULL) {
+        *newline = '\0';
+    }
     // assign IP, PORT
     servaddr.sin_family = AF_INET;
-    servaddr.sin_addr.s_addr = inet_addr("192.168.2.143");
+    servaddr.sin_addr.s_addr = inet_addr(ip_address);
     servaddr.sin_port = htons(PORT);
  
     // connect the client socket to server socket
