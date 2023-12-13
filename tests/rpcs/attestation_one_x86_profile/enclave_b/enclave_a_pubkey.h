@@ -1,0 +1,20 @@
+// Copyright (c) Open Enclave SDK contributors.
+// Licensed under the MIT License.
+
+#ifndef SAMPLES_ATTESTATION_PUBKEY_H
+#define SAMPLES_ATTESTATION_PUBKEY_H
+
+static const char OTHER_ENCLAVE_PUBLIC_KEY[] =
+    "-----BEGIN PUBLIC KEY-----\n"
+    "MIIBoDANBgkqhkiG9w0BAQEFAAOCAY0AMIIBiAKCAYEAsxgdsTzIGXtzY15p2IvE\n"
+    "sqsoNWa2cOLHqoR3iJtwcE69bDoLFgFMPDYmYtYDIJY2T0ArlP9NVd5CjuLgQFwA\n"
+    "bKEhxIqY2O4t2OFKy5Zyr2BgCamZl5bFKRKH4GydOkb/JFOiPKbFzdfVQVuPRWt/\n"
+    "eSVifzATmj/8qBlwrQHFTCcRNAYa6l1PNW9a1/sRnVsL/UMQX4eQs1IeCe8Y0i1/\n"
+    "jaIOhFVPe3KU0kOrpu5VPLTeJpsHQ2YNa9fEpXD6KcfVRHZ4/TDy6ZHcHegsLGvq\n"
+    "i+++E8kbH/BoqyWPzK7r1oN86hutPwN5zQ/17CU7N7HYwl3E3PvqNo96rJKlO2Lk\n"
+    "R+IzQ47VxY7Lrkst6J8C6lOpfYctScfOD15NVuWED5rWm7xGGo2ud5LOXqH3BdTz\n"
+    "OlBgKMFN2S1viARA8s7ZvvKlEobrxOaP86313T09QfGeC0MIVHX03rXpGJJHi8Us\n"
+    "iuxMPWbfTLL4KuPAtXAtFcUrp7yUm0A0NChhtehTvjFNAgED\n"
+    "-----END PUBLIC KEY-----\n";
+
+#endif /* SAMPLES_ATTESTATION_PUBKEY_H */
