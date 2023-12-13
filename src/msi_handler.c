@@ -16,6 +16,11 @@
 
 #define log_info(args...) 
 
+#ifdef PROFILE
+extern unsigned long sync_messages;
+extern unsigned long no_pg_trans;
+#endif
+
 static int iter = 0;
 
 extern popsgx_child *victim;
@@ -24,6 +29,10 @@ extern popsgx_child *victim;
 static int msi_read(int sk, void* dest, int bytes_expected){
     int bytes_received = 0;
     char *temp = (char*)dest;
+
+#ifdef PROFILE
+    sync_messages += bytes_expected;
+#endif
 
     while(bytes_received < bytes_expected){
         int bytes = recv(sk, temp + bytes_received, bytes_expected - bytes_received, 0);
@@ -601,6 +610,10 @@ int msi_handle_send_vma(msi_handler *msi, int sk, address_spaces vmas, bool is_d
             log_info("Getting data from the child process");
             get_child_data(msi->child.c_pid, vma_buffer, (void*)vmas.space[i].address, (sysconf(_SC_PAGE_SIZE)) * vmas.space[i].size);
             pthread_mutex_unlock(&msi->child.mutex);
+
+#ifdef PROFILE
+ 	    no_pg_trans += vmas.space[i].size;
+#endif
 
             for(int j = 0; j < vmas.space[i].size; j++){
                 struct msi_message vma_read_buffer_msg;

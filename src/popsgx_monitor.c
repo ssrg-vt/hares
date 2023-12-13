@@ -79,6 +79,15 @@ address_spaces uffd_stat_snapshot;
 
 popsgx_app monitor_app;
 
+#ifdef PROFILE
+unsigned long no_cmpl_inj = 0;
+unsigned long no_ptrace_calls = 0;
+unsigned long no_prr_calls = 0;
+unsigned long no_pg_trans = 0;
+unsigned long sync_messages = 0;
+unsigned long no_migrations = 0;
+#endif
+
 /**
  * @brief Printing the help message
  * 
@@ -408,7 +417,8 @@ int main(int argc, char *argv[]){
 
     memset(&monitor_app, 0, sizeof(popsgx_app));
     monitor_app.buffer = BUFFER_ADDRESS;
-    
+
+    printf("Testing\n");
     /*
      *  Parse the arguments
      */
@@ -484,6 +494,10 @@ int main(int argc, char *argv[]){
     wait_child_main(monitor_app.dsm.child.c_pid, main_address);
 
     //This gets resumed when we steal uffd
+#ifdef PROFILE
+    no_ptrace_calls += 1;
+#endif
+
     ret =  compel_stop_task(monitor_app.dsm.child.c_pid);
     if(ret < 0){
         log_error("Could not stop the victim for compel infection");
@@ -1189,8 +1203,18 @@ int main(int argc, char *argv[]){
             msi_handle_rec_regs(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, &monitor_app.dsm.msi.regs);
 
             log_info("The instruction pointer received from remote node is 0x%lx", monitor_app.dsm.msi.regs.rip);
+	    no_migrations += 2;
         }
 
+#ifdef PROFILE
+	    printf("no_compl_inj %ld \n", no_cmpl_inj);
+	    printf("no_ptrace_calls %ld \n", no_ptrace_calls);
+	    printf("no_prr_calls %ld \n", no_prr_calls);
+	    printf("no_pg_trans %ld \n", no_pg_trans);
+	    printf("sync_messages %ld \n", sync_messages);
+	    printf("no_migrations %ld \n", no_migrations);
+#endif
+    
     }else{
 
         struct user_regs_struct usr_reg;
@@ -1349,6 +1373,15 @@ int main(int argc, char *argv[]){
                
             //Grabbing and sending the child process registers to remote
             msi_handle_send_regs(&monitor_app.dsm.msi, monitor_app.dsm.socket_fd, &monitor_app.dsm.msi.regs);
+
+#ifdef PROFILE
+	    printf("no_compl_inj %ld \n", no_cmpl_inj);
+	    printf("no_ptrace_calls %ld \n", no_ptrace_calls);
+	    printf("no_prr_calls %ld \n", no_prr_calls);
+	    printf("no_pg_trans %ld \n", no_pg_trans);
+	    printf("sync_messages %ld \n", sync_messages);
+	    printf("no_migrations %ld \n", no_migrations);
+#endif
         }
     }
 

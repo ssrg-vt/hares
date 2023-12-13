@@ -6,12 +6,35 @@
 #include "ptrace.h"
 #include "log.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/time.h>
+
+// Function to record start time
+void recordStartTime(struct timeval* startTime) {
+    gettimeofday(startTime, NULL);
+}
+
+// Function to record end time and calculate elapsed time in microseconds
+long long recordEndTime(struct timeval startTime) {
+    struct timeval endTime;
+    gettimeofday(&endTime, NULL);
+
+    long long elapsedMicroseconds = (endTime.tv_sec - startTime.tv_sec) * 1000000LL +
+                                   (endTime.tv_usec - startTime.tv_usec);
+
+    return elapsedMicroseconds;
+}
+
 union u {
     long val;
     char str[8];
 } input;
 
-
+#ifdef PROFILE
+   extern unsigned long no_ptrace_calls;
+   extern unsigned long no_prr_calls;
+#endif
 /**
  * Get syscall arguments from user_regs_struct
  * Arch-dependent part
@@ -51,6 +74,9 @@ static inline int arm64_get_sc_args(struct user_regs_struct regs,
  * */
 long get_regs_args(pid_t pid, struct user_regs_struct *regs, int64_t args[])
 {
+#ifdef PROFILE
+	no_ptrace_calls += 1;
+#endif
 	long syscall_num;
 	if (ptrace(PTRACE_GETREGS, pid, 0, regs) == -1)
 		log_error("PTRACE_GETREGS %s", strerror(errno));
@@ -63,6 +89,10 @@ long get_regs_args(pid_t pid, struct user_regs_struct *regs, int64_t args[])
  * */
 long long get_retval(pid_t pid, struct user_regs_struct *regs, int *term)
 {
+#ifdef PROFILE
+	no_ptrace_calls += 1;
+#endif
+
 	if (ptrace(PTRACE_GETREGS, pid, 0, regs) == -1) {
 		fputs(" = ?\n", stderr);
 		if (errno == ESRCH) {	// No such process
@@ -77,6 +107,9 @@ long long get_retval(pid_t pid, struct user_regs_struct *regs, int *term)
 
 uint64_t get_pc(pid_t pid)
 {
+#ifdef PROFILE
+	no_ptrace_calls += 2;
+#endif
 	struct user_regs_struct regs;
 	int64_t pc64;
 #ifdef __x86_64__
@@ -121,6 +154,10 @@ int update_child_data(pid_t pid, long long dst, char *src, size_t len)
 
 	// return 0;
 
+#ifdef PROFILE
+	no_prr_calls += 1;
+#endif
+
 	struct iovec local_iov;
 	struct iovec remote_iov;
 	ssize_t      nwrite;
@@ -131,11 +168,17 @@ int update_child_data(pid_t pid, long long dst, char *src, size_t len)
         remote_iov.iov_base = (void *)dst;
 	remote_iov.iov_len = len;
 
+	struct timeval startTime;
+	recordStartTime(&startTime);
+
 	nwrite = process_vm_writev(pid, &local_iov, 1, &remote_iov, 1, 0);
 	if (nwrite < 0) {
         	fprintf(stderr,"process_vm_writev");
         	return -1;
-    }
+        }
+
+	long long elapsedTime = recordEndTime(startTime);
+	printf("Elapsed Time: %lld microseconds for pages %d\n", elapsedTime, len);
 
 	if(nwrite != len){
 		fprintf(stderr, "Failed to read the required memory length");
@@ -167,6 +210,9 @@ int get_child_data(pid_t pid, char *dst, long long src, size_t len)
 	// dst[len] = 0;
 	// return 0;
 
+#ifdef PROFILE
+	no_prr_calls += 1;
+#endif
 	char *buffer = NULL;
 	struct iovec local_iov;
 	struct iovec remote_iov;
@@ -185,11 +231,17 @@ int get_child_data(pid_t pid, char *dst, long long src, size_t len)
     	remote_iov.iov_base = (void *)src;
 	remote_iov.iov_len = len;
 
+	struct timeval startTime;
+	recordStartTime(&startTime);
+	
 	nread = process_vm_readv(pid, &local_iov, 1, &remote_iov, 1, 0);
 	if (nread < 0) {
 		fprintf(stderr,"process_vm_readv");
 		return -1;
 	}
+	
+	long long elapsedTime = recordEndTime(startTime);
+	printf("Elapsed Time: %lld microseconds for pages %d\n", elapsedTime, len);
 
 	if(nread == len){
 		memcpy(dst, buffer, len);
@@ -219,6 +271,9 @@ int get_child_data_str(pid_t pid, char *dst, long long src)
 
 long set_breakpoint(pid_t pid, unsigned long addr)
 {
+#ifdef PROFILE
+	no_ptrace_calls += 2;
+#endif
 	//printf("The address passed is %lx\n", addr);
 	long data = ptrace(PTRACE_PEEKTEXT, pid, (void *) addr, 0);
 	if(data == -1)
@@ -249,6 +304,9 @@ long set_breakpoint(pid_t pid, unsigned long addr)
 
 int clear_breakpoint(pid_t pid, unsigned long addr, long old_data)
 {
+#ifdef PROFILE
+	no_ptrace_calls += 3;
+#endif
 	ptrace(PTRACE_POKETEXT, pid, (void *)addr, old_data);
 	log_debug("Restored the old value %x at the address %x\n", old_data, addr);
 	struct user_regs_struct regs;

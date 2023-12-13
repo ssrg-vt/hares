@@ -12,6 +12,10 @@
  * -------------------------------------------------------------------*/
 #define COMPEL_LOG_LEVEL COMPEL_LOG_ERROR
 
+#ifdef PROFILE
+extern unsigned long no_cmpl_inj;
+#endif
+
 /* --------------------------------------------------------------------
  * Local Functions declaration
  * -------------------------------------------------------------------*/
@@ -235,6 +239,9 @@ out_fail:
  * @return int 
  */
 int compel_steal_uffd(popsgx_child *tracee, int *fd, void* addr, int no_pages){
+#ifdef PROFILE
+   no_cmpl_inj += 1;
+#endif
    return _compel_steal_fd(tracee, PARASITE_STDUFLT_FD, (void*)fd, addr, no_pages);
 }
 
@@ -251,6 +258,10 @@ int compel_remove_uffd(popsgx_child *tracee, void *fd, void* addr, int no_pages)
     int rc;
     compel_handler cmpl_hdl;
     uint64_t *compel_arg;
+
+#ifdef PROFILE
+    no_cmpl_inj += 1;
+#endif
 
     pthread_mutex_lock(&tracee->mutex);
     rc = __compel_prepare_infection(&cmpl_hdl, tracee->c_pid);
@@ -297,6 +308,10 @@ int compel_remove_uffd(popsgx_child *tracee, void *fd, void* addr, int no_pages)
  */
 int compel_steal_fd(popsgx_child *tracee, compel_fd fd_type, int *fd){
     
+#ifdef PROFILE
+    no_cmpl_inj += 1;
+#endif
+
     if(fd_type == PARASITE_STDUFLT_FD){
         log_error("Could not steal uffd");
         return -1;
@@ -309,6 +324,10 @@ int compel_correct_heap_offset(popsgx_child *tracee, uint64_t heap_size){
     int rc;
     compel_handler cmpl_hdl;
     uint64_t *compel_arg;
+
+#ifdef PROFILE
+   no_cmpl_inj += 1;
+#endif
 
     pthread_mutex_lock(&tracee->mutex);
     compel_log_init(print_vmsg, COMPEL_LOG_LEVEL);
@@ -343,6 +362,10 @@ int compel_create_new_map(popsgx_child *tracee, uint64_t addr, uint64_t pages){
     int rc;
     compel_handler cmpl_hdl;
     uint64_t *compel_arg;
+
+#ifdef PROFILE
+   no_cmpl_inj += 1;
+#endif
 
     pthread_mutex_lock(&tracee->mutex);
     compel_log_init(print_vmsg, COMPEL_LOG_LEVEL);

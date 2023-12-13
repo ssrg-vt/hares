@@ -17,13 +17,13 @@ DEPEXT      := d
 OBJEXT      := o
 
 # Flags, Libraries and Includes
-CFLAGS      := -Wall -O3 -g -DNDEBUG 
+CFLAGS      := -Wall -O3 -g -DNDEBUG -DPROFILE
 LIB         := -lpthread -lcjson
 INC         := -I$(INCDIR) -I/usr/local/include 
 INCDEP      := -I$(INCDIR)
 
 # Compel Macros
-COMPEL          := ../../crui-untouched/criu-3.16.1/compel/compel-host
+COMPEL          := ../criu/compel/compel-host
 COMPEL_INC      := $(shell $(COMPEL) includes)
 COMPEL_SLIBS    := $(shell $(COMPEL) --static libs)
 
