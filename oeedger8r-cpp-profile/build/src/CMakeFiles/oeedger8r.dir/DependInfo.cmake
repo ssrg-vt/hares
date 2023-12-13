@@ -1,20 +1,21 @@
-
-# Consider dependencies only in project.
-set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
-
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
+  "CXX"
+  )
+# The set of files for implicit dependencies of each language:
+set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/popsgx_commits/PopSGX-uffd-monitor/oeedger8r-cpp-profile/src/lexer.cpp" "/home/popsgx_commits/PopSGX-uffd-monitor/oeedger8r-cpp-profile/build/src/CMakeFiles/oeedger8r.dir/lexer.cpp.o"
+  "/home/popsgx_commits/PopSGX-uffd-monitor/oeedger8r-cpp-profile/src/main.cpp" "/home/popsgx_commits/PopSGX-uffd-monitor/oeedger8r-cpp-profile/build/src/CMakeFiles/oeedger8r.dir/main.cpp.o"
+  "/home/popsgx_commits/PopSGX-uffd-monitor/oeedger8r-cpp-profile/src/parser.cpp" "/home/popsgx_commits/PopSGX-uffd-monitor/oeedger8r-cpp-profile/build/src/CMakeFiles/oeedger8r.dir/parser.cpp.o"
+  )
+set(CMAKE_CXX_COMPILER_ID "Clang")
+
+# The include file search paths:
+set(CMAKE_CXX_TARGET_INCLUDE_PATH
   )
 
-# The set of dependency files which are needed:
-set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/abi/Drive/workspace/ssrg/cross_enclave_prototype/oeedger8r-cpp/src/lexer.cpp" "src/CMakeFiles/oeedger8r.dir/lexer.cpp.o" "gcc" "src/CMakeFiles/oeedger8r.dir/lexer.cpp.o.d"
-  "/home/abi/Drive/workspace/ssrg/cross_enclave_prototype/oeedger8r-cpp/src/main.cpp" "src/CMakeFiles/oeedger8r.dir/main.cpp.o" "gcc" "src/CMakeFiles/oeedger8r.dir/main.cpp.o.d"
-  "/home/abi/Drive/workspace/ssrg/cross_enclave_prototype/oeedger8r-cpp/src/parser.cpp" "src/CMakeFiles/oeedger8r.dir/parser.cpp.o" "gcc" "src/CMakeFiles/oeedger8r.dir/parser.cpp.o.d"
-  )
-
-# Targets to which this target links which contain Fortran sources.
-set(CMAKE_Fortran_TARGET_LINKED_INFO_FILES
+# Targets to which this target links.
+set(CMAKE_TARGET_LINKED_INFO_FILES
   )
 
 # Fortran module output directory.
