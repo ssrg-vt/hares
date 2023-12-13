@@ -35,7 +35,7 @@ if (IS_DIRECTORY "${PROJECT_SOURCE_DIR}/.git")
        DESTINATION "${PROJECT_SOURCE_DIR}/.git/hooks")
 endif ()
 
-option(BUILD_TESTS "Build oeedger8r virtual environment tests" ON)
+option(BUILD_TESTS "Build oeedger8r virtual environment tests" OFF)
 
 set(CMAKE_CXX_STANDARD 11)
 
