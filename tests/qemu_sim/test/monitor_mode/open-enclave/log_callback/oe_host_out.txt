@@ -1,0 +1,1 @@
+2023-09-04T15:44:31-0400.862013, H, INFO, 7ffff7a39380, Processor supports AVX instructions [/source/openenclave/host/sgx/linux/xstate.c:_is_xgetbv_supported:33]

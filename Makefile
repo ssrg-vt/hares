@@ -23,7 +23,7 @@ INC         := -I$(INCDIR) -I/usr/local/include
 INCDEP      := -I$(INCDIR)
 
 # Compel Macros
-COMPEL          := ../../crui-untouched/criu-3.16.1/compel/compel-host
+COMPEL          := ../test/criu/compel/compel-host
 COMPEL_INC      := $(shell $(COMPEL) includes)
 COMPEL_SLIBS    := $(shell $(COMPEL) --static libs)
 

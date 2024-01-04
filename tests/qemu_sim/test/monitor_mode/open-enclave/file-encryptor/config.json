@@ -1,0 +1,20 @@
+{
+  "main_address":"0x40a790",
+  "user_args": ["./host/file-encryptorhost", "testfile", "./enclave/file-encryptorenc.signed", "--simulate", null],
+  "breakpoints": ["0x40aaef", "0x40aaf4", "0x4090ff", "0x409104", "0x409807", "0x40980c", "0x40a1aa", "0x40a1af", "0x40a65f", "0x40a664", "0x40b982", "0x40b987"],
+  "comments" :{
+  	"0x40aaef":"intialize encrypter", 
+  	"0x40aaf4":"intialize encrypter end", 
+  	"0x4090ff":"initialize_encryptor", 
+ 	"0x409104":"initialize_encryptor end", 
+  	"0x409807":"encrypt_block", 
+  	"0x40980c":"encrypt_block end", 
+  	"0x40a1aa":"encrypt_block", 
+  	"0x40a1af":"encrypt_block end", 
+  	"0x40a65f":"close_encryptor", 
+  	"0x40a664":"close_encryptor end", 
+  	"0x40b982":"oe terminate", 
+  	"0x40b987":"oe terminate end"
+  }
+}
+
