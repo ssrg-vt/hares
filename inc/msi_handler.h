@@ -4,7 +4,7 @@
 #include <pthread.h>
 #include <ptrace.h>
 #include "../inc/pages.h"
-#include "../inc/popsgx_child.h"
+#include "../inc/hares_child.h"
 
 /* --------------------------------------------------------------------
  * Structures & Required Datatypes
@@ -15,18 +15,18 @@ typedef struct msi_handler_t{
     int wait_for_reply;
     pthread_mutex_t mutex;
     pthread_cond_t page_reply_cond;
-    popsgx_page_buffer buffer;
+    hares_page_buffer buffer;
     char tmp_buffer[4096];
     bool _can_request;
     struct user_regs_struct regs;
-    uint64_t popsgx_buffer_addr;
-    popsgx_child child;
+    uint64_t hares_buffer_addr;
+    hares_child child;
 }msi_handler;
 
 /* --------------------------------------------------------------------
  * Public functions
  * -------------------------------------------------------------------*/
-int create_msi_pages(msi_handler *msi, uint64_t popsgx_address, int no_pages);
+int create_msi_pages(msi_handler *msi, uint64_t hares_address, int no_pages);
 int msi_handle_page_invalidate(msi_handler *msi, int sk, struct msi_message *in_msg);
 int msi_request_page(msi_handler *msi, int sk, char* page, void* fault_addr, unsigned int rw);
 int msi_handle_page_request(msi_handler *msi ,int sk, struct msi_message *in_msg);

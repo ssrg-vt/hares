@@ -4,7 +4,7 @@
 CC          := gcc
 
 # The Target Binary Program
-TARGET      := popSGX_Monitor
+TARGET      := hares_monitor
 
 # The Directories, Source, Includes, Objects, Binary and Resources
 SRCDIR      := src

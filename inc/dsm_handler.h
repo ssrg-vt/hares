@@ -4,7 +4,7 @@
 
 
 #include "../inc/dsm_bus_handler.h"
-#include "../inc/popsgx_child.h"
+#include "../inc/hares_child.h"
 #include "../inc/msi_handler.h"
 
 /* --------------------------------------------------------------------
@@ -20,7 +20,7 @@ typedef struct dsm_handler_t{
     int remote_port;
     int host_port;
     int socket_fd;
-    popsgx_child child;
+    hares_child child;
     dsm_bus_handler dsm_bus;
     msi_handler msi;
 }dsm_handler;

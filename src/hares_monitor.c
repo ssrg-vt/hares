@@ -11,7 +11,7 @@
 
 #include "../inc/ptrace.h"
 #include "../inc/log.h"
-#include "../inc/popsgx_monitor.h"
+#include "../inc/hares_monitor.h"
 #include "../inc/compel_handler.h"
 #include "../inc/dsm_handler.h"
 #include "../inc/uffd_handler.h"
@@ -77,7 +77,7 @@ extern char* __progname;
 
 address_spaces uffd_stat_snapshot;
 
-popsgx_app monitor_app;
+hares_app monitor_app;
 
 /**
  * @brief Printing the help message
@@ -89,7 +89,7 @@ static void usage(void)
              "usage: %s [-m mode | -c confi_file | -r remote-node-ip | -p remote-node-port | -t host-port ]"
              "\n"
              "options:\n"
-             "\t-m mode of the popsgx_monitor application [server|cient]\n"
+             "\t-m mode of the hares_monitor application [server|cient]\n"
              "\t-r remote node's ip-address for dsm\n"
              "\t-p remote node's port-number for dsm\n"
              "\t-t host's port-number\n"
@@ -155,7 +155,7 @@ static void wait_child_main(pid_t cpid, unsigned long addr)
  * @param tracee 
  * @return int 
  */
-static int execute_tracee_app(popsgx_child *tracee, char **user_args){
+static int execute_tracee_app(hares_child *tracee, char **user_args){
     int ret = 0;
     pid_t tracee_pid;
 
@@ -272,7 +272,7 @@ int initialize_msi_page(msi_handler *msi, uint64_t buffer_addr, int no_pages){
         log_error("Couldn't create msi pages");
     }
 
-    msi->popsgx_buffer_addr = BUFFER_ADDRESS;
+    msi->hares_buffer_addr = BUFFER_ADDRESS;
 
     return ret;
 }
@@ -406,7 +406,7 @@ int main(int argc, char *argv[]){
     client_args uargs;
     uintptr_t main_address;
 
-    memset(&monitor_app, 0, sizeof(popsgx_app));
+    memset(&monitor_app, 0, sizeof(hares_app));
     monitor_app.buffer = BUFFER_ADDRESS;
     
     /*

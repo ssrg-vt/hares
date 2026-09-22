@@ -1,5 +1,5 @@
-#ifndef __POPSGX_PAGES_H__
-#define __POPSGX_PAGES_H__
+#ifndef __HARES_PAGES_H__
+#define __HARES_PAGES_H__
 #include <unistd.h>
 #include <stdbool.h>
 #include <pthread.h>
@@ -20,22 +20,22 @@ enum page_tag{
     NUM_TAGS
 };
 
-typedef struct popsgx_page_t{
+typedef struct hares_page_t{
     bool in_use;
     enum page_tag tag;
     pthread_mutex_t mutex;
-    void *popsgx_address;
-}popsgx_page;
+    void *hares_address;
+}hares_page;
 
-typedef struct popsgx_page_buffer_t{
+typedef struct hares_page_buffer_t{
     int no_pages;
-    popsgx_page *pages;
-}popsgx_page_buffer;
+    hares_page *pages;
+}hares_page_buffer;
 
 /* --------------------------------------------------------------------
  * Public Functions
  * -------------------------------------------------------------------*/
-int create_pages(popsgx_page_buffer *buffer, uint64_t popsgx_address, int no_pages);
-popsgx_page* find_page(popsgx_page_buffer *buffer, void* fault_address);
+int create_pages(hares_page_buffer *buffer, uint64_t hares_address, int no_pages);
+hares_page* find_page(hares_page_buffer *buffer, void* fault_address);
 
 #endif

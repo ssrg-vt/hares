@@ -10,7 +10,7 @@ server. Unmodified applications built with the Intel SGX SDK or the Open Enclave
 SDK can run with their enclave part executing securely on a remote SGX node, with
 no changes to their source code.
 
-At its core is a userspace **monitor** (`popSGX_Monitor`) that runs on each node
+At its core is a userspace **monitor** (`hares_monitor`) that runs on each node
 and:
 
 - intercepts enclave transitions (`ecall`/`ocall`) using `ptrace` breakpoints;
@@ -31,7 +31,7 @@ Hares supports two modes:
 
 | Path | Contents |
 |------|----------|
-| `src/`, `inc/` | the Hares monitor (`popSGX_Monitor`) |
+| `src/`, `inc/` | the Hares monitor (`hares_monitor`) |
 | `parasite_src/` | the compel parasite injected into the application |
 | `Makefile` | builds the monitor (needs CRIU/`compel` + `libcjson`) |
 | `oeedger8r-cpp/` | extended Open Enclave `edger8r` (RPC-mode stub generation) |
@@ -45,7 +45,7 @@ Hares supports two modes:
 ```bash
 sudo apt-get install -y build-essential libcjson-dev criu   # + CRIU/compel
 make COMPEL=/path/to/criu/compel/compel-host                 # or: make (uses `compel` from $PATH)
-# -> bin/popSGX_Monitor
+# -> bin/hares_monitor
 ```
 
 The monitor depends on CRIU's `compel` (the paper used CRIU **3.16.1**) and

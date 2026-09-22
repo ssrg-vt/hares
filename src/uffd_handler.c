@@ -72,7 +72,7 @@ pid_t victimPid = -1;
   * @param page
   * @return int
   */
-static int handle_wprotect_pagefaults(long uffd, struct uffd_msg msg, popsgx_child *tracee, int i)
+static int handle_wprotect_pagefaults(long uffd, struct uffd_msg msg, hares_child *tracee, int i)
 {
 	struct uffdio_writeprotect uffdio_wp;
 	int ret = 0;
@@ -199,7 +199,7 @@ void *fault_handler_thread(void *arg)
 {
 	static struct uffd_msg msg;   /* Data read from userfaultfd */
 	uffd_thread_args* handler_arg = (struct uffd_thread_args*)arg;
-	popsgx_child *tracee = handler_arg->child;
+	hares_child *tracee = handler_arg->child;
 	uffd_t *uffd;                    /* userfaultfd file descriptor */
 	int no_uffd;
 	char *page = NULL;
@@ -326,7 +326,7 @@ out_fail:
 
 }
 
-int register_uffd(popsgx_child *child, address_spaces *spaces){
+int register_uffd(hares_child *child, address_spaces *spaces){
 	int ret = 0;
 
 	for(int i = 0; i < spaces->size; i++){
@@ -391,7 +391,7 @@ int register_uffd(popsgx_child *child, address_spaces *spaces){
 	return 0;
 }
 
-int deregister_uffd(popsgx_child *child, address_spaces *spaces){
+int deregister_uffd(hares_child *child, address_spaces *spaces){
 	int ret = 0;
 	int uffd_no = 0;
 	for(int i = 0; i < spaces->size; i++){

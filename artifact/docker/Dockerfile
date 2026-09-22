@@ -4,7 +4,7 @@
 #   * a full C toolchain,
 #   * CRIU 3.16.1 built from source (provides the `compel` parasite-injection
 #     tool + libcompel used by the Hares monitor),
-#   * the Hares monitor (popSGX_Monitor) built from src/,
+#   * the Hares monitor (hares_monitor) built from src/,
 #   * the Open Enclave *runtime* libraries needed to run the prebuilt
 #     simulation-mode sample enclaves (libssl1.1, libcjson1).
 #
@@ -55,7 +55,7 @@ COPY src ./src
 COPY inc ./inc
 COPY parasite_src ./parasite_src
 RUN make parasite_clean 2>/dev/null; make COMPEL="$COMPEL" -j"$(nproc)" \
- && install -m0755 bin/popSGX_Monitor /usr/local/bin/popSGX_Monitor
+ && install -m0755 bin/hares_monitor /usr/local/bin/hares_monitor
 
 # ---------------------------------------------------------------------------
 # Sample apps + orchestration scripts for the simulation-mode demo.

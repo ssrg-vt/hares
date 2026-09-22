@@ -31,7 +31,7 @@ that runs on any x86-64 Linux host (no SGX required) and, optionally, a
 
 Hares lets a device that has **no** trusted execution environment (or a different
 ISA) run a security-sensitive workload inside a **remote** Intel SGX enclave.
-A userspace **monitor** (`popSGX_Monitor`) runs on each node. On the client
+A userspace **monitor** (`hares_monitor`) runs on each node. On the client
 (non-SGX) node it launches the application, intercepts every `ecall` with
 `ptrace` breakpoints, and offloads enclave execution to the server (SGX) node;
 a userspace distributed-shared-memory layer built on `userfaultfd` and
@@ -46,7 +46,7 @@ extended Open Enclave SDK for cross-architecture offloading (e.g. ARM64→x86).
 
 ```
 hares/
-├── src/            # the Hares monitor (popSGX_Monitor) — ~3.3k LoC C
+├── src/            # the Hares monitor (hares_monitor) — ~3.3k LoC C
 ├── inc/            # monitor headers (+ generated parasite.h)
 ├── parasite_src/   # compel parasite injected into the traced application
 ├── Makefile        # builds the monitor (needs CRIU/compel + libcjson)
@@ -83,7 +83,7 @@ bash artifact/scripts/build_image.sh
 #   docker build -f artifact/docker/Dockerfile -t hares:latest .
 ```
 This produces `hares:latest` containing CRIU 3.16.1, the freshly built
-`popSGX_Monitor`, and the Open Enclave runtime.
+`hares_monitor`, and the Open Enclave runtime.
 
 ### 4.3 Run the enclave-offloading demo
 ```bash
@@ -254,7 +254,7 @@ about the external Intel/Microsoft apt repositories.
 - **`libcjson.so.1: not found`** — you are running the monitor outside the
   image; install `libcjson1` or use `hares:latest`.
 - **Server never accepts / client cannot connect** — a stale monitor may hold
-  the port; `pkill -f popSGX_Monitor` and retry, or change `SERVER_LISTEN_PORT`.
+  the port; `pkill -f hares_monitor` and retry, or change `SERVER_LISTEN_PORT`.
 - **Breakpoints never hit** — ASLR is on, or the application binary was rebuilt
   as PIE; rebuild non-PIE and regenerate `config.json` addresses with
   `objdump -d`.

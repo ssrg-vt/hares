@@ -4,7 +4,7 @@
 #
 # Produces the image `hares:latest` (override with $IMAGE) containing:
 #   * CRIU 3.16.1 (compel) built from source,
-#   * the Hares monitor (popSGX_Monitor) built from src/,
+#   * the Hares monitor (hares_monitor) built from src/,
 #   * the Open Enclave runtime for the simulation-mode sample enclave.
 #
 set -euo pipefail

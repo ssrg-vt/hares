@@ -26,7 +26,7 @@ set -u
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$HERE/../.." && pwd)"
 APP_DIR="${1:-$REPO_ROOT/artifact/apps/helloworld}"
-MONITOR="${MONITOR:-$(command -v popSGX_Monitor || echo "$REPO_ROOT/bin/popSGX_Monitor")}"
+MONITOR="${MONITOR:-$(command -v hares_monitor || echo "$REPO_ROOT/bin/hares_monitor")}"
 
 # TCP ports for the localhost client<->server channel.
 SERVER_LISTEN_PORT="${SERVER_LISTEN_PORT:-12001}"
@@ -81,8 +81,8 @@ cleanup() {
   [ -n "${SERVER_PID:-}" ] && kill "$SERVER_PID" 2>/dev/null
   # Reap any monitor left behind. Match the process name EXACTLY (-x, against the
   # binary name only) so this never matches an unrelated shell/command that merely
-  # mentions "popSGX_Monitor" on its command line.
-  pkill -x popSGX_Monitor 2>/dev/null
+  # mentions "hares_monitor" on its command line.
+  pkill -x hares_monitor 2>/dev/null
 }
 trap cleanup EXIT
 
