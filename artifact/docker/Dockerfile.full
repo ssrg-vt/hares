@@ -1,0 +1,45 @@
+# Hares artifact-evaluation image — FULL variant (Open Enclave SDK included).
+#
+# Extends the base `hares:latest` image (CRIU + monitor + OE runtime) with the
+# full Open Enclave SDK so that the Open Enclave sample applications can be
+# *rebuilt from source* and offloaded, not just run from the shipped binaries.
+#
+# NOTE: This layer pulls packages from the Intel SGX and Microsoft apt
+# repositories. Those are external services outside this artifact's control; if
+# their URLs or package versions change, adjust the two `sources.list.d` lines
+# below. Reachability of both repos was verified at submission time.
+#
+# Build (from the repository root, AFTER building hares:latest):
+#   docker build -f artifact/docker/Dockerfile      -t hares:latest .
+#   docker build -f artifact/docker/Dockerfile.full -t hares:full   .
+FROM hares:latest
+
+ENV DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC
+
+# ---------------------------------------------------------------------------
+# Open Enclave SDK (simulation mode works with no SGX driver / aesmd).
+# ---------------------------------------------------------------------------
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        wget gnupg ca-certificates lsb-release software-properties-common \
+    && echo 'deb [arch=amd64] https://download.01.org/intel-sgx/sgx_repo/ubuntu focal main' \
+        > /etc/apt/sources.list.d/intel-sgx.list \
+    && wget -qO - https://download.01.org/intel-sgx/sgx_repo/ubuntu/intel-sgx-deb.key | apt-key add - \
+    && echo 'deb [arch=amd64] https://packages.microsoft.com/ubuntu/20.04/prod focal main' \
+        > /etc/apt/sources.list.d/msprod.list \
+    && wget -qO - https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+        clang-11 libssl-dev gdb \
+        libsgx-enclave-common libsgx-quote-ex libprotobuf17 \
+        open-enclave \
+    && rm -rf /var/lib/apt/lists/*
+
+# The OE environment (oeedger8r, cmake config, libs) is sourced from:
+#   /opt/openenclave/share/openenclave/openenclaverc
+# Rebuild an OE sample in simulation mode, e.g.:
+#   source /opt/openenclave/share/openenclave/openenclaverc
+#   cd /opt/hares/artifact/apps/helloworld && make
+#   make simulate            # sanity-check the enclave alone
+#   bash /opt/hares/artifact/scripts/run_offload_demo.sh .
+WORKDIR /opt/hares
+CMD ["/bin/bash"]

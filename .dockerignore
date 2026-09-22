@@ -1,0 +1,24 @@
+# The AE image (artifact/docker/Dockerfile) only needs the monitor sources
+# (Makefile, src/, inc/, parasite_src/) and artifact/ (scripts + the prebuilt
+# simulation-mode sample app). Exclude everything else so the Docker build
+# context stays small.
+
+# Version control / build outputs
+.git
+obj/
+bin/
+
+# Large trees not copied into the image:
+kernel/            # custom kernel .deb packages (~79 MB)
+oe-sdk-aarch64/    # ARM64 Open Enclave SDK (RPC-mode cross build)
+oeedger8r-cpp/     # extended edger8r sources + build tree
+tests/             # application source trees (built separately, see docs)
+
+# Editor / OS noise
+**/*.swp
+**/*.o
+**/.DS_Store
+
+# Keep: Makefile, src/, inc/, parasite_src/, artifact/**
+# (artifact/apps ships the prebuilt sim-mode sample the demo runs)
+!artifact/apps/**
