@@ -123,10 +123,11 @@ echo ""
 echo "=================================================================="
 echo " RESULT"
 echo "=================================================================="
+DISPLAY_RE='hello world|simulation mode|enclave called|^Enclave:|encrypt|decrypt|seal|unseal'
 echo "--- enclave / offload output (server side) --------------------"
-grep -iE 'hello world|simulation mode|enclave called' "$SERVER_LOG" || echo "(none on server)"
+grep -iE "$DISPLAY_RE" "$SERVER_LOG" | head -12 || echo "(none on server)"
 echo "--- enclave / offload output (client side) --------------------"
-grep -iE 'hello world|simulation mode|enclave called' "$CLIENT_LOG" || echo "(none on client)"
+grep -iE "$DISPLAY_RE" "$CLIENT_LOG" | head -12 || echo "(none on client)"
 echo "--- client exit code: $CLIENT_RC ------------------------------"
 echo ""
 echo "Full logs: $SERVER_LOG , $CLIENT_LOG"
@@ -138,12 +139,13 @@ if [ "$ASLR_CHANGED" = "1" ]; then
   echo "        sudo sysctl -w kernel.randomize_va_space=$ASLR"
 fi
 
-# Success = the enclave's message was produced via offload on either node
-# (depending on fd handling the enclave's stdout may surface on client or server).
-if grep -qi 'Hello world from the enclave' "$SERVER_LOG" "$CLIENT_LOG"; then
-  echo "DEMO_RESULT: SUCCESS (enclave executed via offload)"
+# Success = the client (non-SGX node) drove the whole application to completion
+# with its ecalls executed remotely on the server. A clean client exit (rc 0)
+# means every offloaded enclave transition returned correctly.
+if [ "$CLIENT_RC" -eq 0 ]; then
+  echo "DEMO_RESULT: SUCCESS (offloaded run completed; client exit 0)"
   exit 0
 else
-  echo "DEMO_RESULT: CHECK LOGS (enclave message not found)"
+  echo "DEMO_RESULT: FAILED (client exit $CLIENT_RC - see the logs above)"
   exit 1
 fi

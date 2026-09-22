@@ -87,13 +87,19 @@ This produces `hares:latest` containing CRIU 3.16.1, the freshly built
 
 ### 4.3 Run the enclave-offloading demo
 ```bash
-bash artifact/scripts/demo.sh
+bash artifact/scripts/demo.sh                 # helloworld (default)
+bash artifact/scripts/demo.sh file-encryptor  # a real mbedTLS crypto app
 ```
 `demo.sh` starts a `--privileged` `hares:latest` container and, inside it, runs
 `run_offload_demo.sh`, which launches two monitors on localhost:
 
 - a **server** ("SGX node") that actually executes the enclave in **simulation mode**;
 - a **client** ("non-SGX node") that runs the application and offloads each ecall.
+
+Two applications are prebuilt for the no-hardware demo:
+`helloworld` (minimal) and `file-encryptor` (one of the paper's evaluation apps,
+Figures 6/8/9 — it encrypts and then decrypts a file entirely inside the remote
+enclave using mbedTLS).
 
 ### 4.4 Expected result
 The output is **split across the two nodes**, which is exactly what enclave
@@ -136,16 +142,30 @@ testbed (§6).
 
 ### 5.1 RPC mode — Open Enclave applications
 `file-encryptor` and `data-sealing` (Figures 6–9) plus `helloworld`,
-`log_callback`, `debugmalloc`. These build with the Open Enclave SDK and run in
-simulation mode. Each application ships a `config.json` giving its `main`
-address and the ecall breakpoint pairs the monitor intercepts. To offload an
-application:
+`log_callback`, `debugmalloc`. Each application ships a `config.json` giving its
+`main` address and the ecall breakpoint pairs the monitor intercepts. To offload
+an application:
 ```bash
-# inside the container, from the application directory
+# inside the container, from any application directory containing config.json
 bash /opt/hares/artifact/scripts/run_offload_demo.sh /path/to/<app>
 ```
-Building the OE applications from source requires the Open Enclave SDK; see
-`artifact/docker/Dockerfile.full` and §7.
+
+`helloworld` and `file-encryptor` are **prebuilt for simulation mode** and are
+verified end-to-end by `demo.sh` (§4). The other OE apps live under `tests/`;
+their prebuilt hosts were compiled for hardware mode. To run any of them without
+SGX, rebuild the host with the Open Enclave SDK image (`Dockerfile.full`, §7),
+adding `OE_ENCLAVE_FLAG_SIMULATE` to the `oe_create_*_enclave` call, then
+regenerate the `config.json` breakpoints from the rebuilt binary:
+
+```bash
+# derive main + ecall breakpoint pairs directly from the (non-PIE) host binary
+bash artifact/scripts/gen_config.sh <host_binary> <app.edl> \
+     '"<argv0>","<arg1>",...' --simulate  > config.json
+```
+`gen_config.sh` reads the ecall names from the `.edl` and finds every
+`oe_create_*_enclave`, ecall-wrapper, and `oe_terminate_enclave` call site with
+`objdump`; it reproduces the shipped `helloworld`/`file-encryptor` configs
+exactly, so a config stays correct across rebuilds.
 
 ### 5.2 Binary-compatible mode — Intel SGX SDK applications
 `bw-mem`, `lat-rand` (the `lmbench` micro-benchmarks), the empty-ecall

@@ -11,8 +11,11 @@
 #
 set -euo pipefail
 
+# Usage: demo.sh [app-name]     (app-name is a directory under artifact/apps/,
+#                                default: helloworld; also try: file-encryptor)
 IMAGE="${IMAGE:-hares:latest}"
-APP="${APP:-/opt/hares/artifact/apps/helloworld}"
+APP_NAME="${1:-helloworld}"
+APP="${APP:-/opt/hares/artifact/apps/$APP_NAME}"
 
 docker_args=(--rm --privileged)
 if [ "${HW:-0}" = "1" ] && [ -e /dev/sgx_enclave ]; then
