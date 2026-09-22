@@ -18,6 +18,7 @@
 #include "../inc/log.h"
 #include "../inc/uffd_handler.h"
 #include "../inc/compel_handler.h"
+#include "../inc/uffd_wp_compat.h"
 
 #define log_info(args...)
 

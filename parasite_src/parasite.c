@@ -16,6 +16,24 @@
 #include <compel/plugins/plugin-fds.h>
 #include <compel/plugins/std.h>
 
+/*
+ * userfaultfd write-protect (UFFD-WP) was added to the kernel UAPI in Linux 5.7.
+ * The paper's SGX node ran a 5.15 kernel; provide a fallback so the parasite
+ * also builds against older <linux/userfaultfd.h> (e.g. the Ubuntu 20.04 stock
+ * 5.4 UAPI headers). The guard makes this inert on kernels that already define
+ * these, so there is no conflict on newer systems.
+ */
+#ifndef UFFDIO_WRITEPROTECT
+struct uffdio_writeprotect {
+	struct uffdio_range range;
+	__u64 mode;
+};
+#define UFFDIO_WRITEPROTECT_MODE_WP       ((__u64)1 << 0)
+#define UFFDIO_WRITEPROTECT_MODE_DONTWAKE ((__u64)1 << 1)
+#define _UFFDIO_WRITEPROTECT              (0x06)
+#define UFFDIO_WRITEPROTECT \
+	_IOWR(UFFDIO, _UFFDIO_WRITEPROTECT, struct uffdio_writeprotect)
+#endif
 
 #define PARASITE_CMD_GET_STDIN_FD         PARASITE_USER_CMDS
 #define PARASITE_CMD_GET_STDOUT_FD        PARASITE_USER_CMDS + 1

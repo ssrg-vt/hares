@@ -23,7 +23,12 @@ INC         := -I$(INCDIR) -I/usr/local/include
 INCDEP      := -I$(INCDIR)
 
 # Compel Macros
-COMPEL          := ../../crui-untouched/criu-3.16.1/compel/compel-host
+# COMPEL points to the `compel-host` tool that ships with CRIU (the paper used
+# CRIU 3.16.1). Override it on the command line or via the environment, e.g.
+#   make COMPEL=/opt/criu/compel/compel-host
+# It defaults to `compel` so a system-wide CRIU/compel install is picked up from
+# $PATH without editing this file.
+COMPEL          ?= compel
 COMPEL_INC      := $(shell $(COMPEL) includes)
 COMPEL_SLIBS    := $(shell $(COMPEL) --static libs)
 
@@ -39,6 +44,12 @@ all: prepare parasite $(TARGET)
 
 # Generating parasite header for compel injection
 parasite: $(INCDIR)/parasite.h
+
+# Every object #includes the generated parasite.h (via compel_handler.h), so the
+# header must exist before any object is compiled. Declare it as an explicit
+# prerequisite so that a parallel build (make -j) does not race ahead of the
+# parasite generation.
+$(OBJECTS): $(INCDIR)/parasite.h
 
 $(INCDIR)/parasite.h: $(PARASITE_SRCDIR)/parasite.po
 	$(COMPEL) hgen -o $@ -f $<
