@@ -152,20 +152,37 @@ bash /opt/hares/artifact/scripts/run_offload_demo.sh /path/to/<app>
 
 `helloworld` and `file-encryptor` are **prebuilt for simulation mode** and are
 verified end-to-end by `demo.sh` (§4). The other OE apps live under `tests/`;
-their prebuilt hosts were compiled for hardware mode. To run any of them without
+their prebuilt hosts were compiled for hardware mode. To run one of them without
 SGX, rebuild the host with the Open Enclave SDK image (`Dockerfile.full`, §7),
-adding `OE_ENCLAVE_FLAG_SIMULATE` to the `oe_create_*_enclave` call, then
+enabling `OE_ENCLAVE_FLAG_SIMULATE` in the `oe_create_*_enclave` call, then
 regenerate the `config.json` breakpoints from the rebuilt binary:
 
 ```bash
 # derive main + ecall breakpoint pairs directly from the (non-PIE) host binary
 bash artifact/scripts/gen_config.sh <host_binary> <app.edl> \
-     '"<argv0>","<arg1>",...' --simulate  > config.json
+     '"<argv0>","<arg1>",...'  > config.json
 ```
 `gen_config.sh` reads the ecall names from the `.edl` and finds every
 `oe_create_*_enclave`, ecall-wrapper, and `oe_terminate_enclave` call site with
 `objdump`; it reproduces the shipped `helloworld`/`file-encryptor` configs
 exactly, so a config stays correct across rebuilds.
+
+**data-sealing** (Figures 6–9) is a three-enclave application. We verified that
+it **builds in simulation mode** with `Dockerfile.full` and **runs standalone on
+real SGX** (this machine seals/unseals across three enclaves successfully):
+```bash
+# inside a `hares:full` container, with tests/ mounted at /mnt/tests
+source /opt/openenclave/share/openenclave/openenclaverc
+cp -r /mnt/tests/data-sealing /tmp/ds && : > /tmp/config.mk && cd /tmp/ds
+# (simulation build) enable the SIMULATE flag, then build with clang:
+sed -i 's/OE_ENCLAVE_FLAG_DEBUG,/OE_ENCLAVE_FLAG_DEBUG | OE_ENCLAVE_FLAG_SIMULATE,/' host/host.cpp
+make build CC=clang-11 CXX=clang++-11 C_COMPILER=clang CXX_COMPILER=clang++
+# (hardware run on real SGX) drop the sed patch and pass --device /dev/sgx_enclave:
+./host/host ./enclave_a_v1/enclave.signed ./enclave_a_v2/enclave.signed ./enclave_b/enclave.signed
+```
+Its full *offloaded* run is exercised as part of the two-node hardware
+evaluation (§6); on a single host the multi-enclave offload is sensitive to the
+loopback timing, so we recommend the two-node setup for data-sealing.
 
 ### 5.2 Binary-compatible mode — Intel SGX SDK applications
 `bw-mem`, `lat-rand` (the `lmbench` micro-benchmarks), the empty-ecall
