@@ -1,0 +1,13 @@
+{
+  "main_address":"0x40a790",
+  "user_args": ["./host/file-encryptorhost", "testfile", "./enclave/file-encryptorenc.signed", "--simulate", null],
+  "breakpoints": ["0x40aaef", "0x40aaf4", "0x4090ff", "0x409104", "0x409807", "0x40980c", "0x40a1aa", "0x40a1af", "0x40a65f", "0x40a664", "0x40b982", "0x40b987"],
+  "comments": {
+    "0x40aaef":"oe_create_fileencryptor_enclave", "0x40aaf4":"...end",
+    "0x4090ff":"ecall initialize_encryptor", "0x409104":"...end",
+    "0x409807":"ecall encrypt_block", "0x40980c":"...end",
+    "0x40a1aa":"ecall encrypt_block", "0x40a1af":"...end",
+    "0x40a65f":"ecall close_encryptor", "0x40a664":"...end",
+    "0x40b982":"oe_terminate_enclave", "0x40b987":"...end"
+  }
+}

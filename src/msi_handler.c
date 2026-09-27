@@ -18,7 +18,7 @@
 
 static int iter = 0;
 
-extern popsgx_child *victim;
+extern hares_child *victim;
 
 // function to handle tcp segmentation issues
 static int msi_read(int sk, void* dest, int bytes_expected){
@@ -49,16 +49,16 @@ int msi_request_page(msi_handler *msi, int sk, char* page, void* fault_addr, uns
  
     ret = convert_childAddress_popAddress((uint64_t)fault_addr, &poff);
     if(ret){
-        log_error("Could not convert the victim address to popsgx buffer address");
+        log_error("Could not convert the victim address to hares buffer address");
         goto msi_request_page_fail;
     }
 
-    paddr = (msi->popsgx_buffer_addr + (poff * sysconf(_SC_PAGE_SIZE)));
+    paddr = (msi->hares_buffer_addr + (poff * sysconf(_SC_PAGE_SIZE)));
     log_info("paddr is %p", paddr);
 
     pthread_mutex_lock(&msi->mutex);
 
-    popsgx_page *page_to_transition = find_page(&msi->buffer, (void *)paddr);
+    hares_page *page_to_transition = find_page(&msi->buffer, (void *)paddr);
     if(!page_to_transition){
         ret = -1;
         log_error("Could not find the relevant page with address %p", paddr);
@@ -138,7 +138,7 @@ int msi_handle_page_request(msi_handler *msi ,int sk, struct msi_message *in_msg
     int ret;
     struct msi_message msg_out;
 
-    popsgx_page *page_to_transition = find_page(&msi->buffer, (void*)in_msg->payload.request_page.address);
+    hares_page *page_to_transition = find_page(&msi->buffer, (void*)in_msg->payload.request_page.address);
     if(!page_to_transition){
         log_error("Could not find the relevant page with address %p", in_msg->payload.request_page.address);
         ret = -1;
@@ -153,7 +153,7 @@ int msi_handle_page_request(msi_handler *msi ,int sk, struct msi_message *in_msg
     }else{
         /* Else I'll give you my local memory storage, won't trigger
 		 * pagefault since it's already been edited anyway */
-        memcpy(msg_out.payload.page_data, page_to_transition->popsgx_address, PAGE_SIZE);
+        memcpy(msg_out.payload.page_data, page_to_transition->hares_address, PAGE_SIZE);
     }
 
     pthread_mutex_lock(&page_to_transition->mutex);
@@ -176,7 +176,7 @@ int msi_handle_page_invalidate(msi_handler *msi, int sk, struct msi_message *in_
 
     log_info("msi_handle_page_invalidate");
     log_info("page address requested was %x", in_msg->payload.request_page.address);
-    popsgx_page *page_to_transition = find_page(&msi->buffer, (void*)in_msg->payload.request_page.address);
+    hares_page *page_to_transition = find_page(&msi->buffer, (void*)in_msg->payload.request_page.address);
     if(!page_to_transition){
         log_error("Could not find the relevant page with address %p", in_msg->payload.request_page.address);
         ret = -1;
@@ -187,12 +187,12 @@ int msi_handle_page_invalidate(msi_handler *msi, int sk, struct msi_message *in_
     page_to_transition->tag = INVALID;
 
     log_debug("msi_handle_page_invalidate");
-    if (ret = madvise(page_to_transition->popsgx_address, PAGE_SIZE, MADV_DONTNEED)){
+    if (ret = madvise(page_to_transition->hares_address, PAGE_SIZE, MADV_DONTNEED)){
 		log_error("fail to madvise");
         goto msi_post_lock_fail;
 	}
 
-    // ret = compel_do_madvise(victim, page_to_transition->popsgx_address);
+    // ret = compel_do_madvise(victim, page_to_transition->hares_address);
     // if(ret){
     //     log_error("Setting madvise on victim failed");
     //     goto msi_post_lock_fail;
@@ -302,14 +302,14 @@ int msi_handle_write_command(msi_handler *msi, int sk, void *addr, void *data, s
     //log_info("msi_handle_write_command");
     ret = convert_childAddress_popAddress((uint64_t)addr, &poff);
     if(ret){
-        log_error("Could not convert the victim address to popsgx buffer address");
+        log_error("Could not convert the victim address to hares buffer address");
         goto msi_handle_write_fail;
     }
 
-    paddr = (msi->popsgx_buffer_addr + (poff * sysconf(_SC_PAGE_SIZE)));
+    paddr = (msi->hares_buffer_addr + (poff * sysconf(_SC_PAGE_SIZE)));
     //log_info("paddr is %p", paddr);
 
-    popsgx_page *page_to_transition = find_page(&msi->buffer, (void*)paddr);
+    hares_page *page_to_transition = find_page(&msi->buffer, (void*)paddr);
     if(!page_to_transition){
         log_error("Could not find the relevant page with address %p", paddr);
         ret = -1;
@@ -317,7 +317,7 @@ int msi_handle_write_command(msi_handler *msi, int sk, void *addr, void *data, s
     }
 
     if(page_to_transition){
-        memcpy(page_to_transition->popsgx_address, data, data_size);
+        memcpy(page_to_transition->hares_address, data, data_size);
         page_to_transition->tag = MODIFIED;
         msg.message_type = INVALIDATE;
         msg.payload.invalidate_page.address = (uint64_t)paddr;
@@ -639,7 +639,7 @@ out_send:
     pthread_mutex_unlock(&msi->mutex);
 }
 
-int create_msi_pages(msi_handler *msi, uint64_t popsgx_address, int no_pages){
+int create_msi_pages(msi_handler *msi, uint64_t hares_address, int no_pages){
     int rc = 0;
 
     if(msi == NULL){
@@ -648,7 +648,7 @@ int create_msi_pages(msi_handler *msi, uint64_t popsgx_address, int no_pages){
         goto out_fail;
     }
 
-    // rc = create_pages(&msi->buffer, popsgx_address, no_pages);
+    // rc = create_pages(&msi->buffer, hares_address, no_pages);
     // if(rc){
     //     log_error("Could not create enough pages for the msi");
     //     goto out_fail;

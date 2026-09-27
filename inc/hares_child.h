@@ -33,7 +33,7 @@ typedef struct uffd_t{
     address_type type;
 }uffd_t;
 
-typedef struct popsgx_child_app_t{
+typedef struct hares_child_app_t{
     pid_t c_pid;
     int   c_argc;
     char  *c_argv;
@@ -46,6 +46,6 @@ typedef struct popsgx_child_app_t{
     address_spaces delta_spaces;
     unsigned long heap_start_address;
     unsigned long heap_end_address;  
-} popsgx_child;
+} hares_child;
 
 #endif

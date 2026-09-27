@@ -18,7 +18,7 @@
 static int __compel_prepare_infection(compel_handler *cmpl_hdl, pid_t pid);
 static int __compel_disinfection(compel_handler *cmpl_hdl);
 static int __compel_steal_fd(compel_handler *cmpl_hdl, int cmd, int *traceeFd);
-static int _compel_steal_fd(popsgx_child *tracee, compel_fd fd_type, void *fd,  void* addr, int no_pages);
+static int _compel_steal_fd(hares_child *tracee, compel_fd fd_type, void *fd,  void* addr, int no_pages);
 
 /* --------------------------------------------------------------------
  * Local Functions definitions
@@ -173,12 +173,12 @@ static int __compel_disinfection(compel_handler *cmpl_hdl){
 
 /**
  * @brief function for stealing fd from the tracee
- * @param tracee popsgx_child structure of the tracee
+ * @param tracee hares_child structure of the tracee
  * @param fd_type type of the fd to steal
  * @param fd the stolen fd
  * @return error 
  */
-static int _compel_steal_fd(popsgx_child *tracee, compel_fd fd_type, void *fd,  void* addr, int no_pages){
+static int _compel_steal_fd(hares_child *tracee, compel_fd fd_type, void *fd,  void* addr, int no_pages){
     int rc = 0;
     compel_handler cmpl_hdl;
     uint64_t *compel_arg;
@@ -234,7 +234,7 @@ out_fail:
  * @param no_pages 
  * @return int 
  */
-int compel_steal_uffd(popsgx_child *tracee, int *fd, void* addr, int no_pages){
+int compel_steal_uffd(hares_child *tracee, int *fd, void* addr, int no_pages){
    return _compel_steal_fd(tracee, PARASITE_STDUFLT_FD, (void*)fd, addr, no_pages);
 }
 
@@ -247,7 +247,7 @@ int compel_steal_uffd(popsgx_child *tracee, int *fd, void* addr, int no_pages){
  * @param no_pages 
  * @return int 
  */
-int compel_remove_uffd(popsgx_child *tracee, void *fd, void* addr, int no_pages){
+int compel_remove_uffd(hares_child *tracee, void *fd, void* addr, int no_pages){
     int rc;
     compel_handler cmpl_hdl;
     uint64_t *compel_arg;
@@ -295,7 +295,7 @@ int compel_remove_uffd(popsgx_child *tracee, void *fd, void* addr, int no_pages)
  * @param fd 
  * @return int 
  */
-int compel_steal_fd(popsgx_child *tracee, compel_fd fd_type, int *fd){
+int compel_steal_fd(hares_child *tracee, compel_fd fd_type, int *fd){
     
     if(fd_type == PARASITE_STDUFLT_FD){
         log_error("Could not steal uffd");
@@ -305,7 +305,7 @@ int compel_steal_fd(popsgx_child *tracee, compel_fd fd_type, int *fd){
     return _compel_steal_fd(tracee, fd_type, fd, -1, -1);
 }
 
-int compel_correct_heap_offset(popsgx_child *tracee, uint64_t heap_size){
+int compel_correct_heap_offset(hares_child *tracee, uint64_t heap_size){
     int rc;
     compel_handler cmpl_hdl;
     uint64_t *compel_arg;
@@ -339,7 +339,7 @@ int compel_correct_heap_offset(popsgx_child *tracee, uint64_t heap_size){
 }
 
 
-int compel_create_new_map(popsgx_child *tracee, uint64_t addr, uint64_t pages){
+int compel_create_new_map(hares_child *tracee, uint64_t addr, uint64_t pages){
     int rc;
     compel_handler cmpl_hdl;
     uint64_t *compel_arg;

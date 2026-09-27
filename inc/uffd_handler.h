@@ -8,7 +8,7 @@
 
 typedef struct uffd_thread_args_t{
     int sock_fd;
-    popsgx_child *child;
+    hares_child *child;
     msi_handler *msi;
     address_spaces *faulting_spaces;
 }uffd_thread_args;
@@ -21,7 +21,7 @@ typedef struct uffd_thread_handler_t{
 int start_uffd_thread_handler(uffd_thread_handler *uffd_hdl);
 int stop_uffd_thread_handler(uffd_thread_handler *uffd_hdl);
 
-int register_uffd(popsgx_child *child, address_spaces *spaces);
-int deregister_uffd(popsgx_child *child, address_spaces *spaces);
+int register_uffd(hares_child *child, address_spaces *spaces);
+int deregister_uffd(hares_child *child, address_spaces *spaces);
 
 #endif

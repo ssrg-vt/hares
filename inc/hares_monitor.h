@@ -1,5 +1,5 @@
-#ifndef __POPSGX_MONITOR_H__
-#define __POPSGX_MONITOR_H__
+#ifndef __HARES_MONITOR_H__
+#define __HARES_MONITOR_H__
 
 #include <pthread.h>
 #include <sys/types.h>
@@ -10,12 +10,12 @@
 /* --------------------------------------------------------------------
  * Structures & Required Datatypes
  * -------------------------------------------------------------------*/
-typedef struct popsgx_app_t{
+typedef struct hares_app_t{
     enum app_mode mode;
     dsm_handler dsm;
     uffd_thread_handler uffd_hdl;
     uint64_t buffer;
-}popsgx_app;
+}hares_app;
 
 typedef struct client_args{
     char **user_args;

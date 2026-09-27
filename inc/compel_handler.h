@@ -7,7 +7,7 @@
 #include <pthread.h>
 
 #include "parasite.h"
-#include "../inc/popsgx_monitor.h"
+#include "../inc/hares_monitor.h"
 
 /* --------------------------------------------------------------------
  * MACROS
@@ -40,10 +40,10 @@ typedef struct compel_handler_t{
 /* --------------------------------------------------------------------
  * Public Functions
  * -------------------------------------------------------------------*/
-int compel_steal_fd(popsgx_child *tracee, compel_fd fd_type, int *fd);
-int compel_steal_uffd(popsgx_child *tracee, int *fd, void* addr, int no_pages);
-int compel_do_madvise(popsgx_child *process, void *addr);
-int compel_correct_heap_offset(popsgx_child *tracee, uint64_t size);
-int compel_remove_uffd(popsgx_child *tracee, void *fd, void* addr, int no_pages);
-int compel_create_new_map(popsgx_child *tracee, uint64_t desired_addr, uint64_t no_of_pages);
+int compel_steal_fd(hares_child *tracee, compel_fd fd_type, int *fd);
+int compel_steal_uffd(hares_child *tracee, int *fd, void* addr, int no_pages);
+int compel_do_madvise(hares_child *process, void *addr);
+int compel_correct_heap_offset(hares_child *tracee, uint64_t size);
+int compel_remove_uffd(hares_child *tracee, void *fd, void* addr, int no_pages);
+int compel_create_new_map(hares_child *tracee, uint64_t desired_addr, uint64_t no_of_pages);
 #endif

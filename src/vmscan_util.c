@@ -5,7 +5,7 @@
 #include <pthread.h>
 
 #include "../inc/log.h"
-#include "../inc/popsgx_child.h"
+#include "../inc/hares_child.h"
 
 #define log_info(args...)
 
@@ -277,7 +277,7 @@ static int cnt_rw_address_space(FILE *fp){
  * @param child_pid 
  * @return int 
  */
-int scan_address_space(popsgx_child *child, address_spaces *spaces){
+int scan_address_space(hares_child *child, address_spaces *spaces){
     int ret = 0;
     char file_name[50];
     char line[128];
